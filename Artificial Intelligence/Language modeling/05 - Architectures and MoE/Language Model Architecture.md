@@ -1,0 +1,228 @@
+#LanguageModeling #Architecture #Transformer
+
+语言模型的 architecture 指 language model 内部的结构设计：token 进入模型后，经过哪些模块、以什么 shape 流动、如何进行信息交互、如何产生下一个 token 的 logits。
+
+## 🧠 Core Idea
+
+>[!note]
+>Language Model Architecture 关注 language model 的结构设计。
+>
+>它的核心问题是：
+>
+>- language model 的结构由哪些 design choices 组成；
+>- architecture 和 training recipe、systems 有什么区别；
+>- Transformer 这一族模型如何演化到 modern LLM；
+>- 为什么现代 LLM 多数采用 [[Decoder-Only Transformer]]；
+>- modern decoder-only LM 中有哪些常见 architecture pattern。
+
+Lecture 3 的主线可以概括为：
+
+>[!summary]
+>**现代 LLM 的 architecture choices 有哪些？哪些已经形成共识？哪些只是 variation？**
+
+其中最重要的入口概念是 [[Model Architecture]]。
+
+## 🧭 Lecture 3 Main Thread (CS336)
+
+当讨论一个 modern language model 的 architecture 时，不只是讨论：
+
+- 模型有多少 layers；
+- 模型有多少 parameters。
+
+还包括：
+
+- overall model family；
+- attention variant；
+- positional information；
+- normalization；
+- activation；
+- MLP / FFN shape；
+- residual path；
+- output head。
+
+这些内容共同构成 [[Model Architecture]]。
+
+## 🧱 Architecture / Training / Systems
+
+学习 language models 时，需要区分三条线：
+
+| Concept | Main Question | Examples                                                                                   |
+| ------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
+| [[Model Architecture]] | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape                       |
+| [[Training Recipe]] | 模型如何被训练出来？ | [[Optimizer]], [[Learning Rate Schedule]], batch size, weight decay, dropout, data mixture |
+| [[Systems for Language Models]] | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost                               |
+
+>[!note]
+>这三条线相互影响，但不是同一个层面的概念。
+>
+>Architecture choices 会影响 systems cost；training recipe 会影响模型最终效果；systems constraints 也会反过来影响 architecture choices。
+>
+>但在理解 Lecture 3 时，主线仍然是 [[Model Architecture]]。
+
+## 🧩 Basic Pipeline
+
+一个 autoregressive language model 的基本结构可以粗略写成：
+
+$$
+\text{tokens}
+\rightarrow
+\text{token embeddings}
+\rightarrow
+\text{Transformer blocks}
+\rightarrow
+\text{final hidden states}
+\rightarrow
+\text{logits}
+\rightarrow
+p(x_{t+1} \mid x_{\leq t})
+$$
+
+也就是：
+
+1. [[Tokenization]] 把 text 切成 token ids；
+2. [[Token Embedding]] 把 token ids 映射成 continuous vectors；
+3. [[Positional Encoding]] / [[Rotary Position Embedding]] 注入顺序信息；
+4. 多层 [[Transformer Block]] 更新 token representations；
+5. [[Language Modeling Head]] 映射到 vocabulary logits；
+6. [[Softmax]] 得到 next-token probability distribution。
+
+## 🏗️ Architecture Foundations
+
+### 1. Model Architecture
+
+[[Model Architecture]] 解释 architecture 这个概念本身。
+
+Architecture 不只是 number of layers，而是包括：
+
+- depth / width；
+- attention mechanism；
+- position representation；
+- normalization；
+- activation；
+- MLP shape；
+- residual layout；
+- output head。
+
+>[!question]
+>Architecture 到底包括哪些 design dimensions？
+>
+>它包括模型内部 computation graph 的结构、模块连接方式、hidden states 的 shape，以及每个主要模块的 design choices。
+
+### 2. Training Recipe
+
+[[Training Recipe]] 指模型结构确定后，训练这个模型所采用的一组方法和超参数。
+
+它包括：
+
+- [[Optimizer]]；
+- [[Learning Rate Schedule]]；
+- batch size；
+- weight decay；
+- dropout；
+- gradient clipping；
+- data mixture；
+- training tokens。
+
+>[!note]
+>两个模型可以有相同 architecture，但使用不同 training recipe。
+>
+>反过来，不同 architectures 也可以使用类似的 training recipe。
+
+### 3. Systems for Language Models
+
+[[Systems for Language Models]] 关注 language model 如何在硬件上高效训练和推理。
+
+它包括：
+
+- FLOPs；
+- MFU；
+- memory bandwidth；
+- arithmetic intensity；
+- KV cache；
+- parallelism；
+- inference cost；
+- kernel optimization。
+
+>[!note]
+>Architecture choices 会直接影响 systems cost。
+>
+>例如 attention variant 会影响 [[KV Cache]]；MLP shape 会影响 FLOPs 和参数量；context length 会影响 attention memory。
+
+### 4. Transformer Family
+
+[[Transformer Family]] 描述 Transformer 相关模型之间的关系。
+
+需要区分：
+
+- [[Transformer]]
+- [[Encoder-Only Transformer]]
+- [[Decoder-Only Transformer]]
+- [[Encoder-Decoder Transformer]]
+- [[Llama-style Architecture]]
+
+>[!note]
+>现代 LLM 一般不是泛泛地“用了 Transformer”，而是更具体地使用了 [[Decoder-Only Transformer]]。
+
+### 5. Llama-style Architecture
+
+[[Llama-style Architecture]] 用来理解 modern decoder-only LM 的常见结构组合。
+
+典型 choices 包括：
+
+- [[Pre-Norm Transformer]]
+- [[RMSNorm]]
+- [[Rotary Position Embedding]]
+- [[SwiGLU]]
+- [[Causal Attention]]
+- [[Grouped Query Attention]]
+
+>[!note]
+>这里的 “Llama-style” 不是说所有 LLM 都是 Llama，而是用 Llama 代表一类 modern decoder-only Transformer 的 common design pattern。
+
+## 🔬 Architecture Design Areas
+
+| Area | Core Question | Related Concepts |
+|---|---|---|
+| block structure | 一个 Transformer block 内部怎么组织？ | [[Transformer Block]], [[Pre-Norm Transformer]], [[Residual Connection]] |
+| attention | token positions 如何交换信息？ | [[Self-Attention]], [[Causal Attention]], [[Artificial Intelligence/Transformer/Multi-Head Attention]], [[Grouped Query Attention]] |
+| position | token 顺序如何表示？ | [[Positional Encoding]], [[Rotary Position Embedding]], [[Relative Position Information]] |
+| normalization | hidden states 如何稳定？ | [[Layer Normalization]], [[RMSNorm]], [[Pre-Norm Transformer]] |
+| MLP | 每个 token representation 如何做 nonlinear processing？ | [[MLP]], [[Feed-Forward Network]], [[SwiGLU]], [[GELU]] |
+| output | hidden states 如何变成 logits？ | [[Language Modeling Head]], [[Logits]], [[Softmax]] |
+
+---
+
+>[!summary] My Understanding
+>[[Language Model Architecture]] 这部分的核心不是记住某一个模型有多少层，而是建立一个关于 modern LLM 结构的整体认识：
+>
+>**architecture 是一组 design choices。**
+>
+>在 modern LLM 中，这些 choices 通常围绕 [[Decoder-Only Transformer]] 展开，包括 attention、position embedding、normalization、MLP、activation、residual path 和 output head。
+>
+>Lecture 3 的学习重点是理解这些 choices 如何共同决定模型的表达能力、训练稳定性和计算成本。
+
+## 🔗 Connections
+
+- [[Language Modeling]]
+- [[Large Language Model (LLM)]]
+- [[Model Architecture]]
+- [[Training Recipe]]
+- [[Systems for Language Models]]
+- [[Transformer Family]]
+- [[Original Transformer]]
+- [[Decoder-Only Transformer]]
+- [[Llama-style Architecture]]
+- [[Transformer Block]]
+- [[Self-Attention]]
+- [[Causal Attention]]
+- [[Artificial Intelligence/Transformer/Multi-Head Attention]]
+- [[Grouped Query Attention]]
+- [[Positional Encoding]]
+- [[Rotary Position Embedding]]
+- [[Layer Normalization]]
+- [[RMSNorm]]
+- [[SwiGLU]]
+- [[MLP]]
+- [[Language Modeling Head]]
+- [[Resource Accounting]]
+- [[Scaling Law]]
