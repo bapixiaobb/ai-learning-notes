@@ -12,25 +12,25 @@ Language Modeling 是一个目标，不等于 Transformer
 
 给定一个 token 序列：
 
-$$
+```math
 x_1, x_2, \dots, x_T
-$$
+```
 
 language model 使用 chain rule 建模：
 
-$$
+```math
 p(x_1, x_2, \dots, x_T)
 =
 \prod_{t=1}^{T}
 p(x_t \mid x_{<t})
-$$
+```
 ## Core Objective
 
 现代 autoregressive language model 的目标是：
 
-$$
+```math
 p_\theta(x_t \mid x_1, \dots, x_{t-1})
-$$
+```
 
 也就是根据前面的 tokens 预测下一个 token。
 

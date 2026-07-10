@@ -3,18 +3,18 @@
 这里我们主要讲 Causal Multi-Head [[Self-Attention]]，这里的 Causal 指的是 [[Causal Mask]]
 
 Recall that, mathematically, the operation of applying multi-head attention is defined as follows: 
-$$
+```math
 \text{MultiHead(Q, K, V)} = \text{Concat}(\text{head}_1,\cdots,\text{head}_h)
-$$
-$$
+```
+```math
 \text{for head}_i=\text{Attention}(Q_i,K_i,V_i)
-$$
+```
 with $𝑄_𝑖$, $𝐾_𝑖$, $𝑉_i$  being slice number $𝑖\in\{1,...,h\}$ of size $𝑑_𝑘$ or $𝑑_𝑣$ of the embedding dimension for [[Query Key Value]] respectively.
 
 From this we can form the multi-head self-attention operation:
-$$
+```math
 \text{MultiHeadSelfAttention}(𝑥) = 𝑊_𝑂 \text{MultiHead}(𝑊_𝑄𝑥, 𝑊_𝐾 𝑥, 𝑊_𝑉 𝑥)
-$$
+```
 
 - $W_Q\in\mathbb{R}^{hd_k\times d_{\text{model}}}$  
 - $W_K\in\mathbb{R}^{hd_k\times d_{\text{model}}}$  

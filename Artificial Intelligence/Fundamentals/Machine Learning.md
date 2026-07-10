@@ -4,11 +4,11 @@
 
 机器学习的核心形式通常可以写成：
 
-$$
+```math
 \min_\theta \mathcal{L}(\theta)
-$$
+```
 
-其中模型从数据中学习参数 $$\theta$$，使 loss function 尽可能小。
+其中模型从数据中学习参数 $\theta$，使 loss function 尽可能小。
 
 ## 机器学习主要类型
 

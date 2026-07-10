@@ -23,23 +23,23 @@ Query、Key、Value，简称 QKV，是 [[Self-Attention]] 中用来计算 token 
 
 给定输入 hidden states：
 
-$$
+```math
 X \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 attention 会用三个 learnable projection matrices 生成 Q、K、V：
 
-$$
+```math
 Q = XW_Q
-$$
+```
 
-$$
+```math
 K = XW_K
-$$
+```
 
-$$
+```math
 V = XW_V
-$$
+```
 
 其中：
 
@@ -56,22 +56,22 @@ $$
 
 Attention 的核心计算是：
 
-$$
+```math
 \mathrm{Attention}(Q,K,V)
 =
 \mathrm{softmax}
 \left(
 \frac{QK^\top}{\sqrt{d_k}}
 \right)V
-$$
+```
 
 可以分成两步理解，$d_k$ 是 dimension of head。
 
 ### 1. Query 和 Key 决定 attention weights
 
-$$
+```math
 QK^\top
-$$
+```
 
 表示每个 query 和每个 key 的匹配程度。
 
@@ -81,9 +81,9 @@ $$
 
 [[Softmax]] 后得到 attention weights，再乘以 $V$：
 
-$$
+```math
 \mathrm{weights} \cdot V
-$$
+```
 
 得到新的 token representation。
 
@@ -98,33 +98,33 @@ $$
 
 如果省略 batch 和 head dimension：
 
-$$
+```math
 X \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 通常：
 
-$$
+```math
 Q,K \in \mathbb{R}^{T \times d_k}
-$$
+```
 
-$$
+```math
 V \in \mathbb{R}^{T \times d_v}
-$$
+```
 
 attention score matrix 是：
 
-$$
+```math
 QK^\top \in \mathbb{R}^{T \times T}
-$$
+```
 
 输出是：
 
-$$
+```math
 \mathrm{Attention}(Q,K,V)
 \in
 \mathbb{R}^{T \times d_v}
-$$
+```
 
 >[!note]
 >$T \times T$ 的 score matrix 表示每个 token 对每个 token 的关注程度。
@@ -133,20 +133,20 @@ $$
 
 在 [[Causal Attention]] 中，QKV 仍然照常计算：
 
-$$
+```math
 Q = XW_Q,\quad K = XW_K,\quad V = XW_V
-$$
+```
 
 区别是 attention score 会加上 [[Causal Mask]]：
 
-$$
+```math
 \mathrm{softmax}
 \left(
 \frac{QK^\top}{\sqrt{d_k}}
 +
 M
 \right)V
-$$
+```
 
 mask 会阻止第 $t$ 个 token attend to future tokens。
 
@@ -159,13 +159,13 @@ mask 会阻止第 $t$ 个 token attend to future tokens。
 
 [[Rotary Position Embedding]] 通常作用在 Q 和 K 上：
 
-$$
+```math
 Q \rightarrow Q_{\mathrm{rope}}
-$$
+```
 
-$$
+```math
 K \rightarrow K_{\mathrm{rope}}
-$$
+```
 
 但通常不作用在 V 上。
 

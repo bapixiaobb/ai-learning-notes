@@ -7,33 +7,33 @@
 
 给定输入 $x$ 和模型参数 $\theta$，模型先计算预测值：
 
-$$
+```math
 \hat{y} = f_\theta(x)
-$$
+```
 
 再用预测值和真实目标 $y$ 计算 loss：
 
-$$
+```math
 \mathcal{L} = \ell(\hat{y}, y)
-$$
+```
 
 ## 例子：两层 Neural Network
 
-$$
+```math
 z_1 = W_1x + b_1
-$$
-$$
+```
+```math
 a_1 = \sigma(z_1)
-$$
-$$
+```
+```math
 z_2 = W_2a_1 + b_2
-$$
-$$
+```
+```math
 \hat{y} = z_2
-$$
-$$
+```
+```math
 \mathcal{L} = \ell(\hat{y}, y)
-$$
+```
 
 其中：
 

@@ -19,23 +19,23 @@
 
 在 [[Language Modeling]] 语境里，最需要区分的是：
 
-$$
+```math
 \text{Original Transformer}
 \rightarrow
 \text{Encoder-Decoder Transformer}
-$$
+```
 
-$$
+```math
 \text{BERT-style}
 \rightarrow
 \text{Encoder-Only Transformer}
-$$
+```
 
-$$
+```math
 \text{GPT/Llama-style}
 \rightarrow
 \text{Decoder-Only Transformer}
-$$
+```
 
 ## 🧭 Why This Distinction Matters
 
@@ -84,11 +84,11 @@ $$
 
 它通常使用 bidirectional self-attention，也就是每个 token 可以看见序列中所有位置。
 
-$$
+```math
 h_t
 \text{ can attend to }
 h_1, h_2, \dots, h_T
-$$
+```
 
 这类模型适合学习 contextual representations。
 
@@ -119,20 +119,20 @@ $$
 
 每个 token position 只能看到 prefix：
 
-$$
+```math
 h_t
 \text{ can attend to }
 h_{\leq t}
-$$
+```
 
 这类模型天然适合 [[Autoregressive Language Model]]：
 
-$$
+```math
 p_\theta(x_1, x_2, \dots, x_T)
 =
 \prod_{t=1}^T
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 典型模型：
 
@@ -160,7 +160,7 @@ $$
 
 结构上可以理解为：
 
-$$
+```math
 \text{input sequence}
 \rightarrow
 \text{encoder representations}
@@ -168,7 +168,7 @@ $$
 \text{decoder}
 \rightarrow
 \text{output sequence}
-$$
+```
 
 decoder 在生成时依赖两类信息：
 
@@ -235,27 +235,27 @@ Transformer family 的不同分支通常和不同 training objective 绑定。
 
 在 modern [[Language Modeling]] 中，最重要的分支是：
 
-$$
+```math
 \text{Transformer}
 \rightarrow
 \text{Decoder-Only Transformer}
 \rightarrow
 \text{Llama-style Architecture}
-$$
+```
 
 这是因为 autoregressive language modeling 需要建模：
 
-$$
+```math
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 而 decoder-only Transformer 的 causal attention 正好保证：
 
-$$
+```math
 x_t
 \text{ cannot use information from }
 x_{>t}
-$$
+```
 
 >[!note]
 >因此，当讨论 modern LLM architecture 时，“Transformer” 通常更具体地指 decoder-only Transformer，而不是 original encoder-decoder Transformer。

@@ -63,7 +63,7 @@ Lecture 3 的主线可以概括为：
 
 一个 autoregressive language model 的基本结构可以粗略写成：
 
-$$
+```math
 \text{tokens}
 \rightarrow
 \text{token embeddings}
@@ -75,7 +75,7 @@ $$
 \text{logits}
 \rightarrow
 p(x_{t+1} \mid x_{\leq t})
-$$
+```
 
 也就是：
 

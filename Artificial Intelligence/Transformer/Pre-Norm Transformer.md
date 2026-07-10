@@ -4,13 +4,13 @@
 
 核心形式是：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(\mathrm{Norm}(x))
-$$
+```
 
 其中：
 
@@ -28,22 +28,22 @@ $$
 >
 >也就是：
 >
->$$
+>```math
 >\mathrm{Norm}
 >\rightarrow
 >\mathrm{SubLayer}
 >\rightarrow
 >\mathrm{Residual Add}
->$$
+>```
 
 这和 [[Post-Norm Transformer]] 不同。  
 Post-Norm 是先 residual add，再 normalization：
 
-$$
+```math
 x_{\text{out}}
 =
 \mathrm{Norm}(x + F(x))
-$$
+```
 
 ![[pre-norm transformer block.png]]
 ## 🧩 In Transformer Block
@@ -52,49 +52,49 @@ $$
 
 ### Attention update
 
-$$
+```math
 a
 =
 \mathrm{Attention}(\mathrm{Norm}(x))
-$$
+```
 
-$$
+```math
 x'
 =
 x + a
-$$
+```
 
 ### MLP update
 
-$$
+```math
 m
 =
 \mathrm{MLP}(\mathrm{Norm}(x'))
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 x' + m
-$$
+```
 
 合起来：
 
-$$
+```math
 x'
 =
 x
 +
 \mathrm{Attention}(\mathrm{Norm}(x))
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 x'
 +
 \mathrm{MLP}(\mathrm{Norm}(x'))
-$$
+```
 
 >[!note]
 >Attention 和 MLP 都读取 normalized hidden states，但写回的是原来的 residual stream。
@@ -105,17 +105,17 @@ $$
 
 因为每个 sublayer 的输出是加到 $x$ 上：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(\mathrm{Norm}(x))
-$$
+```
 
 所以 residual stream 可以保持这种逐层累加的形式：
 
-$$
+```math
 X^{(0)}
 \rightarrow
 X^{(1)}
@@ -123,7 +123,7 @@ X^{(1)}
 \cdots
 \rightarrow
 X^{(L)}
-$$
+```
 
 >[!note]
 >Pre-Norm 的一个重要直觉是：
@@ -150,21 +150,21 @@ $$
 
 一个 block 可以写成：
 
-$$
+```math
 x'
 =
 x
 +
 \mathrm{CausalAttention}(\mathrm{RMSNorm}(x))
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 x'
 +
 \mathrm{SwiGLUMLP}(\mathrm{RMSNorm}(x'))
-$$
+```
 
 这里：
 
@@ -186,23 +186,23 @@ Pre-Norm 常用于 deep Transformer，因为它通常更稳定。
 
 如果写成：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(\mathrm{Norm}(x))
-$$
+```
 
 那么对 $x$ 的梯度中有一条 identity-like path：
 
-$$
+```math
 \frac{\partial x_{\text{out}}}{\partial x}
 \approx
 I
 +
 \frac{\partial F(\mathrm{Norm}(x))}{\partial x}
-$$
+```
 
 >[!note]
 >这个 identity path 是 residual connection 带来的。
@@ -236,9 +236,9 @@ Pre-Norm 只改变 normalization placement。
 >[!summary] My Understanding
 >[[Pre-Norm Transformer]] 的核心公式是：
 >
->$$
+>```math
 >x_{\text{out}} = x + F(\mathrm{Norm}(x))
->$$
+>```
 >
 >它把 normalization 放在 attention / MLP 之前，再把 sublayer output 加回 residual stream。
 >

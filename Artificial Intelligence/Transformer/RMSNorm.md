@@ -7,13 +7,13 @@
 
 给定 hidden vector：
 
-$$
+```math
 x \in \mathbb{R}^{d}
-$$
+```
 
 RMSNorm 计算 root mean square：
 
-$$
+```math
 \mathrm{RMS}(x)
 =
 \sqrt{
@@ -22,17 +22,17 @@ $$
 +
 \epsilon
 }
-$$
+```
 
 然后 normalize：
 
-$$
+```math
 \mathrm{RMSNorm}(x)
 =
 \gamma
 \odot
 \frac{x}{\mathrm{RMS}(x)}
-$$
+```
 
 其中：
 
@@ -44,31 +44,31 @@ $$
 
 在 modern decoder-only LLM 中，RMSNorm 常和 [[Pre-Norm Transformer]] 搭配使用：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(\mathrm{RMSNorm}(x))
-$$
+```
 
 例如在 [[Llama-style Architecture]] 中：
 
-$$
+```math
 x'
 =
 x
 +
 \mathrm{Attention}(\mathrm{RMSNorm}(x))
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 x'
 +
 \mathrm{MLP}(\mathrm{RMSNorm}(x'))
-$$
+```
 
 ## ⚖️ RMSNorm vs LayerNorm
 

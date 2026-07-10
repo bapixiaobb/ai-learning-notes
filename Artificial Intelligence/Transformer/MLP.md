@@ -13,17 +13,17 @@ MLP 是 multilayer perceptron。
 
 给定一个 token hidden vector：
 
-$$
+```math
 x_t \in \mathbb{R}^{d_{\text{model}}}
-$$
+```
 
 普通 MLP 可以写成：
 
-$$
+```math
 \mathrm{MLP}(x_t)
 =
 W_2 \sigma(W_1 x_t + b_1) + b_2
-$$
+```
 
 其中：
 
@@ -35,27 +35,27 @@ $$
 
 Transformer 中的 MLP 通常是：
 
-$$
+```math
 d_{\text{model}}
 \rightarrow
 d_{\text{ff}}
 \rightarrow
 d_{\text{model}}
-$$
+```
 
 对于整个 sequence：
 
-$$
+```math
 X \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 MLP 输出仍然是：
 
-$$
+```math
 \mathrm{MLP}(X)
 \in
 \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 >[!important]
 >MLP 不改变 sequence length。
@@ -105,13 +105,13 @@ Modern LLM 中常见的是 [[SwiGLU]] MLP。
 >
 >常见 shape 是：
 >
->$$  
+>```math
 d_{\text{model}}  
 \rightarrow  
 d_{\text{ff}}  
 \rightarrow  
 d_{\text{model}}  
->$$
+>```
 
 ## **🔗 Connections**
 

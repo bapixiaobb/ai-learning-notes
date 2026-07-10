@@ -7,32 +7,32 @@
 
 给定一个 hidden vector：
 
-$$
+```math
 x \in \mathbb{R}^{d}
-$$
+```
 
 LayerNorm 先计算 mean：
 
-$$
+```math
 \mu = \frac{1}{d}\sum_{i=1}^{d} x_i
-$$
+```
 
 再计算 variance：
 
-$$
+```math
 \sigma^2 = \frac{1}{d}\sum_{i=1}^{d}(x_i - \mu)^2
-$$
+```
 
 然后 normalize：
 
-$$
+```math
 \mathrm{LayerNorm}(x)
 =
 \gamma \odot
 \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}
 +
 \beta
-$$
+```
 
 其中：
 
@@ -45,9 +45,9 @@ $$
 
 在 Transformer 中，LayerNorm 通常作用在每个 token 的 hidden representation 上：
 
-$$
+```math
 x_t \in \mathbb{R}^{d_{\text{model}}}
-$$
+```
 
 也就是说，它不会跨 token 做 normalization，而是对单个 token vector 的 feature dimension 做 normalization。
 
@@ -63,11 +63,11 @@ LayerNorm 会做两件事：
 
 也就是：
 
-$$
+```math
 x
 \rightarrow
 \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}
-$$
+```
 
 而 [[RMSNorm]] 不 subtract mean，只根据 root mean square 缩放。
 

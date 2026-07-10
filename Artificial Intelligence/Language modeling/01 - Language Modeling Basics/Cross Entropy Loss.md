@@ -22,25 +22,25 @@
 
 假设一共有 $K$ 个类别，真实标签是 one-hot vector：
 
-$$
+```math
 y = (y_1, y_2, \dots, y_K)
-$$
+```
 
 模型预测概率是：
 
-$$
+```math
 \hat{p} = (\hat{p}_1, \hat{p}_2, \dots, \hat{p}_K)
-$$
+```
 
 Cross entropy loss 定义为：
 
-$$
+```math
 \mathcal{L}
 =
 -
 \sum_{k=1}^{K}
 y_k \log \hat{p}_k
-$$
+```
 
 ## Implementation
 ![[TransformerLM.jpeg]]
@@ -124,23 +124,23 @@ probabilities[1,2,4] = 0.70
 
 假设正确类别是 $c$，那么：
 
-$$
+```math
 y_c = 1
-$$
+```
 
 其余：
 
-$$
+```math
 y_k = 0, \quad k \neq c
-$$
+```
 
 因此 cross entropy 会化简成：
 
-$$
+```math
 \mathcal{L}
 =
 -\log \hat{p}_c
-$$
+```
 
 也就是：
 
@@ -154,25 +154,25 @@ $$
 
 给定 logits：
 
-$$
+```math
 z = (z_1, z_2, \dots, z_K)
-$$
+```
 
 [[Softmax]] 定义为：
 
-$$
+```math
 \hat{p}_k
 =
 \frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}}
-$$
+```
 
 然后 cross entropy 使用正确类别概率计算 loss：
 
-$$
+```math
 \mathcal{L}
 =
 -\log \hat{p}_c
-$$
+```
 
 ## 在 Language Modeling 中
 
@@ -181,27 +181,27 @@ $$
 
 模型目标是：
 
-$$
+```math
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 如果正确的下一个 token 是 $x_t$，那么该位置的 loss 是：
 
-$$
+```math
 \mathcal{L}_t
 =
 -\log p_\theta(x_t \mid x_{<t})
-$$
+```
 
 整段序列的 loss 通常是所有 token positions 的平均：
 
-$$
+```math
 \mathcal{L}
 =
 -\frac{1}{T}
 \sum_{t=1}^{T}
 \log p_\theta(x_t \mid x_{<t})
-$$
+```
 
 ## 与 [[Maximum Likelihood Estimation]] 的关系
 
@@ -210,25 +210,25 @@ $$
 
 对于训练序列：
 
-$$
+```math
 x_1, x_2, \dots, x_T
-$$
+```
 
 language model 的 likelihood 是：
 
-$$
+```math
 p_\theta(x_1, \dots, x_T)
 =
 \prod_{t=1}^{T}
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 最大化 likelihood 等价于最小化 negative log-likelihood：
 
-$$
+```math
 -\sum_{t=1}^{T}
 \log p_\theta(x_t \mid x_{<t})
-$$
+```
 
 这正是 cross entropy loss 的形式。
 

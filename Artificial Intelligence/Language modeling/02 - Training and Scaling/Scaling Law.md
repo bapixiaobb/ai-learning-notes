@@ -15,10 +15,10 @@
 
 | 符号 | 含义 |
 |---|---|
-| $$N$$ | number of model parameters |
-| $$D$$ | number of training tokens |
-| $$C$$ | training compute |
-| $$L$$ | loss |
+| $N$ | number of model parameters |
+| $D$ | number of training tokens |
+| $C$ | training compute |
+| $L$ | loss |
 
 ## 基本直觉
 
@@ -29,11 +29,11 @@
 
 可以粗略理解为：
 
-$$
+```math
 L(C)
 \approx
 A C^{-\alpha} + L_\infty
-$$
+```
 
 其中：
 
@@ -47,9 +47,9 @@ $$
 >[!note]
 > 在 dense Transformer training 中，training compute 常用近似：
 >
-> $$
+> ```math
 > C \approx 6ND
-> $$
+> ```
 >
 > 其中 $N$ 是参数量，$D$ 是训练 token 数。
 
@@ -61,19 +61,19 @@ $$
 ## Compute-optimal Training
 
 >[!note]
-> **Compute-optimal training** 研究的是：在固定 compute budget 下，如何选择模型大小 $$N$$ 和训练 token 数 $$D$$，使最终 loss 最低。
+> **Compute-optimal training** 研究的是：在固定 compute budget 下，如何选择模型大小 $N$ 和训练 token 数 $D$，使最终 loss 最低。
 
 也就是求：
 
-$$
+```math
 \min_{N,D} L(N,D)
-$$
+```
 
 subject to：
 
-$$
+```math
 C \approx 6ND
-$$
+```
 
 >[!note]
 > 如果模型太大但 tokens 太少，模型可能 under-trained；如果 tokens 太多但模型太小，模型 capacity 可能不足。Compute-optimal training 试图在二者之间找到平衡。
@@ -134,10 +134,10 @@ compute budget
 > Scaling law 研究的是当模型和数据规模扩大时，这个 loss 如何下降。
 
 在 autoregressive language modeling 中，训练目标是：
-$$  
+```math
 -\sum_{t=1}^{T}  
 \log p_\theta(x_t \mid x_{<t})  
-$$
+```
 
 Scaling law 用来预测随着 $N$、$D$、$C$ 增加，这个 loss 会如何变化。
 

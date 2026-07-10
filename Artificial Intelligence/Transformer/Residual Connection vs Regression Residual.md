@@ -9,17 +9,17 @@
 >[!note]
 >在 neural network 中，[[Residual Connection]] 指的是：
 >
->$$
+>```math
 >x_{\text{out}} = x + F(x)
->$$
+>```
 >
 >也就是保留输入 $x$，再加上一个 learned update $F(x)$。
 >
 >在 regression 中，residual 指的是：
 >
->$$
+>```math
 >r = y - \hat{y}
->$$
+>```
 >
 >也就是真实值和预测值之间的误差。
 
@@ -36,13 +36,13 @@
 
 它的基本形式是：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(x)
-$$
+```
 
 其中：
 
@@ -57,29 +57,29 @@ $$
 
 也可以写成：
 
-$$
+```math
 x_{\text{out}} - x = F(x)
-$$
+```
 
 从这个角度看，$F(x)$ 是这一层学到的 update / delta。
 
 在 [[Transformer Block]] 中，attention 和 MLP 通常都通过 residual connection 写回 [[Residual Stream]]：
 
-$$
+```math
 x'
 =
 x
 +
 \mathrm{Attention}(\mathrm{Norm}(x))
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 x'
 +
 \mathrm{MLP}(\mathrm{Norm}(x'))
-$$
+```
 
 这里的 “residual” 强调的是：
 
@@ -94,49 +94,49 @@ $$
 
 给定观测值：
 
-$$
+```math
 y_i
-$$
+```
 
 和模型预测：
 
-$$
+```math
 \hat{y}_i
-$$
+```
 
 regression residual 定义为：
 
-$$
+```math
 r_i
 =
 y_i
 -
 \hat{y}_i
-$$
+```
 
 它表示模型没有解释掉的那部分误差。
 
 如果写成线性回归：
 
-$$
+```math
 y = X\beta + \epsilon
-$$
+```
 
 拟合后得到：
 
-$$
+```math
 \hat{y} = X\hat{\beta}
-$$
+```
 
 则 residual vector 是：
 
-$$
+```math
 r
 =
 y
 -
 \hat{y}
-$$
+```
 
 >[!note]
 >Regression residual 衡量的是 prediction error。
@@ -176,39 +176,39 @@ Regression residual 常用于：
 
 Regression residual 是：
 
-$$
+```math
 \text{actual output}
 -
 \text{predicted output}
-$$
+```
 
 也就是模型还没解释掉的误差：
 
-$$
+```math
 r = y - \hat{y}
-$$
+```
 
 ### In Residual Network
 
 Residual connection 可以从另一个角度写成：
 
-$$
+```math
 F(x)
 =
 x_{\text{out}}
 -
 x
-$$
+```
 
 也就是说，sub-layer 学的是从 $x$ 到 $x_{\text{out}}$ 的差值 / update：
 
-$$
+```math
 \text{new representation}
 =
 \text{old representation}
 +
 \text{learned update}
-$$
+```
 
 >[!note]
 >所以 residual network 里的 residual 更接近 “learned correction / increment”。
@@ -221,33 +221,33 @@ $$
 
 一个 Pre-Norm decoder-only block 可以写成：
 
-$$
+```math
 x'
 =
 x
 +
 \mathrm{Attention}(\mathrm{Norm}(x))
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 x'
 +
 \mathrm{MLP}(\mathrm{Norm}(x'))
-$$
+```
 
 这里没有出现 regression residual：
 
-$$
+```math
 y - \hat{y}
-$$
+```
 
 出现的是 hidden states 的 update：
 
-$$
+```math
 x \rightarrow x + \Delta
-$$
+```
 
 其中 $\Delta$ 来自 attention 或 MLP。
 
@@ -267,9 +267,9 @@ $$
 
 答案是：
 
-$$
+```math
 x_{\text{out}} = x + F(x)
-$$
+```
 
 ### Regression Residual 问的是：
 
@@ -278,9 +278,9 @@ $$
 
 答案是：
 
-$$
+```math
 r = y - \hat{y}
-$$
+```
 
 这两个问题不在同一个层面。
 
@@ -295,15 +295,15 @@ $$
 
 同样：
 
-$$
+```math
 \text{Residual stream}
 \neq
 y - \hat{y}
-$$
+```
 
 而是类似：
 
-$$
+```math
 X^{(0)}
 \rightarrow
 X^{(1)}
@@ -311,17 +311,17 @@ X^{(1)}
 \cdots
 \rightarrow
 X^{(L)}
-$$
+```
 
 其中每一步都通过：
 
-$$
+```math
 X^{(\ell+1)}
 =
 X^{(\ell)}
 +
 \Delta^{(\ell)}
-$$
+```
 
 进行更新。
 
@@ -332,15 +332,15 @@ $$
 >
 >[[Residual Connection]] 是网络内部的加法结构：
 >
->$$
+>```math
 >x + F(x)
->$$
+>```
 >
 >Regression residual 是预测之后的误差：
 >
->$$
+>```math
 >y - \hat{y}
->$$
+>```
 
 ---
 

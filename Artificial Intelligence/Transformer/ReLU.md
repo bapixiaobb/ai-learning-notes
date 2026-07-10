@@ -1,7 +1,7 @@
 #DeepLearning #NeuralNetwork #ActivationFunction
 
 **定义**：ReLU，全称 **Rectified Linear Unit**，是一种常用的 activation function。
-$$
+```math
 
   
 
@@ -9,9 +9,9 @@ $$
 
   
 
-$$
+```
 也就是：
-$$
+```math
 
   
 
@@ -39,7 +39,7 @@ x, & x > 0 \\
 
   
 
-$$
+```
 ## 直觉
 ReLU 会把负数截断为 0，正数保持不变。
 ```text
@@ -54,17 +54,17 @@ ReLU 会把负数截断为 0，正数保持不变。
 
 如果 neural network 只有 linear layers，那么多层线性变换仍然等价于一个线性变换：
 
-$$  
+```math
 W_3W_2W_1x = Wx  
-$$
+```
 
 因此模型表达能力仍然有限。
 
 ReLU 的作用是在线性变换之间加入 nonlinearity：
 
-$$  
+```math
 x \mapsto \operatorname{ReLU}(Wx + b)  
-$$
+```
 
 使 neural network 能拟合更复杂的 nonlinear function。
 

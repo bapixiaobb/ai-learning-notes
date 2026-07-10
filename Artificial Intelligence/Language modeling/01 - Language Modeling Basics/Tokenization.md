@@ -2,9 +2,9 @@
 
 **定义**：Tokenization 是把 raw text 切分成 tokens，并映射成 token IDs 的过程。
 
-$$
+```math
 \text{raw text} \rightarrow \text{tokens} \rightarrow \text{token IDs}
-$$
+```
 
 ## 直觉
 

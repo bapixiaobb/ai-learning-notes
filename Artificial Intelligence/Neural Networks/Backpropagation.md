@@ -24,23 +24,23 @@ optimizer.step()
 
 假设 computation graph 中有：
 
-$$ x \rightarrow y \rightarrow \mathcal{L} $$
+$x \rightarrow y \rightarrow \mathcal{L}$
 
 其中：
 
-$$ y=f(x) $$
+$y=f(x)$
 
 backward 时，我们已经从后面的计算得到：
 
-$$ \frac{\partial \mathcal{L}}{\partial y} $$
+$\frac{\partial \mathcal{L}}{\partial y}$
 
 再结合当前操作的局部导数：
 
-$$ \frac{\partial y}{\partial x} $$
+$\frac{\partial y}{\partial x}$
 
 便可以计算：
 
-$$ \frac{\partial \mathcal{L}}{\partial x} = \frac{\partial \mathcal{L}}{\partial y} \frac{\partial y}{\partial x} $$
+$\frac{\partial \mathcal{L}}{\partial x} = \frac{\partial \mathcal{L}}{\partial y} \frac{\partial y}{\partial x}$
 
 所以 backward 中传递的不是笼统的“误差”，而是 upstream gradient。每个操作把 upstream gradient 与自己的局部导数结合，再传给前面的变量。
 
@@ -48,19 +48,21 @@ $$ \frac{\partial \mathcal{L}}{\partial x} = \frac{\partial \mathcal{L}}{\partia
 
 假设：
 
-$$ z=wx $$$$ \mathcal{L}=z^2 $$
+$z=wx$
+
+$\mathcal{L}=z^2$
 
 先计算：
 
-$$ \frac{\partial \mathcal{L}}{\partial z}=2z $$
+$\frac{\partial \mathcal{L}}{\partial z}=2z$
 
 以及：
 
-$$ \frac{\partial z}{\partial w}=x $$
+$\frac{\partial z}{\partial w}=x$
 
 根据 chain rule：
 
-$$ \frac{\partial \mathcal{L}}{\partial w} = \frac{\partial \mathcal{L}}{\partial z} \frac{\partial z}{\partial w} = 2zx $$
+$\frac{\partial \mathcal{L}}{\partial w} = \frac{\partial \mathcal{L}}{\partial z} \frac{\partial z}{\partial w} = 2zx$
 
 这里：
 
@@ -103,11 +105,11 @@ optimizer.zero_grad()
 
 Backpropagation 计算：
 
-$$ \nabla_\theta \mathcal{L} $$
+$\nabla_\theta \mathcal{L}$
 
 Optimizer 使用这个 gradient 更新参数，例如 [[Gradient Descent]]：
 
-$$ \theta \leftarrow \theta-\eta\nabla_\theta\mathcal{L} $$
+$\theta \leftarrow \theta-\eta\nabla_\theta\mathcal{L}$
 
 其中 $\eta$ 是 learning rate。
 

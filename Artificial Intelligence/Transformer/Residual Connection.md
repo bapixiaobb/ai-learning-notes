@@ -5,13 +5,13 @@ Residual Connection 是 neural network 中的一种加法连接结构。
 
 基本形式是：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(x)
-$$
+```
 
 其中：
 
@@ -28,23 +28,23 @@ $$
 
 也就是：
 
-$$
+```math
 \text{new representation}
 =
 \text{old representation}
 +
 \text{learned update}
-$$
+```
 
 在这个视角下：
 
-$$
+```math
 F(x)
 =
 x_{\text{out}}
 -
 x
-$$
+```
 
 所以 $F(x)$ 可以理解为从旧 representation 到新 representation 的 update / correction。
 
@@ -54,30 +54,30 @@ $$
 
 如果每一层都完全重写 representation：
 
-$$
+```math
 x
 \rightarrow
 F(x)
-$$
+```
 
 那么原始信息可能在深层传播中逐渐丢失。
 
 Residual connection 提供了一条更直接的信息路径：
 
-$$
+```math
 x
 \rightarrow
 x + F(x)
-$$
+```
 
 >[!note]
 >Residual connection 让 layer 可以选择“少改一点”。
 >
 >如果某一层暂时学不到有用 transformation，它可以让 $F(x)$ 接近 0，于是：
 >
->$$
+>```math
 >x_{\text{out}} \approx x
->$$
+>```
 >
 >这让深层网络更容易优化。
 
@@ -87,23 +87,23 @@ $$
 
 以 modern Pre-Norm Transformer 为例：
 
-$$
+```math
 x'
 =
 x
 +
 \mathrm{Attention}(\mathrm{Norm}(x))
-$$
+```
 
 然后：
 
-$$
+```math
 x_{\text{out}}
 =
 x'
 +
 \mathrm{MLP}(\mathrm{Norm}(x'))
-$$
+```
 
 这里有两个 residual connections：
 
@@ -119,21 +119,21 @@ $$
 
 没有 residual connection 时，一层网络通常是：
 
-$$
+```math
 x_{\text{out}}
 =
 F(x)
-$$
+```
 
 有 residual connection 时：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(x)
-$$
+```
 
 两者的区别是：
 
@@ -149,9 +149,9 @@ $$
 
 Regression 中的 residual 是：
 
-$$
+```math
 y - \hat{y}
-$$
+```
 
 这和 residual connection 不是同一个概念，更详细的区别见 [[Residual Connection vs Regression Residual]]。
 
@@ -161,21 +161,21 @@ Residual connection 要求 $x$ 和 $F(x)$ 的 shape 可以相加。
 
 最常见情况是：
 
-$$
+```math
 x \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
-$$
+```math
 F(x) \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 因此：
 
-$$
+```math
 x + F(x)
 \in
 \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 >[!note]
 >这也是为什么 [[Transformer Block]] 的输入和输出通常保持同样 shape。
@@ -190,23 +190,23 @@ Residual connection 对 gradient flow 很重要。
 
 如果：
 
-$$
+```math
 y
 =
 x
 +
 F(x)
-$$
+```
 
 那么：
 
-$$
+```math
 \frac{\partial y}{\partial x}
 =
 I
 +
 \frac{\partial F(x)}{\partial x}
-$$
+```
 
 这里的 $I$ 表示 identity path。
 
@@ -221,17 +221,17 @@ $$
 
 Residual Connection 是局部加法结构：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(x)
-$$
+```
 
 [[Residual Stream]] 是这些局部 residual connections 在多层 Transformer 中串联形成的主数据流：
 
-$$
+```math
 X^{(0)}
 \rightarrow
 X^{(1)}
@@ -239,7 +239,7 @@ X^{(1)}
 \cdots
 \rightarrow
 X^{(L)}
-$$
+```
 
 >[!note]
 >Residual connection 是“某一层如何把输入加回去”。
@@ -252,17 +252,17 @@ $$
 
 在 Transformer 中，可以把每个 block 想成对 residual stream 做两次编辑：
 
-$$
+```math
 \text{old hidden state}
 +
 \text{attention update}
 +
 \text{MLP update}
-$$
+```
 
 也就是：
 
-$$
+```math
 x_{\text{out}}
 =
 x
@@ -270,7 +270,7 @@ x
 \Delta_{\text{attn}}
 +
 \Delta_{\text{mlp}}
-$$
+```
 
 其中：
 
@@ -290,11 +290,11 @@ Residual connection 和 normalization 的相对位置形成了两类常见 Trans
 
 [[Original Transformer]] 使用 Post-Norm：
 
-$$
+```math
 x_{\text{out}}
 =
 \mathrm{Norm}(x + F(x))
-$$
+```
 
 也就是先 residual addition，再 normalization。
 
@@ -302,13 +302,13 @@ $$
 
 Modern LLM 更常用 Pre-Norm：
 
-$$
+```math
 x_{\text{out}}
 =
 x
 +
 F(\mathrm{Norm}(x))
-$$
+```
 
 也就是先 normalization，再进入 sublayer，最后加回 residual stream。
 
@@ -323,15 +323,15 @@ $$
 
 Regression residual 是：
 
-$$
+```math
 r = y - \hat{y}
-$$
+```
 
 Residual connection 是：
 
-$$
+```math
 x_{\text{out}} = x + F(x)
-$$
+```
 
 它们不是同一个概念。
 
@@ -351,9 +351,9 @@ Residual connection 本身通常没有参数。
 >[!summary] My Understanding
 >Residual Connection 是 neural network 中的加法结构：
 >
->$$
+>```math
 >x_{\text{out}} = x + F(x)
->$$
+>```
 >
 >它让 layer 学习对输入 representation 的增量更新，而不是完全替换输入。
 >

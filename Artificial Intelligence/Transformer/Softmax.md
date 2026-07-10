@@ -10,17 +10,17 @@
 
 给定 logits，其中 $K$ 是类别总数：
 
-$$
+```math
 z = (z_1, z_2, \dots, z_K)
-$$
+```
 
 那么对于第 $k$ 个类别的 Softmax 输出值 $\hat{p}_h$ 定义如下：
 
-$$
+```math
 \hat{p}_k
 =
 \frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}}
-$$
+```
 
 # Intuition
 
@@ -37,7 +37,7 @@ Softmax 计算可以分为三步：
 
 利用 softmax 的平移不变性，会减去 $\max(x)$ 
 
-$$
+```math
 \mathrm{softmax}(x_i)=\frac{e^{x_i-\max(x)}}{\sum_je^{x_j-\max(x)}}
-$$ 
+```
 [[Flash Attention]] 里为了配合 tile by tile 计算，有 [[Online Softmax]] 

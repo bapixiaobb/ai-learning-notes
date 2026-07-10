@@ -19,7 +19,7 @@
 
 对于 language model，训练成本通常由几个量共同决定：
 
-$$
+```math
 \text{model size}
 ,\quad
 \text{number of training tokens}
@@ -29,7 +29,7 @@ $$
 \text{hardware throughput}
 ,\quad
 \text{memory constraints}
-$$
+```
 
 >[!question]
 > 给定模型规模、训练数据和硬件，我们能不能在预算内完成训练？如果不能，瓶颈在哪里？
@@ -43,9 +43,9 @@ $$
 
 对于 dense Transformer training，常用粗略估算是：
 
-$$
+```math
 \text{Training FLOPs} \approx 6ND
-$$
+```
 
 其中：
 
@@ -106,11 +106,11 @@ $$
 
 核心 trade-off：
 
-$$
+```math
 \text{memory} \downarrow,
 \quad
 \text{compute} \uparrow
-$$
+```
 
 >[!note]
 > 它常用于深层 Transformer 或长 sequence 训练，因为 activations 会随 batch size、sequence length 和 layer 数增长。
@@ -157,11 +157,11 @@ $$
 
 形式上可以理解为：
 
-$$
+```math
 \text{MFU}
 =
 \frac{\text{model FLOP/s}}{\text{hardware peak FLOP/s}}
-$$
+```
 
 >[!note]
 > 高 FLOPs 估算并不代表训练效率高。实际系统还可能被 memory bandwidth、communication、kernel efficiency 或 batch size 限制。

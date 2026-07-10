@@ -8,29 +8,29 @@ Feed-Forward Network 指信息只沿一个方向从输入流向输出的 neural 
 >[!note]
 >Feed-forward 的意思是：
 >
->$$
+>```math
 >\text{input}
 >\rightarrow
 >\text{hidden layers}
 >\rightarrow
 >\text{output}
->$$
+>```
 >
 >信息只向前传播，不形成循环。
 
 最简单的 feed-forward network 可以写成：
 
-$$
+```math
 h
 =
 \sigma(W_1 x + b_1)
-$$
+```
 
-$$
+```math
 y
 =
 W_2 h + b_2
-$$
+```
 
 其中：
 
@@ -47,11 +47,11 @@ Feed-forward network 是 neural network 的一种基本结构。
 
 可以理解成：
 
-$$
+```math
 \text{Feed-Forward Network}
 \subset
 \text{Neural Network}
-$$
+```
 
 它的特点是：
 
@@ -70,31 +70,31 @@ $$
 
 一个多层 feed-forward network 可以写成：
 
-$$
+```math
 h^{(1)}
 =
 \sigma(W^{(1)}x + b^{(1)})
-$$
+```
 
-$$
+```math
 h^{(2)}
 =
 \sigma(W^{(2)}h^{(1)} + b^{(2)})
-$$
+```
 
-$$
+```math
 \cdots
-$$
+```
 
-$$
+```math
 y
 =
 W^{(L)}h^{(L-1)} + b^{(L)}
-$$
+```
 
 也就是：
 
-$$
+```math
 x
 \rightarrow
 h^{(1)}
@@ -104,7 +104,7 @@ h^{(2)}
 \cdots
 \rightarrow
 y
-$$
+```
 
 >[!note]
 >如果 feed-forward network 有很多 hidden layers，它就可以是 [[Deep Neural Network]] 的一种。
@@ -128,41 +128,41 @@ $$
 
 它对每个 token position 独立作用：
 
-$$
+```math
 x_t
 \in
 \mathbb{R}^{d_{\text{model}}}
-$$
+```
 
-$$
+```math
 \mathrm{FFN}(x_t)
 =
 W_2 \sigma(W_1 x_t + b_1) + b_2
-$$
+```
 
 常见 shape 是：
 
-$$
+```math
 d_{\text{model}}
 \rightarrow
 d_{\text{ff}}
 \rightarrow
 d_{\text{model}}
-$$
+```
 
 对于整个 sequence：
 
-$$
+```math
 X \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 FFN 输出仍然是：
 
-$$
+```math
 \mathrm{FFN}(X)
 \in
 \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 >[!note]
 >Transformer 里的 FFN 不负责 token mixing。
@@ -222,13 +222,13 @@ Transformer 还包括：
 >
 >在 Transformer 语境下，FFN 通常指每个 [[Transformer Block]] 里的 per-token MLP：
 >
->$$  
+>```math
 d_{\text{model}}  
 \rightarrow  
 d_{\text{ff}}  
 \rightarrow  
 d_{\text{model}}  
->$$
+>```
 >
 >它不负责 token mixing，而是对每个 token representation 做 nonlinear processing。
 

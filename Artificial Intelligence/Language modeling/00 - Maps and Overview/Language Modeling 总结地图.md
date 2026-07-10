@@ -22,11 +22,11 @@ objective
 
 数学上，autoregressive language model 建模：
 
-$$
+```math
 p_\theta(x_1,\dots,x_T)
 =
 \prod_{t=1}^{T} p_\theta(x_t \mid x_{<t})
-$$
+```
 
 训练时通常最大化真实 next token 的 likelihood，等价于最小化 [[Cross Entropy Loss]]。
 
@@ -77,11 +77,11 @@ raw text
 
 可以把每个 token position 看成一个 vocabulary-size 的多分类问题：
 
-$$
+```math
 \mathcal{L}_t
 =
 -\log p_\theta(x_t \mid x_{<t})
-$$
+```
 
 整段序列通常对所有 token positions 求平均。
 
@@ -209,9 +209,9 @@ Attention 相关笔记可以按这个顺序复习：
 
 常用粗略公式：
 
-$$
+```math
 C \approx 6ND
-$$
+```
 
 其中 $N$ 是 dense model parameters，$D$ 是 training tokens。
 

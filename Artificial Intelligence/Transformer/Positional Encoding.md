@@ -10,15 +10,15 @@ Positional Encoding 指把 token 的位置信息加入 Transformer 的方法。
 >
 >如果没有 positional information，模型很难区分：
 >
->$$
+>```math
 >[x_1, x_2, x_3]
->$$
+>```
 >
 >和：
 >
->$$
+>```math
 >[x_3, x_2, x_1]
->$$
+>```
 >
 >因为 attention 本身主要根据 token representations 计算关系，而不自带顺序结构。
 
@@ -34,15 +34,15 @@ Positional Encoding 的作用是告诉模型：
 
 例如：
 
-$$
+```math
 \text{dog bites man}
-$$
+```
 
 和：
 
-$$
+```math
 \text{man bites dog}
-$$
+```
 
 包含相同 tokens，但意思不同。
 
@@ -78,13 +78,13 @@ Positional information 可以在不同位置进入 Transformer。
 
 例如 absolute positional embedding：
 
-$$
+```math
 h_t
 =
 e_t
 +
 p_t
-$$
+```
 
 其中：
 
@@ -95,11 +95,11 @@ $$
 
 例如 [[Rotary Position Embedding]]：
 
-$$
+```math
 Q,K
 \rightarrow
 \mathrm{RoPE}(Q,K)
-$$
+```
 
 这类方法让 position information 影响 attention scores。
 
@@ -130,13 +130,13 @@ $$
 
 RoPE 不直接把 position vector 加到 token embedding 上，而是作用在 attention 中的 $Q,K$ 上：
 
-$$
+```math
 q_t \rightarrow R_t q_t
-$$
+```
 
-$$
+```math
 k_t \rightarrow R_t k_t
-$$
+```
 
 这样 attention score 可以感知 token positions 之间的相对关系。
 

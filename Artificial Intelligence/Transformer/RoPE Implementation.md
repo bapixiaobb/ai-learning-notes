@@ -71,9 +71,9 @@ x_odd  = [b, d]
 
 RoPE 的 frequency 是:
 
-$$
+```math
 \omega_i = \theta^{-2i/d_k}
-$$
+```
 
 其中:
 
@@ -90,9 +90,9 @@ freqs = theta ** (-2 * pair_idx / d_k)
 
 这和公式里的
 
-$$
+```math
 \frac{1}{\Theta^{(2k-2)/d}}
-$$
+```
 
 是同一个东西。作业里 $k$ 从 1 开始, Python 里的 `pair_idx` 从 0 开始。
 
@@ -100,9 +100,9 @@ $$
 
 RoPE 角度是:
 
-$$
+```math
 \text{angle} = \text{position} \times \text{frequency}
-$$
+```
 
 代码:
 
@@ -175,13 +175,13 @@ class RotaryPositionalEmbedding(torch.nn.Module):
 
 对应公式:
 
-$$
+```math
 a' = a\cos\alpha - b\sin\alpha
-$$
+```
 
-$$
+```math
 b' = a\sin\alpha + b\cos\alpha
-$$
+```
 
 ## 写法 2: rotate_half
 

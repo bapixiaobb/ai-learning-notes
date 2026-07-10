@@ -23,9 +23,9 @@ RoPE 的做法: 把位置 $m$ 的 query 旋转 $m\theta$, 位置 $n$ 的 key 旋
 
 假设一个 sequence 有 $T$ 个 tokens, 每个 token 的 hidden dimension 是 $d_{model}$:
 
-$$
+```math
 X \in \mathbb{R}^{T \times d_{model}}
-$$
+```
 
 可以把它理解成:
 
@@ -36,9 +36,9 @@ column = hidden dimension / feature
 
 在 attention 中, 每个 token vector 会通过三个 linear projections 生成 [[Query Key Value]]:
 
-$$
+```math
 Q = XW_Q, \quad K = XW_K, \quad V = XW_V
-$$
+```
 
 >[!note]
 > Q 和 K 决定 attention score, 也就是“谁关注谁”。
@@ -70,26 +70,26 @@ q_t = [a, b, c, d]   --- 某个 token 的 query vector
 
 输出 shape 不变:
 
-$$
+```math
 Q_{rope}, K_{rope} \in \mathbb{R}^{T \times d_k}
-$$
+```
 
 ## 二维旋转公式
 
 对一个二维向量旋转角度 $\alpha$:
 
-$$
+```math
 \begin{bmatrix} a' \\ b' \end{bmatrix}
 =
 \begin{bmatrix} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha \end{bmatrix}
 \begin{bmatrix} a \\ b \end{bmatrix}
-$$
+```
 
 展开:
 
-$$
+```math
 a' = a\cos\alpha - b\sin\alpha, \qquad b' = a\sin\alpha + b\cos\alpha
-$$
+```
 
 旋转有两个重要性质:
 
@@ -100,18 +100,18 @@ $$
 
 只看一对维度。位置 $m$ 的 query 这一对记为 $q$, 位置 $n$ 的 key 这一对记为 $k$。RoPE 把它们分别旋转 $m\theta$ 和 $n\theta$:
 
-$$
+```math
 q_{rope} = R(m\theta)q, \qquad k_{rope} = R(n\theta)k
-$$
+```
 
 attention score 用点积:
 
-$$
+```math
 q_{rope}^\top k_{rope}
 = \big(R(m\theta)q\big)^\top \big(R(n\theta)k\big)
 = q^\top R(m\theta)^\top R(n\theta)k
 = q^\top R\big((n-m)\theta\big)k
-$$
+```
 
 >[!important]
 > 结果只依赖 $(n-m)$, 也就是两个 token 的位置差。
@@ -122,18 +122,18 @@ $$
 
 旋转角度由两件事决定:
 
-$$
+```math
 \text{angle}_{i} = \text{position} \times \omega_i
-$$
+```
 
 - **position**: token 在 sequence 里的位置, 决定转多少。
 - **$\omega_i$**: 第 $i$ 对维度的 frequency, 决定这一对转多快。
 
 不同 pair 使用不同 frequency:
 
-$$
+```math
 \omega_i = \theta^{-2i/d_k}, \qquad i = 0, 1, \dots, \tfrac{d_k}{2}-1
-$$
+```
 
 其中 $\theta$ 是超参, 常取 10000。
 
@@ -146,9 +146,9 @@ i 大: omega 很小    -> 转得慢 -> 低频 -> 捕捉更大范围的位置差
 
 设 $d_k=4$, 位置 $m=1$, query 是:
 
-$$
+```math
 q=[x_0, x_1, x_2, x_3]
-$$
+```
 
 分成:
 
@@ -159,24 +159,24 @@ pair1 = (x2, x3)
 
 频率:
 
-$$
+```math
 \omega_0 = 10000^0 = 1, \qquad \omega_1 = 10000^{-2/4}=0.01
-$$
+```
 
 角度:
 
-$$
+```math
 \text{angle}_0 = 1, \qquad \text{angle}_1 = 0.01
-$$
+```
 
 各自旋转:
 
-$$
+```math
 \begin{aligned}
 x_0' &= x_0\cos 1 - x_1\sin 1 & x_2' &= x_2\cos 0.01 - x_3\sin 0.01\\
 x_1' &= x_0\sin 1 + x_1\cos 1 & x_3' &= x_2\sin 0.01 + x_3\cos 0.01
 \end{aligned}
-$$
+```
 
 >[!note]
 > 高频 pair 转得多, 低频 pair 转得少。
@@ -187,7 +187,7 @@ $$
 
 把所有 pair 拼起来, RoPE 等价于乘一个分块对角矩阵。每个 $2\times2$ block 只作用在一对 hidden dimensions 上。
 
-$$
+```math
 \begin{bmatrix} x_0' \\ x_1' \\ x_2' \\ x_3' \end{bmatrix}
 =
 \begin{bmatrix}
@@ -197,7 +197,7 @@ $$
 0 & 0 & \sin\alpha_1 & \cos\alpha_1
 \end{bmatrix}
 \begin{bmatrix} x_0 \\ x_1 \\ x_2 \\ x_3 \end{bmatrix}
-$$
+```
 
 >[!note]
 > 实际 implementation 不会真的造这个稀疏大矩阵。
@@ -208,21 +208,21 @@ $$
 
 attention 分支里:
 
-$$
+```math
 X \rightarrow Q,K,V
-$$
+```
 
 然后:
 
-$$
+```math
 Q\rightarrow\mathrm{RoPE}(Q), \qquad K\rightarrow\mathrm{RoPE}(K)
-$$
+```
 
 再算:
 
-$$
+```math
 \mathrm{Attention}(Q_{rope}, K_{rope}, V)
-$$
+```
 
 >[!note]
 > RoPE 影响 attention score, 因为 score 来自 $QK^\top$。

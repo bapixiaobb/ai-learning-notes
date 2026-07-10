@@ -12,20 +12,20 @@
 
 可以理解成：
 
-$$
+```math
 \text{LLM}
 \subset
 \text{Transformer-based Language Models}
-$$
+```
 
 ## 核心目标
 
 >[!note]
 > 大多数 autoregressive LLM 的训练目标是 [[Next-token prediction]]：根据前面的 tokens 预测下一个 token。
 
-$$
+```math
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 其中：
 
@@ -44,7 +44,7 @@ $$
 
 典型 pipeline：
 
-$$
+```math
 \text{raw text}
 \rightarrow
 \text{[[Tokenization]]}
@@ -58,7 +58,7 @@ $$
 \text{logits}
 \rightarrow
 \text{next-token probability}
-$$
+```
 
 ## 与 Transformer 的关系
 
@@ -67,13 +67,13 @@ $$
 
 可以理解成：
 
-$$
+```math
 \text{LLM}
 =
 \text{Transformer architecture}
 +
 \text{large-scale language modeling training}
-$$
+```
 
 其中 Transformer 负责将上下文 tokens 转换成 hidden representations，并输出每个位置的 logits。
 
@@ -93,9 +93,9 @@ $$
 
 训练计算量常用近似：
 
-$$
+```math
 \text{Training FLOPs} \approx 6ND
-$$
+```
 
 其中：
 
@@ -116,11 +116,11 @@ $$
 
 MoE 的核心思想是：
 
-$$
+```math
 \text{large total parameters}
 \quad
 \text{but fewer active parameters per token}
-$$
+```
 
 >[!note]
 > 因此 MoE 可以增加模型总参数量，同时控制每个 token 的计算成本。
@@ -132,17 +132,17 @@ $$
 
 训练：
 
-$$
+```math
 \min_\theta \mathcal{L}(\theta)
-$$
+```
 
 推理：
 
-$$
+```math
 x_1, x_2, \dots, x_t
 \rightarrow
 x_{t+1}
-$$
+```
 
 >[!note]
 > 训练时通常可以并行处理一整段 sequence；而 autoregressive inference 通常需要逐 token 生成。

@@ -47,9 +47,9 @@ Foundation model 通常包含几个阶段：
 
 对于 language model，常见预训练目标是：
 
-$$
+```math
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 也就是根据前面的 tokens 预测下一个 token。
 
@@ -74,11 +74,11 @@ $$
 
 可以理解成：
 
-$$
+```math
 \text{LLM}
 \subset
 \text{Foundation Model}
-$$
+```
 
 但不是所有 foundation model 都是 LLM。
 
@@ -91,9 +91,9 @@ $$
 
 例如 autoregressive LLM 的目标是：
 
-$$
+```math
 \min_\theta \mathcal{L}(\theta)
-$$
+```
 
 其中 loss 通常来自 [[Next-token prediction]] 的 [[Cross Entropy Loss]]。
 

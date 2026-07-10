@@ -9,9 +9,9 @@ In [training](Training vs Inference) process, after [[Forward Propagation]] (see
 # The SGD Optimizer
 
 The simplest gradient-based optimizer is Stochastic Gradient Descent (SGD). We start with randomly initialized parameters $\theta_0$. Then for each step $𝑡 = 0,\cdots,T-1$,  we perform the following update: 
-$$
+```math
 \theta_{t+1}\leftarrow\theta_t-\alpha_t \nabla L(\theta_t;B_t)
-$$
+```
 
 where  $B_t$ is a random batch of data sampled from the dataset $𝐷$, and the learning rate $\alpha_t$ and batch size $|B_t|$ are hyperparameters.
 

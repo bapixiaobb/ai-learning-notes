@@ -23,12 +23,12 @@
 如果一个任务需要：$10^{23}$ FLOPs，而硬件实际速度是：$10^{18} \text{ FLOP/s}$
 
 那么理想耗时约为：
-$$
+```math
 \frac{10^{23}}{10^{18}}
 =
 10^5
 \text{ seconds}
-$$
+```
 
 ## 在 Language Model 中
 
@@ -39,9 +39,9 @@ $$
 
 常见近似：
 
-$$
+```math
 \text{Training FLOPs} \approx 6ND
-$$
+```
 
 其中：
 
@@ -57,22 +57,22 @@ $$
 
 对于：
 
-$$
+```math
 A \in \mathbb{R}^{m \times k},
 \quad
 B \in \mathbb{R}^{k \times n}
-$$
+```
 
 矩阵乘法：
-$$
+```math
 C = AB
-$$
+```
 
 大约需要：
 
-$$
+```math
 2mnk
-$$
+```
 
 FLOPs。
 

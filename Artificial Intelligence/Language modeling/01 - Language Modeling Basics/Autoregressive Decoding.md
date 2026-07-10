@@ -8,27 +8,27 @@
 ![[TransformerLM.jpeg]]
 它完整的步骤是，输入 prompt 之后，根据这个 prompt 来预计 ▶️ token，也就是：
 
-$$
+```math
 x_1, \dots, x_T
 \rightarrow
 x_{T+1}
-$$
+```
 
 然后把新 token 接回输入：
 
-$$
+```math
 x_1, \dots, x_T, x_{T+1}
 \rightarrow
 x_{T+2}
-$$
+```
 
 继续重复：
 
-$$
+```math
 x_1, \dots, x_T, x_{T+1}, x_{T+2}
 \rightarrow
 x_{T+3}
-$$
+```
 从上面的步骤就可以看出，我们每次其实只需要最后一个 position 的 [[Next-token prediction]]. 
 
 ## Single Decoding Step
@@ -45,30 +45,30 @@ next_token_logits = logits[0, -1, :]
 得到最后一个 position 对下一个 token 的 logit 之后，我们需要把这个 logit 通过 [[Softmax]] 转换成概率分布
 
 假设 sequence $x_{1...t}$ 是我们的输入，输出是 $x_{t+1}$，那一个简易的 decoder 模型是 
-$$
+```math
 P(x_{t+1}=i\mid x_{1:t})
 =
 \frac{\exp(v_i)}
 {\sum_j\exp(v_j)}
-$$
-$$
+```
+```math
 v=\operatorname{TransformerLM}(x_{1:t})[-1]
 \in\mathbb{R}^{\text{vocab\_size}}
-$$
+```
 ## Temperature scaling
 
 这是针对 [[Softmax]] 的一个简单的 scaling 小技巧
-$$
+```math
 \mathrm{softmax}
 =
 \frac{\exp(v_i/\ \tau)}{\sum_j \exp(v_j/ \tau)}
-$$
+```
 看两个 token 的概率比：
-$$
+```math
 \frac{p_i}{p_j}
 =
 \exp\left(\frac{v_i-v_j}{\tau}\right)
-$$
+```
 ```
 τ < 1：放大 logits 之间的差距，分布更尖锐
 τ = 1：保持原分布
@@ -82,12 +82,12 @@ Modify the sampling distribution by truncating low-probability tokens.
 
 假设上一步 softmax 得到的结果是一个叫 $q$ 的 probability distribution，$p$ 是一个 hyperparameter
 
-$$
+```math
 P(x_{t+1}=i|q)=\left\{\begin{matrix}
 \frac{q_i}{\sum_{j\in V(p)}q_j}   & \text{if }i\in V(p)  \\
  0 & \text{otherwise} 
 \end{matrix}\right.
-$$
+```
 
 这个 $V(p)$ 是 smallest set of indices such that $\sum_{j\in V(p)}q_j\geq p$
 

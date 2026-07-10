@@ -12,13 +12,13 @@
 
 给定一个 token sequence：
 
-$$
+```math
 x_1, x_2, \dots, x_T
-$$
+```
 
 Transformer 会把每个 token 表示成 hidden vector，并通过多层 transformation 不断更新这些 hidden states：
 
-$$
+```math
 X^{(0)}
 \rightarrow
 X^{(1)}
@@ -26,13 +26,13 @@ X^{(1)}
 \cdots
 \rightarrow
 X^{(L)}
-$$
+```
 
 其中：
 
-$$
+```math
 X^{(\ell)} \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 $T$ 是 sequence length，$d_{\text{model}}$ 是 hidden dimension。
 
@@ -46,23 +46,23 @@ $T$ 是 sequence length，$d_{\text{model}}$ 是 hidden dimension。
 
 可以理解成：
 
-$$
+```math
 \text{Transformer}
 \subset
 \text{Deep Neural Network Architecture}
-$$
+```
 
 在 language modeling 中，Transformer 通常作为一个参数化函数：
 
-$$
+```math
 f_\theta(\text{tokens}) \rightarrow \text{logits}
-$$
+```
 
 并用于建模：
 
-$$
+```math
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 但 Transformer 本身不是 language modeling objective。  
 [[Language Modeling]] 是任务目标，Transformer 是实现这个目标的一类 architecture。
@@ -79,11 +79,11 @@ Transformer 通常由多个 [[Transformer Block]] 堆叠而成。
 
 粗略地看，一个 Transformer 会反复执行：
 
-$$
+```math
 \text{token representations}
 \rightarrow
 \text{contextualized token representations}
-$$
+```
 
 也就是说，每一层都会让 token representation 融合更多上下文信息。
 
@@ -119,7 +119,7 @@ Transformer 的核心重复单元是 [[Transformer Block]]。
 
 在现代 language model 中，一个 block 通常可以粗略理解为：
 
-$$  
+```math
 \text{Attention}  
 +  
 \text{MLP}  
@@ -127,7 +127,7 @@ $$
 \text{Residual Connection}  
 +  
 \text{Normalization}  
-$$
+```
 
 其中：
 
@@ -162,17 +162,19 @@ Transformer 本身是一种 architecture；language modeling 是任务目标。
 
 GPT-style language model 可以粗略理解为：
 
-$$  
+```math
 \text{Decoder-Only Transformer}  
 +  
 \text{autoregressive language modeling objective}  
-$$
+```
 
-也就是建模：$$  
+也就是建模：
+
+```math
 p_\theta(x_t \mid x_{<t})  
-$$
+```
 在 autoregressive language model 中，Transformer 位于 token embedding 和 output logits 之间：
-$$  
+```math
 \text{raw text}  
 \rightarrow  
 \text{Tokenization}  
@@ -186,7 +188,7 @@ $$
 \text{logits}  
 \rightarrow  
 p_\theta(x_t \mid x_{<t})  
-$$
+```
 其中 [[Causal Mask]] 保证模型在预测当前位置时不能看到 future tokens。
 ## **⚖️ Transformer vs RNN**
 
@@ -204,21 +206,21 @@ Transformer 的主要计算来自 matrix multiplication。
 
 典型计算包括：
 
-$$  
+```math
 XW_Q,\quad XW_K,\quad XW_V  
-$$
+```
 
-$$  
+```math
 QK^\top  
-$$
+```
 
-$$  
+```math
 \operatorname{Attention}(Q,K,V)  
-$$
+```
 
-$$  
+```math
 XW_1,\quad \sigma(XW_1)W_2  
-$$
+```
 
 >[!note]  
 从数值线性代数角度看，Transformer 的训练成本、FLOPs、memory bandwidth 和 hardware utilization 都与 Matrix Multiplication 密切相关。

@@ -14,7 +14,7 @@ Deep Neural Network，简称 DNN，指包含多层 hidden layers 的 [[Neural Ne
 
 可以写成：
 
-$$
+```math
 x
 \rightarrow
 h^{(1)}
@@ -26,15 +26,15 @@ h^{(2)}
 h^{(L)}
 \rightarrow
 y
-$$
+```
 
 其中：
 
-$$
+```math
 h^{(\ell)}
 =
 \sigma(W^{(\ell)}h^{(\ell-1)} + b^{(\ell)})
-$$
+```
 
 这里：
 
@@ -53,7 +53,7 @@ deep neural network 有多层 hidden layers，因此可以学习更复杂的 hie
 
 例如在图像任务中：
 
-$$
+```math
 \text{pixels}
 \rightarrow
 \text{edges}
@@ -63,11 +63,11 @@ $$
 \text{object parts}
 \rightarrow
 \text{objects}
-$$
+```
 
 在 language model 中：
 
-$$
+```math
 \text{tokens}
 \rightarrow
 \text{local patterns}
@@ -77,7 +77,7 @@ $$
 \text{semantics}
 \rightarrow
 \text{task-relevant representations}
-$$
+```
 
 >[!note]
 >深度不是唯一重要因素。
@@ -88,7 +88,7 @@ $$
 
 Deep neural network 可以看成多个函数的复合：
 
-$$
+```math
 f(x)
 =
 f_L
@@ -98,15 +98,15 @@ f_{L-1}
 \cdots
 \circ
 f_1(x)
-$$
+```
 
 每一层都是一个 transformation：
 
-$$
+```math
 f_\ell(h)
 =
 \sigma(W_\ell h + b_\ell)
-$$
+```
 
 >[!note]
 >深度带来的表达能力来自多层 nonlinear transformations 的组合。
@@ -126,13 +126,13 @@ DNN 的参数通过 training 学习。
 
 抽象写成：
 
-$$
+```math
 \theta
 \leftarrow
 \theta
 -
 \eta \nabla_\theta \mathcal{L}
-$$
+```
 
 其中：
 

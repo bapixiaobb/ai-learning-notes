@@ -14,12 +14,12 @@ Decoder-Only Transformer 是只保留 Transformer decoder 主干的一类 Transf
 
 它建模的是 autoregressive factorization：
 
-$$
+```math
 p_\theta(x_1, x_2, \dots, x_T)
 =
 \prod_{t=1}^{T}
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 也就是说，模型在每个位置只能基于过去的 tokens 预测当前 / 下一个 token。
 
@@ -29,21 +29,21 @@ $$
 
 Original Transformer 包含：
 
-$$
+```math
 \text{Encoder}
 +
 \text{Decoder}
-$$
+```
 
 而 decoder-only Transformer 可以理解为：
 
-$$
+```math
 \text{Transformer Decoder}
 -
 \text{Encoder}
 -
 \text{Cross-Attention}
-$$
+```
 
 保留下来的主要是：
 
@@ -93,7 +93,7 @@ $$
 
 一个 decoder-only language model 的基本数据流可以写成：
 
-$$
+```math
 \text{tokens}
 \rightarrow
 \text{token embeddings}
@@ -105,35 +105,35 @@ $$
 \text{final hidden states}
 \rightarrow
 \text{logits}
-$$
+```
 
 对于输入 token sequence：
 
-$$
+```math
 x_1, x_2, \dots, x_T
-$$
+```
 
 模型输出每个位置的 logits：
 
-$$
+```math
 z_1, z_2, \dots, z_T
-$$
+```
 
 其中：
 
-$$
+```math
 z_t \in \mathbb{R}^{V}
-$$
+```
 
 $V$ 是 vocabulary size。
 
 通常 $z_t$ 用来预测下一个 token：
 
-$$
+```math
 p_\theta(x_{t+1} \mid x_{\leq t})
 =
 \operatorname{softmax}(z_t)
-$$
+```
 
 ## 🎭 Causal Self-Attention
 
@@ -141,17 +141,17 @@ Decoder-only Transformer 的关键是 [[Causal Attention]]。
 
 在第 $t$ 个位置，模型只能 attend to 当前和之前的位置：
 
-$$
+```math
 h_t
 \text{ can attend to }
 h_1, h_2, \dots, h_t
-$$
+```
 
 不能 attend to：
 
-$$
+```math
 h_{t+1}, h_{t+2}, \dots, h_T
-$$
+```
 
 这通过 [[Causal Mask]] 实现。
 
@@ -174,17 +174,17 @@ $$
 
 现代 LLM 中常见的 Pre-Norm 形式可以写成：
 
-$$
+```math
 x'
 =
 x + \mathrm{CausalAttention}(\mathrm{Norm}(x))
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 x' + \mathrm{MLP}(\mathrm{Norm}(x'))
-$$
+```
 
 >[!note]
 >[[Transformer Block]] 是 decoder-only Transformer 的核心重复单元。
@@ -199,15 +199,15 @@ $$
 
 例如输入：
 
-$$
+```math
 [x_1, x_2, x_3, x_4]
-$$
+```
 
 模型在各位置预测：
 
-$$
+```math
 [x_2, x_3, x_4, x_5]
-$$
+```
 
 也就是：
 
@@ -231,27 +231,27 @@ $$
 
 给定 prompt：
 
-$$
+```math
 x_1, x_2, \dots, x_T
-$$
+```
 
 模型先预测：
 
-$$
+```math
 p_\theta(x_{T+1} \mid x_{\leq T})
-$$
+```
 
 采样或选择一个 token 后，再把它接到序列后面：
 
-$$
+```math
 x_1, x_2, \dots, x_T, x_{T+1}
-$$
+```
 
 继续预测：
 
-$$
+```math
 p_\theta(x_{T+2} \mid x_{\leq T+1})
-$$
+```
 
 >[!note]
 >训练时可以并行计算多个 positions 的 loss；推理时生成过程通常是 sequential 的。
@@ -264,7 +264,7 @@ $$
 
 如果 sequence length 是 $T$，causal mask 可以理解成一个下三角矩阵：
 
-$$
+```math
 M =
 \begin{bmatrix}
 1 & 0 & 0 & 0 \\
@@ -272,7 +272,7 @@ M =
 1 & 1 & 1 & 0 \\
 1 & 1 & 1 & 1
 \end{bmatrix}
-$$
+```
 
 第 $t$ 行表示第 $t$ 个 token 可以 attend to 哪些 positions。
 
@@ -335,9 +335,9 @@ $$
 >
 >它把很多 NLP tasks 都转化成了同一种形式：
 >
->$$
+>```math
 >\text{given prefix} \rightarrow \text{predict continuation}
->$$
+>```
 
 ---
 

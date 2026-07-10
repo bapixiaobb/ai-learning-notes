@@ -10,19 +10,19 @@
 
 形式上，如果累积 $K$ 个 microbatches：
 
-$$
+```math
 g
 =
 \frac{1}{K}
 \sum_{k=1}^{K}
 g_k
-$$
+```
 
 然后再用 $g$ 更新参数。
 
 有效 batch size：
 
-$$
+```math
 B_{\text{effective}}
 =
 B_{\text{micro}}
@@ -30,11 +30,11 @@ B_{\text{micro}}
 K_{\text{accum}}
 \times
 N_{\text{devices}}
-$$
+```
 
 对于 language model，常写成 global batch tokens：
 
-$$
+```math
 \text{global batch tokens}
 =
 B_{\text{micro}}
@@ -44,9 +44,9 @@ S
 K_{\text{accum}}
 \times
 N_{\text{devices}}
-$$
+```
 
-其中 $$S$$ 是 sequence length。
+其中 $S$ 是 sequence length。
 
 >[!note]
 > Gradient accumulation 不减少总 FLOPs；它主要是在有限显存下实现更大的 effective batch size。

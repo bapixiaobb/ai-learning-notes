@@ -24,12 +24,12 @@
 
 更具体地说，architecture 决定了：
 
-$$
+```math
 f_\theta:
 (x_1, x_2, \dots, x_t)
 \mapsto
 p_\theta(x_{t+1} \mid x_{\leq t})
-$$
+```
 
 这个函数族的形式。
 
@@ -70,7 +70,7 @@ $$
 
 一个 language model 的 forward pass 可以粗略理解为：
 
-$$
+```math
 \text{tokens}
 \rightarrow
 \text{embeddings}
@@ -80,7 +80,7 @@ $$
 \text{hidden states}
 \rightarrow
 \text{logits}
-$$
+```
 
 在这个过程中，architecture 决定：
 
@@ -103,18 +103,18 @@ $$
 
 一个 autoregressive language model 可以看成：
 
-$$
+```math
 p_\theta(x_1, x_2, \dots, x_T)
 =
 \prod_{t=1}^{T}
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 其中每一项：
 
-$$
+```math
 p_\theta(x_t \mid x_{<t})
-$$
+```
 
 由 model architecture 和 parameters $\theta$ 共同决定。
 
@@ -125,17 +125,17 @@ $$
 
 也可以理解为：
 
-$$
+```math
 \text{Architecture}
 \Rightarrow
 \text{hypothesis class}
-$$
+```
 
-$$
+```math
 \text{Training}
 \Rightarrow
 \text{specific model within that class}
-$$
+```
 
 这也是为什么仅仅比较 parameter count 不够：  
 两个参数量相近的模型，如果 architecture 不同，表达能力、训练稳定性、推理成本都可能不同。
@@ -204,11 +204,11 @@ Architecture 中常见的 attention choices 包括：
 
 对于 autoregressive language model，attention 通常必须是 causal 的：
 
-$$
+```math
 h_t
 \text{ only attends to }
 h_{\leq t}
-$$
+```
 
 这保证模型在预测下一个 token 时不能看到 future tokens。
 ### 4. Positional Information
@@ -249,9 +249,9 @@ Normalization design 决定模型如何稳定深层网络中的 hidden states。
 
 现代 LLM 中常见的是：
 
-$$
+```math
 \text{Pre-Norm} + \text{RMSNorm}
-$$
+```
 
 >[!note]
 >Normalization 不只是 training trick。
@@ -260,15 +260,15 @@ $$
 
 例如 Pre-Norm block 通常是：
 
-$$
+```math
 x + \mathrm{SubLayer}(\mathrm{Norm}(x))
-$$
+```
 
 而 Post-Norm 是：
 
-$$
+```math
 \mathrm{Norm}(x + \mathrm{SubLayer}(x))
-$$
+```
 
 两者的 gradient flow 和 training stability 不同。]]
 
@@ -310,17 +310,17 @@ Transformer block 内部的连接方式也是 architecture 的一部分。
 
 典型 Pre-Norm decoder-only block 可以写成：
 
-$$
+```math
 x'
 =
 x + \mathrm{Attention}(\mathrm{Norm}(x))
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 x' + \mathrm{MLP}(\mathrm{Norm}(x'))
-$$
+```
 
 >[!note]
 >Residual path 决定 information 和 gradient 如何穿过深层模型。
@@ -330,11 +330,11 @@ $$
 
 Language model 最后需要把 hidden state 映射到 vocabulary logits。
 
-$$
+```math
 h_t^{(L)}
 \mapsto
 z_t \in \mathbb{R}^{V}
-$$
+```
 
 其中 $V$ 是 vocabulary size。
 

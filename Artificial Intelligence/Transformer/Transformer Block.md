@@ -17,15 +17,15 @@
 
 如果输入 hidden states 是：
 
-$$
+```math
 X \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 那么一个 Transformer block 通常输出：
 
-$$
+```math
 X' \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 也就是说，block 不改变 sequence length，也通常不改变 hidden dimension；它改变的是每个 token representation 的内容。
 
@@ -33,7 +33,7 @@ $$
 
 一个 Transformer 通常由多个 Transformer blocks 堆叠：
 
-$$
+```math
 X^{(0)}
 \rightarrow
 X^{(1)}
@@ -43,7 +43,7 @@ X^{(2)}
 \cdots
 \rightarrow
 X^{(L)}
-$$
+```
 
 其中：
 
@@ -75,33 +75,33 @@ $$
 
 一个简化的 Pre-Norm Transformer block 可以写成：
 
-$$
+```math
 A
 =
 \mathrm{Attention}(\mathrm{Norm}(X))
-$$
+```
 
-$$
+```math
 X'
 =
 X + A
-$$
+```
 
-$$
+```math
 M
 =
 \mathrm{MLP}(\mathrm{Norm}(X'))
-$$
+```
 
-$$
+```math
 X_{\text{out}}
 =
 X' + M
-$$
+```
 
 也就是：
 
-$$
+```math
 X
 \rightarrow
 \mathrm{Norm}
@@ -117,7 +117,7 @@ X
 +
 \rightarrow
 X_{\text{out}}
-$$
+```
 
 >[!note]
 >这里的两个加号就是 [[Residual Connection]]。
@@ -132,31 +132,31 @@ Attention sub-layer 负责 token positions 之间的信息交互。
 
 输入：
 
-$$
+```math
 X \in \mathbb{R}^{T \times d_{\text{model}}}
-$$
+```
 
 会先生成：
 
-$$
+```math
 Q = XW_Q,\quad K = XW_K,\quad V = XW_V
-$$
+```
 
 然后通过 attention 计算每个 token position 应该从其他 positions 收集多少信息。
 
 在 decoder-only language model 中，attention 是 causal 的：
 
-$$
+```math
 h_t
 \text{ can attend to }
 h_{\leq t}
-$$
+```
 
 不能 attend to：
 
-$$
+```math
 h_{>t}
-$$
+```
 
 >[!note]
 >Attention sub-layer 的输出仍然是一个 shape 为 $T \times d_{\text{model}}$ 的 tensor。
@@ -171,17 +171,17 @@ MLP sub-layer 对每个 token position 独立作用。
 
 如果忽略 batch dimension，一个 position 的 hidden vector 是：
 
-$$
+```math
 x_t \in \mathbb{R}^{d_{\text{model}}}
-$$
+```
 
 MLP 会做类似：
 
-$$
+```math
 \mathrm{MLP}(x_t)
 =
 W_2 \sigma(W_1 x_t)
-$$
+```
 
 其中：
 
@@ -191,13 +191,13 @@ $$
 
 所以：
 
-$$
+```math
 d_{\text{model}}
 \rightarrow
 d_{\text{ff}}
 \rightarrow
 d_{\text{model}}
-$$
+```
 
 >[!note]
 >MLP 不负责 token positions 之间的信息交换。
@@ -214,13 +214,13 @@ $$
 
 可以粗略写成：
 
-$$
+```math
 X^{(\ell+1)}
 =
 X^{(\ell)}
 +
 \Delta^{(\ell)}
-$$
+```
 
 其中 $\Delta^{(\ell)}$ 来自 attention 或 MLP sub-layer。
 
@@ -240,11 +240,11 @@ Transformer block 中 normalization 的位置有两种常见形式。
 
 [[Original Transformer]] 使用的是 Post-Norm：
 
-$$
+```math
 X'
 =
 \mathrm{Norm}(X + \mathrm{SubLayer}(X))
-$$
+```
 
 也就是先做 sublayer 和 residual addition，再做 normalization。
 
@@ -252,11 +252,11 @@ $$
 
 现代 LLM 更常见的是 Pre-Norm：
 
-$$
+```math
 X'
 =
 X + \mathrm{SubLayer}(\mathrm{Norm}(X))
-$$
+```
 
 也就是先 normalization，再进入 sublayer，最后加回 residual stream。
 
@@ -280,21 +280,21 @@ $$
 
 可以粗略写成：
 
-$$
+```math
 X'
 =
 X
 +
 \mathrm{Attention}(\mathrm{RMSNorm}(X))
-$$
+```
 
-$$
+```math
 X_{\text{out}}
 =
 X'
 +
 \mathrm{SwiGLU\text{-}MLP}(\mathrm{RMSNorm}(X'))
-$$
+```
 
 >[!note]
 >这不是 [[Original Transformer]] 的原始 block，而是 modern decoder-only LLM 中常见的 block pattern。
@@ -321,29 +321,29 @@ $$
 
 Transformer block 中一个重要特点是 shape 通常保持不变：
 
-$$
+```math
 T \times d_{\text{model}}
 \rightarrow
 T \times d_{\text{model}}
-$$
+```
 
 虽然内部会有临时维度变化，例如：
 
-$$
+```math
 d_{\text{model}}
 \rightarrow
 d_{\text{ff}}
 \rightarrow
 d_{\text{model}}
-$$
+```
 
 或者 multi-head attention 中：
 
-$$
+```math
 d_{\text{model}}
 \rightarrow
 h \times d_{\text{head}}
-$$
+```
 
 但 block 的输入和输出 shape 通常一致。
 

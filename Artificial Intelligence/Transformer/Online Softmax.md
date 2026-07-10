@@ -14,34 +14,34 @@
 # Implementation
 
 在 [[Query Key Value]] 中
-$$
+```math
 \mathrm{softmax}(\frac{QK^\top}{\sqrt{d}})V
-$$
+```
 
 在 [[Flash Attention]] 中 online softmax 输入一般接收的是 `qkVecTile`，我们设 `scoreTile = qkVecTile` `scale = 1 / sqrt(d)`
 
-$$
+```math
 \rightarrow\frac{QK^\top}{\sqrt{d}}=\text{scoreTile}\times scale=(s_i \times scale)
-$$
+```
 
-$$
+```math
 \rightarrow\mathrm{softmax}(s_i \times scale)\times V_i=\frac{e^{(s_i \times scale)-\max(s_i \times scale)}\times V_i}{\sum_{j=1}^{K} e^{(s_i \times scale)-\max(s_i \times scale)}}
-$$
+```
 因为 $scale = 1 / \sqrt{d}$ 是正数，所以：
-$$
+```math
 \max(s \times scale) = \max(s) \times scale
-$$
+```
 所以：
-$$
+```math
 e^{(s_i \times scale)-\max(s_i \times scale)}=e^{(s_i - M)\times scale}
-$$
+```
 
-$$
+```math
 \rightarrow\mathrm{softmax}(s_i \times scale)\times V_i
 =
 \frac{e^{(s_i - M)\times scale}\times V_i}
 {\sum_j e^{(s_j - M)\times scale}}
-$$
+```
 其中 $M = \max_j(s_j)$  
 
 ```python
@@ -213,9 +213,9 @@ def online_softmax_attention(score_tiles, value_tiles, scale):
 # Intuition
 
 可以把完整 attention 写成：
-$$
+```math
 O =\frac{\sum (e^{(score_i * scale - M)} * V_i )}{\sum e^{(score_i * scale - M)} }
-$$
+```
 
 [[Flash Attention]] / online softmax 就是把它拆成两条累计线：
 

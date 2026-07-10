@@ -4,11 +4,11 @@
 
 核心形式是：
 
-$$
+```math
 x_{\text{out}}
 =
 \mathrm{Norm}(x + F(x))
-$$
+```
 
 其中：
 
@@ -26,22 +26,22 @@ $$
 >
 >也就是：
 >
->$$
+>```math
 >\mathrm{SubLayer}
 >\rightarrow
 >\mathrm{Residual Add}
 >\rightarrow
 >\mathrm{Norm}
->$$
+>```
 
 这和 [[Pre-Norm Transformer]] 相反。  
 Pre-Norm 是先 normalization，再进入 sublayer：
 
-$$
+```math
 x_{\text{out}}
 =
 x + F(\mathrm{Norm}(x))
-$$
+```
 
 ## 🧩 In Transformer Block
 
@@ -49,45 +49,45 @@ $$
 
 ### Attention update
 
-$$
+```math
 x'
 =
 \mathrm{Norm}
 \left(
 x + \mathrm{Attention}(x)
 \right)
-$$
+```
 
 ### MLP update
 
-$$
+```math
 x_{\text{out}}
 =
 \mathrm{Norm}
 \left(
 x' + \mathrm{MLP}(x')
 \right)
-$$
+```
 
 合起来：
 
-$$
+```math
 x'
 =
 \mathrm{Norm}
 \left(
 x + \mathrm{Attention}(x)
 \right)
-$$
+```
 
-$$
+```math
 x_{\text{out}}
 =
 \mathrm{Norm}
 \left(
 x' + \mathrm{MLP}(x')
 \right)
-$$
+```
 
 >[!note]
 >Post-Norm 中，normalization 直接作用在 residual addition 之后的结果上。
@@ -98,9 +98,9 @@ $$
 
 经典形式可以写成：
 
-$$
+```math
 \mathrm{LayerNorm}(x + \mathrm{Sublayer}(x))
-$$
+```
 
 这里的 sublayer 可以是：
 
@@ -129,15 +129,15 @@ $$
 
 在 Post-Norm 中，residual connection 仍然存在：
 
-$$
+```math
 x + F(x)
-$$
+```
 
 但是 residual addition 之后立刻经过 normalization：
 
-$$
+```math
 \mathrm{Norm}(x + F(x))
-$$
+```
 
 这意味着主 hidden state 每经过一个 sublayer 后都会被重新 normalized。
 
@@ -152,15 +152,15 @@ $$
 
 Post-Norm 的 residual path 不是简单的：
 
-$$
+```math
 x \rightarrow x + F(x)
-$$
+```
 
 而是：
 
-$$
+```math
 x \rightarrow \mathrm{Norm}(x + F(x))
-$$
+```
 
 Normalization 会改变 residual addition 后的尺度和方向。
 
@@ -180,9 +180,9 @@ Normalization 会改变 residual addition 后的尺度和方向。
 
 Original Transformer 中常见的是：
 
-$$
+```math
 \mathrm{LayerNorm}(x + F(x))
-$$
+```
 
 这里同时出现了：
 
@@ -204,9 +204,9 @@ Post-Norm 只决定 norm 放在哪里。
 >[!summary]
 >[[Post-Norm Transformer]] 的核心公式是：
 >
->$$
+>```math
 >x_{\text{out}} = \mathrm{Norm}(x + F(x))
->$$
+>```
 >
 >它先做 sublayer transformation 和 residual addition，再做 normalization。
 >

@@ -2,13 +2,13 @@ SwiGLU 是 [[Transformer]] FFN 里的 gated [[Activation Function]]
 
 它的形式是：
 
-$$
+```math
 \mathrm{SwiGLU}(x) = \left(xW_1\right) \odot \mathrm{SiLU} \left(xW_2\right)
-$$
+```
 再输出投影：
-$$
+```math
 \mathrm{{FNN(x)=SwiGLU(x)W_3}}
-$$
+```
 
 本质是 [[GLU]] + [[SiLU]] 的变体，用来替代传统 [[ReLU]] / GeLU
 

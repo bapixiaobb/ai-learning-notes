@@ -8,11 +8,11 @@
 
 ## 基本形式
 
-$$
+```math
 \text{MFU}
 =
 \frac{\text{actual model FLOP/s}}{\text{hardware peak FLOP/s}}
-$$
+```
 
 其中：
 
@@ -28,25 +28,25 @@ $$
 
 例如：
 
-$$
+```math
 \text{hardware peak} = 1000 \text{ TFLOP/s}
-$$
+```
 
 实际训练达到：
 
-$$
+```math
 400 \text{ TFLOP/s}
-$$
+```
 
 那么：
 
-$$
+```math
 \text{MFU}
 =
 \frac{400}{1000}
 =
 40\%
-$$
+```
 
 ## 为什么重要
 
@@ -69,40 +69,40 @@ MFU 可以帮助判断：
 
 如果训练总计算量是：
 
-$$
+```math
 C \text{ FLOPs}
-$$
+```
 
 实际模型计算速度是：
 
-$$
+```math
 R \text{ FLOP/s}
-$$
+```
 
 则理想化训练时间约为：
 
-$$
+```math
 \frac{C}{R}
-$$
+```
 
 其中：
 
-$$
+```math
 R
 =
 \text{MFU}
 \times
 \text{hardware peak FLOP/s}
-$$
+```
 
 所以：
 
-$$
+```math
 \text{training time}
 \approx
 \frac{C}
 {\text{MFU} \times \text{hardware peak FLOP/s}}
-$$
+```
 
 ## 为什么 MFU 会低
 
@@ -127,25 +127,25 @@ $$
 
 判断 bottleneck 时常比较：
 
-$$
+```math
 I_{\text{arith}}
 =
 \frac{\text{FLOPs}}{\text{bytes moved}}
-$$
+```
 
 和：
 
-$$
+```math
 I_{\text{accel}}
 =
 \frac{\text{peak FLOP/s}}{\text{memory bandwidth}}
-$$
+```
 
 如果：
 
-$$
+```math
 I_{\text{arith}} < I_{\text{accel}}
-$$
+```
 
 则 workload 更可能 [[GPU Memory Bound]]，MFU 往往较低。
 
@@ -158,15 +158,15 @@ $$
 
 例如：
 
-$$
+```math
 \text{Training FLOPs} \approx 6ND
-$$
+```
 
 但实际训练时间还取决于：
 
-$$
+```math
 \text{MFU}
-$$
+```
 
 和硬件峰值性能。
 

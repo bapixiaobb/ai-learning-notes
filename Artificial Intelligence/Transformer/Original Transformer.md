@@ -15,7 +15,7 @@
 
 原始 Transformer 的整体形式是：
 
-$$
+```math
 \text{source sequence}
 \rightarrow
 \text{encoder}
@@ -25,11 +25,11 @@ $$
 \text{decoder}
 \rightarrow
 \text{target sequence}
-$$
+```
 
 例如 machine translation 中：
 
-$$
+```math
 \text{English sentence}
 \rightarrow
 \text{encoder}
@@ -37,7 +37,7 @@ $$
 \text{decoder}
 \rightarrow
 \text{French sentence}
-$$
+```
 
 ## 🧭 Why It Matters
 
@@ -68,21 +68,21 @@ $$
 
 整体数据流可以写成：
 
-$$
+```math
 X_{\text{src}}
 \rightarrow
 \text{Encoder}
 \rightarrow
 H_{\text{enc}}
-$$
+```
 
-$$
+```math
 X_{\text{tgt}, <t}, H_{\text{enc}}
 \rightarrow
 \text{Decoder}
 \rightarrow
 p(y_t \mid y_{<t}, X_{\text{src}})
-$$
+```
 
 其中：
 
@@ -97,23 +97,23 @@ Encoder 负责处理 source sequence。
 
 给定 source tokens：
 
-$$
+```math
 x_1, x_2, \dots, x_S
-$$
+```
 
 encoder 会输出每个 source position 的 contextual representation：
 
-$$
+```math
 H_{\text{enc}}
 =
 (h_1, h_2, \dots, h_S)
-$$
+```
 
 其中：
 
-$$
+```math
 h_i \in \mathbb{R}^{d_{\text{model}}}
-$$
+```
 
 ### Encoder Block
 
@@ -128,7 +128,7 @@ Original Transformer 的 encoder 由多个 identical encoder layers 堆叠而成
 
 粗略结构：
 
-$$
+```math
 X
 \rightarrow
 \text{Self-Attention}
@@ -136,7 +136,7 @@ X
 \text{FFN}
 \rightarrow
 X'
-$$
+```
 
 >[!note]
 >Encoder 中的 self-attention 通常是 bidirectional 的。
@@ -145,11 +145,11 @@ $$
 
 形式上：
 
-$$
+```math
 h_i
 \text{ can attend to }
 h_1, h_2, \dots, h_S
-$$
+```
 
 这和 [[Decoder-Only Transformer]] 中的 [[Causal Attention]] 不同。
 
@@ -159,15 +159,15 @@ Decoder 负责生成 target sequence。
 
 给定已经生成的 target prefix：
 
-$$
+```math
 y_1, y_2, \dots, y_{t-1}
-$$
+```
 
 decoder 预测：
 
-$$
+```math
 p(y_t \mid y_{<t}, X_{\text{src}})
-$$
+```
 
 也就是说，decoder 同时依赖：
 
@@ -188,7 +188,7 @@ Original Transformer 的 decoder block 比 encoder block 多一个 attention sub
 
 粗略结构：
 
-$$
+```math
 Y
 \rightarrow
 \text{Masked Self-Attention}
@@ -198,7 +198,7 @@ Y
 \text{FFN}
 \rightarrow
 Y'
-$$
+```
 
 ## 🎭 Three Kinds of Attention
 
@@ -208,17 +208,17 @@ Original Transformer 中最容易混的地方是：它不只有一种 attention�
 
 Encoder self-attention 发生在 source sequence 内部。
 
-$$
+```math
 \text{source tokens attend to source tokens}
-$$
+```
 
 它通常是 bidirectional 的：
 
-$$
+```math
 x_i
 \text{ can attend to }
 x_1, x_2, \dots, x_S
-$$
+```
 
 作用是让每个 source token 得到上下文化表示。
 
@@ -226,23 +226,23 @@ $$
 
 Decoder masked self-attention 发生在 target sequence 内部。
 
-$$
+```math
 \text{target tokens attend to previous target tokens}
-$$
+```
 
 为了 autoregressive generation，decoder 不能看到未来 target tokens：
 
-$$
+```math
 y_t
 \text{ can attend to }
 y_{\leq t}
-$$
+```
 
 不能看到：
 
-$$
+```math
 y_{>t}
-$$
+```
 
 这需要 [[Causal Mask]]。
 
@@ -255,9 +255,9 @@ $$
 
 Cross-attention 发生在 decoder 和 encoder outputs 之间。
 
-$$
+```math
 \text{target tokens attend to source representations}
-$$
+```
 
 在 cross-attention 中：
 
@@ -266,28 +266,28 @@ $$
 
 可以写成：
 
-$$
+```math
 Q = H_{\text{dec}} W_Q
-$$
+```
 
-$$
+```math
 K = H_{\text{enc}} W_K
-$$
+```
 
-$$
+```math
 V = H_{\text{enc}} W_V
-$$
+```
 
 然后：
 
-$$
+```math
 \operatorname{Attention}(Q,K,V)
 =
 \operatorname{softmax}
 \left(
 \frac{QK^\top}{\sqrt{d_k}}
 \right)V
-$$
+```
 
 >[!note]
 >Cross-attention 让 decoder 在生成 target token 时能够读取 source sentence 的信息。
@@ -305,17 +305,17 @@ Original Transformer 的输入输出可以理解成两个序列：
 
 训练时，target sequence 通常右移一位作为 decoder input：
 
-$$
+```math
 \text{decoder input}
 =
 [y_0, y_1, \dots, y_{T-1}]
-$$
+```
 
 decoder target 是：
 
-$$
+```math
 [y_1, y_2, \dots, y_T]
-$$
+```
 
 也就是说，decoder 在每个位置学习预测下一个 target token。
 
@@ -334,11 +334,11 @@ Original Transformer 不使用 recurrence，所以模型本身不知道 token �
 
 原始论文中使用的是 sinusoidal positional encoding：
 
-$$
+```math
 \text{token embedding}
 +
 \text{positional encoding}
-$$
+```
 
 >[!note]
 >Position information 是 Transformer architecture 的必要组成部分。
@@ -353,9 +353,9 @@ Original Transformer 的每个 sublayer 外面都有 residual connection 和 lay
 
 形式上可以写成：
 
-$$
+```math
 \mathrm{LayerNorm}(x + \mathrm{Sublayer}(x))
-$$
+```
 
 这对应 [[Post-Norm Transformer]]。
 
@@ -372,11 +372,11 @@ Residual connection 的作用是让信息和 gradient 更容易穿过深层网�
 
 对每个 position 独立作用：
 
-$$
+```math
 \mathrm{FFN}(x)
 =
 W_2 \sigma(W_1 x + b_1) + b_2
-$$
+```
 
 其中 $\sigma$ 在 Original Transformer 中通常是 ReLU。
 
@@ -411,7 +411,7 @@ Original Transformer 和 modern decoder-only LLM 最重要的区别是结构不�
 
 可以粗略理解成：
 
-$$
+```math
 \text{Original Transformer}
 \rightarrow
 \begin{cases}
@@ -419,7 +419,7 @@ $$
 \text{Decoder-Only Transformer} \\
 \text{Encoder-Decoder Transformer}
 \end{cases}
-$$
+```
 
 其中：
 

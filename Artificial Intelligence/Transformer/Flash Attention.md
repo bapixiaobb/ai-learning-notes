@@ -12,14 +12,16 @@
 
 # Naive Attention
 
-对于  $$
+对于
+
+```math
 \mathrm{Attention}(Q,K,V)
 =
 \mathrm{softmax}
 \left(
 \frac{QK^\top}{\sqrt{d_k}}
 \right)V
-$$
+```
 的普通 [[GPU]] 上的实现（⚠️ 这里已经经过 projection 拿到完整的 $Q, K, V$ 了）：
 ```
 1. 读 Q, K

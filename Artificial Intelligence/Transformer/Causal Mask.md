@@ -15,32 +15,32 @@ Causal Mask 是实现 [[Causal Attention]] 的 attention mask。
 >
 >也就是第 $t$ 个 token position 只能 attend to：
 >
->$$
+>```math
 >x_1, x_2, \dots, x_t
->$$
+>```
 >
 >不能 attend to：
 >
->$$
+>```math
 >x_{t+1}, x_{t+2}, \dots
->$$
+>```
 
 这和 [[Autoregressive Language Model]] 的建模目标一致：
 
-$$
+```math
 p(x_1, x_2, \dots, x_T)
 =
 \prod_{t=1}^{T}
 p(x_t \mid x_{<t})
-$$
+```
 
 ## 🔍 Why It Is Needed
 
 在训练 [[Decoder-Only Transformer]] 时，整个 sequence 通常会一次性输入模型：
 
-$$
+```math
 [x_1, x_2, x_3, x_4]
-$$
+```
 
 如果没有 mask，第 1 个位置可能直接看到 $x_2, x_3, x_4$。  
 这样模型在预测 next token 时就会“作弊”。
@@ -50,24 +50,24 @@ $$
 
 也就是说：
 
-$$
+```math
 \text{parallel computation}
 \neq
 \text{seeing future tokens}
-$$
+```
 
 ## 🧩 Mask Pattern
 
 对于长度为 $T=4$ 的 sequence，causal mask 可以理解成下三角结构：
 
-$$
+```math
 \begin{bmatrix}
 1 & 0 & 0 & 0 \\
 1 & 1 & 0 & 0 \\
 1 & 1 & 1 & 0 \\
 1 & 1 & 1 & 1
 \end{bmatrix}
-$$
+```
 
 其中：
 
@@ -76,48 +76,48 @@ $$
 
 第 3 行表示第 3 个 token 可以看：
 
-$$
+```math
 x_1, x_2, x_3
-$$
+```
 
 但不能看：
 
-$$
+```math
 x_4
-$$
+```
 
 ## 🎭 In Self-Attention
 
 普通 attention score 是：
 
-$$
+```math
 \frac{QK^\top}{\sqrt{d_k}}
-$$
+```
 
 加入 Causal Mask 后：
 
-$$
+```math
 \mathrm{Attention}(Q,K,V)
 =
 \mathrm{softmax}
 \left(
 \frac{QK^\top}{\sqrt{d_k}} + M
 \right)V
-$$
+```
 
 其中 $M$ 是 mask matrix。
 
 通常做法是把 future positions 的 score 设为：
 
-$$
+```math
 -\infty
-$$
+```
 
 这样经过 [[Softmax]] 后，对应 attention weight 就会变成：
 
-$$
+```math
 0
-$$
+```
 
 >[!note]
 >Causal Mask 不改变 $Q,K,V$ 的来源。
@@ -131,13 +131,13 @@ Causal Mask 是实现这个 constraint 的常见方式。
 
 可以理解为：
 
-$$
+```math
 \text{Self-Attention}
 +
 \text{Causal Mask}
 =
 \text{Causal Attention}
-$$
+```
 
 >[!note]
 >Self-attention 说明 token positions 可以互相看。
@@ -166,23 +166,23 @@ Causal Mask 和 [[Positional Encoding]] 是两件不同的事。
 
 训练时可以并行计算：
 
-$$
+```math
 p(x_2 \mid x_1),\quad
 p(x_3 \mid x_{\leq 2}),\quad
 p(x_4 \mid x_{\leq 3})
-$$
+```
 
 在 inference 中，模型通常已经只有 prefix 作为输入：
 
-$$
+```math
 [x_1, x_2, \dots, x_t]
-$$
+```
 
 然后预测：
 
-$$
+```math
 x_{t+1}
-$$
+```
 
 >[!note]
 >训练时 Causal Mask 很关键，因为 future tokens 已经在输入 sequence 里。
