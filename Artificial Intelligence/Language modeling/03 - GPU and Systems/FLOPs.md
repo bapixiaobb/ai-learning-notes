@@ -1,13 +1,13 @@
 #Systems #NumericalLinearAlgebra #LanguageModeling
 
->[!note]
+>**Note**
 > **FLOPs** 是 **floating-point operations**，表示浮点运算次数。
 >
 > 它衡量的是一个计算任务总共需要做多少次浮点计算。
 
 ## 与 FLOP/s 的区别
 
->[!note]
+>**Note**
 > **FLOPs** 衡量总计算量；**FLOP/s** 衡量计算速度。
 >
 > 两者的关系类似于：
@@ -32,7 +32,7 @@
 
 ## 在 Language Model 中
 
->[!note]
+>**Note**
 > 在 language model training 中，FLOPs 用来估算训练总计算量。
 >
 > 模型越大、训练 tokens 越多，总 FLOPs 越高。
@@ -50,7 +50,7 @@
 
 ## 与 Matrix Multiplication 的关系
 
->[!note]
+>**Note**
 > Transformer 中大部分计算来自 matrix multiplication。
 >
 > 因此估算 Transformer FLOPs 的基础通常是 Matrix Multiplication FLOPs。
@@ -78,7 +78,7 @@ FLOPs。
 
 ## 为什么重要
 
->[!note]
+>**Note**
 > FLOPs 可以帮助估算训练成本、训练时间和模型规模是否可行。
 >
 > 但 FLOPs 只描述“理论计算量”，不能单独说明实际训练速度。
@@ -87,12 +87,12 @@ FLOPs。
 
 - FLOP per Second
 - Memory Bandwidth
-- [[Model FLOPs Utilization]]
+- [Model FLOPs Utilization](<./Model%20FLOPs%20Utilization.md>)
 - parallelism
 - communication overhead
 - kernel efficiency
 
 ## Related
-- [[Training Compute - 6ND]]
-- [[Resource Accounting]]
-- [[Model FLOPs Utilization]]
+- [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
+- [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+- [Model FLOPs Utilization](<./Model%20FLOPs%20Utilization.md>)

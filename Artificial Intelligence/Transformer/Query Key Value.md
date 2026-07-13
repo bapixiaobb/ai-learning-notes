@@ -1,10 +1,10 @@
 #LanguageModeling #Transformer #Attention #Architecture
 
-Query、Key、Value，简称 QKV，是 [[Self-Attention]] 中用来计算 token 之间信息交互的三组向量。
+Query、Key、Value，简称 QKV，是 [Self-Attention](<./Self-Attention.md>) 中用来计算 token 之间信息交互的三组向量。
 
 ## 🧠 Core Idea
 
->[!note]
+>**Note**
 >在 attention 中，每个 token 会产生三个向量：
 >
 >- Query：我想找什么信息？
@@ -47,10 +47,10 @@ V = XW_V
 - $W_K$ 生成 keys；
 - $W_V$ 生成 values。
 
->[!note]
->Q、K、V 都来自同一个 input sequence 时，就是 [[Self-Attention]]。
+>**Note**
+>Q、K、V 都来自同一个 input sequence 时，就是 [Self-Attention](<./Self-Attention.md>)。
 >
->如果 Q 来自 decoder，K/V 来自 encoder outputs，就是 [[Cross-Attention]]。
+>如果 Q 来自 decoder，K/V 来自 encoder outputs，就是 Cross-Attention。
 
 ## 🔍 How They Work
 
@@ -79,7 +79,7 @@ QK^\top
 
 ### 2. Attention weights 对 Value 加权求和
 
-[[Softmax]] 后得到 attention weights，再乘以 $V$：
+[Softmax](<./Softmax.md>) 后得到 attention weights，再乘以 $V$：
 
 ```math
 \mathrm{weights} \cdot V
@@ -87,12 +87,12 @@ QK^\top
 
 得到新的 token representation。
 
->[!important]
+>**Important**
 >Q 和 K 决定“看谁”；V 决定“拿什么信息”。
 
-### 3. Optimization with [[GPU]] 
+### 3. Optimization with [GPU](<../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU.md>)
 
-[[Flash Attention]] 可以把 $QK^\top \rightarrow \mathrm{softmax}\rightarrow AV$ 这整个 attention 过程做成一个 memory- efficient fused kernel，以解决 [[GPU Memory Bound]] 的问题。 
+[Flash Attention](<./Flash%20Attention.md>) 可以把 $QK^\top \rightarrow \mathrm{softmax}\rightarrow AV$ 这整个 attention 过程做成一个 memory- efficient fused kernel，以解决 [GPU Memory Bound](<../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>) 的问题。
 
 ## 📐 Shape View
 
@@ -126,18 +126,18 @@ QK^\top \in \mathbb{R}^{T \times T}
 \mathbb{R}^{T \times d_v}
 ```
 
->[!note]
+>**Note**
 >$T \times T$ 的 score matrix 表示每个 token 对每个 token 的关注程度。
 
 ## 🎭 In Causal Attention
 
-在 [[Causal Attention]] 中，QKV 仍然照常计算：
+在 [Causal Attention](<./Causal%20Attention.md>) 中，QKV 仍然照常计算：
 
 ```math
 Q = XW_Q,\quad K = XW_K,\quad V = XW_V
 ```
 
-区别是 attention score 会加上 [[Causal Mask]]：
+区别是 attention score 会加上 [Causal Mask](<./Causal%20Mask.md>)：
 
 ```math
 \mathrm{softmax}
@@ -150,14 +150,14 @@ M
 
 mask 会阻止第 $t$ 个 token attend to future tokens。
 
->[!note]
+>**Note**
 >Causal mask 不改变 Q、K、V 本身。
 >
 >它只改变哪些 query-key pairs 可以参与 attention。
 
 ## 📍 Relation to RoPE
 
-[[Rotary Position Embedding]] 通常作用在 Q 和 K 上：
+[Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) 通常作用在 Q 和 K 上：
 
 ```math
 Q \rightarrow Q_{\mathrm{rope}}
@@ -171,7 +171,7 @@ K \rightarrow K_{\mathrm{rope}}
 
 原因是：
 
->[!note]
+>**Note**
 >Q 和 K 决定 attention score，因此 position information 应该影响“谁关注谁”。
 >
 >V 是被加权汇总的信息内容，通常不需要用 RoPE 旋转。
@@ -193,7 +193,7 @@ attention output 后面通常还会经过 output projection、residual connectio
 
 ---
 
->[!summary] My Understanding
+>**Summary** — My Understanding
 >Query、Key、Value 是 attention 中的三组向量。
 >
 >Q 和 K 用来计算 attention weights，决定每个 token 应该关注哪些 token；V 是被加权汇总的信息内容。
@@ -204,12 +204,12 @@ attention output 后面通常还会经过 output projection、residual connectio
 
 ## 🔗 Connections
 
-- [[Self-Attention]]
-- [[Causal Attention]]
-- [[Causal Mask]]
-- [[Cross-Attention]]
-- [[Artificial Intelligence/Transformer/Multi-Head Attention]]
-- [[Attention Head]]
-- [[Rotary Position Embedding]]
-- [[KV Cache]]
-- [[Transformer Block]]
+- [Self-Attention](<./Self-Attention.md>)
+- [Causal Attention](<./Causal%20Attention.md>)
+- [Causal Mask](<./Causal%20Mask.md>)
+- Cross-Attention
+- [Multi-Head Attention](<./Multi-Head%20Attention.md>)
+- Attention Head
+- [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)
+- KV Cache
+- [Transformer Block](<./Transformer%20Block.md>)

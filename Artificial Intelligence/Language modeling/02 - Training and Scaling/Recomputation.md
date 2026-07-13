@@ -1,11 +1,11 @@
-#AI #LanguageModeling #GPU 
+#AI #LanguageModeling #GPU
 
-一种 [[GPU Memory Bound]] 的优化方法
+一种 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>) 的优化方法
 
 举个例子
-普通 [[Backpropagation]] 是 forward: x → a1 → a2 → a3 → out，把 a1, a2, a3 都存下来，然后在 backward 的时候，用 a1, a2, a3 算梯度
+普通 [Backpropagation](<../../Neural%20Networks/Backpropagation.md>) 是 forward: x → a1 → a2 → a3 → out，把 a1, a2, a3 都存下来，然后在 backward 的时候，用 a1, a2, a3 算梯度
 
-但是 [[GPU]] 上存 activation 很贵，尤其是大模型训练里，activation memory 非常大。
+但是 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 上存 activation 很贵，尤其是大模型训练里，activation memory 非常大。
 
 recomputation 的做法就是不存 a1, a2, a3，只存必要的东西，然后在 backward 的时候，需要 a1 的时候，从 x 重新算 a1；需要 a2 的时候，再重新算 a2
 

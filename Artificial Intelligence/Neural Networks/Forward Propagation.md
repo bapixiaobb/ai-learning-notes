@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #ComputationalGraph
 
->[!note]
+>**Note**
 > **Forward Propagation** 是指在 neural network 或 computational graph 中，从输入开始，按照模型结构一层一层向前计算，得到预测结果和 loss 的过程。
 
 ## 基本形式
@@ -39,7 +39,7 @@ z_2 = W_2a_1 + b_2
 
 - $W_1, W_2$ 是 weight matrices
 - $b_1, b_2$ 是 biases
-- $\sigma$ 是 [[Activation Function]]
+- $\sigma$ 是 [Activation Function](<./Activation%20Function.md>)
 - $\mathcal{L}$ 是 loss
 
 
@@ -47,36 +47,36 @@ z_2 = W_2a_1 + b_2
 
   
 
->[!note]
+>**Note**
 > Forward propagation 就是用当前参数做一次预测，并计算预测结果有多差。
-> 
+>
 > input  
 > → model  
 > → prediction  
 > → loss
 
 
->[!question]  
+>**Question**
 > 在当前参数 $\theta$ 下，模型预测得怎么样？
 
 ## 在 Language Model 中
 
   
 
->[!note]
-> 在 [[Language Modeling]] 中，forward propagation 通常可以理解为：
-> 
+>**Note**
+> 在 [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 中，forward propagation 通常可以理解为：
+>
 > tokens  
-> → [[Embedding]]  
-> → [[Transformer]]  
+> → [Embedding](<../Transformer/Embedding.md>)  
+> → [Transformer](<../Transformer/Transformer.md>)  
 > → logits  
-> → [[Softmax]]  
+> → [Softmax](<../Transformer/Softmax.md>)  
 > → next-token probability  
-> → [[Cross Entropy Loss]]
+> → [Cross Entropy Loss](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 ## **Related**
 
-- [[Neural Network]]
-- [[Backward Propagation]]
-- [[Activation Function]]
-- [[Loss Function]]
-- [[Transformer]] 
+- [Neural Network](<./Neural%20Network.md>)
+- Backward Propagation
+- [Activation Function](<./Activation%20Function.md>)
+- Loss Function
+- [Transformer](<../Transformer/Transformer.md>)

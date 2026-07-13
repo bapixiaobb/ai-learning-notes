@@ -1,11 +1,11 @@
 #DeepLearning #NeuralNetwork #Transformer #Architecture #LanguageModeling
 
 Residual Stream 指 Transformer 中贯穿所有 layers 的主 hidden state 流。  
-它可以理解为每个 token position 当前拥有的 representation，而每个 [[Transformer Block]] 都在这个主 representation 上添加新的更新量。
+它可以理解为每个 token position 当前拥有的 representation，而每个 [Transformer Block](<./Transformer%20Block.md>) 都在这个主 representation 上添加新的更新量。
 
 ## 🧠 Core Idea
 
->[!note]
+>**Note**
 >Residual Stream 是 Transformer 中 hidden states 的主数据流。
 >
 >每一层的 attention 和 MLP 并不是完全重写 token representation，而是向 residual stream 中加入新的信息。
@@ -34,10 +34,10 @@ X^{(\ell)}
 - $\Delta^{(\ell)}$ 是 attention 或 MLP 计算出的更新量；
 - $X^{(\ell+1)}$ 是更新后的 residual stream。
 
->[!important]
+>**Important**
 >Residual Stream 不是一个额外的 layer，也不是一个独立模块。
 >
->它是多个 [[Residual Connection]] 串联后形成的主 hidden state 路径。
+>它是多个 [Residual Connection](<./Residual%20Connection.md>) 串联后形成的主 hidden state 路径。
 
 ## 🧩 Why It Exists
 
@@ -65,19 +65,19 @@ X^{(L)}
 
 而不是重新生成整个 hidden representation。
 
->[!note]
+>**Note**
 >可以把 residual stream 理解成一个不断被编辑的“工作记忆”。
 >
 >每个 block 读取当前 hidden states，计算新的信息，然后把这些信息加回主流中。
 
 ## 🏗️ Residual Stream in Transformer Block
 
-在 modern [[Decoder-Only Transformer]] 中，一个 [[Transformer Block]] 通常有两次 residual update：
+在 modern [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 中，一个 [Transformer Block](<./Transformer%20Block.md>) 通常有两次 residual update：
 
 1. attention update；
 2. MLP update。
 
-以 [[Pre-Norm Transformer]] 为例：
+以 [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) 为例：
 
 ```math
 A^{(\ell)}
@@ -129,7 +129,7 @@ M^{(\ell)}
 
 ### Attention Update
 
-[[Self-Attention]] 读取当前 residual stream 中所有 token positions 的信息，计算 token mixing 的结果：
+[Self-Attention](<./Self-Attention.md>) 读取当前 residual stream 中所有 token positions 的信息，计算 token mixing 的结果：
 
 ```math
 A^{(\ell)}
@@ -150,12 +150,12 @@ X^{(\ell)}
 A^{(\ell)}
 ```
 
->[!note]
+>**Note**
 >Attention update 的作用是把 context information 写入每个 token representation。
 
 ### MLP Update
 
-[[MLP]] 读取 attention 更新后的 residual stream，对每个 token position 独立做 nonlinear transformation：
+[MLP](<./MLP.md>) 读取 attention 更新后的 residual stream，对每个 token position 独立做 nonlinear transformation：
 
 ```math
 M^{(\ell)}
@@ -176,7 +176,7 @@ X^{(\ell+1)}
 M^{(\ell)}
 ```
 
->[!note]
+>**Note**
 >MLP update 的作用是把 per-token nonlinear features 写入 residual stream。
 >
 >它不负责 token positions 之间的信息交换；token mixing 主要由 attention 完成。
@@ -213,7 +213,7 @@ T \times d_{\text{model}}
 T \times d_{\text{model}}
 ```
 
->[!note]
+>**Note**
 >这个 shape invariant 让多个 Transformer blocks 可以直接堆叠。
 >
 >每个 block 都读取同样 shape 的 residual stream，并输出同样 shape 的 residual stream。
@@ -246,7 +246,7 @@ x_t^{(\ell)}
 - $\Delta_t^{(\ell)}$ 是这一层写入的新信息；
 - $x_t^{(\ell+1)}$ 是更新后的 token representation。
 
->[!note]
+>**Note**
 >随着 layers 加深，每个 token 的 residual stream 会逐渐编码更多上下文信息。
 >
 >在 decoder-only LM 中，位置 $t$ 的 representation 最终用于预测下一个 token。
@@ -260,18 +260,18 @@ x_t^{(\ell)}
 | hidden states | 某一层输出的 token representations |
 | residual stream | 贯穿多个 layers、被 residual updates 不断修改的主数据流 |
 
->[!note]
+>**Note**
 >可以把每一层的 hidden states 看成 residual stream 在某个深度上的状态。
 >
 >Residual stream 强调的是“同一个主表示流被逐层更新”的视角。
 
 ## ⚖️ Residual Stream vs Residual Connection
 
-Residual Stream 和 [[Residual Connection]] 相关，但不是同一个概念。
+Residual Stream 和 [Residual Connection](<./Residual%20Connection.md>) 相关，但不是同一个概念。
 
 | Concept | Meaning |
 |---|---|
-| [[Residual Connection]] | 具体的加法结构：$x + F(x)$ |
+| [Residual Connection](<./Residual%20Connection.md>) | 具体的加法结构：$x + F(x)$ |
 | Residual Stream | 多个 residual connections 串起来后形成的主 hidden state 流 |
 
 例如：
@@ -284,7 +284,7 @@ x
 F(x)
 ```
 
-这里的加法是 [[Residual Connection]]。
+这里的加法是 [Residual Connection](<./Residual%20Connection.md>)。
 
 而在整个 Transformer 中：
 
@@ -300,7 +300,7 @@ X^{(L)}
 
 这条不断被更新的路径就是 Residual Stream。
 
->[!important]
+>**Important**
 >Residual connection 是局部结构。
 >
 >Residual stream 是全局数据流视角。
@@ -323,9 +323,9 @@ X^{(L)}
 \text{layer L updates}
 ```
 
-最终的 residual stream 再被 [[Language Modeling Head]] 映射到 logits。
+最终的 residual stream 再被 Language Modeling Head 映射到 logits。
 
->[!note]
+>**Note**
 >从这个角度看，Transformer 的每一层都在逐步编辑 token representation。
 >
 >最终 logits 不是某一层单独产生的，而是所有层对 residual stream 的累积更新结果。
@@ -340,7 +340,7 @@ X^{(L)}
 
 ## 🧠 Residual Stream in Decoder-Only LM
 
-在 [[Decoder-Only Transformer]] 中，residual stream 有一个特别重要的约束：  
+在 [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 中，residual stream 有一个特别重要的约束：  
 第 $t$ 个 token position 的 residual stream 不能包含 future tokens 的信息。
 
 也就是说：
@@ -357,12 +357,12 @@ x_{\leq t}^{(0)}
 x_{>t}^{(0)}
 ```
 
-这个因果约束由 [[Causal Attention]] 和 [[Causal Mask]] 保证。
+这个因果约束由 [Causal Attention](<./Causal%20Attention.md>) 和 [Causal Mask](<./Causal%20Mask.md>) 保证。
 
->[!note]
+>**Note**
 >因此，在 decoder-only LM 中，每个位置最终的 residual stream 都是 prefix representation。
 >
->这个 representation 再经过 [[Language Modeling Head]] 预测 next token。
+>这个 representation 再经过 Language Modeling Head 预测 next token。
 
 ## 🔄 Forward Pass View
 
@@ -370,24 +370,24 @@ x_{>t}^{(0)}
 
 粗略地说：
 
-1. token ids 经过 [[Token Embedding]] 得到初始 residual stream；
-2. 每个 [[Transformer Block]] 读取 residual stream；
+1. token ids 经过 [Token Embedding](<./Token%20Embedding.md>) 得到初始 residual stream；
+2. 每个 [Transformer Block](<./Transformer%20Block.md>) 读取 residual stream；
 3. attention branch 向 residual stream 写入 token-mixing information；
 4. MLP branch 向 residual stream 写入 nonlinear feature information；
 5. 最终 residual stream 经过 final norm 和 output head 变成 logits。
 
->[!note]
+>**Note**
 >Forward pass 不是只沿着 attention branch 走。
 >
 >Attention 和 MLP 都是在 residual stream 上做更新。
 
-这和 [[Forward Pass in Transformer]] 直接相关。
+这和 [Forward Pass in Transformer](<./Forward%20Pass%20in%20Transformer.md>) 直接相关。
 
 ## 🚫 Common Confusions
 
 ### 1. Residual Stream 不是 residual error
 
->[!warning]
+>**Warning**
 >Residual stream 里的 residual 不是 regression 里的 residual error。
 >
 >这里的 residual 指的是 residual connection，也就是保留原输入并加上一个 learned update。
@@ -405,7 +405,7 @@ x + F(x)
 ```
 
 这两个概念不应该混在一起。  
-更详细的区别见 [[Residual Connection vs Regression Residual]]。
+更详细的区别见 [Residual Connection vs Regression Residual](<./Residual%20Connection%20vs%20Regression%20Residual.md>)。
 
 ### 2. Residual Stream 不是 attention output
 
@@ -443,25 +443,25 @@ Residual stream 是这些参数作用在输入 token sequence 上产生的 hidde
 
 ---
 
->[!summary] My Understanding
+>**Summary** — My Understanding
 >Residual Stream 是 Transformer 中贯穿所有 blocks 的主 hidden state 流。
 >
->每个 block 都会读取当前 residual stream，然后通过 attention 和 MLP 计算更新量，再用 [[Residual Connection]] 把这些更新量加回去。
+>每个 block 都会读取当前 residual stream，然后通过 attention 和 MLP 计算更新量，再用 [Residual Connection](<./Residual%20Connection.md>) 把这些更新量加回去。
 >
 >因此，Transformer 不是每层完全重写 representation，而是不断在已有 representation 上添加信息。
 >
 >理解 residual stream 的关键是：
 >
->**[[Residual Connection]] 是局部的加法结构，Residual Stream 是这些加法结构串联起来后形成的全局信息流。**
+>**[Residual Connection](<./Residual%20Connection.md>) 是局部的加法结构，Residual Stream 是这些加法结构串联起来后形成的全局信息流。**
 
 ## 🔗 Connections
 
-- [[Transformer]]
-- [[Transformer Block]]
-- [[Decoder-Only Transformer]]
-- [[Forward Pass in Transformer]]
-- [[Residual Connection]]
-- [[Residual Connection vs Regression Residual]]
-- [[Self-Attention]]
-- [[MLP]]
-- [[Normalization]]
+- [Transformer](<./Transformer.md>)
+- [Transformer Block](<./Transformer%20Block.md>)
+- [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>)
+- [Forward Pass in Transformer](<./Forward%20Pass%20in%20Transformer.md>)
+- [Residual Connection](<./Residual%20Connection.md>)
+- [Residual Connection vs Regression Residual](<./Residual%20Connection%20vs%20Regression%20Residual.md>)
+- [Self-Attention](<./Self-Attention.md>)
+- [MLP](<./MLP.md>)
+- [Normalization](<./Normalization.md>)

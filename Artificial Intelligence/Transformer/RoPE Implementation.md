@@ -1,8 +1,8 @@
 #LanguageModeling #Transformer #PositionEncoding #Implementation
 
-这张卡记录 [[Rotary Position Embedding]] 的 implementation 思路。概念直觉见 [[Rotary Position Embedding]]。
+这张卡记录 [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) 的 implementation 思路。概念直觉见 [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)。
 
->[!note]
+>**Note**
 > RoPE implementation 的核心是: 沿最后一维拆 even / odd columns, 对每一对 hidden dimensions 套二维旋转公式, 再拼回原 shape。
 
 ## Input Shape
@@ -34,7 +34,7 @@ seq_len = token rows
 d_k     = 每个 query/key vector 的 hidden dimension columns
 ```
 
->[!important]
+>**Important**
 > RoPE 拆的是最后一维 $d_k$, 不是拆 sequence/token 这一维。
 
 ## Even / Odd 拆法
@@ -139,7 +139,7 @@ sin = torch.sin(angles)
 
 ## 写法 1: 显式拆 Even / Odd
 
->[!note]
+>**Note**
 > 这个写法最接近二维旋转公式, 适合理解。
 
 ```python
@@ -185,7 +185,7 @@ b' = a\sin\alpha + b\cos\alpha
 
 ## 写法 2: rotate_half
 
->[!note]
+>**Note**
 > 这个写法更短, 本质上是把 even / odd 的正负号打包进 `rotate_half`。
 
 ```python
@@ -285,8 +285,8 @@ self.register_buffer("cos_cached", cos, persistent=False)
 self.register_buffer("sin_cached", sin, persistent=False)
 ```
 
->[!note]
-> Buffer 会跟着 module `.to(device)` 移动, 但不会被 [[Optimizer]] 更新。
+>**Note**
+> Buffer 会跟着 module `.to(device)` 移动, 但不会被 [Optimizer](<./Optimizer.md>) 更新。
 >
 > `persistent=False` 表示它不存进 `state_dict`, 因为 cos/sin 可以重新计算出来。
 
@@ -305,7 +305,7 @@ self.register_buffer("sin_cached", torch.sin(angles), persistent=False)
 
 ## Self Check
 
->[!tip]
+>**Tip**
 > 1. Position 0 应该是恒等变换: angle = 0, cos = 1, sin = 0, 输出等于输入。
 > 2. 输出 shape 应该和输入 shape 完全一样。
 > 3. 拆的是最后一维 columns, 不是 token rows。
@@ -313,7 +313,7 @@ self.register_buffer("sin_cached", torch.sin(angles), persistent=False)
 
 ## Related
 
-- [[Rotary Position Embedding]]
-- [[Query Key Value]]
-- [[Self-Attention]]
-- [[Positional Encoding]]
+- [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)
+- [Query Key Value](<./Query%20Key%20Value.md>)
+- [Self-Attention](<./Self-Attention.md>)
+- [Positional Encoding](<./Positional%20Encoding.md>)

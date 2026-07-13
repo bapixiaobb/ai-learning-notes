@@ -5,10 +5,10 @@ MLP 是 multilayer perceptron。
 
 ## 🧠 Core Idea
 
->[!note]
+>**Note**
 >在 Transformer 中：
 >
->- [[Self-Attention]] 负责 token positions 之间的信息交换；
+>- [Self-Attention](<./Self-Attention.md>) 负责 token positions 之间的信息交换；
 >- MLP 负责对每个 token representation 做 nonlinear processing。
 
 给定一个 token hidden vector：
@@ -57,7 +57,7 @@ MLP 输出仍然是：
 \mathbb{R}^{T \times d_{\text{model}}}
 ```
 
->[!important]
+>**Important**
 >MLP 不改变 sequence length。
 >
 >它对每个 token position 独立作用，不负责 token mixing。
@@ -94,11 +94,11 @@ class TransformerMLP(nn.Module):
 
 ## **🦙 SwiGLU Variant**
 
-Modern LLM 中常见的是 [[SwiGLU]] MLP。
+Modern LLM 中常见的是 [SwiGLU](<./SwiGLU.md>) MLP。
 
 ---
 
->[!summary]  My Understanding
+>**Summary** — My Understanding
 >MLP 在 Transformer block 中负责 per-token nonlinear transformation。
 >
 >它不做 token mixing，而是对每个 token 的 hidden vector 独立作用。
@@ -115,11 +115,11 @@ d_{\text{model}}
 
 ## **🔗 Connections**
 
-- [[Transformer Block]]
-- [[Feed-Forward Network]] 
-- [[Activation Function]]
-- [[GELU]]
-- [[SwiGLU]]
-- [[Residual Connection]]
-- [[Residual Stream]]
-- [[Model Architecture]]
+- [Transformer Block](<./Transformer%20Block.md>)
+- [Feed-Forward Network](<../Neural%20Networks/Feed-Forward%20Network.md>)
+- [Activation Function](<../Neural%20Networks/Activation%20Function.md>)
+- GELU
+- [SwiGLU](<./SwiGLU.md>)
+- [Residual Connection](<./Residual%20Connection.md>)
+- [Residual Stream](<./Residual%20Stream.md>)
+- [Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)

@@ -5,8 +5,8 @@ Decoder-Only Transformer 是只保留 Transformer decoder 主干的一类 Transf
 
 ## 🧠 Core Idea
 
->[!note]
->[[Decoder-Only Transformer]] 的核心是：
+>**Note**
+>[Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 的核心是：
 >
 >用 causal self-attention 建模 token prefix，并根据 prefix 预测下一个 token。
 >
@@ -25,7 +25,7 @@ p_\theta(x_t \mid x_{<t})
 
 ## 🧭 Why “Decoder-Only”?
 
-“Decoder-only” 这个名字来自 [[Original Transformer]] 的 encoder-decoder 结构。
+“Decoder-only” 这个名字来自 [Original Transformer](<./Original%20Transformer.md>) 的 encoder-decoder 结构。
 
 Original Transformer 包含：
 
@@ -53,20 +53,20 @@ Original Transformer 包含：
 - normalization；
 - language modeling output head。
 
->[!important]
+>**Important**
 >现代 GPT / LLaMA-style model 虽然叫 decoder-only，但它不等于直接复制 Original Transformer 的 decoder。
 >
->它通常去掉了 encoder-decoder cross-attention，并采用 modern LLM 的 architecture choices，例如 [[RMSNorm]]、[[Rotary Position Embedding]]、[[SwiGLU]]、[[Pre-Norm Transformer]] 等。
+>它通常去掉了 encoder-decoder cross-attention，并采用 modern LLM 的 architecture choices，例如 [RMSNorm](<./RMSNorm.md>)、[Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)、[SwiGLU](<./SwiGLU.md>)、[Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) 等。
 
 ## 🧱 Relation to Original Transformer
 
-在 [[Original Transformer]] 中，decoder block 通常包含三部分：
+在 [Original Transformer](<./Original%20Transformer.md>) 中，decoder block 通常包含三部分：
 
 1. masked self-attention；
 2. encoder-decoder cross-attention；
 3. feed-forward network。
 
-而 [[Decoder-Only Transformer]] 通常只保留：
+而 [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 通常只保留：
 
 1. causal self-attention；
 2. feed-forward / MLP；
@@ -82,9 +82,9 @@ Original Transformer 包含：
 | FFN / MLP                      | yes                          | yes                       |
 | residual connection            | yes                          | yes                       |
 | normalization                  | yes                          | yes                       |
-| output head                    | target vocabulary prediction | [[Next-token prediction]] |
+| output head                    | target vocabulary prediction | [Next-token prediction](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) |
 
->[!note]
+>**Note**
 >所以 decoder-only 的关键不是“只用 decoder 这张图”，而是：
 >
 >它只保留适合 autoregressive generation 的 causal self-attention 主线。
@@ -137,7 +137,7 @@ p_\theta(x_{t+1} \mid x_{\leq t})
 
 ## 🎭 Causal Self-Attention
 
-Decoder-only Transformer 的关键是 [[Causal Attention]]。
+Decoder-only Transformer 的关键是 [Causal Attention](<./Causal%20Attention.md>)。
 
 在第 $t$ 个位置，模型只能 attend to 当前和之前的位置：
 
@@ -153,12 +153,12 @@ h_1, h_2, \dots, h_t
 h_{t+1}, h_{t+2}, \dots, h_T
 ```
 
-这通过 [[Causal Mask]] 实现。
+这通过 [Causal Mask](<./Causal%20Mask.md>) 实现。
 
->[!note]
+>**Note**
 >Causal mask 保证模型不会偷看 future tokens。
 >
->这使 decoder-only Transformer 和 [[Next Token Prediction]] 的训练目标匹配。
+>这使 decoder-only Transformer 和 Next Token Prediction 的训练目标匹配。
 
 注意这里的 “decoder” 不是在说模型一定有 encoder-decoder translation setting。  
 在 GPT / LLaMA-style language model 中，整个输入都被看作一个 autoregressive token stream。
@@ -186,12 +186,12 @@ x_{\text{out}}
 x' + \mathrm{MLP}(\mathrm{Norm}(x'))
 ```
 
->[!note]
->[[Transformer Block]] 是 decoder-only Transformer 的核心重复单元。
+>**Note**
+>[Transformer Block](<./Transformer%20Block.md>) 是 decoder-only Transformer 的核心重复单元。
 >
 >多个 blocks 堆叠后，模型逐层更新每个 token position 的 hidden representation。
 
-这条主 hidden state 流动路径经常被称为 [[Residual Stream]]。
+这条主 hidden state 流动路径经常被称为 [Residual Stream](<./Residual%20Stream.md>)。
 
 ## 🔁 Training Data Flow
 
@@ -218,7 +218,7 @@ x' + \mathrm{MLP}(\mathrm{Norm}(x'))
 | 3 | $x_1, x_2, x_3$ | $x_4$ |
 | 4 | $x_1, x_2, x_3, x_4$ | $x_5$ |
 
->[!note]
+>**Note**
 >训练时所有 positions 可以并行计算 loss。
 >
 >虽然模型在每个位置只能看到 prefix，但矩阵计算可以一次性处理整个 sequence；causal mask 负责屏蔽 future positions。
@@ -253,12 +253,12 @@ x_1, x_2, \dots, x_T, x_{T+1}
 p_\theta(x_{T+2} \mid x_{\leq T+1})
 ```
 
->[!note]
+>**Note**
 >训练时可以并行计算多个 positions 的 loss；推理时生成过程通常是 sequential 的。
 >
->这就是 [[Training vs Inference]] 在 decoder-only Transformer 中最重要的区别之一。
+>这就是 [Training vs Inference](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 在 decoder-only Transformer 中最重要的区别之一。
 
-为了避免每一步重复计算所有 previous tokens，推理时通常使用 [[KV Cache]]。
+为了避免每一步重复计算所有 previous tokens，推理时通常使用 KV Cache。
 
 ## 🔢 Attention Mask Shape
 
@@ -276,12 +276,12 @@ M =
 
 第 $t$ 行表示第 $t$ 个 token 可以 attend to 哪些 positions。
 
->[!note]
+>**Note**
 >这个 mask 的含义是：
 >
 >第 $t$ 个位置只能看见 $1,\dots,t$，不能看见 $t+1,\dots,T$。
 
-在实际实现中，mask 通常加到 attention scores 上，把 future positions 的 score 变成 $-\infty$，使 [[Softmax]] 后权重为 0。
+在实际实现中，mask 通常加到 attention scores 上，把 future positions 的 score 变成 $-\infty$，使 [Softmax](<./Softmax.md>) 后权重为 0。
 
 ## 🦙 Llama-style Decoder-Only Transformer
 
@@ -291,15 +291,15 @@ M =
 
 | Component | Common Choice |
 |---|---|
-| overall structure | [[Decoder-Only Transformer]] |
-| attention | [[Causal Attention]] |
-| position information | [[Rotary Position Embedding]] |
-| normalization | [[RMSNorm]] |
-| block layout | [[Pre-Norm Transformer]] |
-| MLP activation | [[SwiGLU]] |
-| attention variant | [[Grouped Query Attention]] in many modern models |
+| overall structure | [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) |
+| attention | [Causal Attention](<./Causal%20Attention.md>) |
+| position information | [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) |
+| normalization | [RMSNorm](<./RMSNorm.md>) |
+| block layout | [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) |
+| MLP activation | [SwiGLU](<./SwiGLU.md>) |
+| attention variant | Grouped Query Attention in many modern models |
 
->[!note]
+>**Note**
 >Llama-style architecture 可以理解为 modern decoder-only Transformer 的一组 common design choices。
 >
 >它不是 Original Transformer decoder 的简单复制，而是经过多次 architecture evolution 后形成的现代结构范式。
@@ -308,11 +308,11 @@ M =
 
 | Architecture                    | Attention Pattern                                        | Typical Objective         | Typical Use                             |
 | ------------------------------- | -------------------------------------------------------- | ------------------------- | --------------------------------------- |
-| [[Encoder-Only Transformer]]    | bidirectional self-attention                             | masked language modeling  | representation learning, classification |
-| [[Decoder-Only Transformer]]    | causal self-attention                                    | [[Next-token prediction]] | autoregressive generation, LLMs         |
-| [[Encoder-Decoder Transformer]] | encoder bidirectional + decoder causal + cross-attention | conditional generation    | translation, summarization              |
+| Encoder-Only Transformer    | bidirectional self-attention                             | masked language modeling  | representation learning, classification |
+| [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>)    | causal self-attention                                    | [Next-token prediction](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) | autoregressive generation, LLMs         |
+| Encoder-Decoder Transformer | encoder bidirectional + decoder causal + cross-attention | conditional generation    | translation, summarization              |
 
->[!important]
+>**Important**
 >Decoder-only Transformer 适合 generation，因为它的 causal structure 和 autoregressive factorization 一致。
 >
 >Encoder-only Transformer 更适合理解输入；encoder-decoder Transformer 更适合 source-to-target conditional generation。
@@ -323,14 +323,14 @@ M =
 
 它的优势包括：
 
-- 训练目标简单：[[Next-token prediction]]；
+- 训练目标简单：[Next-token prediction](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)；
 - 数据形式统一：任意 text 都可以看成 token stream；
 - inference 形式自然：不断生成下一个 token；
 - architecture 相对简洁：没有 encoder 和 cross-attention；
 - scale-up 路径清晰：增加 layers、width、data、compute；
 - 可以通过 prompt 把很多任务统一成 text continuation。
 
->[!note]
+>**Note**
 >Decoder-only Transformer 的强大之处在于：
 >
 >它把很多 NLP tasks 都转化成了同一种形式：
@@ -341,31 +341,31 @@ M =
 
 ---
 
->[!summary] My Understanding
->[[Decoder-Only Transformer]] 是 modern autoregressive LLM 的主流 architecture。
+>**Summary** — My Understanding
+>[Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 是 modern autoregressive LLM 的主流 architecture。
 >
->它来自 [[Original Transformer]] 的 decoder side，但通常去掉了 encoder 和 cross-attention，只保留 causal self-attention + MLP + residual + normalization 的主干。
+>它来自 [Original Transformer](<./Original%20Transformer.md>) 的 decoder side，但通常去掉了 encoder 和 cross-attention，只保留 causal self-attention + MLP + residual + normalization 的主干。
 >
->它的核心约束是：每个 token position 只能看见 prefix，因此天然适合 [[Next Token Prediction]]。
+>它的核心约束是：每个 token position 只能看见 prefix，因此天然适合 Next Token Prediction。
 >
->GPT / LLaMA-style models 可以理解为 decoder-only Transformer 加上一组 modern architecture choices，例如 [[RMSNorm]]、[[Rotary Position Embedding]]、[[SwiGLU]] 和 [[Grouped Query Attention]]。
+>GPT / LLaMA-style models 可以理解为 decoder-only Transformer 加上一组 modern architecture choices，例如 [RMSNorm](<./RMSNorm.md>)、[Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)、[SwiGLU](<./SwiGLU.md>) 和 Grouped Query Attention。
 
 ## 🔗 Connections
 
-- [[Transformer]]
-- [[Transformer Family]]
-- [[Original Transformer]]
-- [[Encoder-Only Transformer]] 
-- [[Llama-style Architecture]]
-- [[Language Model Architecture]]
-- [[Model Architecture]]
-- [[Self-Attention]]
-- [[Transformer Block]]
-- [[Residual Stream]]
-- [[MLP]]
-- [[Normalization]]
-- [[RMSNorm]]
-- [[Rotary Position Embedding]]
-- [[Grouped Query Attention]]
-- [[KV Cache]]
-- [[Training vs Inference]]
+- [Transformer](<./Transformer.md>)
+- [Transformer Family](<./Transformer%20Family.md>)
+- [Original Transformer](<./Original%20Transformer.md>)
+- Encoder-Only Transformer
+- [Llama-style Architecture](<./Llama-style%20Architecture.md>)
+- [Language Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
+- [Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
+- [Self-Attention](<./Self-Attention.md>)
+- [Transformer Block](<./Transformer%20Block.md>)
+- [Residual Stream](<./Residual%20Stream.md>)
+- [MLP](<./MLP.md>)
+- [Normalization](<./Normalization.md>)
+- [RMSNorm](<./RMSNorm.md>)
+- [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)
+- Grouped Query Attention
+- KV Cache
+- [Training vs Inference](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)

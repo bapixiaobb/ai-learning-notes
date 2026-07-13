@@ -1,24 +1,24 @@
-#AI #LanguageModeling 
+#AI #LanguageModeling
 
-[[Flash Attention]] 中的 [[Softmax]] 
+[Flash Attention](<./Flash%20Attention.md>) 中的 [Softmax](<./Softmax.md>)
 
->[!note] Online softmax
+>**Note** — Online softmax
 >To keep track of the max, incrementally update the max, and set up a telescoping sum
 >This lets you compute the softmax tile-by-tile
 
-![[online softmax.png]]
+![online softmax.png](<./online%20softmax.png>)
 
 一边扫 tile，一边更新：当前见过的最大值 $\max$，当前积累的 $\sum e$，当前累积的输出 $O$。
 当新的 tile 里出现更大的 $\max$ 时，就把之前的累积量按比例 rescale
 
 # Implementation
 
-在 [[Query Key Value]] 中
+在 [Query Key Value](<./Query%20Key%20Value.md>) 中
 ```math
 \mathrm{softmax}(\frac{QK^\top}{\sqrt{d}})V
 ```
 
-在 [[Flash Attention]] 中 online softmax 输入一般接收的是 `qkVecTile`，我们设 `scoreTile = qkVecTile` `scale = 1 / sqrt(d)`
+在 [Flash Attention](<./Flash%20Attention.md>) 中 online softmax 输入一般接收的是 `qkVecTile`，我们设 `scoreTile = qkVecTile` `scale = 1 / sqrt(d)`
 
 ```math
 \rightarrow\frac{QK^\top}{\sqrt{d}}=\text{scoreTile}\times scale=(s_i \times scale)
@@ -217,7 +217,7 @@ def online_softmax_attention(score_tiles, value_tiles, scale):
 O =\frac{\sum (e^{(score_i * scale - M)} * V_i )}{\sum e^{(score_i * scale - M)} }
 ```
 
-[[Flash Attention]] / online softmax 就是把它拆成两条累计线：
+[Flash Attention](<./Flash%20Attention.md>) / online softmax 就是把它拆成两条累计线：
 
 ```
 分子累计:
@@ -228,5 +228,5 @@ L = Σ [ exp(score_i * scale - M) ]
 ```
 因为最终的 M 一开始不知道，所以每来一个 tile 都会 rescale `N` 和 `L`，最后才做：`O = N / L
 `
-❌ 所以不是每个 tile 都算一个局部 softmax 
+❌ 所以不是每个 tile 都算一个局部 softmax
 ✅ 而是把 softmax 的计算和，外面的 `* V_i` 揉在一起，最后再归一化

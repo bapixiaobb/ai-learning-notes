@@ -1,7 +1,7 @@
 
 #DeepLearning #Systems #FLOPs
 
->[!note]
+>**Note**
 > **MFU** 是 **Model FLOPs Utilization**，表示模型训练时实际使用了硬件理论峰值算力的比例。
 >
 > 它用来衡量 deep learning training system 的计算效率。
@@ -21,10 +21,10 @@
 
 ## 直觉
 
->[!note]
+>**Note**
 > MFU 回答的问题是：硬件理论上可以这么快，但训练这个模型时我们实际用了多少？
 >
-> 如果 MFU 很低，说明 [[GPU]] /TPU 的计算单元没有被充分利用。（50%以上算不错的）
+> 如果 MFU 很低，说明 [GPU](<./GPU.md>) /TPU 的计算单元没有被充分利用。（50%以上算不错的）
 
 例如：
 
@@ -50,7 +50,7 @@
 
 ## 为什么重要
 
->[!note]
+>**Note**
 > 大模型训练不仅关心总 FLOPs，还关心这些 FLOPs 能不能高效地跑在硬件上。
 >
 > 同样的训练计算量，如果 MFU 更高，训练时间和成本就更低。
@@ -64,8 +64,8 @@ MFU 可以帮助判断：
 
 ## 与 FLOPs 的关系
 
->[!note]
-> [[FLOPs]] 表示总计算量；MFU 表示这些计算在硬件上执行得有多高效。
+>**Note**
+> [FLOPs](<./FLOPs.md>) 表示总计算量；MFU 表示这些计算在硬件上执行得有多高效。
 
 如果训练总计算量是：
 
@@ -106,7 +106,7 @@ R
 
 ## 为什么 MFU 会低
 
->[!note]
+>**Note**
 > MFU 低通常不是因为模型“计算量不够”，而是因为系统中有其他瓶颈导致计算单元等待。
 
 常见原因包括：
@@ -120,10 +120,10 @@ R
 - data loading bottleneck
 - parallelism strategy 不合理
 
-## 与 [[Arithmetic Intensity]] 的关系
+## 与 [Arithmetic Intensity](<./Arithmetic%20Intensity.md>) 的关系
 
->[!note]
-> 如果一个 workload 的 Arithmetic Intensity 太低，它可能是 [[GPU Memory Bound]]，导致硬件计算单元吃不满，从而降低 MFU。
+>**Note**
+> 如果一个 workload 的 Arithmetic Intensity 太低，它可能是 [GPU Memory Bound](<./GPU%20Memory%20Bound.md>)，导致硬件计算单元吃不满，从而降低 MFU。
 
 判断 bottleneck 时常比较：
 
@@ -147,12 +147,12 @@ I_{\text{accel}}
 I_{\text{arith}} < I_{\text{accel}}
 ```
 
-则 workload 更可能 [[GPU Memory Bound]]，MFU 往往较低。
+则 workload 更可能 [GPU Memory Bound](<./GPU%20Memory%20Bound.md>)，MFU 往往较低。
 
 ## 与 Resource Accounting 的关系
 
->[!note]
-> 在 [[Resource Accounting]] 中，MFU 用来把理论 compute estimate 转换成实际训练时间估计。
+>**Note**
+> 在 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 中，MFU 用来把理论 compute estimate 转换成实际训练时间估计。
 >
 > 仅知道训练需要多少 FLOPs 不够，还需要知道系统能以多高的有效 FLOP/s 执行这些计算。
 
@@ -172,7 +172,7 @@ I_{\text{arith}} < I_{\text{accel}}
 
 ## Related
 
-- [[Resource Accounting]]
-- [[FLOPs]]
-- [[Training Compute - 6ND]]
-- [[Deep Learning Systems]]
+- [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+- [FLOPs](<./FLOPs.md>)
+- [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
+- [Deep Learning Systems](<./Deep%20Learning%20Systems.md>)

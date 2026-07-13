@@ -74,8 +74,8 @@ x \mapsto \operatorname{ReLU}(Wx + b)
 
 ## **Related**
 
-- [[Neural Network]]
-- [[Deep Learning]]
-- [[Activation Function]] 
-- [[Forward Propagation]]
-- [[Backward Propagation]] 
+- [Neural Network](<../Neural%20Networks/Neural%20Network.md>)
+- [Deep Learning](<../Neural%20Networks/Deep%20Learning.md>)
+- [Activation Function](<../Neural%20Networks/Activation%20Function.md>)
+- [Forward Propagation](<../Neural%20Networks/Forward%20Propagation.md>)
+- Backward Propagation

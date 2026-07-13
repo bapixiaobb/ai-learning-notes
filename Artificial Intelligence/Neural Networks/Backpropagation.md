@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Optimization #ComputationalGraph
 
-Backpropagation 是从 loss 出发，沿 [[Computational Graph]] 反向应用 chain rule，计算 loss 对模型参数 gradients 的过程。
+Backpropagation 是从 loss 出发，沿 Computational Graph 反向应用 chain rule，计算 loss 对模型参数 gradients 的过程。
 
 它负责**计算梯度**，不负责更新参数。
 
@@ -100,14 +100,14 @@ optimizer.zero_grad()
 
 ## Backpropagation vs Optimizer
 
-> [!important]  
-> Backpropagation 和 [[Optimizer]] 不是同一件事。
+> **Important**
+> Backpropagation 和 [Optimizer](<../Transformer/Optimizer.md>) 不是同一件事。
 
 Backpropagation 计算：
 
 $\nabla_\theta \mathcal{L}$
 
-Optimizer 使用这个 gradient 更新参数，例如 [[Gradient Descent]]：
+Optimizer 使用这个 gradient 更新参数，例如 Gradient Descent：
 
 $\theta \leftarrow \theta-\eta\nabla_\theta\mathcal{L}$
 
@@ -129,18 +129,18 @@ Embedding
 
 因此我们不需要为 Attention、RMSNorm 或 SwiGLU 手写 backward。
 
-为了进行 backward，PyTorch 通常需要保存 forward 中的中间 activations。[[Recomputation]] 或 activation checkpointing 会选择少保存一部分 activations，并在 backward 时重新计算，以交换 memory 和 compute。
+为了进行 backward，PyTorch 通常需要保存 forward 中的中间 activations。[Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>) 或 activation checkpointing 会选择少保存一部分 activations，并在 backward 时重新计算，以交换 memory 和 compute。
 
-> [!summary]  
+> **Summary**
 > Backpropagation 是在 computation graph 上反向应用 chain rule，计算 loss 对参数的 gradients。
-> 
+>
 > `loss.backward()` 计算并保存 gradients，`optimizer.step()` 才真正更新 parameters。
 
 ## Connections
 
-- [[Forward Propagation]]
-- [[Computational Graph]]
-- [[Automatic Differentiation]]
-- [[Optimizer]]
-- [[Gradient Descent]]
-- [[Recomputation]]
+- [Forward Propagation](<./Forward%20Propagation.md>)
+- Computational Graph
+- Automatic Differentiation
+- [Optimizer](<../Transformer/Optimizer.md>)
+- Gradient Descent
+- [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)

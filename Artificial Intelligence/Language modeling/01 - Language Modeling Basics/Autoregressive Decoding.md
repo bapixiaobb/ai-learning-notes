@@ -1,11 +1,11 @@
-#AI #LanguageModeling 
+#AI #LanguageModeling
 
 ## What is Decoding
 
-在 [[Training vs Inference]] 中有介绍 [[Language Modeling]] 里的两个步骤，先是训练模型。模型训练完成之后，我们可以从我们模型中生成 text
+在 [Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 中有介绍 [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 里的两个步骤，先是训练模型。模型训练完成之后，我们可以从我们模型中生成 text
 
-从 [[Transformer]] 最后一张图可以看出来，最后模型生成的是一个 `[batch, seq, vocab_size]` 这样的 matrix，每个 sequence position 都对应一个长度为 `vocab_size` 的 logits vector。它是未归一化分数，经过 Softmax 后才成为 [[Next-token prediction]] 的 distribution。
-![[TransformerLM.jpeg]]
+从 [Transformer](<../../Transformer/Transformer.md>) 最后一张图可以看出来，最后模型生成的是一个 `[batch, seq, vocab_size]` 这样的 matrix，每个 sequence position 都对应一个长度为 `vocab_size` 的 logits vector。它是未归一化分数，经过 Softmax 后才成为 [Next-token prediction](<./Next-token%20prediction.md>) 的 distribution。
+![TransformerLM.jpeg](<../../Transformer/TransformerLM.jpeg>)
 它完整的步骤是，输入 prompt 之后，根据这个 prompt 来预计 ▶️ token，也就是：
 
 ```math
@@ -29,7 +29,7 @@ x_1, \dots, x_T, x_{T+1}, x_{T+2}
 \rightarrow
 x_{T+3}
 ```
-从上面的步骤就可以看出，我们每次其实只需要最后一个 position 的 [[Next-token prediction]]. 
+从上面的步骤就可以看出，我们每次其实只需要最后一个 position 的 [Next-token prediction](<./Next-token%20prediction.md>).
 
 ## Single Decoding Step
 
@@ -42,9 +42,9 @@ logits = model(input_tensor)
 next_token_logits = logits[0, -1, :]
 ```
 
-得到最后一个 position 对下一个 token 的 logit 之后，我们需要把这个 logit 通过 [[Softmax]] 转换成概率分布
+得到最后一个 position 对下一个 token 的 logit 之后，我们需要把这个 logit 通过 [Softmax](<../../Transformer/Softmax.md>) 转换成概率分布
 
-假设 sequence $x_{1...t}$ 是我们的输入，输出是 $x_{t+1}$，那一个简易的 decoder 模型是 
+假设 sequence $x_{1...t}$ 是我们的输入，输出是 $x_{t+1}$，那一个简易的 decoder 模型是
 ```math
 P(x_{t+1}=i\mid x_{1:t})
 =
@@ -57,7 +57,7 @@ v=\operatorname{TransformerLM}(x_{1:t})[-1]
 ```
 ## Temperature scaling
 
-这是针对 [[Softmax]] 的一个简单的 scaling 小技巧
+这是针对 [Softmax](<../../Transformer/Softmax.md>) 的一个简单的 scaling 小技巧
 ```math
 \mathrm{softmax}
 =
@@ -85,14 +85,14 @@ Modify the sampling distribution by truncating low-probability tokens.
 ```math
 P(x_{t+1}=i|q)=\left\{\begin{matrix}
 \frac{q_i}{\sum_{j\in V(p)}q_j}   & \text{if }i\in V(p)  \\
- 0 & \text{otherwise} 
+ 0 & \text{otherwise}
 \end{matrix}\right.
 ```
 
 这个 $V(p)$ 是 smallest set of indices such that $\sum_{j\in V(p)}q_j\geq p$
 
 怎么解释呢，举一个例子
->[!example] 首先要排序，给定排序好的概率分布：`q = [0.50, 0.35, 0.10, 0.05]`
+>**Example** — 首先要排序，给定排序好的概率分布：`q = [0.50, 0.35, 0.10, 0.05]`
 > 累计概率：
 >```
 > C = cumsum(q) = [0.50, 0.85, 0.95, 1.00]
@@ -141,7 +141,7 @@ prompt
 → tokenizer.decode
 ```
 
-## 和 [[Tokenization]] 的 decode 有什么区别
+## 和 [Tokenization](<./Tokenization.md>) 的 decode 有什么区别
 
 - tokenization 中的 decode 就是 `token IDs → text`
 - autoregressive decoding：反复预测、采样并追加 next token 的完整 inference process

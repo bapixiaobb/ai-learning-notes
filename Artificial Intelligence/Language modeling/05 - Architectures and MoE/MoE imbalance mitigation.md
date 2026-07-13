@@ -1,4 +1,4 @@
-#AI #Transformer #LLM #NLP 
+#AI #Transformer #LLM #NLP
 
 ## ❓ Why MoE 天然会有 imbalance 问题
 
@@ -6,7 +6,7 @@
 
 如果每个 token 都跑所有 experts，那就退化成 dense model。所以 MoE 必须 sparse：每个 token 只选 top-k 个 experts。
 
->[!question] 一旦用了 top-k routing，routing decision 就会变得很硬。每个 token 只看到自己被分配到的 experts，没被选中的 experts 是一种 counterfactual：
+>**Question** — 一旦用了 top-k routing，routing decision 就会变得很硬。每个 token 只看到自己被分配到的 experts，没被选中的 experts 是一种 counterfactual：
 >
 >**我们不知道”如果这个 token 给别的 expert 处理会怎么样“**
 
@@ -14,13 +14,13 @@
 1. routing 本身不是普通的光滑 differentiable path
 2. 没被选中的 expert 得不到这个 token 通过 expert computation 产生的 gradient signal
 	- 如果 expert 没被选中，它没有参与 forward computation，那么这个 token 的 language modeling loss 就不会通过这个 expert 的 MLP 反传。
-	- 但 router 这边还可能通过 selected gates、[[Softmax]] probability、auxiliary loss 等收到某些 gradient。
-所以 MoE 的 router 很容易变成一个不稳定的 **==selection system==** 
+	- 但 router 这边还可能通过 selected gates、[Softmax](<../../Transformer/Softmax.md>) probability、auxiliary loss 等收到某些 gradient。
+所以 MoE 的 router 很容易变成一个不稳定的 **selection system**
 
 ---
 ## ❓ Rich-get-richer：why expert collapse
 
->[!note] Intuition
+>**Note** — Intuition
 >一开始 router 选中了某个 expert。 这个 expert 得到了更多的 token，也得到了更多 gradient。
 >它训练得更好之后，router 更倾向于继续选择它。于是它越来越强、越来越常被选中。
 
@@ -47,7 +47,7 @@ token B -> expert 3, expert 12
 如果这些 experts 分布在不同的 devices 上， activation 就要跨设备移动。
 所以 MoE 训练里经常会出现 all-to-all communication：
 
-> 每张 [[GPU]] 可能要把 token activations 发给其他的卡
+> 每张 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 可能要把 token activations 发给其他的卡
 
 这个 communication 如果不均衡，就会拖慢训练
 
@@ -55,11 +55,11 @@ token B -> expert 3, expert 12
 ## 📎 Expert balancing vs. Device balancing
 
 Expert balancing 更像 optimization 问题：每个 expert 有没有足够训练信号？
-Device balancing 更像 systems 问题：每台 [[GPU]] 的计算和通信负载是不是均衡？
+Device balancing 更像 systems 问题：每台 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 的计算和通信负载是不是均衡？
 
 ### 为什么要单独考虑 device-level balancing？
 
->[!question] 如果每个 expert 都 balance 了，那每个 device 不就自然 balance 了吗？
+>**Question** — 如果每个 expert 都 balance 了，那每个 device 不就自然 balance 了吗？
 > 理论上，如果：
 > > experts 被平均分到每个 device
 > > 每个 expert 收到完全一样多的 tokens
@@ -77,12 +77,12 @@ MoE 本来就希望不同 experts 学不同东西，如果太强迫均匀，rout
 - communication balancing 进一步避免 all-to-all traffic 某些路径太拥挤
 
 ---
-## ✅ Solution 
+## ✅ Solution
 
-### 1. RL routing 
+### 1. RL routing
 把 router 看成一个 policy，用 RL 或 reinforce 之类的方法学 routing decision。这个理论上可以做，但是实践不主流，因为 gradient variance 大，系统复杂，而且效果不一定比 heuristic 好。
 
-### 2. Stochastic perturbation 
+### 2. Stochastic perturbation
 给 router 加噪音
 
 **Main idea:** 不要让 router 太早做完全正确的 hard decision，而是在 routing score 上加一点 stochastic noise。如果两个 experts 分数很接近，noise 可以帮助模型探索不同 experts，也可以打破 early tie。
@@ -94,9 +94,9 @@ MoE 本来就希望不同 experts 学不同东西，如果太强迫均匀，rout
 
 总目标可以理解成：language modeling loss + 一个控制 expert 使用均匀性的 auxiliary loss。
 
-这个 auxiliary loss 不是从 [[Next-token prediction]] 的理论目标中自然推出来的，而是一个工程上非常有效的 heuristic: 它逼迫 router 不要把所有 tokens 都送到少数 experts。
+这个 auxiliary loss 不是从 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 的理论目标中自然推出来的，而是一个工程上非常有效的 heuristic: 它逼迫 router 不要把所有 tokens 都送到少数 experts。
 
->[!note] 这个方法它听起来有点“不优雅”，但现实里很有用
+>**Note** — 这个方法它听起来有点“不优雅”，但现实里很有用
 >从纯理论角度看，language model 只应该优化 next-token prediction loss。
 >但 MoE 实践中，如果你只优化 next-token prediction loss，router 很容易 collapse。
 >所以工程上不得不加一个额外目标：别让 experts 用得太不均匀。
@@ -131,16 +131,16 @@ DeepSeek V3 使用的一种均衡方法，它的直觉是：给每个 expert 的
 - Load balancing loss 是加到 objective 里的额外惩罚。  
 - Router noise 是在 routing score 上加扰动，增加 exploration。  
 - Per-expert bias 是直接调整每个 expert 被选中的倾向。  
-- Per-device balancing 是从系统利用率角度，让不同设备负载更均衡。 
+- Per-device balancing 是从系统利用率角度，让不同设备负载更均衡。
 - 这些都属于 MoE imbalance mitigation heuristics
 	- load balancing loss 和 per-device balancing loss 是 auxiliary objectives
 	- router noise 和 per-expert bias 更像 routing-time / online adjustment tricks。
 
 
->[!summary] My understanding
+>**Summary** — My understanding
 > MoE 训练里有 top-k selection、不连续 routing 和 counterfactual experts 这些难处理的问题。实践中通常不会显式求解完整的 routing / bandit 问题，而是只对被选中的 experts 正常 backprop，同时加入 load balancing loss 抑制 rich-get-richer 和 expert collapse。这个简单的 heuristic 组合在经验上居然能稳定训练 MoE。
 
 
 # 🔗
-[[Mixture of Experts (MoE)]] 
-[[Transformer]] 
+[Mixture of Experts (MoE)](<./Mixture%20of%20Experts%20(MoE).md>)
+[Transformer](<../../Transformer/Transformer.md>)

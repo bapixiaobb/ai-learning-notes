@@ -1,4 +1,4 @@
-SwiGLU 是 [[Transformer]] FFN 里的 gated [[Activation Function]]
+SwiGLU 是 [Transformer](<./Transformer.md>) FFN 里的 gated [Activation Function](<../Neural%20Networks/Activation%20Function.md>)
 
 它的形式是：
 
@@ -10,11 +10,11 @@ SwiGLU 是 [[Transformer]] FFN 里的 gated [[Activation Function]]
 \mathrm{{FNN(x)=SwiGLU(x)W_3}}
 ```
 
-本质是 [[GLU]] + [[SiLU]] 的变体，用来替代传统 [[ReLU]] / GeLU
+本质是 [GLU](<./GLU.md>) + [SiLU](<./SiLU.md>) 的变体，用来替代传统 [ReLU](<./ReLU.md>) / GeLU
 
 - $x$ 是 hidden state
 - $W_1$, $W_2$ 线性投影 / weight
-- $SiLU$ [[SiLU]]
+- $SiLU$ [SiLU](<./SiLU.md>)
 - $\odot$ 逐元素乘（gate 机制）
 - $W_1$ : content branch
 - $W_2$ : gate branch

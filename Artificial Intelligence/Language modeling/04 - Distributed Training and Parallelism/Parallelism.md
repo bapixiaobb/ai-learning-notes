@@ -1,10 +1,10 @@
-#AI #LanguageModeling #GPU 
+#AI #LanguageModeling #GPU
 
-Parallelism 的核心问题很简单：**多张 [[GPU]] 一起训练时，到底切什么。**
+Parallelism 的核心问题很简单：**多张 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 一起训练时，到底切什么。**
 
 一旦训练被切开，不同 ranks 手里就只有局部信息，所以需要 communication 把缺失的信息补回来。
 
-> [!note]
+> **Note**
 > Parallelism = 怎么切。  
 > Collective communication = 切完之后怎么交换 / 聚合信息。
 
@@ -33,5 +33,5 @@ micro-batches 用来减少 pipeline bubbles。
 
 ---
 # 🔗
-[[GPU Communication Topology]]
-[[NVIDIA Collective Communication Library]]
+[GPU Communication Topology](<./GPU%20Communication%20Topology.md>)
+[NVIDIA Collective Communication Library](<./NVIDIA%20Collective%20Communication%20Library.md>)

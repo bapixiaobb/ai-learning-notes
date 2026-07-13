@@ -1,4 +1,4 @@
-#AI #GPU 
+#AI #GPU
 
 在 [Parallelism](Parallelism.md) 中，有一个比较重要的 [NCCL](NVIDIA%20Collective%20Communication%20Library.md) 的等价关系
 

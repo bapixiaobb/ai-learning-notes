@@ -1,9 +1,9 @@
-#AI #Statistics #LanguageModeling 
+#AI #Statistics #LanguageModeling
 
-是一种在 [[Deep Learning]] ([[Neural Network]]) 中常用的 [[Activation Function]]
+是一种在 [Deep Learning](<../Neural%20Networks/Deep%20Learning.md>) ([Neural Network](<../Neural%20Networks/Neural%20Network.md>)) 中常用的 [Activation Function](<../Neural%20Networks/Activation%20Function.md>)
 
->[!note]
-> 它能把一个包含任意实数的向量（通常是 [[Neural Network]] 最后一层输出 score，也叫 Logits）映射为一个概率分布
+>**Note**
+> 它能把一个包含任意实数的向量（通常是 [Neural Network](<../Neural%20Networks/Neural%20Network.md>) 最后一层输出 score，也叫 Logits）映射为一个概率分布
 
 
 # Mathematical Definition
@@ -35,9 +35,9 @@ Softmax 计算可以分为三步：
 
 在计算机工程实现中，为了防止 overflow 必须要做硬件保护措施
 
-利用 softmax 的平移不变性，会减去 $\max(x)$ 
+利用 softmax 的平移不变性，会减去 $\max(x)$
 
 ```math
 \mathrm{softmax}(x_i)=\frac{e^{x_i-\max(x)}}{\sum_je^{x_j-\max(x)}}
 ```
-[[Flash Attention]] 里为了配合 tile by tile 计算，有 [[Online Softmax]] 
+[Flash Attention](<./Flash%20Attention.md>) 里为了配合 tile by tile 计算，有 [Online Softmax](<./Online%20Softmax.md>)

@@ -1,7 +1,7 @@
 #DeepLearning #NeuralNetwork #Normalization #Transformer #LLM
 
-[[RMSNorm]] 是 Root Mean Square Layer Normalization。  
-它和 [[Layer Normalization]] 类似，但不 subtract mean，只根据 root mean square 缩放 hidden vector。
+[RMSNorm](<./RMSNorm.md>) 是 Root Mean Square Layer Normalization。  
+它和 [Layer Normalization](<./Layer%20Normalization.md>) 类似，但不 subtract mean，只根据 root mean square 缩放 hidden vector。
 
 ## 🧠 Core Idea
 
@@ -42,7 +42,7 @@ RMSNorm 计算 root mean square：
 
 ## 📌 In Transformer
 
-在 modern decoder-only LLM 中，RMSNorm 常和 [[Pre-Norm Transformer]] 搭配使用：
+在 modern decoder-only LLM 中，RMSNorm 常和 [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) 搭配使用：
 
 ```math
 x_{\text{out}}
@@ -52,7 +52,7 @@ x
 F(\mathrm{RMSNorm}(x))
 ```
 
-例如在 [[Llama-style Architecture]] 中：
+例如在 [Llama-style Architecture](<./Llama-style%20Architecture.md>) 中：
 
 ```math
 x'
@@ -74,25 +74,25 @@ x'
 
 | Method | Subtract Mean? | Divide by Scale? | Learnable Scale? |
 |---|---|---|---|
-| [[Layer Normalization]] | Yes | standard deviation | Yes |
-| [[RMSNorm]] | No | root mean square | Yes |
+| [Layer Normalization](<./Layer%20Normalization.md>) | Yes | standard deviation | Yes |
+| [RMSNorm](<./RMSNorm.md>) | No | root mean square | Yes |
 
->[!note]
+>**Note**
 >RMSNorm 可以理解成 LayerNorm 的简化版本。
 >
 >它不做 mean-centering，只控制 hidden vector 的整体尺度。
 
 ---
 
->[!summary] My Understanding
->[[RMSNorm]] 只用 root mean square 来缩放 hidden vector。
+>**Summary** — My Understanding
+>[RMSNorm](<./RMSNorm.md>) 只用 root mean square 来缩放 hidden vector。
 >
->它比 [[Layer Normalization]] 少了 subtract mean 这一步，因此计算更简单，也常见于 modern LLM architecture。
+>它比 [Layer Normalization](<./Layer%20Normalization.md>) 少了 subtract mean 这一步，因此计算更简单，也常见于 modern LLM architecture。
 
 ## 🔗 Connections
 
-- [[Normalization]]
-- [[Layer Normalization]]
-- [[Pre-Norm Transformer]]
-- [[Transformer Block]]
-- [[Llama-style Architecture]]
+- [Normalization](<./Normalization.md>)
+- [Layer Normalization](<./Layer%20Normalization.md>)
+- [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>)
+- [Transformer Block](<./Transformer%20Block.md>)
+- [Llama-style Architecture](<./Llama-style%20Architecture.md>)

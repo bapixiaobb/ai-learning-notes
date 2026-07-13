@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Transformer #Normalization #Architecture
 
-[[Post-Norm Transformer]] 指把 normalization 放在 residual addition 之后的 Transformer block 结构。
+[Post-Norm Transformer](<./Post-Norm%20Transformer.md>) 指把 normalization 放在 residual addition 之后的 Transformer block 结构。
 
 核心形式是：
 
@@ -12,14 +12,14 @@ x_{\text{out}}
 
 其中：
 
-- $x$ 是输入 hidden state / [[Residual Stream]]；
-- $F$ 是 sublayer，例如 [[Self-Attention]] 或 [[MLP]]；
-- $x + F(x)$ 是 [[Residual Connection]]；
-- $\mathrm{Norm}$ 可以是 [[Layer Normalization]] 或其他 normalization 方法。
+- $x$ 是输入 hidden state / [Residual Stream](<./Residual%20Stream.md>)；
+- $F$ 是 sublayer，例如 [Self-Attention](<./Self-Attention.md>) 或 [MLP](<./MLP.md>)；
+- $x + F(x)$ 是 [Residual Connection](<./Residual%20Connection.md>)；
+- $\mathrm{Norm}$ 可以是 [Layer Normalization](<./Layer%20Normalization.md>) 或其他 normalization 方法。
 
 ## 🧠 Core Idea
 
->[!note]
+>**Note**
 >Post-Norm 的意思是：
 >
 >先进入 sublayer，再 residual add，最后 normalization。
@@ -34,7 +34,7 @@ x_{\text{out}}
 >\mathrm{Norm}
 >```
 
-这和 [[Pre-Norm Transformer]] 相反。  
+这和 [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) 相反。  
 Pre-Norm 是先 normalization，再进入 sublayer：
 
 ```math
@@ -45,7 +45,7 @@ x + F(\mathrm{Norm}(x))
 
 ## 🧩 In Transformer Block
 
-一个 Post-Norm [[Transformer Block]] 通常有两次 Post-Norm update。
+一个 Post-Norm [Transformer Block](<./Transformer%20Block.md>) 通常有两次 Post-Norm update。
 
 ### Attention update
 
@@ -89,12 +89,12 @@ x' + \mathrm{MLP}(x')
 \right)
 ```
 
->[!note]
+>**Note**
 >Post-Norm 中，normalization 直接作用在 residual addition 之后的结果上。
 
 ## 🏛️ In Original Transformer
 
-[[Original Transformer]] 使用的是 Post-Norm 结构。
+[Original Transformer](<./Original%20Transformer.md>) 使用的是 Post-Norm 结构。
 
 经典形式可以写成：
 
@@ -104,26 +104,26 @@ x' + \mathrm{MLP}(x')
 
 这里的 sublayer 可以是：
 
-- [[Artificial Intelligence/Transformer/Multi-Head Attention]]
-- [[Cross-Attention]]
-- [[Feed-Forward Network]]
+- [Multi-Head Attention](<./Multi-Head%20Attention.md>)
+- Cross-Attention
+- [Feed-Forward Network](<../Neural%20Networks/Feed-Forward%20Network.md>)
 
->[!note]
+>**Note**
 >Post-Norm 是原始 Transformer 论文中的常见 block layout。
 >
->但 modern decoder-only LLM 更常使用 [[Pre-Norm Transformer]]。
+>但 modern decoder-only LLM 更常使用 [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>)。
 
 ## ⚖️ Post-Norm vs Pre-Norm
 
 | Structure | Formula | Norm Position |
 |---|---|---|
-| [[Post-Norm Transformer]] | $\mathrm{Norm}(x + F(x))$ | after residual add |
-| [[Pre-Norm Transformer]] | $x + F(\mathrm{Norm}(x))$ | before sublayer |
+| [Post-Norm Transformer](<./Post-Norm%20Transformer.md>) | $\mathrm{Norm}(x + F(x))$ | after residual add |
+| [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) | $x + F(\mathrm{Norm}(x))$ | before sublayer |
 
->[!important]
+>**Important**
 >Post-Norm 和 Pre-Norm 的区别不是用什么 normalization formula，而是 normalization 放在哪里。
 >
->[[Layer Normalization]] / [[RMSNorm]] 是 norm method；Post-Norm / Pre-Norm 是 norm placement。
+>[Layer Normalization](<./Layer%20Normalization.md>) / [RMSNorm](<./RMSNorm.md>) 是 norm method；Post-Norm / Pre-Norm 是 norm placement。
 
 ## 🧵 Relation to Residual Stream
 
@@ -141,7 +141,7 @@ x + F(x)
 
 这意味着主 hidden state 每经过一个 sublayer 后都会被重新 normalized。
 
->[!note]
+>**Note**
 >Post-Norm 中，normalization 位于 residual stream 的主路径上。
 >
 >相比之下，Pre-Norm 中 residual stream 的 identity path 更直接。
@@ -164,7 +164,7 @@ x \rightarrow \mathrm{Norm}(x + F(x))
 
 Normalization 会改变 residual addition 后的尺度和方向。
 
->[!note]
+>**Note**
 >这不代表 Post-Norm 错。
 >
 >它只是通常在 very deep Transformers 中优化更困难，因此 modern LLM 更常采用 Pre-Norm。
@@ -175,8 +175,8 @@ Normalization 会改变 residual addition 后的尺度和方向。
 
 ### 1. Post-Norm 不是 LayerNorm
 
-[[Layer Normalization]] 是一种 normalization 方法。  
-[[Post-Norm Transformer]] 是一种 block layout。
+[Layer Normalization](<./Layer%20Normalization.md>) 是一种 normalization 方法。  
+[Post-Norm Transformer](<./Post-Norm%20Transformer.md>) 是一种 block layout。
 
 Original Transformer 中常见的是：
 
@@ -191,18 +191,18 @@ Original Transformer 中常见的是：
 
 ### 2. Post-Norm 不等于 encoder-decoder Transformer
 
-[[Original Transformer]] 是 encoder-decoder structure，并且使用 Post-Norm。  
+[Original Transformer](<./Original%20Transformer.md>) 是 encoder-decoder structure，并且使用 Post-Norm。  
 但 Post-Norm 本身只是 block 内部的 norm placement。
 
 ### 3. Post-Norm 不改变 attention mask
 
 Post-Norm 只决定 norm 放在哪里。  
-是否 causal 由 [[Causal Mask]] 或 attention pattern 决定。
+是否 causal 由 [Causal Mask](<./Causal%20Mask.md>) 或 attention pattern 决定。
 
 ## 🧾 My Understanding
 
->[!summary]
->[[Post-Norm Transformer]] 的核心公式是：
+>**Summary**
+>[Post-Norm Transformer](<./Post-Norm%20Transformer.md>) 的核心公式是：
 >
 >```math
 >x_{\text{out}} = \mathrm{Norm}(x + F(x))
@@ -210,7 +210,7 @@ Post-Norm 只决定 norm 放在哪里。
 >
 >它先做 sublayer transformation 和 residual addition，再做 normalization。
 >
->[[Original Transformer]] 使用的是 Post-Norm，而 modern decoder-only LLM 更常用 [[Pre-Norm Transformer]]。
+>[Original Transformer](<./Original%20Transformer.md>) 使用的是 Post-Norm，而 modern decoder-only LLM 更常用 [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>)。
 >
 >理解 Post-Norm 的关键是：
 >
@@ -218,14 +218,14 @@ Post-Norm 只决定 norm 放在哪里。
 
 ## 🔗 Connections
 
-- [[Pre-Norm Transformer]]
-- [[Original Transformer]]
-- [[Transformer Block]]
-- [[Normalization]]
-- [[Layer Normalization]]
-- [[RMSNorm]]
-- [[Residual Connection]]
-- [[Residual Stream]]
-- [[Self-Attention]]
-- [[MLP]]
-- [[Feed-Forward Network]]
+- [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>)
+- [Original Transformer](<./Original%20Transformer.md>)
+- [Transformer Block](<./Transformer%20Block.md>)
+- [Normalization](<./Normalization.md>)
+- [Layer Normalization](<./Layer%20Normalization.md>)
+- [RMSNorm](<./RMSNorm.md>)
+- [Residual Connection](<./Residual%20Connection.md>)
+- [Residual Stream](<./Residual%20Stream.md>)
+- [Self-Attention](<./Self-Attention.md>)
+- [MLP](<./MLP.md>)
+- [Feed-Forward Network](<../Neural%20Networks/Feed-Forward%20Network.md>)

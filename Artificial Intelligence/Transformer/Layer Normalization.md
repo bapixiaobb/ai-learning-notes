@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Normalization #Transformer
 
-[[Layer Normalization]] 是一种 normalization 方法。  
+[Layer Normalization](<./Layer%20Normalization.md>) 是一种 normalization 方法。  
 它对每个 token 的 hidden vector 在 feature dimension 上做 normalization。
 
 ## 🧠 Core Idea
@@ -51,7 +51,7 @@ x_t \in \mathbb{R}^{d_{\text{model}}}
 
 也就是说，它不会跨 token 做 normalization，而是对单个 token vector 的 feature dimension 做 normalization。
 
->[!note]
+>**Note**
 >LayerNorm 用来稳定 hidden states 的尺度，使 deep Transformer 更容易训练。
 
 ## ⚖️ LayerNorm vs RMSNorm
@@ -69,19 +69,19 @@ x
 \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}
 ```
 
-而 [[RMSNorm]] 不 subtract mean，只根据 root mean square 缩放。
+而 [RMSNorm](<./RMSNorm.md>) 不 subtract mean，只根据 root mean square 缩放。
 
 ---
 
->[!summary] My Understanding
->[[Layer Normalization]] 对每个 token 的 hidden vector 做 normalization。
+>**Summary** — My Understanding
+>[Layer Normalization](<./Layer%20Normalization.md>) 对每个 token 的 hidden vector 做 normalization。
 >
 >它会减去 mean，再除以 standard deviation，使 hidden vector 的尺度更稳定。
 
 ## 🔗 Connections
 
-- [[Normalization]] 
-- [[RMSNorm]]
-- [[Transformer Block]]
-- [[Pre-Norm Transformer]]
-- [[Post-Norm Transformer]]
+- [Normalization](<./Normalization.md>)
+- [RMSNorm](<./RMSNorm.md>)
+- [Transformer Block](<./Transformer%20Block.md>)
+- [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>)
+- [Post-Norm Transformer](<./Post-Norm%20Transformer.md>)

@@ -5,7 +5,7 @@ Causal Attention 是一种带有 causal constraint 的 attention。
 
 ## 🧠 Core Idea
 
->[!note]
+>**Note**
 >Causal Attention 的核心是：
 >
 >```math
@@ -24,7 +24,7 @@ Causal Attention 是一种带有 causal constraint 的 attention。
 
 ## 🧩 Relation to Self-Attention
 
-Causal Attention 通常是在 [[Self-Attention]] 上加 [[Causal Mask]] 得到的：
+Causal Attention 通常是在 [Self-Attention](<./Self-Attention.md>) 上加 [Causal Mask](<./Causal%20Mask.md>) 得到的：
 
 ```math
 \text{Self-Attention}
@@ -39,12 +39,12 @@ causal attention 只允许每个 token 看 prefix。
 
 | Attention Type | 第 $t$ 个 token 可以看什么 |
 |---|---|
-| [[Self-Attention]] | 通常可以看所有 positions |
+| [Self-Attention](<./Self-Attention.md>) | 通常可以看所有 positions |
 | Causal Attention | 只能看 $1,\dots,t$ |
 
 ## 🎯 Why It Matters
 
-Causal Attention 和 [[Autoregressive Language Model]] 的目标匹配。
+Causal Attention 和 Autoregressive Language Model 的目标匹配。
 
 Autoregressive language model 建模：
 
@@ -57,7 +57,7 @@ p(x_t \mid x_{<t})
 
 也就是说，预测当前 token 时只能依赖过去 tokens。
 
->[!important]
+>**Important**
 >Causal Attention 保证了 information flow 的方向：
 >
 >```math
@@ -88,34 +88,34 @@ x_4, x_5, \dots
 
 训练就会变成作弊。
 
->[!note]
+>**Note**
 >Causal Attention 不是告诉模型 token 在哪里；它只是限制模型能看哪些位置。
 >
->位置在哪里由 [[Positional Encoding]] / [[Rotary Position Embedding]] 提供。
+>位置在哪里由 [Positional Encoding](<./Positional%20Encoding.md>) / [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) 提供。
 
 ## 🚫 Common Confusions
 
 ### Causal Attention 不是 Causal Mask
 
-[[Causal Mask]] 是实现 causal constraint 的 mask。  
+[Causal Mask](<./Causal%20Mask.md>) 是实现 causal constraint 的 mask。  
 Causal Attention 是加了这种约束后的 attention pattern。
 
 ### Causal Attention 不是 Positional Encoding
 
 Causal Attention 控制可见范围；  
-[[Positional Encoding]] 表示位置。
+[Positional Encoding](<./Positional%20Encoding.md>) 表示位置。
 
 ---
 
->[!summary] My Understanding
+>**Summary** — My Understanding
 >Causal Attention 是只能看 prefix 的 attention。
 >
->它通常由 Self-Attention 加上 Causal Mask 实现，是 [[Decoder-Only Transformer]] 和 Next Token Prediction 匹配的关键机制。
+>它通常由 Self-Attention 加上 Causal Mask 实现，是 [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 和 Next Token Prediction 匹配的关键机制。
 
 ---
 ## 🔗 Connections
 
-- [[Self-Attention]]
-- [[Causal Mask]]
-- [[Decoder-Only Transformer]]
-- [[Positional Encoding]]
+- [Self-Attention](<./Self-Attention.md>)
+- [Causal Mask](<./Causal%20Mask.md>)
+- [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>)
+- [Positional Encoding](<./Positional%20Encoding.md>)

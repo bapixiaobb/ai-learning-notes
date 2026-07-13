@@ -48,5 +48,5 @@ N_{\text{devices}}
 
 其中 $S$ 是 sequence length。
 
->[!note]
+>**Note**
 > Gradient accumulation 不减少总 FLOPs；它主要是在有限显存下实现更大的 effective batch size。

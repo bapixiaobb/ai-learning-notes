@@ -5,7 +5,7 @@
 \hat{y} = f_\theta(x)
 ```
 
-从 [[Statistical Learning]] 的角度看，neural network 是一个可学习的 hypothesis class；从 [[An Optimization Problem]] 的角度看，训练 neural network 是在最小化 loss function：
+从 Statistical Learning 的角度看，neural network 是一个可学习的 hypothesis class；从 An Optimization Problem 的角度看，训练 neural network 是在最小化 loss function：
 
 ```math
 \min_\theta \mathcal{L}(\theta)
@@ -19,7 +19,7 @@
 
 Neural network 可以看作 nonlinear regression 的一种形式。
 
-在 [[Regression Analysis]] 中，linear regression 通常写成：
+在 Regression Analysis 中，linear regression 通常写成：
 
 ```math
 \hat{y} = Wx + b
@@ -42,7 +42,7 @@ W_{L-1} \sigma(
 + b_L
 ```
 
-其中 $\sigma$ 是 activation function，例如 [[ReLU]]。
+其中 $\sigma$ 是 activation function，例如 [ReLU](<../Transformer/ReLU.md>)。
 
 如果没有 activation function，多层 linear layers 仍然只是一个 linear transformation：
 
@@ -60,9 +60,9 @@ linear transformation + nonlinear activation
 
 Neural network 的训练过程通常包括：
 
-1. 使用 [[Forward Propagation]] 计算预测值和 loss；
-2. 使用 [[Backpropagation]] 计算 loss 对参数的梯度；
-3. 使用 [[Optimizer]] 更新参数。
+1. 使用 [Forward Propagation](<./Forward%20Propagation.md>) 计算预测值和 loss；
+2. 使用 [Backpropagation](<./Backpropagation.md>) 计算 loss 对参数的梯度；
+3. 使用 [Optimizer](<../Transformer/Optimizer.md>) 更新参数。
 
 整体过程可以写成：
 ```math
@@ -97,7 +97,7 @@ ReLU neural network: 很多 piecewise linear regions 拼接起来的函数
 
 ## **与 Linear System 的区别**
 
-[[Linear System]] 通常研究的是：
+Linear System 通常研究的是：
 
 ```math
 Ax = b  
@@ -122,7 +122,7 @@ Neural network 可以用于不同类型的任务：
 |Language Modeling|next-token probability|Cross Entropy Loss|
 |Function Approximation|函数值|MSE 或 residual loss|
 
-在 [[Language Modeling]] 中，neural network 通常用于建模：
+在 [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 中，neural network 通常用于建模：
 
 ```math
 p_\theta(x_t \mid x_{<t})  
@@ -131,12 +131,12 @@ p_\theta(x_t \mid x_{<t})
 
 ## **Related**
 
-- [[Deep Learning]]
-- [[Regression Analysis]]
-- [[Statistical Learning]]
-- [[An Optimization Problem]]
-- [[Forward Propagation]]
-- [[Backward Propagation]]
-- [[Gradient Descent]]
-- [[ReLU]]
-- [[Transformer]] 
+- [Deep Learning](<./Deep%20Learning.md>)
+- Regression Analysis
+- Statistical Learning
+- An Optimization Problem
+- [Forward Propagation](<./Forward%20Propagation.md>)
+- Backward Propagation
+- Gradient Descent
+- [ReLU](<../Transformer/ReLU.md>)
+- [Transformer](<../Transformer/Transformer.md>)

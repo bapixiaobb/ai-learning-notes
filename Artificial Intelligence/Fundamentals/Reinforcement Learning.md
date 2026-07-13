@@ -1,5 +1,5 @@
-#AI 
-[[Artificial Intelligence (AI)]] > [[Machine Learning]] 
+#AI
+Artificial Intelligence (AI) > [Machine Learning](<./Machine%20Learning.md>)
 
 **智能体通过与环境交互，基于反馈奖励调整策略**
 
@@ -57,5 +57,5 @@
 | **PPO (Proximal Policy Optimization)** | 直接优化策略 $\pi(a\|s)$，避免策略更新过度。 |
 | **PPO2** (PPO的第二版本)                    | 和 PPO 类似，也是基于策略的方法。          |
  **适用场景**：连续动作空间
- 
- ![[reinforcement_learning_overview.png]]
+
+ ![reinforcement_learning_overview.png](<./reinforcement_learning_overview.png>)

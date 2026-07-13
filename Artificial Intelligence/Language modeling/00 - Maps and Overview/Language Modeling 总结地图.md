@@ -16,7 +16,7 @@ objective
 
 ## 1. One-Sentence Core
 
-[[Language Modeling]] 的核心是：
+[Language Modeling](<./Language%20Modeling.md>) 的核心是：
 
 > 给定前面的 tokens，学习一个概率分布来预测下一个 token。
 
@@ -28,18 +28,18 @@ p_\theta(x_1,\dots,x_T)
 \prod_{t=1}^{T} p_\theta(x_t \mid x_{<t})
 ```
 
-训练时通常最大化真实 next token 的 likelihood，等价于最小化 [[Cross Entropy Loss]]。
+训练时通常最大化真实 next token 的 likelihood，等价于最小化 [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。
 
 ## 2. 最重要的区分
 
 | Concept                         | 它回答的问题                          | 典型笔记                                                                                  |
 | ------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------- |
-| [[Language Modeling]]           | 模型要学什么目标？                       | next-token probability                                                                |
-| [[Transformer]]                 | 用什么 neural architecture 实现这个目标？ | self-attention, block, residual stream                                                |
-| [[Language Model Architecture]] | 模型内部有哪些 design choices？         | norm, position, [[MLP]], attention variant                                            |
-| [[Training Recipe]]             | 参数怎么被训练出来？                      | [[Optimizer]], [[Learning Rate Schedule]], batch size                                 |
-| [[Resource Accounting]]         | 训练和推理要花多少 compute / memory？     | [[FLOPs]], memory, activation, optimizer states                                       |
-| [[GPU Memory Bound]]            | 怎么让 workload 在硬件上跑得快？           | [[Tiling]], [[Operator fusion]], [[Memory Coalescing]], [[Low precision computation]] |
+| [Language Modeling](<./Language%20Modeling.md>)           | 模型要学什么目标？                       | next-token probability                                                                |
+| [Transformer](<../../Transformer/Transformer.md>)                 | 用什么 neural architecture 实现这个目标？ | self-attention, block, residual stream                                                |
+| [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>) | 模型内部有哪些 design choices？         | norm, position, [MLP](<../../Transformer/MLP.md>), attention variant                                            |
+| [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | 参数怎么被训练出来？                      | [Optimizer](<../../Transformer/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>), batch size                                 |
+| [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)         | 训练和推理要花多少 compute / memory？     | [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>), memory, activation, optimizer states                                       |
+| [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)            | 怎么让 workload 在硬件上跑得快？           | [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>), [Operator fusion](<../03%20-%20GPU%20and%20Systems/Operator%20fusion.md>), [Memory Coalescing](<../03%20-%20GPU%20and%20Systems/Memory%20Coalescing.md>), [Low precision computation](<../02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>) |
 
 一个常见混淆是：
 
@@ -51,28 +51,28 @@ p_\theta(x_1,\dots,x_T)
 
 ```text
 raw text
--> [[Tokenization]]
+-> [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
 -> token IDs
--> [[Token Embedding]]
--> positional information, usually [[Rotary Position Embedding]]
--> stacked [[Transformer Block]]
+-> [Token Embedding](<../../Transformer/Token%20Embedding.md>)
+-> positional information, usually [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
+-> stacked [Transformer Block](<../../Transformer/Transformer%20Block.md>)
 -> final hidden states
 -> language modeling head
 -> logits
--> [[Softmax]]
+-> [Softmax](<../../Transformer/Softmax.md>)
 -> next-token probability
--> [[Cross Entropy Loss]]
+-> [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 ```
 
-其中 [[Causal Mask]] 保证每个位置只能看到 prefix，不能偷看 future tokens。
+其中 [Causal Mask](<../../Transformer/Causal%20Mask.md>) 保证每个位置只能看到 prefix，不能偷看 future tokens。
 
 ## 4. Objective And Loss
 
 这组笔记的核心链条是：
 
-- [[Next-token prediction]]：理论目标是预测下一个 token。
-- [[Language Modeling]]：把整个 token sequence 的概率分解成 conditional probabilities。
-- [[Cross Entropy Loss]]：训练时惩罚模型没有把足够高的概率分给真实 next token。
+- [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)：理论目标是预测下一个 token。
+- [Language Modeling](<./Language%20Modeling.md>)：把整个 token sequence 的概率分解成 conditional probabilities。
+- [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)：训练时惩罚模型没有把足够高的概率分给真实 next token。
 - likelihood view：最小化 cross entropy 等价于最大化训练数据 likelihood。
 
 可以把每个 token position 看成一个 vocabulary-size 的多分类问题：
@@ -91,19 +91,19 @@ raw text
 
 ### 5.1 Transformer 是主体网络
 
-[[Transformer]] 是 attention-based sequence model。它的关键不是 recurrence，而是让 token positions 通过 [[Self-Attention]] 交换信息。
+[Transformer](<../../Transformer/Transformer.md>) 是 attention-based sequence model。它的关键不是 recurrence，而是让 token positions 通过 [Self-Attention](<../../Transformer/Self-Attention.md>) 交换信息。
 
 Transformer 本身不等于 language modeling。GPT-style LM 更准确地说是：
 
 ```text
-[[Decoder-Only Transformer]]
+[Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
 +
 autoregressive next-token prediction objective
 ```
 
 ### 5.2 Modern LLM 通常是 decoder-only
 
-[[Decoder-Only Transformer]] 的关键是：
+[Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>) 的关键是：
 
 - causal self-attention；
 - 每个位置只能 attend to prefix；
@@ -113,7 +113,7 @@ autoregressive next-token prediction objective
 
 ### 5.3 Transformer block 是重复单元
 
-[[Transformer Block]] 可以理解为：
+[Transformer Block](<../../Transformer/Transformer%20Block.md>) 可以理解为：
 
 ```text
 residual stream
@@ -125,34 +125,34 @@ residual stream
 
 其中：
 
-- [[Self-Attention]] / [[Causal Attention]] 负责 token mixing；
-- [[MLP]] 负责 per-token nonlinear processing；
-- [[Residual Connection]] 保留主 hidden state path；
-- [[Normalization]] / [[RMSNorm]] 稳定 hidden state scale；
-- [[Pre-Norm Transformer]] 是现代 LLM 常见 block layout。
+- [Self-Attention](<../../Transformer/Self-Attention.md>) / [Causal Attention](<../../Transformer/Causal%20Attention.md>) 负责 token mixing；
+- [MLP](<../../Transformer/MLP.md>) 负责 per-token nonlinear processing；
+- [Residual Connection](<../../Transformer/Residual%20Connection.md>) 保留主 hidden state path；
+- [Normalization](<../../Transformer/Normalization.md>) / [RMSNorm](<../../Transformer/RMSNorm.md>) 稳定 hidden state scale；
+- [Pre-Norm Transformer](<../../Transformer/Pre-Norm%20Transformer.md>) 是现代 LLM 常见 block layout。
 
 ### 5.4 Llama-style 是 modern decoder-only 的代表范式
 
-[[Llama-style Architecture]] 不是说所有模型都是 Llama，而是代表一组常见 choices：
+[Llama-style Architecture](<../../Transformer/Llama-style%20Architecture.md>) 不是说所有模型都是 Llama，而是代表一组常见 choices：
 
-- [[Decoder-Only Transformer]]
-- [[Causal Attention]]
-- [[Rotary Position Embedding]]
-- [[RMSNorm]]
-- [[SwiGLU]]
-- [[Pre-Norm Transformer]]
-- often [[Grouped Query Attention]]
+- [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
+- [Causal Attention](<../../Transformer/Causal%20Attention.md>)
+- [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
+- [RMSNorm](<../../Transformer/RMSNorm.md>)
+- [SwiGLU](<../../Transformer/SwiGLU.md>)
+- [Pre-Norm Transformer](<../../Transformer/Pre-Norm%20Transformer.md>)
+- often Grouped Query Attention
 
 ## 6. Attention 主线
 
 Attention 相关笔记可以按这个顺序复习：
 
-1. [[Self-Attention]]：同一个 sequence 内部 token positions 交换信息。
-2. [[Query Key Value]]：Q 表示当前 token 要找什么，K 表示其他 token 提供什么索引，V 表示真正被聚合的信息。
-3. [[Artificial Intelligence/Transformer/Multi-Head Attention]]：多个 attention heads 学不同的关系子空间。
-4. [[Causal Attention]]：加上 causal constraint 后只允许看 prefix。
-5. [[Causal Mask]]：实现上把 future positions 的 attention score 变成 $-\infty$。
-6. [[Flash Attention]] / [[Online Softmax]]：通过 tiling 和 online softmax 减少 HBM traffic。
+1. [Self-Attention](<../../Transformer/Self-Attention.md>)：同一个 sequence 内部 token positions 交换信息。
+2. [Query Key Value](<../../Transformer/Query%20Key%20Value.md>)：Q 表示当前 token 要找什么，K 表示其他 token 提供什么索引，V 表示真正被聚合的信息。
+3. [Multi-Head Attention](<../../Transformer/Multi-Head%20Attention.md>)：多个 attention heads 学不同的关系子空间。
+4. [Causal Attention](<../../Transformer/Causal%20Attention.md>)：加上 causal constraint 后只允许看 prefix。
+5. [Causal Mask](<../../Transformer/Causal%20Mask.md>)：实现上把 future positions 的 attention score 变成 $-\infty$。
+6. [Flash Attention](<../../Transformer/Flash%20Attention.md>) / [Online Softmax](<../../Transformer/Online%20Softmax.md>)：通过 tiling 和 online softmax 减少 HBM traffic。
 
 核心直觉：
 
@@ -160,15 +160,15 @@ Attention 相关笔记可以按这个顺序复习：
 
 ## 7. Training 主线
 
-[[Training Recipe]] 这组笔记回答的是：architecture 固定后，如何把参数训练出来。
+[Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 这组笔记回答的是：architecture 固定后，如何把参数训练出来。
 
 关键组成：
 
 - objective：next-token prediction / cross entropy；
-- [[Optimizer]]：常见是 AdamW；
-- [[Learning Rate Schedule]]：warmup + decay；
+- [Optimizer](<../../Transformer/Optimizer.md>)：常见是 AdamW；
+- [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>)：warmup + decay；
 - batch size：通常按 batch tokens 理解；
-- [[Gradient Accumulation]]：用多个 microbatches 模拟更大的 effective batch；
+- [Gradient Accumulation](<../02%20-%20Training%20and%20Scaling/Gradient%20Accumulation.md>)：用多个 microbatches 模拟更大的 effective batch；
 - weight decay：控制参数范数；
 - dropout：训练时 regularization，inference 时关闭；
 - gradient clipping：限制 update 幅度，提高稳定性；
@@ -180,7 +180,7 @@ Attention 相关笔记可以按这个顺序复习：
 
 ## 8. Training vs Inference
 
-[[Training vs Inference]] 是你当前笔记里很重要的一条线。
+[Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 是你当前笔记里很重要的一条线。
 
 | Aspect | Training | Inference |
 |---|---|---|
@@ -201,11 +201,11 @@ Attention 相关笔记可以按这个顺序复习：
 
 核心链条：
 
-- [[Scaling Law]]：loss 随 model size、training tokens、compute 增加而下降。
-- [[Training Compute - 6ND]]：dense Transformer 训练 compute 的粗略估算。
-- [[FLOPs]]：衡量计算量。
-- [[Model FLOPs Utilization]]：实际训练吞吐接近硬件峰值的程度。
-- [[Resource Accounting]]：把 parameters、activations、gradients、optimizer states、KV cache、FLOPs 分开算。
+- [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)：loss 随 model size、training tokens、compute 增加而下降。
+- [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)：dense Transformer 训练 compute 的粗略估算。
+- [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>)：衡量计算量。
+- [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)：实际训练吞吐接近硬件峰值的程度。
+- [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)：把 parameters、activations、gradients、optimizer states、KV cache、FLOPs 分开算。
 
 常用粗略公式：
 
@@ -227,29 +227,29 @@ C \approx 6ND
 
 ### 10.1 GPU execution model
 
-- [[GPU]]：大量 threads 并行执行。
-- [[SIMT]]：single instruction, multiple threads。
-- [[GPU vs. CPU]]：CPU 偏 latency，GPU 偏 throughput。
-- [[GPU Occupancy]]：SM 上 active warps 是否足够多。
+- [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)：大量 threads 并行执行。
+- [SIMT](<../03%20-%20GPU%20and%20Systems/SIMT.md>)：single instruction, multiple threads。
+- [GPU vs. CPU](<../03%20-%20GPU%20and%20Systems/GPU%20vs.%20CPU.md>)：CPU 偏 latency，GPU 偏 throughput。
+- [GPU Occupancy](<../03%20-%20GPU%20and%20Systems/GPU%20Occupancy.md>)：SM 上 active warps 是否足够多。
 
 ### 10.2 Memory movement
 
-- [[GPU Memory Bound]]：搬很多 bytes、做很少 FLOPs 的算子会被 memory bandwidth 限制。
-- [[Memory Coalescing]]：连续访问让 memory transaction 更高效。
-- [[Bank Conflict]]：shared memory 中多个 threads 访问同一 bank 会冲突。
+- [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)：搬很多 bytes、做很少 FLOPs 的算子会被 memory bandwidth 限制。
+- [Memory Coalescing](<../03%20-%20GPU%20and%20Systems/Memory%20Coalescing.md>)：连续访问让 memory transaction 更高效。
+- [Bank Conflict](<../03%20-%20GPU%20and%20Systems/Bank%20Conflict.md>)：shared memory 中多个 threads 访问同一 bank 会冲突。
 
 ### 10.3 Kernel optimization
 
-- [[Tiling]]：把大矩阵分块，复用 shared memory / registers 中的数据。
-- [[Operator fusion]]：把多个算子合并，减少 intermediate memory write/read。
-- [[Recomputation]]：用额外 compute 换 activation memory。
-- [[Low precision computation]]：减少 memory traffic，提高 tensor core throughput。
+- [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>)：把大矩阵分块，复用 shared memory / registers 中的数据。
+- [Operator fusion](<../03%20-%20GPU%20and%20Systems/Operator%20fusion.md>)：把多个算子合并，减少 intermediate memory write/read。
+- [Recomputation](<../02%20-%20Training%20and%20Scaling/Recomputation.md>)：用额外 compute 换 activation memory。
+- [Low precision computation](<../02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>)：减少 memory traffic，提高 tensor core throughput。
 
 ### 10.4 Performance diagnosis
 
-- [[Arithmetic Intensity]]：FLOPs / bytes，判断偏 compute-bound 还是 memory-bound。
-- [[GPU Bottleneck]]：定位瓶颈是 compute、memory、occupancy 还是 communication。
-- [[Model FLOPs Utilization]]：衡量训练系统整体把 GPU 算力用起来了多少。
+- [Arithmetic Intensity](<../03%20-%20GPU%20and%20Systems/Arithmetic%20Intensity.md>)：FLOPs / bytes，判断偏 compute-bound 还是 memory-bound。
+- [GPU Bottleneck](<../03%20-%20GPU%20and%20Systems/GPU%20Bottleneck.md>)：定位瓶颈是 compute、memory、occupancy 还是 communication。
+- [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)：衡量训练系统整体把 GPU 算力用起来了多少。
 
 核心直觉：
 
@@ -257,7 +257,7 @@ C \approx 6ND
 
 ## 11. Advanced Architecture: MoE
 
-[[Mixture of Experts (MoE)]] 这组笔记是 architecture 和 systems 交叉点。
+[Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>) 这组笔记是 architecture 和 systems 交叉点。
 
 MoE 的核心思想是：
 
@@ -273,7 +273,7 @@ MoE 的核心思想是：
 - device-level imbalance 会造成 straggler；
 - all-to-all communication 变成 systems bottleneck。
 
-[[MoE imbalance mitigation]] 的主线是：
+[MoE imbalance mitigation](<../05%20-%20Architectures%20and%20MoE/MoE%20imbalance%20mitigation.md>) 的主线是：
 
 > 实践中通常不会求解完整 routing / bandit 问题，而是在 normal language modeling loss 之外加入 load balancing loss 或 per-expert bias，让 experts 不要使用得太不均匀。
 
@@ -281,29 +281,29 @@ MoE 的核心思想是：
 
 如果你想系统复习，可以按下面顺序走：
 
-1. [[Language Modeling]]
-2. [[Next-token prediction]]
-3. [[Cross Entropy Loss]]
-4. [[Tokenization]]
-5. [[Transformer]]
-6. [[Decoder-Only Transformer]]
-7. [[Forward Pass in Transformer]]
-8. [[Transformer Block]]
-9. [[Self-Attention]]
-10. [[Causal Mask]]
-11. [[Residual Stream]]
-12. [[RMSNorm]]
-13. [[Rotary Position Embedding]]
-14. [[Llama-style Architecture]]
-15. [[Training Recipe]]
-16. [[Training vs Inference]]
-17. [[Scaling Law]]
-18. [[Resource Accounting]]
-19. [[Model FLOPs Utilization]]
-20. [[GPU]]
-21. [[Tiling]]
-22. [[Flash Attention]]
-23. [[Mixture of Experts (MoE)]]
+1. [Language Modeling](<./Language%20Modeling.md>)
+2. [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
+3. [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
+4. [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
+5. [Transformer](<../../Transformer/Transformer.md>)
+6. [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
+7. [Forward Pass in Transformer](<../../Transformer/Forward%20Pass%20in%20Transformer.md>)
+8. [Transformer Block](<../../Transformer/Transformer%20Block.md>)
+9. [Self-Attention](<../../Transformer/Self-Attention.md>)
+10. [Causal Mask](<../../Transformer/Causal%20Mask.md>)
+11. [Residual Stream](<../../Transformer/Residual%20Stream.md>)
+12. [RMSNorm](<../../Transformer/RMSNorm.md>)
+13. [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
+14. [Llama-style Architecture](<../../Transformer/Llama-style%20Architecture.md>)
+15. [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
+16. [Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
+17. [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)
+18. [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+19. [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)
+20. [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
+21. [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>)
+22. [Flash Attention](<../../Transformer/Flash%20Attention.md>)
+23. [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>)
 
 ## 13. 目前笔记的强项
 
@@ -316,15 +316,15 @@ MoE 的核心思想是：
 
 下面这些链接在你的体系里已经频繁出现，但可以单独补成更完整的笔记：
 
-- [[Language Modeling Head]]：hidden states 如何映射到 vocabulary logits，weight tying 是什么。
-- [[Logits]]：为什么 logits 不是 probability，temperature 如何影响 distribution。
-- [[KV Cache]]：推理时为什么要 cache K/V，memory cost 如何随 batch、layers、heads、context length 变化。
-- [[Grouped Query Attention]]：为什么 GQA 可以降低 KV cache cost。
-- [[Systems for Language Models]]：可以作为 systems 总入口，连接 GPU、MFU、Resource Accounting、Training vs Inference。
-- [[AdamW]]：为什么 decoupled weight decay 对 LLM training 常见。
-- [[Learning Rate Schedule]]：warmup + cosine decay 的直觉。
-- [[Data Mixture]]：不同数据源比例如何影响 LM 行为。
-- [[Evaluation]] / [[Perplexity]]：language model 怎么被评估。
+- Language Modeling Head：hidden states 如何映射到 vocabulary logits，weight tying 是什么。
+- Logits：为什么 logits 不是 probability，temperature 如何影响 distribution。
+- KV Cache：推理时为什么要 cache K/V，memory cost 如何随 batch、layers、heads、context length 变化。
+- Grouped Query Attention：为什么 GQA 可以降低 KV cache cost。
+- Systems for Language Models：可以作为 systems 总入口，连接 GPU、MFU、Resource Accounting、Training vs Inference。
+- AdamW：为什么 decoupled weight decay 对 LLM training 常见。
+- [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>)：warmup + cosine decay 的直觉。
+- Data Mixture：不同数据源比例如何影响 LM 行为。
+- Evaluation / Perplexity：language model 怎么被评估。
 
 ## 15. 最后的整体理解
 

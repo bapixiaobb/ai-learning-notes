@@ -1,11 +1,11 @@
 #MachineLearning #DeepLearning #Optimization #LanguageModeling
 
->[!note]
+>**Note**
 > **Cross Entropy Loss** 是分类任务和 language modeling 中常用的 loss function，用来衡量模型预测的概率分布和真实标签分布之间的差异。
 
 ## 直觉
 
->[!note]
+>**Note**
 > Cross entropy 惩罚的是：模型有没有把足够高的概率分给正确答案。
 >
 > 如果正确类别的预测概率很高，loss 就小；如果正确类别的预测概率很低，loss 就大。
@@ -43,8 +43,8 @@ y_k \log \hat{p}_k
 ```
 
 ## Implementation
-![[TransformerLM.jpeg]]
-一个完整的 [[Transformer]] 最后的输出是：
+![TransformerLM.jpeg](<../../Transformer/TransformerLM.jpeg>)
+一个完整的 [Transformer](<../../Transformer/Transformer.md>) 最后的输出是：
 ```
 logits: [batch, seq, vocab_size]
 ```
@@ -52,7 +52,7 @@ cross-entropy loss 计算的是，对于在
 ```
 logit: [B, S, :] = [...]
 ```
-这有一个`vocab_size` 大小的 vector，是模型根据当前位置及之前的 tokens，对 vocabulary 中所有 next-token candidates 给出的未归一化分数。这里得到的只是分数，所以我们要做个 [[Softmax]] 
+这有一个`vocab_size` 大小的 vector，是模型根据当前位置及之前的 tokens，对 vocabulary 中所有 next-token candidates 给出的未归一化分数。这里得到的只是分数，所以我们要做个 [Softmax](<../../Transformer/Softmax.md>)
 ```
 probabilities = Softmax(logits): [batch, seq, vocab_size]
 ```
@@ -69,7 +69,7 @@ losses = -log(correct_probabilities): [batch, seq]
 mean(losses)
 ```
 
->[!example] `batch_size = 2, seq_len = 3, vocab_size = 5 -> probabilities.shape = [2,3,5]`
+>**Example** — `batch_size = 2, seq_len = 3, vocab_size = 5 -> probabilities.shape = [2,3,5]`
 >假设 batch 0 的三个位置分别输出：
 >```
 >位置 0: [0.10, 0.60, 0.10, 0.10, 0.10]
@@ -119,7 +119,7 @@ probabilities[1,2,4] = 0.70
 >```
 ## One-hot Label 情况
 
->[!note]
+>**Note**
 > 如果真实标签是 one-hot，那么只有正确类别那一项是 1，其余都是 0。
 
 假设正确类别是 $c$，那么：
@@ -144,12 +144,12 @@ y_k = 0, \quad k \neq c
 
 也就是：
 
->[!note]
+>**Note**
 > Cross entropy loss 只看模型给正确类别分配了多少概率。
 
 ## 与 Softmax 的关系
 
->[!note]
+>**Note**
 > Neural network 通常先输出 logits，而不是直接输出概率。Softmax 会把 logits 转换成概率分布。
 
 给定 logits：
@@ -158,7 +158,7 @@ y_k = 0, \quad k \neq c
 z = (z_1, z_2, \dots, z_K)
 ```
 
-[[Softmax]] 定义为：
+[Softmax](<../../Transformer/Softmax.md>) 定义为：
 
 ```math
 \hat{p}_k
@@ -176,8 +176,8 @@ z = (z_1, z_2, \dots, z_K)
 
 ## 在 Language Modeling 中
 
->[!note]
-> 在 [[Language Modeling]] 中，每一个位置都可以看作一个多分类问题：给定前面的 tokens，预测 vocabulary 中的下一个 token。
+>**Note**
+> 在 [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 中，每一个位置都可以看作一个多分类问题：给定前面的 tokens，预测 vocabulary 中的下一个 token。
 
 模型目标是：
 
@@ -203,9 +203,9 @@ p_\theta(x_t \mid x_{<t})
 \log p_\theta(x_t \mid x_{<t})
 ```
 
-## 与 [[Maximum Likelihood Estimation]] 的关系
+## 与 Maximum Likelihood Estimation 的关系
 
->[!note]
+>**Note**
 > 最小化 cross entropy loss 等价于最大化模型给训练数据分配的 likelihood。
 
 对于训练序列：
@@ -234,22 +234,22 @@ p_\theta(x_t \mid x_{<t})
 
 ## Why Cross Entropy?
 
->[!note]
+>**Note**
 > Cross entropy 适合概率预测问题，因为它直接惩罚模型对正确答案分配的概率不足。
 
 它常用于：
 
 - classification
-- [[Next-token prediction]] 
-- [[Language Modeling]] 
+- [Next-token prediction](<./Next-token%20prediction.md>)
+- [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 - sequence modeling
 
 ## Related
 
-- [[Loss Function]]
-- [[Softmax]]
-- [[Language Modeling]]
-- [[Maximum Likelihood Estimation]]
-- [[Classification]]
-- [[Neural Network]]
-- [[An Optimization Problem]]
+- Loss Function
+- [Softmax](<../../Transformer/Softmax.md>)
+- [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
+- Maximum Likelihood Estimation
+- Classification
+- [Neural Network](<../../Neural%20Networks/Neural%20Network.md>)
+- An Optimization Problem

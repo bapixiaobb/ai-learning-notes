@@ -71,7 +71,7 @@ Embedding weight: [vocab_size, d_model]
 
 ## **Related**
 
-- [[Tokenization]] 
-- [[Language Modeling]] 
-- [[Transformer]] 
-- [[Neural Network]]  
+- [Tokenization](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
+- [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
+- [Transformer](<./Transformer.md>)
+- [Neural Network](<../Neural%20Networks/Neural%20Network.md>)  

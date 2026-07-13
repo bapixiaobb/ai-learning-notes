@@ -1,7 +1,7 @@
-#AI #LanguageModeling 
+#AI #LanguageModeling
 
 
->[!note] 这是 [[GPU]] 在数据访问的时候会出现的问题
+>**Note** — 这是 [GPU](<./GPU.md>) 在数据访问的时候会出现的问题
 Bank conflict 发生在 shared memory。shared memory 被分成多个 banks，如果同一个 warp 里的多个 threads 同时访问同一个 bank，就会排队，导致 shared memory 访问变慢。
 
 用一句话总结就是：Bank conflict 是 shared memory 里面的访问堵车

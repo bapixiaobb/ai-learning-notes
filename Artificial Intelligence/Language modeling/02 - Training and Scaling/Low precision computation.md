@@ -1,12 +1,12 @@
-#AI #LanguageModeling #LLM 
+#AI #LanguageModeling #LLM
 
-一种 [[GPU Memory Bound]] 的优化方法：**==用低精度格式参与实际计算==** 
-# Why it is an optimization for [[GPU]]
+一种 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>) 的优化方法：**用低精度格式参与实际计算**
+# Why it is an optimization for [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
 ## Memory Optimization
 
-这是一个很直接的减少数据搬运的方法，既然有 [[GPU Memory Bound]]，那我就**每个数字少用一点 bit 表示。** 这个方法叫做 [[Quantization]]  
+这是一个很直接的减少数据搬运的方法，既然有 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那我就**每个数字少用一点 bit 表示。** 这个方法叫做 [Quantization](<../../Transformer/Quantization.md>)  
 
->[!note] if you have fewer bits, you have fewer bits to move。
+>**Note** — if you have fewer bits, you have fewer bits to move。
 
 ```
 FP32 → BF16 / FP16 → FP8 → FP4
@@ -18,16 +18,16 @@ FP32 → BF16 / FP16 → FP8 → FP4
 - tensor core / matrix unit 的吞吐更高；
 - 代价是数值误差、overflow/underflow、training instability。
 
->[!example]
+>**Example**
 >一个 FP32 数字：`32 bits = 4 bytes`
 >一个 BF16 / FP16 数字：`16 bits = 2 bytes`
 >一个 FP8 数字：`8 bits = 1 byte`
 >如果一个 vector operation 用 FP32，读一个数 4 bytes，写一个数 4 bytes，总共 8 bytes memory access；如果精度减半，搬运的 bytes 也跟着减半。
 
->[!note] FP32 → BF16 
+>**Note** — FP32 → BF16
 >这个比较特殊不像是 FP8 这种 bit 位差别很大的数据类型转换
->一般是 cast to BF16，不是 [[Quantization]]，BF16 自己有 exponent 和 mantissa，不需要额外 scale，然后模型直接用 BF16 做训练。
-## Compute Optimization 
+>一般是 cast to BF16，不是 [Quantization](<../../Transformer/Quantization.md>)，BF16 自己有 exponent 和 mantissa，不需要额外 scale，然后模型直接用 BF16 做训练。
+## Compute Optimization
 
 **专门硬件对低精度矩阵乘法更快。**
 
@@ -38,7 +38,7 @@ FP32 → BF16 / FP16 → FP8 → FP4
 ---
 # Which operation should use which number format
 
->[!note] Quantization $\neq$ 把所有 FP32 都转成 INT8 / FP8。
+>**Note** — Quantization $\neq$ 把所有 FP32 都转成 INT8 / FP8。
 >有些操作可以低精度，有些操作必须高精度
 >low precision training 的难点就在判断哪些操作应该用什么数据类型
 
@@ -53,7 +53,7 @@ FP32 → BF16 / FP16 → FP8 → FP4
 ---
 # Low precision of MatMul
 
->[!important] **乘法输入可以低精度，但累加通常需要更高精度。**
+>**Important** — **乘法输入可以低精度，但累加通常需要更高精度。**
 >
 
 所以矩阵乘法 $A\times B = C$ 一般是：
@@ -68,12 +68,12 @@ C: maybe FP32 / BF16 / FP8
 Why? 因为矩阵乘法里一个元素是：`C[i, j] = sum_k A[i, k] B[k, j]`，C 的一个元素有很多项相加，如果每一步累加都用很低精度，误差会不断积累。
 
 ---
->[!question] low precision 讲成减少 [[GPU Memory Bound]]，那它对 compute 有没有帮助？
+>**Question** — low precision 讲成减少 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那它对 compute 有没有帮助？
 >有，compute 肯定也有帮助。  
 >对 quantized numbers 做乘法，基本可以得到接近线性的 compute improvement。  
 >但是因为还要 quantize / dequantize，所以整体收益会被 diluted
 >
->**==为什么收益不是 2x / 4x？==**
+>**为什么收益不是 2x / 4x？**
 >因为系统还要做：
 >```
 >quantize

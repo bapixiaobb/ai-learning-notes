@@ -3,12 +3,12 @@
 Causal Mask 是 decoder-only language model 中用来阻止模型看到 future tokens 的 mask。  
 它保证第 $t$ 个位置只能使用当前位置及之前的信息。
 
-Causal Mask 是实现 [[Causal Attention]] 的 attention mask。  
+Causal Mask 是实现 [Causal Attention](<./Causal%20Attention.md>) 的 attention mask。  
 它在 self-attention 的 score matrix 上屏蔽 future positions，使第 $t$ 个 token 只能 attend to $1,\dots,t$。
 
 ## 🧠 Core Idea
 
->[!note]
+>**Note**
 >Causal Mask 的核心作用是：
 >
 >让模型在预测下一个 token 时不能偷看未来。
@@ -25,7 +25,7 @@ Causal Mask 是实现 [[Causal Attention]] 的 attention mask。
 >x_{t+1}, x_{t+2}, \dots
 >```
 
-这和 [[Autoregressive Language Model]] 的建模目标一致：
+这和 Autoregressive Language Model 的建模目标一致：
 
 ```math
 p(x_1, x_2, \dots, x_T)
@@ -36,7 +36,7 @@ p(x_t \mid x_{<t})
 
 ## 🔍 Why It Is Needed
 
-在训练 [[Decoder-Only Transformer]] 时，整个 sequence 通常会一次性输入模型：
+在训练 [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 时，整个 sequence 通常会一次性输入模型：
 
 ```math
 [x_1, x_2, x_3, x_4]
@@ -45,7 +45,7 @@ p(x_t \mid x_{<t})
 如果没有 mask，第 1 个位置可能直接看到 $x_2, x_3, x_4$。  
 这样模型在预测 next token 时就会“作弊”。
 
->[!important]
+>**Important**
 >Causal Mask 保证训练时虽然可以并行处理整个 sequence，但每个位置的信息访问仍然满足 causal constraint。
 
 也就是说：
@@ -113,20 +113,20 @@ x_4
 -\infty
 ```
 
-这样经过 [[Softmax]] 后，对应 attention weight 就会变成：
+这样经过 [Softmax](<./Softmax.md>) 后，对应 attention weight 就会变成：
 
 ```math
 0
 ```
 
->[!note]
+>**Note**
 >Causal Mask 不改变 $Q,K,V$ 的来源。
 >
 >它改变的是每个 token position 可以 attend to 哪些 positions。
 
 ## 🧵 Relation to Causal Attention
 
-[[Causal Attention]] 指带有 causal constraint 的 self-attention。  
+[Causal Attention](<./Causal%20Attention.md>) 指带有 causal constraint 的 self-attention。  
 Causal Mask 是实现这个 constraint 的常见方式。
 
 可以理解为：
@@ -139,23 +139,23 @@ Causal Mask 是实现这个 constraint 的常见方式。
 \text{Causal Attention}
 ```
 
->[!note]
+>**Note**
 >Self-attention 说明 token positions 可以互相看。
 >
 >Causal mask 限制哪些 positions 不能被看。
 
 ## 📍 Causal Mask vs Positional Encoding
 
-Causal Mask 和 [[Positional Encoding]] 是两件不同的事。
+Causal Mask 和 [Positional Encoding](<./Positional%20Encoding.md>) 是两件不同的事。
 
 | Concept | Role |
 |---|---|
-| [[Positional Encoding]] | 告诉模型 token 在哪里 |
+| [Positional Encoding](<./Positional%20Encoding.md>) | 告诉模型 token 在哪里 |
 | Causal Mask | 告诉模型哪些 token 不能看 |
-| [[Rotary Position Embedding]] | 把 position information 注入 attention |
-| [[Causal Attention]] | 只能看 prefix 的 attention pattern |
+| [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) | 把 position information 注入 attention |
+| [Causal Attention](<./Causal%20Attention.md>) | 只能看 prefix 的 attention pattern |
 
->[!important]
+>**Important**
 >RoPE 不能替代 Causal Mask。
 >
 >RoPE 让模型知道位置关系；Causal Mask 阻止模型看到 future tokens。
@@ -184,7 +184,7 @@ p(x_4 \mid x_{\leq 3})
 x_{t+1}
 ```
 
->[!note]
+>**Note**
 >训练时 Causal Mask 很关键，因为 future tokens 已经在输入 sequence 里。
 >
 >推理时模型通常逐步生成，future tokens 还不存在，但实现中仍然会保留 causal attention 逻辑。
@@ -205,7 +205,7 @@ Causal mask 用来屏蔽 future tokens。
 
 ### Causal Mask 不等于 RoPE
 
-[[Rotary Position Embedding]] 编码 position information。  
+[Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) 编码 position information。  
 Causal Mask 控制 information flow direction。
 
 ### Causal Mask 不改变模型参数
@@ -215,7 +215,7 @@ Causal Mask 通常不是 learnable parameter。
 
 ---
 
->[!summary] My Understanding
+>**Summary** — My Understanding
 >Causal Mask 是 decoder-only language model 中保证 autoregressive constraint 的机制。
 >
 >它让第 $t$ 个 token position 只能 attend to prefix，不能看到 future tokens。
@@ -226,10 +226,10 @@ Causal Mask 通常不是 learnable parameter。
 
 ## 🔗 Connections
 
-- [[Causal Attention]]
-- [[Self-Attention]]
-- [[Decoder-Only Transformer]]
-- [[Transformer Block]]
-- [[Training vs Inference]]
-- [[Positional Encoding]]
-- [[Rotary Position Embedding]]
+- [Causal Attention](<./Causal%20Attention.md>)
+- [Self-Attention](<./Self-Attention.md>)
+- [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>)
+- [Transformer Block](<./Transformer%20Block.md>)
+- [Training vs Inference](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
+- [Positional Encoding](<./Positional%20Encoding.md>)
+- [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)
