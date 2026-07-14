@@ -1,195 +1,110 @@
-#LanguageModeling #Systems #FLOPs
+#LanguageModeling #Systems
 
->**Note**
-> **Resource Accounting** 是在训练 large language model 前，对计算量、显存、内存带宽、训练时间和硬件利用率进行估算的过程。
->
-> 它的目的不是单纯“数 FLOPs”，而是判断一个模型训练计划在给定硬件和预算下是否可行，以及瓶颈可能在哪里。
+Resource Accounting 可以理解成：**在真正运行之前，先给一次 training step 记账。**
 
-## 为什么需要 Resource Accounting
-
->**Note**
-> 大模型训练成本极高，不能先随便跑再看结果。训练前必须估算：
->
-> - 需要多少 total compute
-> - 需要多少 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) hours
-> - 显存是否放得下
-> - training throughput 是否足够
-> - bottleneck 是 compute 还是 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)
-> - scaling forecast 是否合理
-
-对于 language model，训练成本通常由几个量共同决定：
+数学上我们只写：
 
 ```math
-\text{model size}
-,\quad
-\text{number of training tokens}
-,\quad
-\text{sequence length}
-,\quad
-\text{hardware throughput}
-,\quad
-\text{memory constraints}
+\theta_{t+1}
+=
+\theta_t-\eta\,g_t
 ```
 
->**Question**
-> 给定模型规模、训练数据和硬件，我们能不能在预算内完成训练？如果不能，瓶颈在哪里？
+但在机器上完成这个 update，需要执行 forward / backward，保存中间 tensor，并在 memory 和 compute units 之间搬运数据。
 
-## 核心估算对象
+因此真正需要数清三笔账：
 
-### Compute
+    做多少计算（compute）
+    存多少数据（memory）
+    搬多少数据（data movement / communication）
 
->**Note**
-> Compute 衡量训练总共需要多少 floating-point operations。它通常用 [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>) 表示。
+# 1. Compute：要算多少
 
-对于 dense Transformer training，常用粗略估算是：
+Transformer 的主要计算来自 matrix multiplication，例如 attention projections 和 MLP。
+
+对于 dense Transformer，完整训练的计算量常粗略写成：
 
 ```math
 \text{Training FLOPs} \approx 6ND
 ```
 
-其中：
+其中 $N$ 是 parameters 数量，$D$ 是训练过的 tokens 数量。更详细的来源见 [Training Compute - 6ND](<Training%20Compute%20-%206ND.md>)。
 
-- $N$：number of model parameters
-- $D$：number of training tokens
+这个数字告诉我们总工作量，但不能直接告诉我们训练会有多快。真实速度还取决于 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 的 throughput，以及 compute units 是否在等待数据。
 
->**Note**
-> 直觉是：每个 token 训练时都要经过整个 dense model；单个 token 的计算量大约正比于参数量 $N$，训练 $D$ 个 tokens 后总计算量约正比于 $ND$。
+# 2. Memory：要存什么
 
-### Throughput
+训练时显存不只存 parameters：
 
->**Note**
-> Throughput 衡量训练系统实际跑得多快，常见单位包括 FLOP/s、tokens/s 或 samples/s。
-
-### Memory
-
->**Note**
-> Memory 关注训练时显存是否放得下。大模型训练中，显存通常被 parameters、gradients、optimizer states 和 activations 占用。
-
-主要显存来源：
-
-| 部分 | 含义 |
+| 内容 | 为什么需要 |
 |---|---|
-| Parameters | 模型权重 |
-| Gradients | 反向传播得到的梯度 |
-| Optimizer states | Adam 等 optimizer 保存的动量和二阶矩 |
-| Activations | forward pass 中为 backward 保存的中间结果 |
+| parameters | forward / backward 使用的模型权重 |
+| gradients | optimizer 更新 parameters 所需 |
+| optimizer states | Adam 保存的一阶、二阶统计量等 |
+| activations | backward 计算梯度时需要的中间结果 |
 
->**Note**
-> 很多时候模型不是 FLOPs 不够跑，而是显存放不下，或者 memory bandwidth 供应不上计算单元。
+所以“模型参数能放进显存”不等于“模型能够训练”。
 
-### Bandwidth
+如果放不下，可以改变执行方式：
 
->**Note**
-> Memory bandwidth 衡量单位时间内能从 memory 搬运多少数据。
->
-> 在 accelerator 上，很多操作的瓶颈不是计算，而是数据搬运。
+- low precision：让每个 tensor 占更少 bytes；
+- [Recomputation](<Recomputation.md>)：少存 activations，backward 时重新计算；
+- ZeRO / FSDP：把 model states 分到多个 devices；
+- tensor / pipeline parallelism：把模型本身拆开。
 
+# 3. Data Movement：数据要经过哪里
 
-## 判断 Bottleneck
+即使 compute 和 memory 容量都够，数据也必须及时送到 compute units。
 
->**Note** — [GPU Bottleneck](<../03%20-%20GPU%20and%20Systems/GPU%20Bottleneck.md>)
-> Resource accounting 不只是估算“需要多少计算”，还要判断训练过程是 compute-bound 还是 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)。
-## 重要 Techniques
+单张 GPU 内部：
 
-### Gradient Accumulation
+    HBM ↔ shared memory / registers ↔ compute
 
->**Note**
-> [Gradient Accumulation](<./Gradient%20Accumulation.md>) 用于在显存放不下 large batch 时，用多个 microbatches 累加梯度，再做一次 optimizer step。
+如果 bytes 搬得很多、计算却很少，operator 就可能是 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)。[Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>)、[Operator fusion](<../03%20-%20GPU%20and%20Systems/Operator%20fusion.md>) 和 [Memory Coalescing](<../03%20-%20GPU%20and%20Systems/Memory%20Coalescing.md>) 都是在改善这笔账。
 
+多张 GPU 之间：
 
-### Activation Checkpointing
+    GPU ↔ GPU
+    node ↔ node
 
->**Note**
-> Activation Checkpointing 用额外 recomputation 换取更低 activation memory。
->
-> forward 时不保存所有 intermediate activations；backward 时需要时再重新计算。
+这时还要计算 communication volume，并结合 [GPU Communication Topology](<../04%20-%20Distributed%20Training%20and%20Parallelism/GPU%20Communication%20Topology.md>) 判断传输速度。
 
-核心 trade-off：
-
-```math
-\text{memory} \downarrow,
-\quad
-\text{compute} \uparrow
-```
-
->**Note**
-> 它常用于深层 Transformer 或长 sequence 训练，因为 activations 会随 batch size、sequence length 和 layer 数增长。
-
-### Mixed Precision
-
->**Note**
-> Mixed precision 使用低精度数据类型，例如 FP16、BF16 或 FP8，减少 memory usage，提高 accelerator throughput。
-
-它可以降低：
-
-- parameter memory
-- activation memory
-- memory bandwidth pressure
-
-同时提高：
-
-- Tensor Core utilization
-- training throughput
-
->**Note**
-> Mixed precision 需要注意 numerical stability，因此通常会结合 loss scaling、BF16 accumulation 或特定 optimizer 设置。
-
-### Parallelism
-
->**Note**
-> 当单个设备无法容纳或高效训练模型时，需要使用 parallelism 将训练分布到多个 devices 上。
-
-常见方式包括：
-
-- data parallelism
-- tensor parallelism
-- pipeline parallelism
-- sequence parallelism
-- expert parallelism
-
->**Note**
-> Parallelism 可以扩展训练规模，但也会引入 communication overhead。因此 resource accounting 需要同时考虑 computation 和 communication。
-
-### Model FLOPs Utilization
-
->**Note**
-> [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>) 衡量模型实际训练时使用了多少硬件理论峰值算力。
-
-形式上可以理解为：
-
-```math
-\text{MFU}
-=
-\frac{\text{model FLOP/s}}{\text{hardware peak FLOP/s}}
-```
-
->**Note**
-> 高 FLOPs 估算并不代表训练效率高。实际系统还可能被 memory bandwidth、communication、kernel efficiency 或 batch size 限制。
-
-## 和 Scaling Law 的关系
-
->**Note**
-> Resource accounting 还服务于 scaling decision：给定 compute budget，应该选择多大的模型、多少训练 tokens、什么 batch size 和训练时长。
-
-典型问题是：
+# Resource Accounting 如何导向 Parallelism
 
 >**Question**
-> 如果预算是固定的，是应该训练更大的模型，还是用更多 tokens 训练较小的模型？
+> 给定 model、batch 和 hardware，单张 GPU 是否放得下？如果放得下，是否能在合理时间内完成训练？
 
-这类问题和 [Scaling Law](<./Scaling%20Law.md>)、Compute Optimal Training 直接相关。
+如果答案是否定的，就需要 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)。
 
-## 总结
+Parallelism 决定把什么拆开：
 
->**Note**
-> Resource accounting 是 large language model training 前的系统性估算过程。它连接了模型规模、数据规模、FLOPs、memory、bandwidth、parallelism 和 training cost。
->
-> 它的核心作用是：在训练前判断计划是否可行，在训练中定位 bottleneck，并指导优化方向。
+| 被拆分的数学对象 | Parallelism |
+|---|---|
+| batch / gradient sum | data parallelism |
+| matrix / hidden dimension | tensor parallelism |
+| layers / function composition | pipeline parallelism |
+| parameters、gradients、optimizer states | ZeRO / FSDP |
 
-## Related
+但拆分会产生新的 communication。因此不能只问“能不能切”，还要比较：
 
-- [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
-- [Transformer](<../../Transformer/Transformer.md>)
-- [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>)
-- [Training Compute - 6ND](<./Training%20Compute%20-%206ND.md>)
-- [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)
-- [Scaling Law](<./Scaling%20Law.md>)
+```math
+\text{节省的 memory / 增加的 compute}
+\quad\text{vs.}\quad
+\text{新增的 communication}
+```
+
+>**Summary**
+> Resource Accounting 不是一堆 performance 指标，而是沿着一次 training step，数清 **算什么、存什么、搬什么**。
+> 它负责暴露资源瓶颈；[Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)、kernel optimization、low precision 和 recomputation 则是不同的解决办法。
+
+---
+# 🔗
+
+[Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
+[Transformer](<../../Transformer/Transformer.md>)
+[Training Recipe](<Training%20Recipe.md>)
+[GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
+[Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)
+[FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>)
+[Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)
+[Scaling Law](<Scaling%20Law.md>)
