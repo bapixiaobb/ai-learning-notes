@@ -38,7 +38,7 @@ thread 31 -> x[31000]
 
 ## Why It Matters
 
-> **Note**
+>**Note**
 > Memory coalescing 的核心作用是减少 HBM traffic，让同样的数据访问用更少的 memory transactions 完成。
 
 它和 [GPU Memory Bound](<./GPU%20Memory%20Bound.md>) 直接相关：
@@ -57,13 +57,13 @@ thread 31 -> x[31000]
 |[Memory Coalescing](<./Memory%20Coalescing.md>)|HBM / global memory|warp 访问的地址不连续，不能合并读取|
 |[Bank Conflict](<./Bank%20Conflict.md>)|shared memory|多个 threads 同时撞到同一个 bank|
 
-> **Important**
-> Memory coalescing 关心的是 **global memory 怎么读得顺**。  
+>**Important**
+> Memory coalescing 关心的是 **global memory 怎么读得顺**。
 > Bank conflict 关心的是 **shared memory 里面会不会堵车**。
 
 ## 和 Tiling 的关系
 
-> **Note**
+>**Note**
 > [Tiling](<./Tiling.md>) 不只是选择 tile size，还要考虑 tile 在 memory 里的 layout 和 alignment。
 >
 > 一个 tile 如果读取时地址连续、对齐，就更容易 coalesce；如果 stride 很怪，即使 tile size 看起来合理，也可能访问效率很差。

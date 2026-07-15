@@ -60,19 +60,20 @@ linear transformation + nonlinear activation
 
 Neural network 的训练过程通常包括：
 
-1. 使用 [Forward Propagation](<./Forward%20Propagation.md>) 计算预测值和 loss；
-2. 使用 [Backpropagation](<./Backpropagation.md>) 计算 loss 对参数的梯度；
-3. 使用 [Optimizer](<../Transformer/Optimizer.md>) 更新参数。
+1. 使用 [Forward Propagation](<./Forward%20Propagation.md>) 计算 prediction；
+2. 使用 loss function 比较 prediction 和 target，得到 loss；
+3. 使用 [Backpropagation](<./Backpropagation.md>) 计算 loss 对参数的 gradients；
+4. 使用 [Optimizer](<../Transformer/Optimizer.md>) 更新参数。
 
 整体过程可以写成：
 ```math
-\hat{y} = f_\theta(x)  
+\hat{y} = f_\theta(x)
 ```
 ```math
-\mathcal{L} = \ell(\hat{y}, y)  
+\mathcal{L} = \ell(\hat{y}, y)
 ```
 ```math
-\theta \leftarrow \theta - \eta \nabla_\theta \mathcal{L}(\theta)  
+\theta \leftarrow \theta - \eta \nabla_\theta \mathcal{L}(\theta)
 ```
 其中 $\eta$ 是 learning rate。
 
@@ -83,7 +84,7 @@ Neural network 是由多个 affine transformations 和 nonlinear activations 复
 ## $f_\theta$
 
 ```math
-f_L \circ f_{L-1} \circ \cdots \circ f_1  
+f_L \circ f_{L-1} \circ \cdots \circ f_1
 ```
 
 这种复合结构使它能够表示复杂 nonlinear mappings。
@@ -100,14 +101,14 @@ ReLU neural network: 很多 piecewise linear regions 拼接起来的函数
 Linear System 通常研究的是：
 
 ```math
-Ax = b  
+Ax = b
 ```
 
 其中矩阵 $A$ 是给定的，目标是求未知向量 $x$。
 
 Neural network training 中，模型参数 $\theta$ 是未知的，并且 loss function 通常是 nonlinear and nonconvex：
 ```math
-\min_\theta \mathcal{L}(\theta)  
+\min_\theta \mathcal{L}(\theta)
 ```
 因此 neural network training 更接近 large-scale nonlinear optimization，而不是直接求解一个固定 linear system。
 
@@ -125,7 +126,7 @@ Neural network 可以用于不同类型的任务：
 在 [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 中，neural network 通常用于建模：
 
 ```math
-p_\theta(x_t \mid x_{<t})  
+p_\theta(x_t \mid x_{<t})
 ```
 即根据前面的 tokens 预测下一个 token。
 
@@ -136,7 +137,7 @@ p_\theta(x_t \mid x_{<t})
 - Statistical Learning
 - An Optimization Problem
 - [Forward Propagation](<./Forward%20Propagation.md>)
-- Backward Propagation
+- [Backpropagation](<./Backpropagation.md>)
 - Gradient Descent
 - [ReLU](<../Transformer/ReLU.md>)
 - [Transformer](<../Transformer/Transformer.md>)

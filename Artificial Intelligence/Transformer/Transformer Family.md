@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #NLP #LanguageModeling #Architecture #Transformer
 
-[Transformer Family](<./Transformer%20Family.md>) 指从 [Original Transformer](<./Original%20Transformer.md>) 发展出来的一组 Transformer-based architectures。  
+[Transformer Family](<./Transformer%20Family.md>) 指从 [Original Transformer](<./Original%20Transformer.md>) 发展出来的一组 Transformer-based architectures。
 它们共享 [Self-Attention](<./Self-Attention.md>)、[Transformer Block](<./Transformer%20Block.md>)、[Residual Connection](<./Residual%20Connection.md>)、[Normalization](<./Normalization.md>) 等核心思想，但在整体结构、attention mask、输入输出形式和训练目标上不同。
 
 ## 🧠 Core Idea

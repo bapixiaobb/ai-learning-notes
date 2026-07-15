@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Transformer #Architecture
 
-Feed-Forward Network 指信息只沿一个方向从输入流向输出的 neural network。  
+Feed-Forward Network 指信息只沿一个方向从输入流向输出的 neural network。
 它没有 recurrent connection，也不会把后面的输出再反馈回前面的层。
 
 ## 🧠 Core Idea
@@ -8,13 +8,15 @@ Feed-Forward Network 指信息只沿一个方向从输入流向输出的 neural 
 >**Note**
 >Feed-forward 的意思是：
 >
->```math
+>
+```math
 >\text{input}
 >\rightarrow
 >\text{hidden layers}
 >\rightarrow
 >\text{output}
->```
+>
+```
 >
 >信息只向前传播，不形成循环。
 
@@ -42,7 +44,7 @@ W_2 h + b_2
 
 ## 🧩 Relation to Neural Network
 
-[Neural Network](<./Neural%20Network.md>) 是更大的概念。  
+[Neural Network](<./Neural%20Network.md>) 是更大的概念。
 Feed-forward network 是 neural network 的一种基本结构。
 
 可以理解成：
@@ -193,14 +195,14 @@ Feed-Forward Network: 每个 token 自己内部做非线性处理
 
 ### **1. Feed-forward 不等于 forward pass**
 
-[Forward Pass in Transformer](<../Transformer/Forward%20Pass%20in%20Transformer.md>) 指一次模型前向计算过程。  
+[Forward Propagation](<./Forward%20Propagation.md>) 指一次模型前向计算过程。
 [Feed-Forward Network](<./Feed-Forward%20Network.md>) 指一种 neural network structure。
 
 它们名字相似，但不是同一个概念。
 
 ### **2. Feed-forward 不等于 Transformer 整体**
 
-Transformer 里面有 FFN / MLP，但 Transformer 不只是 FFN。  
+Transformer 里面有 FFN / MLP，但 Transformer 不只是 FFN。
 Transformer 还包括：
 
 - [Self-Attention](<../Transformer/Self-Attention.md>)
@@ -210,7 +212,7 @@ Transformer 还包括：
 
 ### **3. FFN 不做 token mixing**
 
-在 Transformer 中，FFN 对每个 token 独立作用。  
+在 Transformer 中，FFN 对每个 token 独立作用。
 真正让 token positions 之间交换信息的是 [Self-Attention](<../Transformer/Self-Attention.md>)。
 
 ---
@@ -222,13 +224,15 @@ Transformer 还包括：
 >
 >在 Transformer 语境下，FFN 通常指每个 [Transformer Block](<../Transformer/Transformer%20Block.md>) 里的 per-token MLP：
 >
->```math
-d_{\text{model}}  
-\rightarrow  
-d_{\text{ff}}  
-\rightarrow  
-d_{\text{model}}  
->```
+>
+```math
+d_{\text{model}}
+\rightarrow
+d_{\text{ff}}
+\rightarrow
+d_{\text{model}}
+>
+```
 >
 >它不负责 token mixing，而是对每个 token representation 做 nonlinear processing。
 
@@ -241,5 +245,5 @@ d_{\text{model}}
 - [Self-Attention](<../Transformer/Self-Attention.md>)
 - [Activation Function](<./Activation%20Function.md>)
 - [ReLU](<../Transformer/ReLU.md>)
-- [Forward Pass in Transformer](<../Transformer/Forward%20Pass%20in%20Transformer.md>)
+- [Forward Propagation](<./Forward%20Propagation.md>)
 - [Backpropagation](<./Backpropagation.md>)

@@ -13,7 +13,6 @@
 # Naive Attention
 
 对于
-
 ```math
 \mathrm{Attention}(Q,K,V)
 =
@@ -27,11 +26,11 @@
 1. 读 Q, K
 2. 算 score = QK^T
 3. 把 score 写回 HBM/ global memory
-  
+
 4. 读 score
 5. 算 P = softmax(score)
 6. 把 P 写回 HBM/ global memory
-  
+
 7. 读 P, V
 8. 算 O = PV
 9. 把 O 写回 HBM/ global memory
@@ -71,4 +70,4 @@ Optimization:
 >- Tile-wise computation of the softmax via the online, telescoping sum trick
 >(We won’t cover the backward pass – but they recompute tile-by-tile..)
 
-(这里 backward 的时候，用到了[Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)）
+(这里 [backward](<../Neural%20Networks/Backpropagation.md>) 的时候，用到了 [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)）

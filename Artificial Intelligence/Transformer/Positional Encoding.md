@@ -1,6 +1,6 @@
 #LanguageModeling #Transformer #PositionEncoding #Architecture
 
-Positional Encoding 指把 token 的位置信息加入 Transformer 的方法。  
+Positional Encoding 指把 token 的位置信息加入 Transformer 的方法。
 因为 [Self-Attention](<./Self-Attention.md>) 本身不天然知道 token 的顺序，所以 Transformer 需要额外机制表示 position information。
 
 ## 🧠 Core Idea
@@ -10,15 +10,19 @@ Positional Encoding 指把 token 的位置信息加入 Transformer 的方法。
 >
 >如果没有 positional information，模型很难区分：
 >
->```math
+>
+```math
 >[x_1, x_2, x_3]
->```
+>
+```
 >
 >和：
 >
->```math
+>
+```math
 >[x_3, x_2, x_1]
->```
+>
+```
 >
 >因为 attention 本身主要根据 token representations 计算关系，而不自带顺序结构。
 
@@ -113,7 +117,7 @@ Q,K
 | absolute position | token 在 sequence 中的具体位置，例如第 17 个 token |
 | relative position | 两个 token 之间相隔多远，例如相隔 3 个 tokens |
 
-在 language modeling 中，relative position 往往很重要。  
+在 language modeling 中，relative position 往往很重要。
 比如模型经常需要关注：
 
 - 前一个 token；

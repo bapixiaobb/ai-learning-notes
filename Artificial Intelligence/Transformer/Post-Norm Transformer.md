@@ -26,15 +26,17 @@ x_{\text{out}}
 >
 >也就是：
 >
->```math
+>
+```math
 >\mathrm{SubLayer}
 >\rightarrow
 >\mathrm{Residual Add}
 >\rightarrow
 >\mathrm{Norm}
->```
+>
+```
 
-这和 [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) 相反。  
+这和 [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) 相反。
 Pre-Norm 是先 normalization，再进入 sublayer：
 
 ```math
@@ -175,7 +177,7 @@ Normalization 会改变 residual addition 后的尺度和方向。
 
 ### 1. Post-Norm 不是 LayerNorm
 
-[Layer Normalization](<./Layer%20Normalization.md>) 是一种 normalization 方法。  
+[Layer Normalization](<./Layer%20Normalization.md>) 是一种 normalization 方法。
 [Post-Norm Transformer](<./Post-Norm%20Transformer.md>) 是一种 block layout。
 
 Original Transformer 中常见的是：
@@ -191,12 +193,12 @@ Original Transformer 中常见的是：
 
 ### 2. Post-Norm 不等于 encoder-decoder Transformer
 
-[Original Transformer](<./Original%20Transformer.md>) 是 encoder-decoder structure，并且使用 Post-Norm。  
+[Original Transformer](<./Original%20Transformer.md>) 是 encoder-decoder structure，并且使用 Post-Norm。
 但 Post-Norm 本身只是 block 内部的 norm placement。
 
 ### 3. Post-Norm 不改变 attention mask
 
-Post-Norm 只决定 norm 放在哪里。  
+Post-Norm 只决定 norm 放在哪里。
 是否 causal 由 [Causal Mask](<./Causal%20Mask.md>) 或 attention pattern 决定。
 
 ## 🧾 My Understanding
@@ -204,9 +206,11 @@ Post-Norm 只决定 norm 放在哪里。
 >**Summary**
 >[Post-Norm Transformer](<./Post-Norm%20Transformer.md>) 的核心公式是：
 >
->```math
+>
+```math
 >x_{\text{out}} = \mathrm{Norm}(x + F(x))
->```
+>
+```
 >
 >它先做 sublayer transformation 和 residual addition，再做 normalization。
 >

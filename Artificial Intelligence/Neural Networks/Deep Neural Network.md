@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #MachineLearning
 
-Deep Neural Network，简称 DNN，指包含多层 hidden layers 的 [Neural Network](<./Neural%20Network.md>)。  
+Deep Neural Network，简称 DNN，指包含多层 hidden layers 的 [Neural Network](<./Neural%20Network.md>)。
 它通过多层 nonlinear transformations，把原始输入逐步变换成更抽象、更适合任务的 representation。
 
 ## 🧠 Core Idea
@@ -48,7 +48,7 @@ h^{(\ell)}
 
 “Deep” 指的是网络有很多层。
 
-浅层 neural network 可能只有一两个 hidden layers；  
+浅层 neural network 可能只有一两个 hidden layers；
 deep neural network 有多层 hidden layers，因此可以学习更复杂的 hierarchical representations。
 
 例如在图像任务中：
@@ -119,8 +119,8 @@ DNN 的参数通过 training 学习。
 
 基本过程是：
 
-1. Forward Pass：输入经过网络得到 prediction；
-2. 计算 Loss Function；
+1. [Forward pass](<./Forward%20Propagation.md>)：输入经过网络得到 prediction；
+2. 使用 loss function 比较 prediction 和 target，得到 loss；
 3. [Backpropagation](<./Backpropagation.md>)：计算 loss 对参数的 gradients；
 4. [Optimizer](<../Transformer/Optimizer.md>)：根据 gradients 更新参数。
 
@@ -158,7 +158,7 @@ DNN 的参数通过 training 学习。
 
 ### Deep Neural Network 不等于 Deep Learning
 
-[Deep Learning](<./Deep%20Learning.md>) 是研究和使用 deep neural networks 的领域 / 方法范式。  
+[Deep Learning](<./Deep%20Learning.md>) 是研究和使用 deep neural networks 的领域 / 方法范式。
 [Deep Neural Network](<./Deep%20Neural%20Network.md>) 是具体的模型结构。
 
 ### Deep 不只等于 layers 多
@@ -180,7 +180,7 @@ DNN 的参数通过 training 学习。
 >
 >它通过多层 nonlinear transformations，把输入逐步转换成更抽象的 representations。
 >
->DNN 的参数通过 [Backpropagation](<./Backpropagation.md>) 和 [Optimizer](<../Transformer/Optimizer.md>) 学习；现代 Transformer-based LLM 可以看作一种非常大的 deep neural network。
+>DNN 先通过 [Backpropagation](<./Backpropagation.md>) 计算 gradients，再由 [Optimizer](<../Transformer/Optimizer.md>) 更新 parameters；现代 Transformer-based LLM 可以看作一种非常大的 deep neural network。
 
 ## 🔗 Connections
 
@@ -188,6 +188,7 @@ DNN 的参数通过 training 学习。
 - [Deep Learning](<./Deep%20Learning.md>)
 - [Feed-Forward Network](<./Feed-Forward%20Network.md>)
 - [Activation Function](<./Activation%20Function.md>)
+- [Forward Propagation](<./Forward%20Propagation.md>)
 - [Backpropagation](<./Backpropagation.md>)
 - [Optimizer](<../Transformer/Optimizer.md>)
 - Loss Function

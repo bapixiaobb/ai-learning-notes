@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #NLP #LanguageModeling #Architecture
 
-[Transformer](<./Transformer.md>) 是一种处理 sequence data 的 Deep [Neural Network](<../Neural%20Networks/Neural%20Network.md>) Architecture。  
+[Transformer](<./Transformer.md>) 是一种处理 sequence data 的 Deep [Neural Network](<../Neural%20Networks/Neural%20Network.md>) Architecture。
 它的核心思想是：用 [Self-Attention](<./Self-Attention.md>) 让序列中每个 token 根据上下文更新自己的 representation。
 
 ## 🧠 Core Idea
@@ -16,7 +16,7 @@
 x_1, x_2, \dots, x_T
 ```
 
-Transformer 会把每个 token 表示成 hidden vector，并通过多层 transformation 不断更新这些 hidden states：
+Transformer 会把每个 token 表示成 hidden vector，并通过多层 transformation 不断更新这些 [hidden states](<../Neural%20Networks/Activations.md>)：
 
 ```math
 X^{(0)}
@@ -64,7 +64,7 @@ f_\theta(\text{tokens}) \rightarrow \text{logits}
 p_\theta(x_t \mid x_{<t})
 ```
 
-但 Transformer 本身不是 language modeling objective。  
+但 Transformer 本身不是 language modeling objective。
 [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 是任务目标，Transformer 是实现这个目标的一类 architecture。
 
 ## 🧩 Basic Structure
@@ -105,7 +105,7 @@ river bank
 bank account
 ```
 
-这两个短语中，`bank` 的含义不同。  
+这两个短语中，`bank` 的含义不同。
 Transformer 可以通过 self-attention 让 `bank` 关注周围 tokens，从而得到不同的 contextual representation。
 >**Note**
 >Self-attention 负责 token mixing。
@@ -120,13 +120,13 @@ Transformer 的核心重复单元是 [Transformer Block](<./Transformer%20Block.
 在现代 language model 中，一个 block 通常可以粗略理解为：
 
 ```math
-\text{Attention}  
-+  
-\text{MLP}  
-+  
-\text{Residual Connection}  
-+  
-\text{Normalization}  
+\text{Attention}
++
+\text{MLP}
++
+\text{Residual Connection}
++
+\text{Normalization}
 ```
 
 其中：
@@ -136,7 +136,7 @@ Transformer 的核心重复单元是 [Transformer Block](<./Transformer%20Block.
 - [Residual Connection](<./Residual%20Connection.md>) 让信息沿着主路径稳定传递；
 - [Normalization](<./Normalization.md>) 稳定 hidden states 的尺度。
 
-> **Note**
+>**Note**
 > 不要把 Transformer block 的所有细节都放在 [Transformer](<./Transformer.md>) 里。
 
 [Transformer](<./Transformer.md>) 只需要说明 block 是 Transformer 的基本堆叠单元；block 内部结构应该放在 [Transformer Block](<./Transformer%20Block.md>)。
@@ -163,31 +163,30 @@ Transformer 本身是一种 architecture；language modeling 是任务目标。
 GPT-style language model 可以粗略理解为：
 
 ```math
-\text{Decoder-Only Transformer}  
-+  
-\text{autoregressive language modeling objective}  
+\text{Decoder-Only Transformer}
++
+\text{autoregressive language modeling objective}
 ```
 
 也就是建模：
-
 ```math
-p_\theta(x_t \mid x_{<t})  
+p_\theta(x_t \mid x_{<t})
 ```
 在 autoregressive language model 中，Transformer 位于 token embedding 和 output logits 之间：
 ```math
-\text{raw text}  
-\rightarrow  
-\text{Tokenization}  
-\rightarrow  
-\text{token IDs}  
-\rightarrow  
-\text{Token Embedding}  
-\rightarrow  
-\text{Transformer}  
-\rightarrow  
-\text{logits}  
-\rightarrow  
-p_\theta(x_t \mid x_{<t})  
+\text{raw text}
+\rightarrow
+\text{Tokenization}
+\rightarrow
+\text{token IDs}
+\rightarrow
+\text{Token Embedding}
+\rightarrow
+\text{Transformer}
+\rightarrow
+\text{logits}
+\rightarrow
+p_\theta(x_t \mid x_{<t})
 ```
 其中 [Causal Mask](<./Causal%20Mask.md>) 保证模型在预测当前位置时不能看到 future tokens。
 ## **⚖️ Transformer vs RNN**
@@ -198,7 +197,7 @@ p_\theta(x_t \mid x_{<t})
 | [Transformer](<./Transformer.md>)    | 使用 self-attention 并行处理序列 | 易并行，适合大规模训练  | attention cost 随 sequence length 增长较快 |
 >**Note**
 Transformer 取代 RNN 的重要原因之一是它更适合 [GPU](<../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU.md>) / TPU 上的大规模并行计算。
-这也是为什么 Transformer 和 Systems for Language Models、[Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 有很强的联系。
+这也是为什么 Transformer 和 [Systems for Language Models](<../Language%20modeling/03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)、[Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 有很强的联系。
 
 ## **🔢 Numerical Linear Algebra View**
 
@@ -207,25 +206,25 @@ Transformer 的主要计算来自 matrix multiplication。
 典型计算包括：
 
 ```math
-XW_Q,\quad XW_K,\quad XW_V  
+XW_Q,\quad XW_K,\quad XW_V
 ```
 
 ```math
-QK^\top  
+QK^\top
 ```
 
 ```math
-\operatorname{Attention}(Q,K,V)  
+\operatorname{Attention}(Q,K,V)
 ```
 
 ```math
-XW_1,\quad \sigma(XW_1)W_2  
+XW_1,\quad \sigma(XW_1)W_2
 ```
 
 >**Note**
 从数值线性代数角度看，Transformer 的训练成本、FLOPs、memory bandwidth 和 hardware utilization 都与 Matrix Multiplication 密切相关。
 
-更详细的 compute / memory 分析应该放在 [Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 和 Systems for Language Models。
+更详细的 compute / memory 分析应该放在 [Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 和 [Systems for Language Models](<../Language%20modeling/03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)。
 
 ## **⭐ Why Transformer Matters**
 
@@ -243,7 +242,7 @@ GPT、BERT、T5、LLaMA 等模型都基于 Transformer 或其变体。
 
 ---
 
-> **Summary** — My Understanding
+>**Summary** — My Understanding
 [Transformer](<./Transformer.md>) 是一种 attention-based sequence model architecture。
 >
 >它的核心是用 [Self-Attention](<./Self-Attention.md>) 在 token positions 之间进行信息交互，再通过多层 [Transformer Block](<./Transformer%20Block.md>) 不断更新 token representations。
@@ -251,4 +250,3 @@ GPT、BERT、T5、LLaMA 等模型都基于 Transformer 或其变体。
 >在 language modeling 中，Transformer 通常作为从 token embeddings 到 logits 的主体网络。现代 LLM 多数使用 [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>)，而不是完整的 original encoder-decoder Transformer。
 
 ![TransformerLM.jpeg](<./TransformerLM.jpeg>)
-

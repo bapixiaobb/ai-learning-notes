@@ -1,7 +1,7 @@
 
 #DeepLearning #NeuralNetwork #Transformer #Statistics #Regression
 
-[Residual Connection](<./Residual%20Connection.md>) 里的 “residual” 和 regression 里的 “residual” 不是同一个概念。  
+[Residual Connection](<./Residual%20Connection.md>) 里的 “residual” 和 regression 里的 “residual” 不是同一个概念。
 它们都和“剩余部分 / 差值”有关，但在数学对象、作用位置和含义上完全不同。
 
 ## 🧠 Core Idea
@@ -9,17 +9,21 @@
 >**Note**
 >在 neural network 中，[Residual Connection](<./Residual%20Connection.md>) 指的是：
 >
->```math
+>
+```math
 >x_{\text{out}} = x + F(x)
->```
+>
+```
 >
 >也就是保留输入 $x$，再加上一个 learned update $F(x)$。
 >
 >在 regression 中，residual 指的是：
 >
->```math
+>
+```math
 >r = y - \hat{y}
->```
+>
+```
 >
 >也就是真实值和预测值之间的误差。
 
@@ -332,15 +336,19 @@ X^{(\ell)}
 >
 >[Residual Connection](<./Residual%20Connection.md>) 是网络内部的加法结构：
 >
->```math
+>
+```math
 >x + F(x)
->```
+>
+```
 >
 >Regression residual 是预测之后的误差：
 >
->```math
+>
+```math
 >y - \hat{y}
->```
+>
+```
 
 ---
 

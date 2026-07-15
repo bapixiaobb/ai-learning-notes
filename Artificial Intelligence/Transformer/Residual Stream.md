@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Transformer #Architecture #LanguageModeling
 
-Residual Stream 指 Transformer 中贯穿所有 layers 的主 hidden state 流。  
+Residual Stream 指 Transformer 中贯穿所有 layers 的主 hidden state 流。
 它可以理解为每个 token position 当前拥有的 representation，而每个 [Transformer Block](<./Transformer%20Block.md>) 都在这个主 representation 上添加新的更新量。
 
 ## 🧠 Core Idea
@@ -340,7 +340,7 @@ X^{(L)}
 
 ## 🧠 Residual Stream in Decoder-Only LM
 
-在 [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 中，residual stream 有一个特别重要的约束：  
+在 [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 中，residual stream 有一个特别重要的约束：
 第 $t$ 个 token position 的 residual stream 不能包含 future tokens 的信息。
 
 也就是说：
@@ -381,7 +381,7 @@ x_{>t}^{(0)}
 >
 >Attention 和 MLP 都是在 residual stream 上做更新。
 
-这和 [Forward Pass in Transformer](<./Forward%20Pass%20in%20Transformer.md>) 直接相关。
+这和 [Forward Propagation](<../Neural%20Networks/Forward%20Propagation.md>) 直接相关。
 
 ## 🚫 Common Confusions
 
@@ -404,7 +404,7 @@ y - \hat{y}
 x + F(x)
 ```
 
-这两个概念不应该混在一起。  
+这两个概念不应该混在一起。
 更详细的区别见 [Residual Connection vs Regression Residual](<./Residual%20Connection%20vs%20Regression%20Residual.md>)。
 
 ### 2. Residual Stream 不是 attention output
@@ -429,7 +429,7 @@ Attention output 只是写入 residual stream 的其中一种更新量。
 
 ### 3. Residual Stream 不是额外参数
 
-Residual stream 是 forward pass 中流动的 activations，不是模型参数。
+Residual stream 是 forward pass 中流动的 [activations](<../Neural%20Networks/Activations.md>)，不是模型参数。
 
 模型参数在：
 
@@ -459,7 +459,7 @@ Residual stream 是这些参数作用在输入 token sequence 上产生的 hidde
 - [Transformer](<./Transformer.md>)
 - [Transformer Block](<./Transformer%20Block.md>)
 - [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>)
-- [Forward Pass in Transformer](<./Forward%20Pass%20in%20Transformer.md>)
+- [Forward Propagation](<../Neural%20Networks/Forward%20Propagation.md>)
 - [Residual Connection](<./Residual%20Connection.md>)
 - [Residual Connection vs Regression Residual](<./Residual%20Connection%20vs%20Regression%20Residual.md>)
 - [Self-Attention](<./Self-Attention.md>)

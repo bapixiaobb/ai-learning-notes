@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Normalization #Transformer #LLM
 
-[RMSNorm](<./RMSNorm.md>) 是 Root Mean Square Layer Normalization。  
+[RMSNorm](<./RMSNorm.md>) 是 Root Mean Square Layer Normalization。
 它和 [Layer Normalization](<./Layer%20Normalization.md>) 类似，但不 subtract mean，只根据 root mean square 缩放 hidden vector。
 
 ## 🧠 Core Idea

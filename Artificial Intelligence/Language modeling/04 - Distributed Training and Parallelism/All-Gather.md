@@ -2,9 +2,9 @@
 
 All-Gather 适合这样的情况：每个 rank 只保存一个 local shard，但接下来的计算需要完整 tensor，于是互相交换 shards，让所有 ranks 都临时重建出 global tensor。
 
-这使它自然连接到 ZeRO / FSDP 和 Tensor Parallelism：平时通过 sharding 节省 memory，需要完整 parameters 或 activations 时再 All-Gather。它也是 [All-reduce Decomposition](<All-reduce%20Decomposition.md>) 的后半段。
+这使它自然连接到 [ZeRO](<./ZeRO.md>) / FSDP 和 [Tensor Parallelism](<./Tensor%20Parallelism.md>)：平时通过 sharding 节省 memory，需要完整 parameters 或 [activations](<../../Neural%20Networks/Activations.md>) 时再 All-Gather。它也是 [All-reduce Decomposition](<./All-reduce%20Decomposition.md>) 的后半段。
 
-这个需求由 [Parallelism](<Parallelism.md>) 决定，实际传输通常由 [NCCL](<NVIDIA%20Collective%20Communication%20Library.md>) 执行。
+这个需求由 [Parallelism](<./Parallelism.md>) 决定，实际传输通常由 [NCCL](<./NVIDIA%20Collective%20Communication%20Library.md>) 执行。
 
 ![All-Gather.png](<../attachments/All-Gather.png>)
 ## Example
@@ -25,7 +25,7 @@ rank 2 的 data 在 cuda:2
 rank 3 的 data 在 cuda:3
 ```
 
-为了和 [All-reduce Decomposition](<All-reduce%20Decomposition.md>) 共用同一个例子，这里把 [Reduce-Scatter](<Reduce-Scatter.md>) 的输出当作各 rank 的 local shards。All-Gather 本身不负责 reduce，也不要求前一步必须是 Reduce-Scatter。
+为了和 [All-reduce Decomposition](<./All-reduce%20Decomposition.md>) 共用同一个例子，这里把 [Reduce-Scatter](<./Reduce-Scatter.md>) 的输出当作各 rank 的 local shards。All-Gather 本身不负责 reduce，也不要求前一步必须是 Reduce-Scatter。
 
 ```
 rank 0 output = [6]

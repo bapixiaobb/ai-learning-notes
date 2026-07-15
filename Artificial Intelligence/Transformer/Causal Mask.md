@@ -1,9 +1,9 @@
 #LanguageModeling #Transformer #Attention #Architecture
 
-Causal Mask 是 decoder-only language model 中用来阻止模型看到 future tokens 的 mask。  
+Causal Mask 是 decoder-only language model 中用来阻止模型看到 future tokens 的 mask。
 它保证第 $t$ 个位置只能使用当前位置及之前的信息。
 
-Causal Mask 是实现 [Causal Attention](<./Causal%20Attention.md>) 的 attention mask。  
+Causal Mask 是实现 [Causal Attention](<./Causal%20Attention.md>) 的 attention mask。
 它在 self-attention 的 score matrix 上屏蔽 future positions，使第 $t$ 个 token 只能 attend to $1,\dots,t$。
 
 ## 🧠 Core Idea
@@ -15,15 +15,19 @@ Causal Mask 是实现 [Causal Attention](<./Causal%20Attention.md>) 的 attentio
 >
 >也就是第 $t$ 个 token position 只能 attend to：
 >
->```math
+>
+```math
 >x_1, x_2, \dots, x_t
->```
+>
+```
 >
 >不能 attend to：
 >
->```math
+>
+```math
 >x_{t+1}, x_{t+2}, \dots
->```
+>
+```
 
 这和 Autoregressive Language Model 的建模目标一致：
 
@@ -42,7 +46,7 @@ p(x_t \mid x_{<t})
 [x_1, x_2, x_3, x_4]
 ```
 
-如果没有 mask，第 1 个位置可能直接看到 $x_2, x_3, x_4$。  
+如果没有 mask，第 1 个位置可能直接看到 $x_2, x_3, x_4$。
 这样模型在预测 next token 时就会“作弊”。
 
 >**Important**
@@ -126,7 +130,7 @@ x_4
 
 ## 🧵 Relation to Causal Attention
 
-[Causal Attention](<./Causal%20Attention.md>) 指带有 causal constraint 的 self-attention。  
+[Causal Attention](<./Causal%20Attention.md>) 指带有 causal constraint 的 self-attention。
 Causal Mask 是实现这个 constraint 的常见方式。
 
 可以理解为：
@@ -193,24 +197,24 @@ x_{t+1}
 
 ### Causal Mask 不是 Positional Encoding
 
-Causal Mask 不告诉模型“第几个位置”。  
+Causal Mask 不告诉模型“第几个位置”。
 它只限制 attention 的可见范围。
 
 ### Causal Mask 不是 Padding Mask
 
-Padding mask 用来忽略 padding tokens。  
+Padding mask 用来忽略 padding tokens。
 Causal mask 用来屏蔽 future tokens。
 
 二者可以同时存在。
 
 ### Causal Mask 不等于 RoPE
 
-[Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) 编码 position information。  
+[Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) 编码 position information。
 Causal Mask 控制 information flow direction。
 
 ### Causal Mask 不改变模型参数
 
-Causal Mask 通常不是 learnable parameter。  
+Causal Mask 通常不是 learnable parameter。
 它是 attention computation 中固定或动态生成的 mask。
 
 ---

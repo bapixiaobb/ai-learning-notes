@@ -50,7 +50,7 @@ Lecture 3 的主线可以概括为：
 | ------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
 | [Model Architecture](<./Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape                       |
 | [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) | 模型如何被训练出来？ | [Optimizer](<../../Transformer/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>), batch size, weight decay, dropout, data mixture |
-| Systems for Language Models | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost                               |
+| [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost                               |
 
 >**Note**
 >这三条线相互影响，但不是同一个层面的概念。
@@ -106,7 +106,7 @@ Architecture 不只是 number of layers，而是包括：
 >**Question**
 >Architecture 到底包括哪些 design dimensions？
 >
->它包括模型内部 computation graph 的结构、模块连接方式、hidden states 的 shape，以及每个主要模块的 design choices。
+>它包括 model forward 的基本 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)、模块连接方式、hidden states 的 shape，以及每个主要模块的 design choices。
 
 ### 2. Training Recipe
 
@@ -130,7 +130,7 @@ Architecture 不只是 number of layers，而是包括：
 
 ### 3. Systems for Language Models
 
-Systems for Language Models 关注 language model 如何在硬件上高效训练和推理。
+[Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) 关注 language model 如何在硬件上高效训练和推理。
 
 它包括：
 
@@ -207,7 +207,7 @@ Systems for Language Models 关注 language model 如何在硬件上高效训练
 - [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)
 - [Model Architecture](<./Model%20Architecture.md>)
 - [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- Systems for Language Models
+- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
 - [Transformer Family](<../../Transformer/Transformer%20Family.md>)
 - [Original Transformer](<../../Transformer/Original%20Transformer.md>)
 - [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)

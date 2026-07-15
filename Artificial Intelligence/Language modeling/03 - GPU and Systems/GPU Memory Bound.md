@@ -19,7 +19,7 @@ masking
 1. 减少 HBM 读写
 2. 提高 data reuse
 	- 🔑：读一次，用很多次 $\rightarrow$ 提高 [Arithmetic Intensity](<./Arithmetic%20Intensity.md>)
-3. 用 tiling 把数据搬到快 memory
+3. 用 [tiling](<./tiling.md>) 把数据搬到快 memory
 	- HBM → shared memory / local memory → register，先搬一个 tile 进来，然后在片上反复用。
 
 >**Important**

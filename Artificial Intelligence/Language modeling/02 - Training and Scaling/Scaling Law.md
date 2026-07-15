@@ -47,9 +47,11 @@ A C^{-\alpha} + L_\infty
 >**Note**
 > 在 dense Transformer training 中，training compute 常用近似：
 >
-> ```math
+>
+```math
 > C \approx 6ND
-> ```
+>
+```
 >
 > 其中 $N$ 是参数量，$D$ 是训练 token 数。
 
@@ -135,15 +137,15 @@ compute budget
 
 在 autoregressive language modeling 中，训练目标是：
 ```math
--\sum_{t=1}^{T}  
-\log p_\theta(x_t \mid x_{<t})  
+-\sum_{t=1}^{T}
+\log p_\theta(x_t \mid x_{<t})
 ```
 
 Scaling law 用来预测随着 $N$、$D$、$C$ 增加，这个 loss 会如何变化。
 
 ## **直觉总结**
 
-> **Note**
+>**Note**
 > Scaling law 可以理解为大模型训练中的经验规律：
 >
 > 更多参数、更大数据、更多计算通常会带来更低 loss，但收益递减。

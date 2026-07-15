@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Transformer #Architecture
 
-Residual Connection 是 neural network 中的一种加法连接结构。  
+Residual Connection 是 neural network 中的一种加法连接结构。
 它把某一层的输入直接加到该层学到的 transformation output 上。
 
 基本形式是：
@@ -75,9 +75,11 @@ x + F(x)
 >
 >如果某一层暂时学不到有用 transformation，它可以让 $F(x)$ 接近 0，于是：
 >
->```math
+>
+```math
 >x_{\text{out}} \approx x
->```
+>
+```
 >
 >这让深层网络更容易优化。
 
@@ -143,7 +145,7 @@ F(x)
 | residual layer | $x + F(x)$ | 保留输入，并加上 learned update |
 
 >**Important**
->Residual connection 改变的是 computation graph。
+>Residual connection 改变的是 [computation graph](<../Neural%20Networks/Computational%20Graph.md>)。
 >
 >它不是 loss function，也不是 prediction error。
 
@@ -343,7 +345,7 @@ Residual connection 可以看作一种 skip connection，但不是所有 skip co
 
 ### 3. Residual connection 不是一个单独参数
 
-Residual connection 本身通常没有参数。  
+Residual connection 本身通常没有参数。
 真正有参数的是 $F(x)$ 里面的 layers，例如 attention projection matrices 或 MLP weights。
 
 ---
@@ -351,9 +353,11 @@ Residual connection 本身通常没有参数。
 >**Summary** — My Understanding
 >Residual Connection 是 neural network 中的加法结构：
 >
->```math
+>
+```math
 >x_{\text{out}} = x + F(x)
->```
+>
+```
 >
 >它让 layer 学习对输入 representation 的增量更新，而不是完全替换输入。
 >

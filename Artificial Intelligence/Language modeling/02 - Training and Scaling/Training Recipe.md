@@ -1,12 +1,12 @@
 #LanguageModeling #Training #Optimization
 
-[Training Recipe](<./Training%20Recipe.md>) 指训练一个 language model 时采用的一整套训练配置和训练策略。  
+[Training Recipe](<./Training%20Recipe.md>) 指训练一个 language model 时采用的一整套训练配置和训练策略。
 它不描述模型“长什么样”，而是描述：**在给定 [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 的情况下，如何把模型参数训练出来。**
 
 ## 🧠 Core Idea
 
 >**Note**
->[Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 决定模型内部 computation graph 的结构；[Training Recipe](<./Training%20Recipe.md>) 决定这个结构里的参数如何被学习。
+>[Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 决定 model forward 的基本 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)；[Training Recipe](<./Training%20Recipe.md>) 决定这个结构里的参数如何被学习。
 >
 >同一个 architecture 可以用不同 training recipes 训练，得到性能、稳定性和泛化能力完全不同的模型。
 
@@ -24,7 +24,7 @@
 - number of training tokens；
 - checkpointing / evaluation strategy。
 
-这些 choices 不改变模型 forward pass 的基本结构，但会显著影响模型最终学到什么。
+这些 choices 通常不改变 model architecture 的核心结构，但会改变训练过程；dropout 等配置也会影响 training-mode forward 的具体行为。
 
 ## 🧩 Architecture vs Training Recipe
 
@@ -34,7 +34,7 @@
 |---|---|---|
 | [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape |
 | [Training Recipe](<./Training%20Recipe.md>) | 模型如何被训练出来？ | optimizer, learning rate, batch size, weight decay, dropout, data mixture |
-| Systems for Language Models | 模型如何在硬件上高效训练和推理？ | MFU, memory bandwidth, parallelism, checkpointing, KV cache |
+| [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) | 模型如何在硬件上高效训练和推理？ | MFU, memory bandwidth, parallelism, checkpointing, KV cache |
 
 >**Important**
 >Architecture 是模型结构；training recipe 是训练过程。
@@ -173,7 +173,7 @@ Batch size 指一次参数更新使用多少 training examples / tokens。
 ```
 
 >**Note**
->Batch size 既是 training recipe 的一部分，也和 Systems for Language Models 强相关。
+>Batch size 既是 training recipe 的一部分，也和 [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) 强相关。
 >
 >较大的 batch size 通常能提高硬件利用率，但也会增加 memory pressure，并可能影响 optimization dynamics。
 
@@ -209,9 +209,9 @@ Weight decay 是一种 regularization 方法，用来限制参数过大。
 
 ## 🌧️ Dropout
 
-Dropout 是一种 regularization 方法。训练时随机把一部分 activations 置零，迫使模型不要过度依赖某些特定 hidden units。
+Dropout 是一种 regularization 方法。训练时随机把一部分 [activations](<../../Neural%20Networks/Activations.md>) 置零，迫使模型不要过度依赖某些特定 hidden units。
 
-在很多早期 Transformer 或较小模型中，dropout 很常见。  
+在很多早期 Transformer 或较小模型中，dropout 很常见。
 但在大规模 LLM pretraining 中，dropout 的使用会因规模、数据量和训练设定而变化。
 
 >**Note**
@@ -373,7 +373,7 @@ Training recipe 还包括训练过程中如何保存和评估模型。
 
 - [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
 - [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
-- Systems for Language Models
+- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Optimizer](<../../Transformer/Optimizer.md>)
 - AdamW

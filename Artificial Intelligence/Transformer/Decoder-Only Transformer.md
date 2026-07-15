@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #NLP #LanguageModeling #Architecture #Transformer
 
-Decoder-Only Transformer 是只保留 Transformer decoder 主干的一类 Transformer architecture。  
+Decoder-Only Transformer 是只保留 Transformer decoder 主干的一类 Transformer architecture。
 现代 autoregressive LLM，例如 GPT / LLaMA-style models，大多采用 decoder-only Transformer。
 
 ## 🧠 Core Idea
@@ -160,7 +160,7 @@ h_{t+1}, h_{t+2}, \dots, h_T
 >
 >这使 decoder-only Transformer 和 Next Token Prediction 的训练目标匹配。
 
-注意这里的 “decoder” 不是在说模型一定有 encoder-decoder translation setting。  
+注意这里的 “decoder” 不是在说模型一定有 encoder-decoder translation setting。
 在 GPT / LLaMA-style language model 中，整个输入都被看作一个 autoregressive token stream。
 
 ## 🏗️ Decoder-Only Transformer Block
@@ -335,9 +335,11 @@ M =
 >
 >它把很多 NLP tasks 都转化成了同一种形式：
 >
->```math
+>
+```math
 >\text{given prefix} \rightarrow \text{predict continuation}
->```
+>
+```
 
 ---
 

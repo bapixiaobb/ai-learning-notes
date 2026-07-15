@@ -16,10 +16,10 @@ From this we can form the multi-head self-attention operation:
 \text{MultiHeadSelfAttention}(𝑥) = 𝑊_𝑂 \text{MultiHead}(𝑊_𝑄𝑥, 𝑊_𝐾 𝑥, 𝑊_𝑉 𝑥)
 ```
 
-- $W_Q\in\mathbb{R}^{hd_k\times d_{\text{model}}}$  
-- $W_K\in\mathbb{R}^{hd_k\times d_{\text{model}}}$  
-- $W_V\in\mathbb{R}^{hd_v\times d_{\text{model}}}$  
-- $W_O\in\mathbb{R}^{d_{\text{model}}\times hd_v}$  
+- $W_Q\in\mathbb{R}^{hd_k\times d_{\text{model}}}$
+- $W_K\in\mathbb{R}^{hd_k\times d_{\text{model}}}$
+- $W_V\in\mathbb{R}^{hd_v\times d_{\text{model}}}$
+- $W_O\in\mathbb{R}^{d_{\text{model}}\times hd_v}$
 
 ---
 ```

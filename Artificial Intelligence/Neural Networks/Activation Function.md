@@ -1,47 +1,56 @@
 #DeepLearning #NeuralNetwork
 
-**定义**：Activation Function 是 [Neural Network](<./Neural%20Network.md>) 中作用在每一层输出上的非线性函数，用来增强模型的表达能力。
+Activation Function 是 [Neural Network](<./Neural%20Network.md>) 中的 nonlinear operation。
 
-在线性层之后，通常会加入 activation function：
+>**Important**
+> Activation Function 不等于 [Activations](<./Activations.md>)。
+> 前者是模型执行的函数；后者是 forward 过程中产生的 intermediate tensors。
+
+一层基础 neural network 常写成：
 
 ```math
-z = Wx + b
+z=Wx+b
 ```
 
 ```math
-a = \sigma(z)
+a=\sigma(z)
 ```
 
-其中 $\sigma$ 表示 activation function。
+其中 $\sigma$ 是 activation function，$a$ 是这个 operation 产生的一个 activation。
 
-## 直觉
+## 为什么需要 Nonlinearity
 
-如果 neural network 只有 linear layers，那么多层线性变换仍然等价于一个线性变换：
+如果模型只有 linear layers，多层线性变换仍然可以合并成一次线性变换：
 
 ```math
-W_3W_2W_1x = Wx
+W_3W_2W_1x=Wx
 ```
 
-因此模型无法表示复杂的 nonlinear function。
-
-Activation function 的作用是引入 nonlinearity，使 neural network 能拟合更复杂的函数关系。
+Activation function 引入 nonlinearity，使模型能够表达更复杂的函数。
 
 ## 常见 Activation Functions
 
-| Activation Function | 形式                                                                         | 特点                                    |
-| ------------------- | -------------------------------------------------------------------------- | ------------------------------------- |
-| [ReLU](<../Transformer/ReLU.md>)            | $\max(0,x)$                                                              | 简单、高效，常用于基础 neural network            |
-| Sigmoid         | $\frac{1}{1+e^{-x}}$                                                     | 输出在 $(0,1)$，容易出现 vanishing gradient |
-| Tanh                | $\tanh(x)$                                                               | 输出在 $(-1,1)$                        |
-| GELU                | 平滑的 nonlinear activation                                                   | Transformer 中常见                       |
-| [SiLU](<../Transformer/SiLU.md>) / Swish    | $x \cdot \operatorname{sigmoid}(x)$                                      | 现代深度模型中常见                             |
-| [GLU](<../Transformer/GLU.md>)             |                                                                            | gated linear uint                     |
-| [SwiGLU](<../Transformer/SwiGLU.md>)          | $\mathrm{SwiGLU}(x) = W_2 \left( \mathrm{SiLU}(W_1 x) \odot W_3 x \right)$ | Transformer FFN 里的 gated activation   |
+| Function | 形式 | 常见位置 |
+|---|---|---|
+| [ReLU](<../Transformer/ReLU.md>) | $\max(0,x)$ | 基础 neural network |
+| Sigmoid | $\frac{1}{1+e^{-x}}$ | gating / probability-style output |
+| Tanh | $\tanh(x)$ | 早期 neural network |
+| GELU | smooth nonlinear function | Transformer MLP |
+| [SiLU](<../Transformer/SiLU.md>) | $x\cdot\operatorname{sigmoid}(x)$ | modern neural network |
+| [SwiGLU](<../Transformer/SwiGLU.md>) | gated nonlinear transformation | modern Transformer MLP |
+
+## 在 Transformer 中
+
+Transformer 的 activation function 主要出现在 MLP / FFN 中，例如 GELU 或 SwiGLU。
+
+Attention、normalization 和 residual addition 也会产生 [Activations](<./Activations.md>)，但它们本身不是 activation functions。
+
+>**Summary**
+> Activation function 回答的是“模型用了什么 nonlinear operation”；[Activations](<./Activations.md>) 回答的是“forward 产生了什么数据”。
 
 ## Related
 
-- [Neural Network](<./Neural%20Network.md>)
-- [Deep Learning](<./Deep%20Learning.md>)
-- [ReLU](<../Transformer/ReLU.md>)
+- [Activations](<./Activations.md>)
 - [Forward Propagation](<./Forward%20Propagation.md>)
-- Backward Propagation
+- [Transformer Block](<../Transformer/Transformer%20Block.md>)
+- [MLP](<../Transformer/MLP.md>)

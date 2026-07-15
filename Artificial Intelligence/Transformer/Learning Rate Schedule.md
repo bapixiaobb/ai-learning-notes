@@ -28,5 +28,5 @@ The cosine annealing learning rate schedule takes
 
 The learning rate at iteration 𝑡 is defined as:
 **(Warm-up)** If $𝑡<T_w$, then $\alpha_t=\frac{t}{T_w}\alpha_\max$
-**(Cosine annealing)** If $T_w \leq t \leq T_c$, then $\alpha_t=\alpha_\min+\frac{1}{2}\left(1+\cos\left(\frac{t-Tw}{T_c-T_w}\pi\right)\right)(\alpha_\max-\alpha_\min)$  
+**(Cosine annealing)** If $T_w \leq t \leq T_c$, then $\alpha_t=\alpha_\min+\frac{1}{2}\left(1+\cos\left(\frac{t-Tw}{T_c-T_w}\pi\right)\right)(\alpha_\max-\alpha_\min)$
 **(Post-annealing)** If $t>T_c$, then $\alpha_t=\alpha_\min$

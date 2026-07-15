@@ -11,7 +11,7 @@
 >```
 >这些都可以很好地喂给 Tensor Core / matrix multiply unit。
 
-现代 [Machine Learning](<../../Fundamentals/Machine%20Learning.md>) Model Architecture 会倾向于设计成大量矩阵乘法，因为硬件最擅长矩阵乘法。  
+现代 [Machine Learning](<../../Fundamentals/Machine%20Learning.md>) Model Architecture 会倾向于设计成大量矩阵乘法，因为硬件最擅长矩阵乘法。
 也就是：**模型架构会被硬件形状反向塑造。** ⚙️
 
 （现代 deep learning 模型架构会被硬件影响。因为 GPU/TPU 最擅长 matrix multiplication，所以成功的大模型架构通常会包含大量 matrix multiplication。）

@@ -66,7 +66,7 @@ Register
  ↓
 Compute Units
 ```
-对于 GPU 来说，**数据的位置比计算本身更重要**。GPU 慢很多情况下，不是因为算力不够，而是数据搬运太慢。
+对于 GPU 来说，数据的位置比计算本身更重要。GPU 慢很多情况下，不是因为算力不够，而是数据搬运太慢。
 
 GPU 里面有很多层存储：
 #### HBM / global memory（总仓库）
@@ -174,8 +174,8 @@ GPU 不像 CPU 那样优化单线程 latency，而是用很多 thread / warp 提
 > 把一组需要合作的 threads 绑在一起，并保证它们能在同一个 SM 上共享 shared memory
 
 >**Note** — 所以 GPU 优化核心变成：
->**减少搬运**
- **如何提高 Data Reuse。**
+>减少搬运
+ 如何提高 Data Reuse。
  >目的就是：**让昂贵的 compute unit 不要等数据。**
 
 ### SM 上的 warp够不够多?
@@ -198,9 +198,9 @@ GPU 不像 CPU 那样优化单线程 latency，而是用很多 thread / warp 提
 
 多 GPU 训练可以看成把 GPU 的 memory hierarchy 往外扩展了一层，具体的硬件连接方式见 [GPU Communication Topology](<../04%20-%20Distributed%20Training%20and%20Parallelism/GPU%20Communication%20Topology.md>)。
 
-单张 GPU 可能放不下完整的 model states（parameters / gradients / optimizer states / activations），或者即使放得下，也希望用更多 GPU 提高训练吞吐量。因此需要把训练任务切到多个 GPU / ranks 上。
+单张 GPU 可能放不下完整的 model states（parameters / gradients / optimizer states）和 [activations](<../../Neural%20Networks/Activations.md>)，或者即使放得下，也希望用更多 GPU 提高训练吞吐量。因此需要把训练任务切到多个 GPU / ranks 上。
 
-首先要决定 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)，也就是怎么切：切 data、切 tensor、还是切 layers。  
+首先要决定 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)，也就是怎么切：切 data、切 tensor、还是切 layers。
 一旦切开，不同 ranks 手里就只有局部信息，因此需要 collective communication 来交换、聚合或重建缺失的信息。
 
 [NCCL](<../04%20-%20Distributed%20Training%20and%20Parallelism/NVIDIA%20Collective%20Communication%20Library.md>) 负责把这些 collective operations（如 all-reduce、all-gather、reduce-scatter）高效地映射到底层 GPU 通信硬件上。

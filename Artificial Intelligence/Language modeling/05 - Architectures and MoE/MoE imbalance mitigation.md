@@ -13,7 +13,7 @@
 这就产生了两个训练问题：
 1. routing 本身不是普通的光滑 differentiable path
 2. 没被选中的 expert 得不到这个 token 通过 expert computation 产生的 gradient signal
-	- 如果 expert 没被选中，它没有参与 forward computation，那么这个 token 的 language modeling loss 就不会通过这个 expert 的 MLP 反传。
+	- 如果 expert 没被选中，它没有参与 [forward computation](<../../Neural%20Networks/Forward%20Propagation.md>)，那么这个 token 的 language modeling loss 就不会通过这个 expert 的 MLP [反传](<../../Neural%20Networks/Backpropagation.md>)。
 	- 但 router 这边还可能通过 selected gates、[Softmax](<../../Transformer/Softmax.md>) probability、auxiliary loss 等收到某些 gradient。
 所以 MoE 的 router 很容易变成一个不稳定的 **selection system**
 
@@ -44,7 +44,7 @@ token A -> expert 1, expert 7
 token B -> expert 3, expert 12
 ```
 
-如果这些 experts 分布在不同的 devices 上， activation 就要跨设备移动。
+如果这些 experts 分布在不同的 devices 上，[activation](<../../Neural%20Networks/Activations.md>) 就要跨设备移动。
 所以 MoE 训练里经常会出现 all-to-all communication：
 
 > 每张 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 可能要把 token activations 发给其他的卡
@@ -128,9 +128,9 @@ DeepSeek V3 使用的一种均衡方法，它的直觉是：给每个 expert 的
 ---
 ## Difference
 
-- Load balancing loss 是加到 objective 里的额外惩罚。  
-- Router noise 是在 routing score 上加扰动，增加 exploration。  
-- Per-expert bias 是直接调整每个 expert 被选中的倾向。  
+- Load balancing loss 是加到 objective 里的额外惩罚。
+- Router noise 是在 routing score 上加扰动，增加 exploration。
+- Per-expert bias 是直接调整每个 expert 被选中的倾向。
 - Per-device balancing 是从系统利用率角度，让不同设备负载更均衡。
 - 这些都属于 MoE imbalance mitigation heuristics
 	- load balancing loss 和 per-device balancing loss 是 auxiliary objectives

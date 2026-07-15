@@ -2,7 +2,7 @@
 
 Mixture of Experts，简称 MoE，是一种在 neural network 中引入多个 experts，并根据输入动态选择部分 experts 参与计算的 architecture。
 
-在 modern language model 中，MoE 最常见的形式是：  
+在 modern language model 中，MoE 最常见的形式是：
 用 MoE layer 替换 Transformer block 里的 [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) / [MLP](<../../Transformer/MLP.md>)。
 
 ---
@@ -17,40 +17,38 @@ Mixture of Experts，简称 MoE，是一种在 neural network 中引入多个 ex
 
 可以粗略理解为：
 ```math
-\text{Dense FFN}  
-\rightarrow  
-\text{many experts}  
-\rightarrow  
-\text{route each token to a few experts}  
+\text{Dense FFN}
+\rightarrow
+\text{many experts}
+\rightarrow
+\text{route each token to a few experts}
 ```
 
 也就是说 MoE 试图做到：
-
 ```math
-\text{more total parameters}  
-\quad  
-\text{without proportional increase in active computation}  
+\text{more total parameters}
+\quad
+\text{without proportional increase in active computation}
 ```
 ---
 ## 🧩 MoE in Transformer
 
 在 standard Transformer block 中，通常有：
 ```math
-\text{Attention}  
-\rightarrow  
-\text{MLP / FFN}  
+\text{Attention}
+\rightarrow
+\text{MLP / FFN}
 ```
 MoE 的常见做法是把 FFN 替换成多个 experts：
-
 ```math
-\text{Attention}  
-\rightarrow  
-\text{MoE Layer}  
+\text{Attention}
+\rightarrow
+\text{MoE Layer}
 ```
 其中每个 expert 通常本身就是一个 FFN：
 ```math
 \text{Expert}_i(x)=
-\mathrm{FFN}_i(x)  
+\mathrm{FFN}_i(x)
 ```
 所以 MoE 在 LLM 中经常可以理解成
 >**Note**
@@ -68,7 +66,7 @@ MoE主要由两个部分组成
 
 每个 expert 是一个独立的 neural network。
 在 Transformer MoE 中，expert 通常是 FFN / MLP。
-如果有 $N$ 个 experts：$E_1, E_2, ..., E_N$
+如果有 $N$ 个 experts：$ E_1, E_2, ..., E_N$
 每个 token 不会经过所有 experts，而是指选择其中一小部分
 
 #### Router / Gate
@@ -86,13 +84,12 @@ Router 负责为每个 token 计算 experts scores，并选择 top-k experts。
 
 MoE 的 sparsity 指：每个 token 只激活全部 experts 中的一小部分。
 例如，一个 MoE layer 有 64 个 experts，但每个 token 只选择 2 个 experts：
-
 ```math
-64 \text{ experts total}  
+64 \text{ experts total}
 ```
 
 ```math
-2 \text{ experts active per token}  
+2 \text{ experts active per token}
 ```
 这是模型有很多 total parameters，但每个 token 的 active parameters 较少。
 >**Note**
@@ -180,7 +177,7 @@ MoE 的难点不在于概念，而在于 routing 和 systems
 这也是 MoE 训练比 dense model 更难的原因之一
 #### 3. Communication Cost
 如果 experts 被放在不同 devices 上，tokens 需要被 route 到对应 device。
-这会带来 communication cost:
+这会带来传输 [activations](<../../Neural%20Networks/Activations.md>) 的 communication cost:
 ```math
 \text{route activations} \rightarrow \text{expert computation} \rightarrow \text{return outputs}
 ```
@@ -214,12 +211,12 @@ MoE 的难点不在于概念，而在于 routing 和 systems
 
 #### MoE 不是多个完整 Transformer
 
-MoE 通常不是复制多个完整 Transformer。  
+MoE 通常不是复制多个完整 Transformer。
 在 LLM 中，MoE 更多是替换 Transformer block 里的 FFN / MLP。
 
 #### MoE 不是每次都用所有 experts
 
-如果每个 token 都用所有 experts，就不是 sparse MoE 的核心思想。  
+如果每个 token 都用所有 experts，就不是 sparse MoE 的核心思想。
 MoE 的关键是每个 token 只激活少数 experts。
 
 #### Router 不等于 expert
@@ -228,7 +225,7 @@ Router 决定 token 去哪里；expert 负责真正计算输出。
 
 #### MoE 不等于 ensemble
 
-Ensemble 通常是多个完整模型共同预测。  
+Ensemble 通常是多个完整模型共同预测。
 MoE 是一个模型内部的条件计算结构。
 
 ---

@@ -6,7 +6,8 @@
 objective
 -> data / tokens
 -> model architecture
--> forward pass / loss
+-> model forward
+-> loss
 -> training recipe
 -> inference
 -> scaling / resource accounting
@@ -38,7 +39,7 @@ p_\theta(x_1,\dots,x_T)
 | [Transformer](<../../Transformer/Transformer.md>)                 | 用什么 neural architecture 实现这个目标？ | self-attention, block, residual stream                                                |
 | [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>) | 模型内部有哪些 design choices？         | norm, position, [MLP](<../../Transformer/MLP.md>), attention variant                                            |
 | [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | 参数怎么被训练出来？                      | [Optimizer](<../../Transformer/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>), batch size                                 |
-| [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)         | 训练和推理要花多少 compute / memory？     | [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>), memory, activation, optimizer states                                       |
+| [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)         | 训练和推理要花多少 compute / memory？     | [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>), memory, [activation](<../../Neural%20Networks/Activations.md>), optimizer states                       |
 | [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)            | 怎么让 workload 在硬件上跑得快？           | [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>), [Operator fusion](<../03%20-%20GPU%20and%20Systems/Operator%20fusion.md>), [Memory Coalescing](<../03%20-%20GPU%20and%20Systems/Memory%20Coalescing.md>), [Low precision computation](<../02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>) |
 
 一个常见混淆是：
@@ -176,7 +177,7 @@ Attention 相关笔记可以按这个顺序复习：
 
 这里最重要的区分：
 
-> Training recipe 不改变 forward pass 的结构，但会极大影响最终模型性能和稳定性。
+> Training recipe 通常不改变 model architecture 的核心结构，但会改变训练过程；dropout 等配置也会影响 training-mode forward 的具体行为。
 
 ## 8. Training vs Inference
 
@@ -287,7 +288,7 @@ MoE 的核心思想是：
 4. [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
 5. [Transformer](<../../Transformer/Transformer.md>)
 6. [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
-7. [Forward Pass in Transformer](<../../Transformer/Forward%20Pass%20in%20Transformer.md>)
+7. [Forward Propagation](<../../Neural%20Networks/Forward%20Propagation.md>)
 8. [Transformer Block](<../../Transformer/Transformer%20Block.md>)
 9. [Self-Attention](<../../Transformer/Self-Attention.md>)
 10. [Causal Mask](<../../Transformer/Causal%20Mask.md>)
@@ -320,7 +321,7 @@ MoE 的核心思想是：
 - Logits：为什么 logits 不是 probability，temperature 如何影响 distribution。
 - KV Cache：推理时为什么要 cache K/V，memory cost 如何随 batch、layers、heads、context length 变化。
 - Grouped Query Attention：为什么 GQA 可以降低 KV cache cost。
-- Systems for Language Models：可以作为 systems 总入口，连接 GPU、MFU、Resource Accounting、Training vs Inference。
+- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)：可以作为 systems 总入口，连接 GPU、MFU、Resource Accounting、Training vs Inference。
 - AdamW：为什么 decoupled weight decay 对 LLM training 常见。
 - [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>)：warmup + cosine decay 的直觉。
 - Data Mixture：不同数据源比例如何影响 LM 行为。
@@ -344,4 +345,3 @@ Language Modeling 可以看成一条完整工程链：
 一句话总结：
 
 > 现代 LLM 不是单独一个 Transformer 概念，而是 objective、architecture、training recipe、data、scaling 和 systems 共同构成的一整套技术栈。
-

@@ -4,7 +4,7 @@
 # Why it is an optimization for [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
 ## Memory Optimization
 
-这是一个很直接的减少数据搬运的方法，既然有 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那我就**每个数字少用一点 bit 表示。** 这个方法叫做 [Quantization](<../../Transformer/Quantization.md>)  
+这是一个很直接的减少数据搬运的方法，既然有 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那我就**每个数字少用一点 bit 表示。** 这个方法叫做 [Quantization](<../../Transformer/Quantization.md>)
 
 >**Note** — if you have fewer bits, you have fewer bits to move。
 
@@ -44,7 +44,7 @@ FP32 → BF16 / FP16 → FP8 → FP4
 
 1. MatMul 通常适合低精度：因为它是大头计算，而且 tensor core 对它支持很好
 	1. weights: low precision
-	2. activations: low precision
+	2. [activations](<../../Neural%20Networks/Activations.md>): low precision
 	3. matmul: tensor core 快速计算
 	4. accumulation: higher precision
 2. Softmax / exp / normalization 这些操作可能对数值范围、稳定性更敏感。
@@ -69,8 +69,8 @@ Why? 因为矩阵乘法里一个元素是：`C[i, j] = sum_k A[i, k] B[k, j]`，
 
 ---
 >**Question** — low precision 讲成减少 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那它对 compute 有没有帮助？
->有，compute 肯定也有帮助。  
->对 quantized numbers 做乘法，基本可以得到接近线性的 compute improvement。  
+>有，compute 肯定也有帮助。
+>对 quantized numbers 做乘法，基本可以得到接近线性的 compute improvement。
 >但是因为还要 quantize / dequantize，所以整体收益会被 diluted
 >
 >**为什么收益不是 2x / 4x？**

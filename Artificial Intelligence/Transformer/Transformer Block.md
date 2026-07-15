@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Transformer #Architecture #LanguageModeling
 
-[Transformer Block](<./Transformer%20Block.md>) 是 Transformer 中反复堆叠的基本 computation unit。  
+[Transformer Block](<./Transformer%20Block.md>) 是 Transformer 中反复堆叠的基本 computation unit。
 在 language model 中，多个 Transformer blocks 会不断更新每个 token position 的 hidden representation。
 
 ## 🧠 Core Idea
@@ -229,7 +229,7 @@ X^{(\ell)}
 >
 >每个 block 不是从零生成新的 representation，而是在已有 representation 上添加更新量。
 
-这和 [Residual Connection](<./Residual%20Connection.md>) 相关，但不是同一个概念：  
+这和 [Residual Connection](<./Residual%20Connection.md>) 相关，但不是同一个概念：
 [Residual Connection](<./Residual%20Connection.md>) 是具体的加法结构，[Residual Stream](<./Residual%20Stream.md>) 是这种加法结构贯穿多层后形成的主信息流。
 
 ## ⚖️ Pre-Norm vs Post-Norm
@@ -315,7 +315,7 @@ X'
 >
 >一个完整 Transformer block 的 forward pass 通常包括 attention branch 和 MLP branch，并且每个 branch 都通过 residual connection 更新主 hidden states。
 
-这可以连接到 [Forward Pass in Transformer](<./Forward%20Pass%20in%20Transformer.md>)。
+这就是 [Forward Propagation](<../Neural%20Networks/Forward%20Propagation.md>) 在 Transformer block 中的具体形式。
 
 ## 📐 Shape Invariants
 
@@ -362,7 +362,7 @@ Transformer block 是连接 architecture 和 computation 的核心单位。
 - hidden states 如何 nonlinear update；
 - residual stream 如何传播；
 - normalization 如何稳定训练；
-- 每一层的 FLOPs 和 activation memory；
+- 每一层的 FLOPs 和 [activation memory](<../Neural%20Networks/Activations.md>)；
 - 整个模型如何 scale up 到更多 layers。
 
 >**Note**

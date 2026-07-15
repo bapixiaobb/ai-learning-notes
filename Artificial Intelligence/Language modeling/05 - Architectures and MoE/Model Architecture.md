@@ -1,6 +1,6 @@
 #LanguageModeling #Architecture #ModelDesign
 
-[Model Architecture](<./Model%20Architecture.md>) 指模型内部 computation structure 的整体设计。  
+[Model Architecture](<./Model%20Architecture.md>) 指模型内部 computation structure 的整体设计。
 它描述模型由哪些模块组成、这些模块如何连接、hidden states 以什么 shape 流动，以及每个主要模块采用什么 design choices。
 
 ## 🧠 Core Idea
@@ -20,7 +20,7 @@
 >- residual layout；
 >- output head。
 >
->这些共同决定模型内部的 computation graph。
+>这些共同决定 model forward 的基本 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)。
 
 更具体地说，architecture 决定了：
 
@@ -66,9 +66,9 @@ p_\theta(x_{t+1} \mid x_{\leq t})
 
 ## 🧩 Architecture as Computation Graph
 
-从 computation graph 的角度看，architecture 决定模型的信息流动方式。
+从 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>) 的角度看，architecture 决定模型的信息流动方式。
 
-一个 language model 的 forward pass 可以粗略理解为：
+一个 language model 的 [forward pass](<../../Neural%20Networks/Forward%20Propagation.md>) 可以粗略理解为：
 
 ```math
 \text{tokens}
@@ -95,7 +95,7 @@ p_\theta(x_{t+1} \mid x_{\leq t})
 >**Note**
 >Architecture 不是训练出来的结果，而是训练开始之前已经确定的 structure。
 >
->Training 会改变参数值，但不会改变模型的 computation graph，除非使用了 dynamic architecture 或 architecture search。
+>Training 通常改变 parameter values，而不改变 architecture 定义的 model-forward structure。但实际 runtime computation graph 由这一次真正执行的 operations 构成，也可能因 input、train / eval mode、routing 或 implementation 而不同。
 
 ## 🧬 Architecture as Function Class
 
@@ -137,7 +137,7 @@ p_\theta(x_t \mid x_{<t})
 \text{specific model within that class}
 ```
 
-这也是为什么仅仅比较 parameter count 不够：  
+这也是为什么仅仅比较 parameter count 不够：
 两个参数量相近的模型，如果 architecture 不同，表达能力、训练稳定性、推理成本都可能不同。
 
 ## 🏗️ Main Design Dimensions
@@ -180,7 +180,7 @@ Depth 和 width 是最直观的 architecture shape choices。
 
 - parameter count；
 - FLOPs；
-- activation memory；
+- [activation memory](<../../Neural%20Networks/Activations.md>)；
 - KV cache size；
 - model capacity；
 - training stability。
@@ -375,7 +375,7 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 | ------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ |
 | [Model Architecture](<./Model%20Architecture.md>)          | attention, [MLP](<../../Transformer/MLP.md>), norm, position embedding, layer layout                        | learning rate, optimizer, batch size |
 | [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | [Optimizer](<../../Transformer/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>), weight decay, batch size, data mixture | RoPE, RMSNorm, GQA                   |
-| Systems for Language Models | memory layout, kernel optimization, parallelism, KV cache efficiency              | architecture 概念本身                    |
+| [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) | memory layout, kernel optimization, parallelism, KV cache efficiency              | architecture 概念本身                    |
 
 >**Important**
 >同一个 architecture 可以用不同 training recipes 训练。
@@ -442,5 +442,5 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 - [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
 - [MLP](<../../Transformer/MLP.md>)
 - [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- Systems for Language Models
+- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
 - Model Hyperparameters

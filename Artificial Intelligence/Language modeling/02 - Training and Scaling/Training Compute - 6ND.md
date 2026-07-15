@@ -3,9 +3,11 @@
 >**Note**
 > Dense Transformer 训练计算量常用粗略近似：
 >
-> ```math
+>
+```math
 > \text{Training FLOPs} \approx 6ND
-> ```
+>
+```
 >
 > 其中 $N$ 是模型参数量，$D$ 是训练 token 数。
 
@@ -46,9 +48,9 @@ N \times D
 ## 为什么系数约为 6
 
 >**Note**
-> 对一个 dense neural network，forward pass 中每个参数大约对应一次 multiply-add，通常记为约 2 FLOPs。
+> 对一个 dense neural network，[forward pass](<../../Neural%20Networks/Forward%20Propagation.md>) 中每个参数大约对应一次 multiply-add，通常记为约 2 FLOPs。
 >
-> Backward pass 通常大约是 forward pass 的 2 倍。
+> [Backward pass](<../../Neural%20Networks/Backpropagation.md>) 通常大约是 forward pass 的 2 倍。
 >
 > 因此 forward + backward 约为 forward 的 3 倍。
 

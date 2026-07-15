@@ -1,6 +1,6 @@
 #LanguageModeling #Transformer #Embedding #Architecture
 
-Token Embedding 指把 discrete token id 映射成 continuous vector 的方法。  
+Token Embedding 指把 discrete token id 映射成 continuous vector 的方法。
 它是 language model 从离散文本进入神经网络计算的第一步。
 
 ## 🧠 Core Idea
@@ -63,7 +63,7 @@ Token IDs 是离散符号，例如：
 [15, 438, 92]
 ```
 
-这些数字本身没有连续几何意义。  
+这些数字本身没有连续几何意义。
 模型需要把它们映射到 continuous vector space，才能进行 matrix multiplication、attention、MLP 等 neural network computation。
 
 >**Important**
@@ -101,7 +101,7 @@ X \in \mathbb{R}^{B \times T \times d_{\text{model}}}
 
 ## 📍 Token Embedding vs Positional Encoding
 
-[Token Embedding](<./Token%20Embedding.md>) 表示 token 是什么。  
+[Token Embedding](<./Token%20Embedding.md>) 表示 token 是什么。
 [Positional Encoding](<./Positional%20Encoding.md>) 表示 token 在哪里。
 
 例如在句子中：
@@ -189,17 +189,17 @@ z_t \in \mathbb{R}^{V}
 
 ### Token Embedding 不是 Tokenization
 
-[Tokenization](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Tokenization.md>) 把 raw text 切成 token IDs。  
+[Tokenization](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Tokenization.md>) 把 raw text 切成 token IDs。
 Token Embedding 把 token IDs 变成 vectors。
 
 ### Token ID 大小没有语义大小
 
-token id 是 index，不是数值特征。  
+token id 是 index，不是数值特征。
 token id 100 不代表比 token id 50 “更大”或“更重要”。
 
 ### Token Embedding 不包含完整上下文
 
-初始 token embedding 主要表示 token identity。  
+初始 token embedding 主要表示 token identity。
 经过 [Transformer Block](<./Transformer%20Block.md>) 后，hidden states 才逐渐变成 contextual representations。
 
 ## 🧾 My Understanding

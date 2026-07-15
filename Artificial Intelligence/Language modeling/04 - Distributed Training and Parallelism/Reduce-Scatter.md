@@ -2,9 +2,9 @@
 
 Reduce-Scatter 适合这样的情况：多个 ranks 各自持有 partial values，需要先做 reduce，但 reduce 后的完整结果不必在每个 rank 上复制，只需要让每个 rank 保留其中一个 shard。
 
-这正好连接到 ZeRO：gradients 聚合后可以继续保持 sharded，每个 rank 只负责自己那一部分 parameters / optimizer states。与 [All-Gather](<All-Gather.md>) 连起来时，它构成 [All-reduce Decomposition](<All-reduce%20Decomposition.md>) 的前半段。
+这正好连接到 [ZeRO](<./ZeRO.md>)：gradients 聚合后可以继续保持 sharded，每个 rank 只负责自己那一部分 parameters / optimizer states。与 [All-Gather](<./All-Gather.md>) 连起来时，它构成 [All-reduce Decomposition](<./All-reduce%20Decomposition.md>) 的前半段。
 
-这里的 communication pattern 来自 [Parallelism](<Parallelism.md>) 的 sharding strategy，实际传输通常由 [NCCL](<NVIDIA%20Collective%20Communication%20Library.md>) 执行。
+这里的 communication pattern 来自 [Parallelism](<./Parallelism.md>) 的 sharding strategy，实际传输通常由 [NCCL](<./NVIDIA%20Collective%20Communication%20Library.md>) 执行。
 
 ![reduce-scatter.png](<../attachments/reduce-scatter.png>)
 ## Example

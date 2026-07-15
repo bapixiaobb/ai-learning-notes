@@ -2,9 +2,15 @@
 
 Mathematical foundation see: An Optimization Problem
 
-In [training](Training vs Inference) process, after [Forward Propagation](<../Neural%20Networks/Forward%20Propagation.md>) (see [TransformerLM.jpeg](<./TransformerLM.jpeg>)) we will get a loss function computed by [Cross Entropy Loss](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>).
+在一次 [training](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) step 中：
 
->**Important** — We need to define the optimizer to minimize this loss
+1. [model forward](<../Neural%20Networks/Forward%20Propagation.md>) 先得到 logits；
+2. [Cross Entropy Loss](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>) 根据 logits 和 targets 计算 loss；
+3. [Backpropagation](<../Neural%20Networks/Backpropagation.md>) 计算 gradients；
+4. optimizer 使用 gradients 更新 parameters。
+
+>**Important**
+> Optimizer 负责根据 gradients 更新 parameters；它不负责计算 model output、loss 或 gradients。
 
 # The SGD Optimizer
 

@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Normalization #Transformer
 
-[Layer Normalization](<./Layer%20Normalization.md>) 是一种 normalization 方法。  
+[Layer Normalization](<./Layer%20Normalization.md>) 是一种 normalization 方法。
 它对每个 token 的 hidden vector 在 feature dimension 上做 normalization。
 
 ## 🧠 Core Idea

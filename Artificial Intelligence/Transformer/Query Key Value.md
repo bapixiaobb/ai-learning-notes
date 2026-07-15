@@ -188,7 +188,7 @@ K \rightarrow K_{\mathrm{rope}}
 
 ### Value 不是最终输出
 
-Value 是被 attention weights 加权汇总的内容。  
+Value 是被 attention weights 加权汇总的内容。
 attention output 后面通常还会经过 output projection、residual connection、MLP 等模块。
 
 ---

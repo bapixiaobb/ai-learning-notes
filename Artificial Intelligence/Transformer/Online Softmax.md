@@ -42,7 +42,7 @@ e^{(s_i \times scale)-\max(s_i \times scale)}=e^{(s_i - M)\times scale}
 \frac{e^{(s_i - M)\times scale}\times V_i}
 {\sum_j e^{(s_j - M)\times scale}}
 ```
-其中 $M = \max_j(s_j)$  
+其中 $M = \max_j(s_j)$
 
 ```python
 def online_softmax_attention(score_tiles, value_tiles, scale):

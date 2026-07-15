@@ -28,15 +28,17 @@ F(\mathrm{Norm}(x))
 >
 >也就是：
 >
->```math
+>
+```math
 >\mathrm{Norm}
 >\rightarrow
 >\mathrm{SubLayer}
 >\rightarrow
 >\mathrm{Residual Add}
->```
+>
+```
 
-这和 [Post-Norm Transformer](<./Post-Norm%20Transformer.md>) 不同。  
+这和 [Post-Norm Transformer](<./Post-Norm%20Transformer.md>) 不同。
 Post-Norm 是先 residual add，再 normalization：
 
 ```math
@@ -213,7 +215,7 @@ I
 
 ### 1. Pre-Norm 不是一种 normalization 方法
 
-Pre-Norm 说的是 norm 的位置。  
+Pre-Norm 说的是 norm 的位置。
 具体 norm 可以是：
 
 - [Layer Normalization](<./Layer%20Normalization.md>)
@@ -221,14 +223,14 @@ Pre-Norm 说的是 norm 的位置。
 
 ### 2. RMSNorm 不等于 Pre-Norm
 
-[RMSNorm](<./RMSNorm.md>) 是 normalization formula。  
+[RMSNorm](<./RMSNorm.md>) 是 normalization formula。
 [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) 是 block layout。
 
 它们经常一起出现，但不是同一个概念。
 
 ### 3. Pre-Norm 不改变 causal mask
 
-Pre-Norm 只改变 normalization placement。  
+Pre-Norm 只改变 normalization placement。
 是否 causal 由 [Causal Attention](<./Causal%20Attention.md>) 和 [Causal Mask](<./Causal%20Mask.md>) 决定。
 
 ---
@@ -236,9 +238,11 @@ Pre-Norm 只改变 normalization placement。
 >**Summary** — My Understanding
 >[Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) 的核心公式是：
 >
->```math
+>
+```math
 >x_{\text{out}} = x + F(\mathrm{Norm}(x))
->```
+>
+```
 >
 >它把 normalization 放在 attention / MLP 之前，再把 sublayer output 加回 residual stream。
 >

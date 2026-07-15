@@ -10,7 +10,7 @@ Resource Accounting 可以理解成：**在真正运行之前，先给一次 tra
 \theta_t-\eta\,g_t
 ```
 
-但在机器上完成这个 update，需要执行 forward / backward，保存中间 tensor，并在 memory 和 compute units 之间搬运数据。
+但在机器上完成这个 update，需要执行 [forward](<../../Neural%20Networks/Forward%20Propagation.md>) / [backward](<../../Neural%20Networks/Backpropagation.md>)，保存中间 tensor，并在 memory 和 compute units 之间搬运数据。
 
 因此真正需要数清三笔账：
 
@@ -28,7 +28,7 @@ Transformer 的主要计算来自 matrix multiplication，例如 attention proje
 \text{Training FLOPs} \approx 6ND
 ```
 
-其中 $N$ 是 parameters 数量，$D$ 是训练过的 tokens 数量。更详细的来源见 [Training Compute - 6ND](<Training%20Compute%20-%206ND.md>)。
+其中 $N$ 是 parameters 数量，$D$ 是训练过的 tokens 数量。更详细的来源见 [Training Compute - 6ND](<./Training%20Compute%20-%206ND.md>)。
 
 这个数字告诉我们总工作量，但不能直接告诉我们训练会有多快。真实速度还取决于 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 的 throughput，以及 compute units 是否在等待数据。
 
@@ -41,14 +41,14 @@ Transformer 的主要计算来自 matrix multiplication，例如 attention proje
 | parameters | forward / backward 使用的模型权重 |
 | gradients | optimizer 更新 parameters 所需 |
 | optimizer states | Adam 保存的一阶、二阶统计量等 |
-| activations | backward 计算梯度时需要的中间结果 |
+| [Activations](<../../Neural%20Networks/Activations.md>) | backward 计算梯度时需要的中间结果 |
 
 所以“模型参数能放进显存”不等于“模型能够训练”。
 
 如果放不下，可以改变执行方式：
 
 - low precision：让每个 tensor 占更少 bytes；
-- [Recomputation](<Recomputation.md>)：少存 activations，backward 时重新计算；
+- [Recomputation](<./Recomputation.md>)：少存 activations，backward 时重新计算；
 - ZeRO / FSDP：把 model states 分到多个 devices；
 - tensor / pipeline parallelism：把模型本身拆开。
 
@@ -102,9 +102,9 @@ Parallelism 决定把什么拆开：
 
 [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
 [Transformer](<../../Transformer/Transformer.md>)
-[Training Recipe](<Training%20Recipe.md>)
+[Training Recipe](<./Training%20Recipe.md>)
 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)
 [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>)
 [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)
-[Scaling Law](<Scaling%20Law.md>)
+[Scaling Law](<./Scaling%20Law.md>)
