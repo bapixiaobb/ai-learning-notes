@@ -27,7 +27,6 @@ ZeRO-3 / FSDP：再切 parameters
 
 - Split up the optimizer state (first + second moments) across GPUs
 - Everyone has the parameters + gradients
-
 #### How it works
 
 **Step 1.**  Everyone has the parameters + gradients
