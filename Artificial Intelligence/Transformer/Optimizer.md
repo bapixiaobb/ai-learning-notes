@@ -12,63 +12,77 @@ Mathematical foundation see: An Optimization Problem
 >**Important**
 > Optimizer 负责根据 gradients 更新 parameters；它不负责计算 model output、loss 或 gradients。
 
-# The SGD Optimizer
+---
+## From Optimization Problem to Optimizer
 
-The simplest gradient-based optimizer is Stochastic Gradient Descent (SGD). We start with randomly initialized parameters $\theta_0$. Then for each step $𝑡 = 0,\cdots,T-1$,  we perform the following update:
+从 An Optimization Problem 的角度，language model training 可以写成：
+
 ```math
-\theta_{t+1}\leftarrow\theta_t-\alpha_t \nabla L(\theta_t;B_t)
+\min_{\theta} F(\theta),
+\qquad
+F(\theta)=\mathbb{E}_{x\sim\mathcal D}[\ell(\theta;x)]
 ```
 
-where  $B_t$ is a random batch of data sampled from the dataset $𝐷$, and the learning rate $\alpha_t$ and batch size $|B_t|$ are hyperparameters.
+其中 $\theta$ 是 model parameters，$\ell(\theta;x)$ 是一个 training example 上的 [loss](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。在有限 training set 上，也可以写成：
+
+```math
+F(\theta)=\frac{1}{N}\sum_{i=1}^{N}\ell(\theta;x_i)
+```
+
+An Optimization Problem 描述的是“要解什么问题”；optimizer 描述的是“如何迭代地更新 $\theta$ 来求解这个问题”。
+
+许多 iterative optimization methods 都可以写成：
+
+```math
+\theta_{t+1}=\theta_t+\alpha_t p_t
+```
+
+- $p_t$ 是 direction，决定往哪里走；
+- $\alpha_t$ 是 step size，在 deep learning 中通常称为 learning rate，决定走多远；
 
 ---
-# AdamW
+## 往哪走？
 
-Typical applications set $(\beta_1,\beta_2)$ to $(0.9, 0.999)$, but large language models like LLaMA (H. Touvron et al., 2023) and GPT-3 (T. B. Brown et al., 2020) are often trained with $(0.9, 0.95)$
-
-![adamw.png](<./adamw.png>)
-
-AdamW 仍然是一阶方法，只使用当前 mini-batch gradient：
-```
-gₜ = ∇L(θₜ; Bₜ)
-```
-
-它比 SGD 多做三件事：
-
-### 1. 平滑 gradient 的方向：First Moment
-
-方向的移动平均： $m_t = β_1m_{t-1} + (1-β_1)g_t$
-
-$m$ 是 gradients 的 exponential moving average，类似 momentum。**$m$ 不是 gradients，而是历史 gradient 的指数滑动平均**
-
-- $g_t$：当前这一刻的力
-- $m_t$：过去很多步累积出来的运动趋势
-
->**Example** — Momentum
-> 可以类比 momentum 吧，因为物理动量里，不只有大小还有方向。
+>**Question** — 哪个方向是 $F$ 下降的方向？
+> **方向导数：** $\nabla F(\theta_t)^T p_t$ --- $F$ 沿 $p_t$ 的方向导数
 >
-> 比如一个球一直往右滚，它有“往右的动量”。你稍微给它一个往左的小力，它不会立刻往左飞，而是先被减速。
-> 这就是“惯性”的感觉：过去一直往右 → 现在倾向于继续往右
+> 当它小于 $0$ 时，沿 $p_t$ 走一小步会让 $F$ 下降，所以 $p_t$ 是一个 descent direction。
 
+最直接的选择是 $p_t=-\nabla F(\theta_t)$，这就是 Gradient Descent。在 [Machine Learning](<../Fundamentals/Machine%20Learning.md>) 中，标准 Gradient Descent 每一步使用整个 dataset 计算 full gradient。
 
-### 2. 根据每个坐标的历史 gradient 大小调整有效 step size：Second Moment
+#### SGD
 
-gradient 大小的移动平均：$v_t = β_2v_{t-1} + (1-β_2)g_t^2$
+但在 large-scale training 中，计算 full gradient 的 cost 太高，所以通常使用随机采样的 mini-batch gradient 来估计它，这就是 Stochastic Gradient Descent。
 
-$v$ 记录每个 parameter element 最近的 gradient magnitude。
+SGD 直接用 mini-batch gradient 会有两个问题：
 
-最终方向会除以：$\sqrt{v} + \varepsilon$
+- mini-batch gradient 有 noises，不同批次的 mini-batch 下降的方向可能完全相反
+- SGD 用的同一个 learning rate，这会导致：
+	- 如果方向很陡峭，稍微走多一点就会震荡
+	- 如果方向很平缓，走得很慢
 
-- 某坐标的 gradient 长期很大 → $v$ 很大 → denominator 很大 → 该坐标有效 step size 变小
-- 某坐标的 gradient 长期较小 → $v$ 较小 → denominator 较小 → 该坐标相对获得更大的有效 step size
+#### AdamW
 
-### 3. 独立进行 weight decay
-
-AdamW 还会单独执行：$\theta \leftarrow \theta - \alpha\lambda \theta$ ，它会把参数轻微拉向零。
-
->**Important** — $W$ 的关键就在这里：weight decay 与 gradient update 解耦。
+因此 large language model training 通常使用 AdamW：用 first moment 平滑 direction，用 second moment 对每个 parameter 做 adaptive scaling，并将 weight decay 与 gradient update 解耦。
 
 ---
-# How to find step size??
+## 走多远？
 
-In training [Transformer](<./Transformer.md>) step size is called learning rate, we have [Learning Rate Schedule](<./Learning%20Rate%20Schedule.md>)
+在 [Transformer](<./Transformer.md>) training 中，step size 通常称为 learning rate。整个 training run 只创建一个 optimizer object，但它保存的 current learning rate 可以在每次 optimizer step 前被修改：
+
+    step_size = get_lr_cosine_schedule(iteration, ...)
+    optimizer.param_groups[0]["lr"] = step_size
+    optimizer.step()
+
+因此第 $t$ 次 optimizer step 使用的是：
+
+```math
+\alpha_t=\operatorname{schedule}(t)
+```
+
+peak learning rate、minimum learning rate 和 warmup steps 是预先选择的 hyperparameters；[Learning Rate Schedule](<./Learning%20Rate%20Schedule.md>) 再根据当前 optimizer step 生成 $\alpha_t$。
+
+>**Important**
+> Cosine annealing 是 schedule，不是 line search。它不会先用一个 learning rate 找到 minimal loss 再换下一个，而是每次 parameter update 使用 schedule 给出的当前 $\alpha_t$。
+
+Second-order methods 使用 Hessian / curvature information 构造 update direction 或 scaling；这和 learning-rate schedule 是不同的问题。
