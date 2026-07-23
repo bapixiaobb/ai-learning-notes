@@ -368,4 +368,4 @@ X^{(\ell)}
 - [Transformer Block](<./Transformer%20Block.md>)
 - [Transformer](<./Transformer.md>)
 - Regression Analysis
-- Least-squares problem]]
+- Least-squares problem
