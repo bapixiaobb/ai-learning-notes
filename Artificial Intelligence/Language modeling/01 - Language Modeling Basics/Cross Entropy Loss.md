@@ -43,8 +43,8 @@ y_k \log \hat{p}_k
 ```
 
 ## Implementation
-![TransformerLM.jpeg](<../../Transformer/TransformerLM.jpeg>)
-一个完整的 [Transformer](<../../Transformer/Transformer.md>) 最后的输出是：
+![TransformerLM.jpeg](<../../attachments/TransformerLM.jpeg>)
+一个完整的 [Transformer](<../../Transformer/Transformer.md>) 最后的输出是 [logits](<Logits.md>)：
 ```
 logits: [batch, seq, vocab_size]
 ```
@@ -240,13 +240,13 @@ p_\theta(x_t \mid x_{<t})
 它常用于：
 
 - classification
-- [Next-token prediction](<./Next-token%20prediction.md>)
+- [Next-token prediction](<Next-token%20prediction.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 - sequence modeling
 
 ## Related
 
-- Loss Function
+- [Loss Function](<../../Neural%20Networks/Loss%20Function.md>)
 - [Softmax](<../../Transformer/Softmax.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 - Maximum Likelihood Estimation

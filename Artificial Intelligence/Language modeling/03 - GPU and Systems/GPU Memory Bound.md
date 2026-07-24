@@ -40,7 +40,7 @@ masking
 
 # What is wave quantization
 
-这个名字容易和 [Quantization](<../../Transformer/Quantization.md>) 混，不是低精度量化。
+这个名字容易和 [Quantization](<../../Quantization/Quantization.md>) 混，不是低精度量化。
 
 这里的 **wave quantization** 指的是：
 

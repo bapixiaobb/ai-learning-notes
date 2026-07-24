@@ -1,5 +1,5 @@
 
-![gpu-node-overview.png](<../attachments/gpu-node-overview.png>)
+![gpu-node-overview.png](<../../attachments/gpu-node-overview.png>)
 
 多 GPU 训练可以理解成把 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 的 memory hierarchy 往外扩展：
 

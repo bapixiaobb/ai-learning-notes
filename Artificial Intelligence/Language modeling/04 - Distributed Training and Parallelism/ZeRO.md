@@ -1,6 +1,6 @@
 #AI #LanguageModeling #GPU
 
-![memory overhead issue of DP.png](<../attachments/memory%20overhead%20issue%20of%20DP.png>)
+![memory overhead issue of DP.png](<../../attachments/memory%20overhead%20issue%20of%20DP.png>)
 
 [Data parallelism](<./Data%20parallelism.md>) 中 Memory overhead 的问题，主要集中在 [Optimizer](<../../Transformer/Optimizer.md>) states 占用了大部分显存
 
@@ -74,7 +74,7 @@ All-Gather updated parameters  ≈ P
 
 **Step 1.** 每个 rank layer by layer 执行 backward。
 	**Step 1a.** 某层的 local gradients 一生成，就立即进行 [Reduce-Scatter](<./Reduce-Scatter.md>)。
-	![Reduce.png](<../attachments/Reduce.png>)
+	![Reduce.png](<../../attachments/Reduce.png>)
 	**Step 1b.** Reduce-Scatter 完成后，释放该层未分片的 local gradient buffer；每个 rank 只长期保留自己负责的 global gradient shard。
 **Step 2.** 每个 rank 使用自己负责的 gradient shard 和 optimizer state，更新对应的 parameter shard。
 **Step 3.** [All-Gather](<./All-Gather.md>) parameters

@@ -6,7 +6,7 @@
 all-reduce = reduce-scatter + all-gather
 ```
 
-![all-reduce = reduce-scatter + all-gather.png](<../attachments/all-reduce%20%3D%20reduce-scatter%20%2B%20all-gather.png>) [All-Reduce](<./All-Reduce.md>) = [Reduce-Scatter](<./Reduce-Scatter.md>) + [All-Gather](<./All-Gather.md>)
+![all-reduce = reduce-scatter + all-gather.png](<../../attachments/all-reduce%20%3D%20reduce-scatter%20%2B%20all-gather.png>) [All-Reduce](<./All-Reduce.md>) = [Reduce-Scatter](<./Reduce-Scatter.md>) + [All-Gather](<./All-Gather.md>)
 
 [Reduce-Scatter](<./Reduce-Scatter.md>) 先完成聚合，但让每个 rank 只保留一个 reduced shard；[All-Gather](<./All-Gather.md>) 再交换这些 shards，让每个 rank 都得到完整结果。因此两步合起来，输出与 All-Reduce 相同。
 

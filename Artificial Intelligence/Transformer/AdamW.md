@@ -57,9 +57,9 @@ AdamW 还会单独执行：$\theta \leftarrow \theta - \alpha\lambda \theta$ ，
 
 Typical applications set $(\beta_1,\beta_2)$ to $(0.9, 0.999)$, but large language models like LLaMA (H. Touvron et al., 2023) and GPT-3 (T. B. Brown et al., 2020) are often trained with $(0.9, 0.95)$
 
-![AdamW pseudocode](<./adamw.png>)
+![AdamW pseudocode](<../attachments/adamw.png>)
 
-## [Quantization](<./Quantization.md>)
+## [Quantization](<../Quantization/Quantization.md>)
 
 AdamW 的 $m$ 和 $v$ 一般会保留 FP32 accumulator
 

@@ -2,7 +2,7 @@
 
 # Layer-wise parallel
 
-![layer-wise parallel.png](<../attachments/layer-wise%20parallel.png>)
+![layer-wise parallel.png](<../../attachments/layer-wise%20parallel.png>)
 
 Pipeline parallelism 把连续的 layer groups 分成 stages，放到不同的 GPUs 上。
 
@@ -14,14 +14,14 @@ Pipeline parallelism 把连续的 layer groups 分成 stages，放到不同的 G
 # Problem
 
 想象一下，如果做 layer-wise parallel 的话，GPUs 的并行度是很糟糕的，因为如下图所示
-![layer-wise parallel 1 batch.png](<../attachments/layer-wise%20parallel%201%20batch.png>)
+![layer-wise parallel 1 batch.png](<../../attachments/layer-wise%20parallel%201%20batch.png>)
 F 是 [Forward Propagation](<../../Neural%20Networks/Forward%20Propagation.md>)，B 是 [Backpropagation](<../../Neural%20Networks/Backpropagation.md>)，这几个不同颜色的块就代表了不同的 GPUs，一行代表了一张卡
 在一层一层 layers 传递的过程中，需要等上一层算完，再传递给下一层，这样是串行的，和我们说的 [GPU 核心思想](<../03%20-%20GPU%20and%20Systems/GPU%20%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3.md>) 不一样
 
 ## Solution
 
 有一个办法就是用 micro-batches
-![layer-wise parallel micro-batches.png](<../attachments/layer-wise%20parallel%20micro-batches.png>)
+![layer-wise parallel micro-batches.png](<../../attachments/layer-wise%20parallel%20micro-batches.png>)
 如上图所示，把一个 batch 切成小的 micro-batches，在第一个 GPU 算完第一个 micro-batch 的时候，立马算 第二个 micro-batch，然后同时第二个 GPU 算第一个 micro-batch
 
 上面空白的，没有任何计算的时候，就是 **Bubble**

@@ -31,14 +31,14 @@ batch
             ↓
 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 数清 compute / memory / data movement
             ↓
-[GPU](<./GPU.md>) / cluster 提供实际资源
+[GPU](<GPU.md>) / cluster 提供实际资源
             ↓
 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 把 computation 和 model states 分配到多个 devices
 
 这几层不是互相独立的：
 
 - model architecture 决定有哪些 operators、tensor shapes 和 layer dependencies；
-- training recipe 决定 batch size、optimizer states 和 precision；
+- training recipe 决定 [batch size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)、optimizer states 和 precision；
 - 这些选择共同决定需要多少 compute、memory 和 communication；
 - hardware 和 topology 决定哪种执行方式更高效。
 
@@ -75,7 +75,7 @@ batch
 [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
 [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-[GPU](<./GPU.md>)
+[GPU](<GPU.md>)
 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)
 [GPU Communication Topology](<../04%20-%20Distributed%20Training%20and%20Parallelism/GPU%20Communication%20Topology.md>)
-[Model FLOPs Utilization](<./Model%20FLOPs%20Utilization.md>)
+[Model FLOPs Utilization](<Model%20FLOPs%20Utilization.md>)

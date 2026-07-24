@@ -1,8 +1,8 @@
 #DeepLearning #NeuralNetwork #ComputationalGraph
 
-Forward Propagation 是给定 input 和当前 parameters，沿 [computation graph](<./Computational%20Graph.md>) 正向计算 model output 的过程。
+Forward Propagation 是给定 input 和当前 parameters，沿 [computation graph](<Computational%20Graph.md>) 正向计算 model output 的过程。
 
-**Forward pass** 和 **forward propagation** 通常指同一个过程；它们不等于 [Feed-Forward Network](<./Feed-Forward%20Network.md>) 这种 architecture。
+**Forward pass** 和 **forward propagation** 通常指同一个过程；它们不等于 [Feed-Forward Network](<Feed-Forward%20Network.md>) 这种 architecture。
 
 数学上：
 
@@ -16,7 +16,7 @@ Forward Propagation 是给定 input 和当前 parameters，沿 [computation grap
 \mathcal L=\ell(\hat y,y)
 ```
 
-Forward 不更新 parameters。[Backpropagation](<./Backpropagation.md>) 负责计算 gradients，[Optimizer](<../Transformer/Optimizer.md>) 才使用 gradients 更新 parameters。
+Forward 不更新 parameters。[Backpropagation](<Backpropagation.md>) 负责计算 gradients，[Optimizer](<../Transformer/Optimizer.md>) 才使用 gradients 更新 parameters。
 
 ## 基础 Neural Network
 
@@ -32,16 +32,16 @@ a_1=\sigma(z_1)
 \hat y=W_2a_1+b_2
 ```
 
-这里 $\sigma$ 是 [Activation Function](<./Activation%20Function.md>)；$z_1$ 和 $a_1$ 是 intermediate [Activations](<./Activations.md>)，$\hat y$ 是 model output。
+这里 $\sigma$ 是 [Activation Function](<Activation%20Function.md>)；$z_1$ 和 $a_1$ 是 intermediate [Activations](<Activations.md>)，$\hat y$ 是 model output。
 
 ## Forward 产生什么
 
 一次 model forward 会得到：
 
-1. model output，例如 prediction 或 logits；
-2. computation graph 中的 intermediate [Activations](<./Activations.md>)。
+1. model output，例如 prediction 或 [logits](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Logits.md>)；
+2. computation graph 中的 intermediate [Activations](<Activations.md>)。
 
-Training 时，loss function 会继续读取 model output 和 targets，计算 loss。广义上，人们有时把从 input 一直到 loss 的这一整段都称为 training forward phase。
+Training 时，[loss function](<Loss%20Function.md>) 会继续读取 model output 和 targets，计算 loss。广义上，人们有时把从 input 一直到 loss 的这一整段都称为 training forward phase。
 
     input
     → operations defined by parameters
@@ -77,7 +77,7 @@ Training 时再计算：
 
 ## 为什么 Forward 会占 Memory
 
-Training 之后还要 backward，所以 forward 中一部分 [Activations](<./Activations.md>) 必须暂时保留。
+Training 之后还要 backward，所以 forward 中一部分 [Activations](<Activations.md>) 必须暂时保留。
 
 [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>) 会少保存一些 activations，在 backward 时重新执行部分 forward，用 compute 换 memory。
 
@@ -89,11 +89,11 @@ Training 之后还要 backward，所以 forward 中一部分 [Activations](<./Ac
 
 ## Related
 
-- [Activations](<./Activations.md>)
-- [Activation Function](<./Activation%20Function.md>)
-- [Computational Graph](<./Computational%20Graph.md>)
-- [Backpropagation](<./Backpropagation.md>)
-- [Feed-Forward Network](<./Feed-Forward%20Network.md>)
+- [Activations](<Activations.md>)
+- [Activation Function](<Activation%20Function.md>)
+- [Computational Graph](<Computational%20Graph.md>)
+- [Backpropagation](<Backpropagation.md>)
+- [Feed-Forward Network](<Feed-Forward%20Network.md>)
 - [Transformer](<../Transformer/Transformer.md>)
 - [Transformer Block](<../Transformer/Transformer%20Block.md>)
 - [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)

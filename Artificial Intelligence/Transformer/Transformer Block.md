@@ -386,7 +386,7 @@ Transformer block 是连接 architecture 和 computation 的核心单位。
 >- [Residual Connection](<./Residual%20Connection.md>) 是加法结构；
 >- [Residual Stream](<./Residual%20Stream.md>) 是贯穿所有 blocks 的主 hidden state 流。
 
-![TransformerLM.jpeg](<./TransformerLM.jpeg>)
+![TransformerLM.jpeg](<../attachments/TransformerLM.jpeg>)
 ## 🔗 Connections
 
 - [Transformer](<./Transformer.md>)

@@ -1,8 +1,8 @@
-#AI #LLM #LanguageModeling
+#AI #LanguageModeling #Quantization
 
 # Menu
 
-**把高精度数映射到低精度表示**
+****把高精度数映射到低精度表示****
 
 比较典型的例子是
 ```

@@ -1,4 +1,4 @@
-在显存放不下 large batch 时，用多个 microbatches 累加梯度，再做一次 optimizer step。
+在显存放不下较大的 [batch](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 时，用多个 microbatches 累加梯度，再做一次 [optimizer step](<../../Transformer/Optimizer.md>)。
 
 ---
 基本思想是：

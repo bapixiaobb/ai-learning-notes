@@ -47,7 +47,7 @@ x_{\text{out}}
 \mathrm{Norm}(x + F(x))
 ```
 
-![pre-norm transformer block.png](<./pre-norm%20transformer%20block.png>)
+![pre-norm transformer block.png](<../attachments/pre-norm%20transformer%20block.png>)
 ## 🧩 In Transformer Block
 
 一个 Pre-Norm [Transformer Block](<./Transformer%20Block.md>) 通常有两次 Pre-Norm update：

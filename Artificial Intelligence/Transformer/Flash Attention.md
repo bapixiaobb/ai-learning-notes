@@ -51,7 +51,7 @@ Optimization:
 4. 更新输出 `O`
 5. 然后丢掉这个 tile
 
-![FlashAttention.png](<./FlashAttention.png>)
+![FlashAttention.png](<../attachments/FlashAttention.png>)
 如上图所示，它不再完整算完整个 tensor，而是 tile by tile 地把 `score = QK^T`、`softmax` 还有 `*V` 融合在一起，这里是一个 [Operator fusion](<../Language%20modeling/03%20-%20GPU%20and%20Systems/Operator%20fusion.md>)
 
 ---

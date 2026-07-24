@@ -6,7 +6,7 @@
 >To keep track of the max, incrementally update the max, and set up a telescoping sum
 >This lets you compute the softmax tile-by-tile
 
-![online softmax.png](<./online%20softmax.png>)
+![online softmax.png](<../attachments/online%20softmax.png>)
 
 一边扫 tile，一边更新：当前见过的最大值 $\max$，当前积累的 $\sum e$，当前累积的输出 $O$。
 当新的 tile 里出现更大的 $\max$ 时，就把之前的累积量按比例 rescale

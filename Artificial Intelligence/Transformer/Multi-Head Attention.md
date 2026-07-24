@@ -212,7 +212,7 @@ Head 是 hidden dimension 的分解方式，不是 sequence length 的分解方�
 >
 >在 modern LLM 中，standard multi-head attention 还可以进一步变成 Multi-Query Attention 或 Grouped Query Attention，以减少 KV cache cost。
 
-![TransformerLM.jpeg](<./TransformerLM.jpeg>)
+![TransformerLM.jpeg](<../attachments/TransformerLM.jpeg>)
 ## 🔗 Connections
 
 - [Self-Attention](<./Self-Attention.md>)

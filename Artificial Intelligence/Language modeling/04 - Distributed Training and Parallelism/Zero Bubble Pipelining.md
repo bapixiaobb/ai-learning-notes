@@ -41,7 +41,7 @@ Zero Bubble 把它拆开：
  紧急     可以推迟
 ```
 
-![Computation Graph for MLP.png](<../attachments/Computation%20Graph%20for%20MLP.png>)
+![Computation Graph for MLP.png](<../../attachments/Computation%20Graph%20for%20MLP.png>)
 
 调度器先做 `B`，赶紧把 activation gradient 传给前一张卡；暂时不做的 `W` 放进后面原本空闲的白色 bubble：
 

@@ -1,5 +1,5 @@
 #AI #LanguageModeling #GPU
-![CPU vs. GPU.png](<../attachments/CPU%20vs.%20GPU.png>)
+![CPU vs. GPU.png](<../../attachments/CPU%20vs.%20GPU.png>)
 
 ## CPU 优化 latency
 >**Note** — **latency**

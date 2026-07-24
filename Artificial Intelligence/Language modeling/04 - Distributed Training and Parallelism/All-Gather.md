@@ -6,7 +6,7 @@ All-Gather 适合这样的情况：每个 rank 只保存一个 local shard，但
 
 这个需求由 [Parallelism](<./Parallelism.md>) 决定，实际传输通常由 [NCCL](<./NVIDIA%20Collective%20Communication%20Library.md>) 执行。
 
-![All-Gather.png](<../attachments/All-Gather.png>)
+![All-Gather.png](<../../attachments/All-Gather.png>)
 ## Example
 
 每个 rank 都创建一个 tensor：

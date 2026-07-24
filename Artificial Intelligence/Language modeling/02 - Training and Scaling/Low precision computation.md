@@ -4,7 +4,7 @@
 # Why it is an optimization for [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
 ## Memory Optimization
 
-这是一个很直接的减少数据搬运的方法，既然有 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那我就**每个数字少用一点 bit 表示。** 这个方法叫做 [Quantization](<../../Transformer/Quantization.md>)
+这是一个很直接的减少数据搬运的方法，既然有 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那我就**每个数字少用一点 bit 表示。** 这个方法叫做 [Quantization](<../../Quantization/Quantization.md>)
 
 >**Note** — if you have fewer bits, you have fewer bits to move。
 
@@ -26,7 +26,7 @@ FP32 → BF16 / FP16 → FP8 → FP4
 
 >**Note** — FP32 → BF16
 >这个比较特殊不像是 FP8 这种 bit 位差别很大的数据类型转换
->一般是 cast to BF16，不是 [Quantization](<../../Transformer/Quantization.md>)，BF16 自己有 exponent 和 mantissa，不需要额外 scale，然后模型直接用 BF16 做训练。
+>一般是 cast to BF16，不是 [Quantization](<../../Quantization/Quantization.md>)，BF16 自己有 exponent 和 mantissa，不需要额外 scale，然后模型直接用 BF16 做训练。
 ## Compute Optimization
 
 **专门硬件对低精度矩阵乘法更快。**
