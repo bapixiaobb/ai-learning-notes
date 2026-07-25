@@ -1,6 +1,6 @@
 #Mathematics #Statistics #MachineLearning #DeepLearning
 
-Normalization] 指把数据或向量按照某种规则重新缩放，使它们落在更稳定、更可比较的尺度上。
+Normalization 指把数据或向量按照某种规则重新缩放，使它们落在更稳定、更可比较的尺度上。
 
 它的核心目的通常是：**控制 scale**。
 

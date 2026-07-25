@@ -82,6 +82,10 @@ SGD 直接用 mini-batch gradient 会有两个问题：
 
 因此 large language model training 通常使用 [AdamW](<AdamW.md>)：用 first moment 平滑 direction，用 second moment 对每个 parameter 做 adaptive scaling，并将 weight decay 与 gradient update 解耦。
 
+#### Muon
+
+近期 Muon 开始在 Moonlight、Kimi K2 等模型中落地，它不再只对每个 coordinate 做 scaling，而是利用 weight matrix 的结构，对 momentum update 做近似 orthogonalization。
+
 ---
 ## 走多远？
 
