@@ -53,7 +53,7 @@ m_t,v_t \leftarrow \operatorname{AdamStateUpdate}(g_t)
 
 ## Gradient
 
-optimizer 中的 gradient 时 current-step state，通常不属于 persistent optimizer state。
+optimizer 中的 gradient 是 current-step state，通常不属于 persistent optimizer state。
 
 可能占据大量峰值显存，而且 [data parallel](<../Language%20modeling/04%20-%20Distributed%20Training%20and%20Parallelism/Data%20parallelism.md>) 需要通信 gradients，因此它的量化研究重点通常是：
 
