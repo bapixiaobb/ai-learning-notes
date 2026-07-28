@@ -120,7 +120,7 @@ R
 - data loading bottleneck
 - parallelism strategy 不合理
 
-## 与 [Arithmetic Intensity](<Arithmetic%20Intensity.md>) 的关系
+## 与 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 的关系
 
 >**Note**
 > 如果一个 workload 的 Arithmetic Intensity 太低，它可能是 [GPU Memory Bound](<GPU%20Memory%20Bound.md>)，导致硬件计算单元吃不满，从而降低 MFU。

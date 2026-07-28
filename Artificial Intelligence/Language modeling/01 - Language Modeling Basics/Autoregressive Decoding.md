@@ -1,11 +1,16 @@
 #AI #LanguageModeling
 
+>**Important** — 这份笔记的范围
+>Autoregressive decoding 解释的是：语言模型如何根据当前 context 选择一个 next token，再把它接回 context 中继续生成。
+>
+>它发生在 Inference 阶段，但不等于 inference。Inference 还包括 prefill、[KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)、latency、throughput、batching 和 model serving 等执行与系统问题。
+
 ## What is Decoding
 
-在 [Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 中有介绍 [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 里的两个步骤，先是训练模型。模型训练完成之后，我们可以从我们模型中生成 text
+在 [Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 中，training 负责学习参数；模型训练完成后，可以在 inference 阶段使用固定参数生成 text。这里关注生成算法本身。
 
 从 [Transformer](<../../Transformer/Transformer.md>) 最后一张图可以看出来，最后模型生成的是一个 `[batch, seq, vocab_size]` 这样的 matrix，每个 sequence position 都对应一个长度为 `vocab_size` 的 [logits vector](<Logits.md>)。它是未归一化分数，经过 Softmax 后才成为 [Next-token prediction](<Next-token%20prediction.md>) 的 distribution。
-![TransformerLM.jpeg](<../../attachments/TransformerLM.jpeg>)
+![TransformerLM](<../../attachments/TransformerLM.jpeg>)
 它完整的步骤是，输入 prompt 之后，根据这个 prompt 来预计 ▶️ token，也就是：
 
 ```math
@@ -148,4 +153,17 @@ prompt
 
 ## Naive Decoding and KV Cache
 
-TODO
+上面的 autoregressive loop 描述了**生成依赖关系**：必须先得到一个 token，才能生成下一个 token。
+
+如果每一步都把完整 prefix 重新送进模型，就会重复计算 previous tokens 的 K/V。这是 naive implementation 的浪费，不是 autoregressive dependency 本身要求我们重复计算。
+
+[KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>) 会保存 previous tokens 在各层产生的 keys 和 values。生成新 token 时只计算新 token 对应的部分，并复用缓存。
+
+>**Note**
+>Autoregressive decoding 决定“下一个 token 如何产生”。
+>
+>[KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>) 决定“这个 decoding step 如何更高效地执行”。
+>
+>KV cache 不消除 token steps 之间的 sequential dependency，也不改变 temperature 或 top-p 的含义。
+
+接下来从 Inference 继续学习 prefill、decode、latency、throughput、batching 和 serving。

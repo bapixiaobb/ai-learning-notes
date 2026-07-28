@@ -248,7 +248,7 @@ C \approx 6ND
 
 ### 10.4 Performance diagnosis
 
-- [Arithmetic Intensity](<../03%20-%20GPU%20and%20Systems/Arithmetic%20Intensity.md>)：FLOPs / bytes，判断偏 compute-bound 还是 memory-bound。
+- [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>)：FLOPs / bytes，判断偏 compute-bound 还是 memory-bound。
 - [GPU Bottleneck](<../03%20-%20GPU%20and%20Systems/GPU%20Bottleneck.md>)：定位瓶颈是 compute、memory、occupancy 还是 communication。
 - [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)：衡量训练系统整体把 GPU 算力用起来了多少。
 
