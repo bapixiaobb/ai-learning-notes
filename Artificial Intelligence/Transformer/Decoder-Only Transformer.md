@@ -8,7 +8,7 @@ Decoder-Only Transformer 是只保留 Transformer decoder 主干的一类 Transf
 >**Note**
 >[Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) 的核心是：
 >
->用 causal self-attention 建模 token prefix，并根据 prefix 预测下一个 token。
+>用 causal [Self-Attention](<./Self-Attention.md>) 建模 token prefix，并根据 prefix [预测下一个 token](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)。
 >
 >它没有 encoder，也通常没有 encoder-decoder Cross-Attention。
 
@@ -72,70 +72,35 @@ Original Transformer 包含：
 2. feed-forward / MLP；
 3. residual + normalization。
 
-可以粗略对比：
-
-| Component                      | Original Transformer Decoder | Decoder-Only Transformer  |
-| ------------------------------ | ---------------------------- | ------------------------- |
-| masked / causal self-attention | yes                          | yes                       |
-| cross-attention to encoder     | yes                          | usually no                |
-| encoder outputs                | yes                          | no                        |
-| FFN / MLP                      | yes                          | yes                       |
-| residual connection            | yes                          | yes                       |
-| normalization                  | yes                          | yes                       |
-| output head                    | target vocabulary prediction | [Next-token prediction](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) |
-
->**Note**
->所以 decoder-only 的关键不是“只用 decoder 这张图”，而是：
->
->它只保留适合 autoregressive generation 的 causal self-attention 主线。
-
 ## 🧩 Basic Pipeline
 
 一个 decoder-only language model 的基本数据流可以写成：
-
-```math
-\text{tokens}
-\rightarrow
-\text{token embeddings}
-\rightarrow
-\text{positional information}
-\rightarrow
-\text{decoder-only Transformer blocks}
-\rightarrow
-\text{final hidden states}
-\rightarrow
-\text{logits}
+```
+tokens -> token embeddings -> position information -> decoder-only Transformer blocks -> final hidden states -> logits
 ```
 
 对于输入 token sequence：
-
 ```math
 x_1, x_2, \dots, x_T
 ```
-
 模型输出每个位置的 logits：
-
 ```math
 z_1, z_2, \dots, z_T
 ```
-
 其中：
-
 ```math
 z_t \in \mathbb{R}^{V}
 ```
-
 $V$ 是 vocabulary size。
 
-通常 $z_t$ 用来预测下一个 token：
-
+通常 $z_t$ 用来[预测下一个 token](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)：
 ```math
 p_\theta(x_{t+1} \mid x_{\leq t})
 =
 \operatorname{softmax}(z_t)
 ```
 
-## 🎭 Causal Self-Attention
+## 🎭 Causal [Self-Attention](<./Self-Attention.md>)
 
 Decoder-only Transformer 的关键是 [Causal Attention](<./Causal%20Attention.md>)。
 
@@ -146,22 +111,11 @@ h_t
 \text{ can attend to }
 h_1, h_2, \dots, h_t
 ```
-
 不能 attend to：
-
 ```math
 h_{t+1}, h_{t+2}, \dots, h_T
 ```
-
 这通过 [Causal Mask](<./Causal%20Mask.md>) 实现。
-
->**Note**
->Causal mask 保证模型不会偷看 future tokens。
->
->这使 decoder-only Transformer 和 Next Token Prediction 的训练目标匹配。
-
-注意这里的 “decoder” 不是在说模型一定有 encoder-decoder translation setting。
-在 GPT / LLaMA-style language model 中，整个输入都被看作一个 autoregressive token stream。
 
 ## 🏗️ Decoder-Only Transformer Block
 
@@ -227,38 +181,14 @@ x' + \mathrm{MLP}(\mathrm{Norm}(x'))
 
 ## 🧮 Inference Data Flow
 
-推理时，decoder-only Transformer 通常 autoregressively 生成 token。
-
-给定 prompt：
-
-```math
-x_1, x_2, \dots, x_T
-```
-
-模型先预测：
-
-```math
-p_\theta(x_{T+1} \mid x_{\leq T})
-```
-
-采样或选择一个 token 后，再把它接到序列后面：
-
-```math
-x_1, x_2, \dots, x_T, x_{T+1}
-```
-
-继续预测：
-
-```math
-p_\theta(x_{T+2} \mid x_{\leq T+1})
-```
+推理时，decoder-only Transformer 通常 [autoregressively 生成 token](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)。
 
 >**Note**
 >训练时可以并行计算多个 positions 的 loss；推理时生成过程通常是 sequential 的。
 >
 >这就是 [Training vs Inference](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 在 decoder-only Transformer 中最重要的区别之一。
 
-为了避免每一步重复计算所有 previous tokens，推理时通常使用 KV Cache。
+为了避免每一步重复计算所有 previous tokens，推理时通常使用 [KV Cache](<../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>)。
 
 ## 🔢 Attention Mask Shape
 
@@ -286,36 +216,10 @@ M =
 ## 🦙 Llama-style Decoder-Only Transformer
 
 现代 LLM 中常见的是 Llama-style decoder-only Transformer。
-
-它通常包含：
-
-| Component | Common Choice |
-|---|---|
-| overall structure | [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>) |
-| attention | [Causal Attention](<./Causal%20Attention.md>) |
-| position information | [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) |
-| normalization | [RMSNorm](<./RMSNorm.md>) |
-| block layout | [Pre-Norm Transformer](<./Pre-Norm%20Transformer.md>) |
-| MLP activation | [SwiGLU](<./SwiGLU.md>) |
-| attention variant | Grouped Query Attention in many modern models |
+![TransformerLM.jpeg](<../attachments/TransformerLM.jpeg>)
 
 >**Note**
->Llama-style architecture 可以理解为 modern decoder-only Transformer 的一组 common design choices。
->
->它不是 Original Transformer decoder 的简单复制，而是经过多次 architecture evolution 后形成的现代结构范式。
-
-## ⚖️ Decoder-Only vs Encoder-Only vs Encoder-Decoder
-
-| Architecture                    | Attention Pattern                                        | Typical Objective         | Typical Use                             |
-| ------------------------------- | -------------------------------------------------------- | ------------------------- | --------------------------------------- |
-| Encoder-Only Transformer    | bidirectional self-attention                             | masked language modeling  | representation learning, classification |
-| [Decoder-Only Transformer](<./Decoder-Only%20Transformer.md>)    | causal self-attention                                    | [Next-token prediction](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) | autoregressive generation, LLMs         |
-| Encoder-Decoder Transformer | encoder bidirectional + decoder causal + cross-attention | conditional generation    | translation, summarization              |
-
->**Important**
->Decoder-only Transformer 适合 generation，因为它的 causal structure 和 autoregressive factorization 一致。
->
->Encoder-only Transformer 更适合理解输入；encoder-decoder Transformer 更适合 source-to-target conditional generation。
+>Llama-style architecture 是 modern decoder-only Transformer 的一组 common design choices。
 
 ## 🧠 Why Modern LLMs Use Decoder-Only Transformer
 
@@ -335,11 +239,9 @@ M =
 >
 >它把很多 NLP tasks 都转化成了同一种形式：
 >
->
-```math
+>```math
 >\text{given prefix} \rightarrow \text{predict continuation}
->
-```
+>```
 
 ---
 
@@ -350,24 +252,4 @@ M =
 >
 >它的核心约束是：每个 token position 只能看见 prefix，因此天然适合 Next Token Prediction。
 >
->GPT / LLaMA-style models 可以理解为 decoder-only Transformer 加上一组 modern architecture choices，例如 [RMSNorm](<./RMSNorm.md>)、[Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)、[SwiGLU](<./SwiGLU.md>) 和 Grouped Query Attention。
-
-## 🔗 Connections
-
-- [Transformer](<./Transformer.md>)
-- [Transformer Family](<./Transformer%20Family.md>)
-- [Original Transformer](<./Original%20Transformer.md>)
-- Encoder-Only Transformer
-- [Llama-style Architecture](<./Llama-style%20Architecture.md>)
-- [Language Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
-- [Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
-- [Self-Attention](<./Self-Attention.md>)
-- [Transformer Block](<./Transformer%20Block.md>)
-- [Residual Stream](<./Residual%20Stream.md>)
-- [MLP](<./MLP.md>)
-- [Normalization](<./Normalization.md>)
-- [RMSNorm](<./RMSNorm.md>)
-- [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)
-- Grouped Query Attention
-- KV Cache
-- [Training vs Inference](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
+>GPT / LLaMA-style models 可以理解为 decoder-only Transformer 加上一组 modern architecture choices，例如 [RMSNorm](<./RMSNorm.md>)、[Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>) 和 [SwiGLU](<./SwiGLU.md>)。

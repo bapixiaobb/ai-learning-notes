@@ -10,11 +10,13 @@ I_{\text{accel}}
 
 ## Example
 
-**Accelerator intensity of H100:**
+**Accelerator intensity of H100 SXM for dense FP16/BF16 Tensor Core compute:**
 ```
-flops_per_second = 989e12
-memory_bandwidth = 3.35e12
+peak_flops = 989e12                         # dense FP16/BF16 Tensor Core FLOP/s
+memory_bandwidth = 3.35e12                  # HBM bytes/s
 
-accelerator_intensity = flops_per_second / memory_bandwidth
-accelerator_intensity = 295
+accelerator_intensity = peak_flops / memory_bandwidth
+accelerator_intensity ≈ 295 FLOP/byte
 ```
+
+在假设 dense FP16/BF16 Tensor Core 计算时，算子的 arithmetic intensity 大约需要超过 `295 FLOP/byte`，理论上才可能从 memory-bound 转向 compute-bound。

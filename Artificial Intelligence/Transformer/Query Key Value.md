@@ -207,9 +207,8 @@ attention output 后面通常还会经过 output projection、residual connectio
 - [Self-Attention](<./Self-Attention.md>)
 - [Causal Attention](<./Causal%20Attention.md>)
 - [Causal Mask](<./Causal%20Mask.md>)
-- Cross-Attention
 - [Multi-Head Attention](<./Multi-Head%20Attention.md>)
-- Attention Head
+- [Multi-Head Attention](<./Multi-Head%20Attention.md>)
 - [Rotary Position Embedding](<./Rotary%20Position%20Embedding.md>)
-- KV Cache
+- [KV Cache](<../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>)
 - [Transformer Block](<./Transformer%20Block.md>)
