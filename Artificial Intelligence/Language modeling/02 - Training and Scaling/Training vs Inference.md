@@ -63,7 +63,7 @@ training tokens
 
 causal mask 保证每个位置只能使用 prefix，但由于整段正确 token 已经存在，Transformer 可以一次并行计算多个 positions 的 logits 和 loss。
 
-更详细的训练目标见 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)、[Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>) 和 [Training Recipe](<Training%20Recipe.md>)。
+更详细的训练目标见 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)、[Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>) 和 [Training Recipe](<./Training%20Recipe.md>)。
 
 ### Inference
 
@@ -110,16 +110,7 @@ x_{T+2}
 x_{T+3}
 ```
 
-必须先选出 $x_{T+1}$，才能把它作为 context 生成 $x_{T+2}$。因此不同 generation steps 之间存在 sequential dependency。
-
-```
-先得到 xₜ₊₁
-→ 把 xₜ₊₁ 加入 context
-→ 才能生成 xₜ₊₂
-```
-
->**Note**
->这里的 sequential 是 token generation steps 之间的依赖，不表示一次 model forward 内部的矩阵运算不能并行，也不表示服务器不能同时处理多个 requests。
+必须先选出 $x_{T+1}$，才能把它作为 context 生成 $x_{T+2}$。因此不同 generation steps 之间存在 [sequential dependency](<../06%20-%20Inference%20and%20Serving/Generation.md#sequential>)。
 
 ## Execution Mode
 
@@ -192,11 +183,11 @@ temperature、top-k、top-p 决定如何选择 token；[KV Cache](<../06%20-%20I
 - [Backpropagation](<../../Neural%20Networks/Backpropagation.md>)
 - [Optimizer](<../../Transformer/Optimizer.md>)
 - [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
-- [Training Recipe](<Training%20Recipe.md>)
+- [Training Recipe](<./Training%20Recipe.md>)
 - [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Autoregressive Decoding](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)
 - Inference
 - [KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)
 - [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
-- [Resource Accounting](<Resource%20Accounting.md>)
+- [Resource Accounting](<./Resource%20Accounting.md>)

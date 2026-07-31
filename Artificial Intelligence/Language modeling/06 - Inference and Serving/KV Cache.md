@@ -1,6 +1,6 @@
 #AI #LanguageModeling #Inference #Transformer
 
-在 decoder-only Transformer 的 autoregressive inference 中，如果每生成一个新 token 都重新计算所有 previous tokens 的 keys 和 values，会产生大量重复工作。
+在 [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>) 的 [autoregressive](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) inference 中，如果每生成一个新 token 都重新计算所有 previous tokens 的 [keys 和 values](<../../Transformer/Query%20Key%20Value.md>)，会产生大量重复工作。
 
 KV cache 会缓存 previous tokens 在每一层 attention 中产生的 K 和 V：
 
@@ -17,10 +17,7 @@ K_{\leq t},V_{\leq t}
 
 KV cache：
 
-- 不消除不同 generation steps 之间的 sequential dependency；
-- 不属于 temperature、top-k 或 top-p 等 decoding strategy；
-- 不改变模型参数；
-- 在正常的等价实现下，不改变模型原本要计算的 attention 结果；
+- 不消除不同 generation steps 之间的 [sequential dependency](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md#why-training-parallelizes-across-positions-but-generation-does-not>)；
 - 用额外 memory 换取更少的重复 compute。
 
 它也是 inference 的主要 memory 成本之一，会随着 sequence length、batch/request 数量、layer 数量和 KV heads 等因素增长。
@@ -33,7 +30,7 @@ KV cache：
 - MHA、MQA、GQA 为什么具有不同的 KV cache 大小？
 - serving 系统如何分配、分页或共享 KV cache？
 
-这些问题在 Inference 中逐步展开。
+
 
 ## Connections
 

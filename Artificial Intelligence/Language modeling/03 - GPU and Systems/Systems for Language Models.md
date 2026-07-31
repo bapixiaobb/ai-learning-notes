@@ -31,7 +31,7 @@ batch
             ↓
 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 数清 compute / memory / data movement
             ↓
-[GPU](<GPU.md>) / cluster 提供实际资源
+[GPU](<./GPU.md>) / cluster 提供实际资源
             ↓
 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 把 computation 和 model states 分配到多个 devices
 
@@ -73,9 +73,6 @@ batch
 # 🔗
 
 [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
-[Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-[GPU](<GPU.md>)
-[Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)
 [GPU Communication Topology](<../04%20-%20Distributed%20Training%20and%20Parallelism/GPU%20Communication%20Topology.md>)
-[Model FLOPs Utilization](<Model%20FLOPs%20Utilization.md>)
+[Model FLOPs Utilization](<./Model%20FLOPs%20Utilization.md>)

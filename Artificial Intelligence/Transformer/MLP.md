@@ -1,7 +1,7 @@
 #DeepLearning #NeuralNetwork #Transformer #LanguageModeling
 
 MLP 是 multilayer perceptron。
-在 Transformer block 中，MLP 对每个 token position 独立做 nonlinear transformation。
+在 Transformer block 中，MLP 对每个 token position 独立做 nonlinear transformation。[Arithmetic Intensity in MLP](<./Arithmetic%20Intensity%20in%20MLP.md>)
 
 ## 🧠 Core Idea
 
@@ -105,15 +105,13 @@ Modern LLM 中常见的是 [SwiGLU](<./SwiGLU.md>) MLP。
 >
 >常见 shape 是：
 >
->
-```math
-d_{\text{model}}
-\rightarrow
-d_{\text{ff}}
-\rightarrow
-d_{\text{model}}
->
-```
+>```math
+>d_{\text{model}}
+>\rightarrow
+>d_{\text{ff}}
+>\rightarrow
+>d_{\text{model}}
+>```
 
 ## **🔗 Connections**
 
