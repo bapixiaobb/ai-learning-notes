@@ -8,7 +8,7 @@ Data parallelism 是最直接的 [Parallelism](<./Parallelism.md>)：不拆 mode
 global batch
 → split into local batches
 → 每个 rank 用完整 model 计算 local gradient
-→ [All-Reduce](<./All-Reduce.md>) 平均 gradients
+→ All-Reduce 平均 gradients
 → 每个 rank 做相同的 optimizer update
 ```
 
