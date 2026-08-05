@@ -14,7 +14,7 @@
 1. routing 本身不是普通的光滑 differentiable path
 2. 没被选中的 expert 得不到这个 token 通过 expert computation 产生的 gradient signal
 	- 如果 expert 没被选中，它没有参与 [forward computation](<../../Neural%20Networks/Forward%20Propagation.md>)，那么这个 token 的 language modeling loss 就不会通过这个 expert 的 MLP [反传](<../../Neural%20Networks/Backpropagation.md>)。
-	- 但 router 这边还可能通过 selected gates、[Softmax](<../../Transformer/Softmax.md>) probability、auxiliary loss 等收到某些 gradient。
+	- 但 router 这边还可能通过 selected gates、[Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) probability、auxiliary loss 等收到某些 gradient。
 所以 MoE 的 router 很容易变成一个不稳定的 **selection system**
 
 ---
@@ -143,4 +143,4 @@ DeepSeek V3 使用的一种均衡方法，它的直觉是：给每个 expert 的
 
 # 🔗
 [Mixture of Experts (MoE)](<./Mixture%20of%20Experts%20(MoE).md>)
-[Transformer](<../../Transformer/Transformer.md>)
+[Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)

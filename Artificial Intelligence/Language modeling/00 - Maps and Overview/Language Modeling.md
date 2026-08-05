@@ -36,17 +36,17 @@ p_\theta(x_t \mid x_1, \dots, x_{t-1})
 
 ## Architecture
 - 什么是 [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)？
-- 为什么现代 language model 通常使用 [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)？
-- 一个 [Transformer Block](<../../Transformer/Transformer%20Block.md>) 由哪些部分组成？
-- 什么是 [Self-Attention](<../../Transformer/Self-Attention.md>)？
-- 什么是 [Multi-Head Attention](<../../Transformer/Multi-Head%20Attention.md>)？
-- 为什么 autoregressive model 需要 [Causal Mask](<../../Transformer/Causal%20Mask.md>)？
-- token 的顺序信息如何通过 [Positional Encoding](<../../Transformer/Positional%20Encoding.md>) 表示？
-- 什么是 [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)？
-- 为什么 Transformer block 需要 [Residual Connection](<../../Transformer/Residual%20Connection.md>)？
-- 为什么深层 Transformer 需要 [Layer Normalization](<../../Transformer/Layer%20Normalization.md>) 或 [RMSNorm](<../../Transformer/RMSNorm.md>)？
-- 什么是 [Pre-Norm Transformer](<../../Transformer/Pre-Norm%20Transformer.md>)？
-- [MLP](<../../Transformer/MLP.md>) / [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) 在 Transformer 中做什么？
+- 为什么现代 language model 通常使用 [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)？
+- 一个 [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 由哪些部分组成？
+- 什么是 [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)？
+- 什么是 [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)？
+- 为什么 autoregressive model 需要 [Causal Mask](<../../Transformer/02%20-%20Attention/Causal%20Mask.md>)？
+- token 的顺序信息如何通过 [Positional Encoding](<../../Transformer/01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>) 表示？
+- 什么是 [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)？
+- 为什么 Transformer block 需要 [Residual Connection](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>)？
+- 为什么深层 Transformer 需要 [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>) 或 [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)？
+- 什么是 [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>)？
+- [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>) / [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) 在 Transformer 中做什么？
 - 什么是 Language Modeling Head？
 ## **Pipeline**
 
@@ -55,7 +55,7 @@ raw text
 -> [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
 -> token IDs
 -> embeddings
--> [Transformer](<../../Transformer/Transformer.md>)
+-> [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 -> logits
 -> softmax
 -> next-token probability
@@ -65,7 +65,7 @@ raw text
 - [Natural Language Processing](<../../Fundamentals/Natural%20Language%20Processing.md>)
 - [Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)
 - [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
-- [Transformer](<../../Transformer/Transformer.md>)
+- [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)
 - [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)

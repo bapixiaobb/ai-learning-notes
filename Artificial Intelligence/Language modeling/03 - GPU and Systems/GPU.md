@@ -196,7 +196,7 @@ GPU 不像 CPU 那样优化单线程 latency，而是用很多 thread / warp 提
 ---
 ## Parallelism
 
-多 GPU 训练可以看成把 GPU 的 memory hierarchy 往外扩展了一层，具体的硬件连接方式见 [GPU Communication Topology](<../04%20-%20Distributed%20Training%20and%20Parallelism/GPU%20Communication%20Topology.md>)。
+多 GPU 训练可以看成把 GPU 的 memory hierarchy 往外扩展了一层，具体的硬件连接方式见 [GPU Communication Topology](<GPU%20Communication%20Topology.md>)。
 
 单张 GPU 可能放不下完整的 model states（parameters / gradients / optimizer states）和 [activations](<../../Neural%20Networks/Activations.md>)，或者即使放得下，也希望用更多 GPU 提高训练吞吐量。因此需要把训练任务切到多个 GPU / ranks 上。
 

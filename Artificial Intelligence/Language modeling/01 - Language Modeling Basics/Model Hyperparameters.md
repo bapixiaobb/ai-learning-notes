@@ -13,7 +13,7 @@ y=xW+b
 - number of layers：`24`
 - hidden dimension：`2048`
 - number of attention heads：`16`
-- [optimizer](<../../Transformer/Optimizer.md>)：`AdamW`
+- [optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)：`AdamW`
 - [activation function](<../../Neural%20Networks/Activation%20Function.md>)：`SwiGLU`
 - weight decay：`0.1`
 这些都是训练前指定的，不会随着训练更新。

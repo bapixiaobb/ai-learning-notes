@@ -1,8 +1,8 @@
 #AI #LanguageModeling
 
-Inference 开头的动作
+[Inference](<Inference.md>) 开头的动作
 
-把用户已经给出的整段 prompt 一次性送进 [Transformer](<../../Transformer/Transformer.md>):
+把用户已经给出的整段 prompt 一次性送进 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>):
 ```
 input
 [batch, seq]
@@ -21,3 +21,13 @@ logits
 ```
 
 这一次 forward 就叫做 **prefill**。
+## Prefill 是 [compute-bound](<../03%20-%20GPU%20and%20Systems/GPU%20Bottleneck.md>)
+
+要分两层来看
+
+#### MLP intensity
+
+
+Prefill MLP intensity: `B*S`
+
+Prefill attention intensity: `S/2`

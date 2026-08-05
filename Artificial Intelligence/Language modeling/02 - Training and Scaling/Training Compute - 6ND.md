@@ -137,12 +137,12 @@ FLOPs。
 | embedding matrix             | token lookup 不会使用整个 embedding matrix       |
 | long context attention       | attention 有 sequence-length-dependent cost |
 | distributed training         | communication overhead 不在 $6ND$ 中        |
-| [Optimizer](<../../Transformer/Optimizer.md>)                | optimizer step 也有额外计算和 memory cost         |
+| [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)                | optimizer step 也有额外计算和 memory cost         |
 
 ## Related
 
 - [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>)
 - [Resource Accounting](<Resource%20Accounting.md>)
-- [Transformer](<../../Transformer/Transformer.md>)
+- [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 - [Scaling Law](<Scaling%20Law.md>)

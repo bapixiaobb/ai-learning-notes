@@ -42,7 +42,7 @@ W_{L-1} \sigma(
 + b_L
 ```
 
-其中 $\sigma$ 是 activation function，例如 [ReLU](<../Transformer/ReLU.md>)。
+其中 $\sigma$ 是 activation function，例如 [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)。
 
 如果没有 activation function，多层 linear layers 仍然只是一个 linear transformation：
 
@@ -63,7 +63,7 @@ Neural network 的训练过程通常包括：
 1. 使用 [Forward Propagation](<./Forward%20Propagation.md>) 计算 prediction；
 2. 使用 loss function 比较 prediction 和 target，得到 loss；
 3. 使用 [Backpropagation](<./Backpropagation.md>) 计算 loss 对参数的 gradients；
-4. 使用 [Optimizer](<../Transformer/Optimizer.md>) 更新参数。
+4. 使用 [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>) 更新参数。
 
 整体过程可以写成：
 ```math
@@ -139,5 +139,5 @@ p_\theta(x_t \mid x_{<t})
 - [Forward Propagation](<./Forward%20Propagation.md>)
 - [Backpropagation](<./Backpropagation.md>)
 - Gradient Descent
-- [ReLU](<../Transformer/ReLU.md>)
-- [Transformer](<../Transformer/Transformer.md>)
+- [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)
+- [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)

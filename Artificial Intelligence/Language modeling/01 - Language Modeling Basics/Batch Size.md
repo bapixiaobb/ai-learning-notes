@@ -46,7 +46,7 @@ Critical batch = min number of examples before diminishing returns
 ```
 然后用不同 batch size 训练，并记录：
 
-- $S$：达到 target loss 需要多少 [optimizer steps](<../../Transformer/Optimizer.md>)；
+- $S$：达到 target loss 需要多少 [optimizer steps](<../../Transformer/05%20-%20Training/Optimizer.md>)；
 - $E$：达到 target loss 总共处理多少 examples/tokens。
 
 两者满足：

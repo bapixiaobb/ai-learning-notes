@@ -114,7 +114,7 @@ p_\theta(x_t \mid x_{<t})
 
 - [Large Language Model (LLM)](<./Large%20Language%20Model%20(LLM).md>)
 - [Language Modeling](<./Language%20Modeling.md>)
-- [Transformer](<../../Transformer/Transformer.md>)
+- [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - Pretraining
 - Fine-tuning
 - Instruction Tuning

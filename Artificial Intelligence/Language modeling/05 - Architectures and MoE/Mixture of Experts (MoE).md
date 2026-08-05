@@ -3,7 +3,7 @@
 Mixture of Experts，简称 MoE，是一种在 neural network 中引入多个 experts，并根据输入动态选择部分 experts 参与计算的 architecture。
 
 在 modern language model 中，MoE 最常见的形式是：
-用 MoE layer 替换 Transformer block 里的 [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) / [MLP](<../../Transformer/MLP.md>)。
+用 MoE layer 替换 Transformer block 里的 [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) / [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)。
 
 ---
 ## 🧠 Core Idea
@@ -241,6 +241,6 @@ MoE 是一个模型内部的条件计算结构。
 
 - [Language Model Architecture](<./Language%20Model%20Architecture.md>)
 - [Model Architecture](<./Model%20Architecture.md>)
-- [Transformer Block](<../../Transformer/Transformer%20Block.md>)
+- [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)
-- [MLP](<../../Transformer/MLP.md>)
+- [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)

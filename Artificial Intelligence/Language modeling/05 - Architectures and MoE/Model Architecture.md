@@ -49,11 +49,11 @@ p_\theta(x_{t+1} \mid x_{\leq t})
 
 | Design Dimension | Example Choices |
 |---|---|
-| attention variant | [Multi-Head Attention](<../../Transformer/Multi-Head%20Attention.md>), Multi-Query Attention, Grouped Query Attention |
-| positional information | Absolute Positional Embedding, [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>), ALiBi |
-| normalization | [Layer Normalization](<../../Transformer/Layer%20Normalization.md>), [RMSNorm](<../../Transformer/RMSNorm.md>) |
-| norm placement | [Pre-Norm Transformer](<../../Transformer/Pre-Norm%20Transformer.md>), [Post-Norm Transformer](<../../Transformer/Post-Norm%20Transformer.md>) |
-| MLP activation | GELU, [SwiGLU](<../../Transformer/SwiGLU.md>) |
+| attention variant | [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>), Multi-Query Attention, Grouped Query Attention |
+| positional information | Absolute Positional Embedding, [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>), ALiBi |
+| normalization | [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>), [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
+| norm placement | [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>), [Post-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Post-Norm%20Transformer.md>) |
+| MLP activation | GELU, [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>) |
 | MLP shape | FFN expansion ratio, gated MLP |
 | residual path | sequential residual, parallel residual |
 | output design | tied embedding, untied embedding |
@@ -149,12 +149,12 @@ Model architecture 首先包含模型所属的整体结构族。
 在 language modeling 中常见的 model families 包括：
 
 - Encoder-Only Transformer
-- [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
+- [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - Encoder-Decoder Transformer
 - [Mixture of Experts (MoE)](<Mixture%20of%20Experts%20%28MoE%29.md>)
 
 > **Note**
->Modern LLM 最常见的是 [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)。
+>Modern LLM 最常见的是 [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)。
 >
 >它天然适合 autoregressive next-token prediction，因为每个位置只需要基于 prefix 预测下一个 token。
 
@@ -190,9 +190,9 @@ Attention design 决定 token positions 之间如何交换信息。
 
 Architecture 中常见的 attention choices 包括：
 
-- 是否使用 [Self-Attention](<../../Transformer/Self-Attention.md>)；
-- 是否使用 [Causal Attention](<../../Transformer/Causal%20Attention.md>)；
-- 使用 [Multi-Head Attention](<../../Transformer/Multi-Head%20Attention.md>)、Multi-Query Attention 还是 Grouped Query Attention；
+- 是否使用 [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)；
+- 是否使用 [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)；
+- 使用 [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)、Multi-Query Attention 还是 Grouped Query Attention；
 - $Q,K,V$ 的 shape 如何设计；
 - 是否使用 sliding window attention；
 - context length 如何影响 attention computation 和 KV Cache。
@@ -220,7 +220,7 @@ Transformer 本身不天然知道 token 顺序，所以 architecture 必须规�
 - Absolute Positional Embedding
 - Sinusoidal Positional Encoding
 - Relative Position Information
-- [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
+- [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 - ALiBi
 
 > **Question**
@@ -228,7 +228,7 @@ Transformer 本身不天然知道 token 顺序，所以 architecture 必须规�
 >
 >因为它改变了模型表示 sequence order 的方式，也会影响 long-context behavior。
 
-现代 LLM 中常见的是 [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)。
+现代 LLM 中常见的是 [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)。
 
 直觉上：
 
@@ -242,10 +242,10 @@ Normalization design 决定模型如何稳定深层网络中的 hidden states。
 
 常见 choices：
 
-- [Layer Normalization](<../../Transformer/Layer%20Normalization.md>)
-- [RMSNorm](<../../Transformer/RMSNorm.md>)
-- [Pre-Norm Transformer](<../../Transformer/Pre-Norm%20Transformer.md>)
-- [Post-Norm Transformer](<../../Transformer/Post-Norm%20Transformer.md>)
+- [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>)
+- [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
+- [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>)
+- [Post-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Post-Norm%20Transformer.md>)
 
 现代 LLM 中常见的是：
 
@@ -286,16 +286,16 @@ Architecture 中的 MLP choices 包括：
 
 常见 activation choices：
 
-- [ReLU](<../../Transformer/ReLU.md>)
+- [ReLU](<../../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)
 - GELU
-- [SwiGLU](<../../Transformer/SwiGLU.md>)
+- [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>)
 
 > **Note**
 >在 Transformer block 中，attention 负责 token mixing，MLP 负责对每个 token representation 做 nonlinear processing。
 >
 >因此 MLP shape 和 activation function 都是 architecture choices。
 
-现代 LLM 常见的是 gated MLP，例如 [SwiGLU](<../../Transformer/SwiGLU.md>)。
+现代 LLM 常见的是 gated MLP，例如 [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>)。
 ### 7. Residual and Block Layout
 
 Transformer block 内部的连接方式也是 architecture 的一部分。
@@ -373,8 +373,8 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 
 | Category                        | Belongs Here                                                                      | Does Not Belong Here                 |
 | ------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ |
-| [Model Architecture](<Model%20Architecture.md>)          | attention, [MLP](<../../Transformer/MLP.md>), norm, position embedding, layer layout                        | learning rate, optimizer, batch size |
-| [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | [Optimizer](<../../Transformer/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>), weight decay, batch size, data mixture | RoPE, RMSNorm, GQA                   |
+| [Model Architecture](<Model%20Architecture.md>)          | attention, [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>), norm, position embedding, layer layout                        | learning rate, optimizer, batch size |
+| [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), weight decay, batch size, data mixture | RoPE, RMSNorm, GQA                   |
 | [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) | memory layout, kernel optimization, parallelism, KV cache efficiency              | architecture 概念本身                    |
 
 > **Important**
@@ -386,18 +386,18 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 
 ## 🦙 Example: Llama-style Architecture
 
-[Llama-style Architecture](<../../Transformer/Llama-style%20Architecture.md>) 是 modern decoder-only language model 的代表性 architecture pattern。
+[Llama-style Architecture](<../../Transformer/00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md>) 是 modern decoder-only language model 的代表性 architecture pattern。
 
 它通常包含：
 
 | Component | Common Choice |
 |---|---|
-| overall family | [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>) |
-| attention | [Causal Attention](<../../Transformer/Causal%20Attention.md>) |
-| position information | [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>) |
-| normalization | [RMSNorm](<../../Transformer/RMSNorm.md>) |
-| block layout | [Pre-Norm Transformer](<../../Transformer/Pre-Norm%20Transformer.md>) |
-| MLP activation | [SwiGLU](<../../Transformer/SwiGLU.md>) |
+| overall family | [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>) |
+| attention | [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>) |
+| position information | [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>) |
+| normalization | [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
+| block layout | [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
+| MLP activation | [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>) |
 | attention variant | Grouped Query Attention |
 
 > **Note**
@@ -431,16 +431,16 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 - [Language Model Architecture](<Language%20Model%20Architecture.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 - [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
-- [Transformer Family](<../../Transformer/Transformer%20Family.md>)
-- [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
-- [Llama-style Architecture](<../../Transformer/Llama-style%20Architecture.md>)
-- [Transformer Block](<../../Transformer/Transformer%20Block.md>)
-- [Self-Attention](<../../Transformer/Self-Attention.md>)
-- [Causal Attention](<../../Transformer/Causal%20Attention.md>)
-- [Multi-Head Attention](<../../Transformer/Multi-Head%20Attention.md>)
+- [Transformer Family](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Family.md>)
+- [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
+- [Llama-style Architecture](<../../Transformer/00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md>)
+- [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
+- [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)
+- [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)
+- [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)
 - Grouped Query Attention
-- [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
-- [MLP](<../../Transformer/MLP.md>)
+- [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
+- [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
 - [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
 - [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
 - [Model Hyperparameters](<../01%20-%20Language%20Modeling%20Basics/Model%20Hyperparameters.md>)

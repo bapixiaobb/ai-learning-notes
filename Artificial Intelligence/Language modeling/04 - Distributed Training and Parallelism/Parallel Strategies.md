@@ -32,7 +32,7 @@
 
 如果主要问题是 saved [Activations](<../../Neural%20Networks/Activations.md>)，[Recomputation](<../02%20-%20Training%20and%20Scaling/Recomputation.md>) 可以用额外 compute 换 memory。省下的 memory 可以转化为更大的 local batch，有时反而会提高 [hardware utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)。
 
-### 2. Match communication to [GPU Communication Topology](<GPU%20Communication%20Topology.md>)
+### 2. Match communication to [GPU Communication Topology](<../03%20-%20GPU%20and%20Systems/GPU%20Communication%20Topology.md>)
 
 - TP 和 EP communication 很频繁，优先放在 NVLink / NVSwitch 这样的 fast domain；GPU 上的 TP 通常控制在 8 以内。
 - PP 只在 stage boundaries 传 boundary activations / gradients，通信相对少，更适合跨 node 的较慢 links。
@@ -96,6 +96,6 @@ Llama 3 训练中频繁发生 GPU failures 还说明：规模变大后，系统�
 >
 >1. 根据 model architecture 和 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 找到当前 bottleneck；
 >2. 使用最少的 TP / PP / CP / EP 让 model 和 activations 装得下；
->3. 把 communication-heavy groups 放在更快的 [links](<GPU%20Communication%20Topology.md>) 上；
+>3. 把 communication-heavy groups 放在更快的 [links](<../03%20-%20GPU%20and%20Systems/GPU%20Communication%20Topology.md>) 上；
 >4. 将剩余 GPU 尽量用于 [Data parallelism](<Data%20parallelism.md>)；
 >5. 通过 batch size、microbatches、[Recomputation](<../02%20-%20Training%20and%20Scaling/Recomputation.md>) 和 communication overlap 提高 utilization。

@@ -4,7 +4,7 @@
 
 Architecture 也可以作为 scaling experiment 中被比较的对象。我们可以在小规模比较 LSTM 和 Transformer 的 scaling curves，再决定大规模训练采用哪种 architecture。
 
-用 [Transformer](<../../Transformer/Transformer.md>) 和 LSTMs（一种改进过的RNN） 来举例
+用 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 和 LSTMs（一种改进过的RNN） 来举例
 >**Question** — 如果有一大笔算力，应该选择 LSTM 还是 Transformer？
 >暴力方法：直接训练一个 GPT-3 规模的 LSTM → 贵！！
 
@@ -25,7 +25,7 @@ Scaling-law 方法：
 ![architecture choice.png](<../../attachments/architecture%20choice.png>)
 ⬆️ 实验发现 Transformer 的 loss-vs-compute scaling curve 更好，所以我们更有信心把 Transformer 扩大。
 
-## [Optimizer](<../../Transformer/Optimizer.md>) choice
+## [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) choice
 
 ![Adam vs SGD.png](<../../attachments/Adam%20vs%20SGD.png>)
 ⬆️ 有人做了实验：Adam 并没有改变“增加 compute 后进步多快”，但在每个 compute scale 下都达到更低 loss。因此可以在小规模判断 Adam 的优势可能延续到大规模。
@@ -66,7 +66,7 @@ critical batch size 本身也呈现可预测的 scaling behavior：
 - 纵轴：Critical Batch Size (log-scale) --- 越往上，表示在出现明显递减收益之前，可以使用越大的 batch。
 ⬆️ 蓝线和橙线总体都从左下走向右上： **Target loss 越低，critical batch size 越大。** critical batch size 会随着目标 loss 降低而有规律地增大。
 
-## [Learning rates](<../../Transformer/Learning%20Rate%20Schedule.md>): μP and scale-aware LR choices
+## [Learning rates](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>): μP and scale-aware LR choices
 ![learning rate scaling.png](<../../attachments/learning%20rate%20scaling.png>)
 ⬆️ 代表了两种不同的 learning rate 选择策略
 ⬅️ ****scale-aware****: Intuitively, the bigger my model the smaller learning rate should be. Because the bigger more parameters, more things are changing at once. **Move less**

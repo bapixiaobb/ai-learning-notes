@@ -16,7 +16,7 @@ Forward Propagation 是给定 input 和当前 parameters，沿 [computation grap
 \mathcal L=\ell(\hat y,y)
 ```
 
-Forward 不更新 parameters。[Backpropagation](<Backpropagation.md>) 负责计算 gradients，[Optimizer](<../Transformer/Optimizer.md>) 才使用 gradients 更新 parameters。
+Forward 不更新 parameters。[Backpropagation](<Backpropagation.md>) 负责计算 gradients，[Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>) 才使用 gradients 更新 parameters。
 
 ## 基础 Neural Network
 
@@ -73,7 +73,7 @@ Training 时再计算：
 \mathcal L
 ```
 
-具体 graph 已经由 [Transformer](<../Transformer/Transformer.md>)、[Transformer Block](<../Transformer/Transformer%20Block.md>) 和 TransformerLM 图描述，这里不重复展开。
+具体 graph 已经由 [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)、[Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 和 TransformerLM 图描述，这里不重复展开。
 
 ## 为什么 Forward 会占 Memory
 
@@ -94,6 +94,6 @@ Training 之后还要 backward，所以 forward 中一部分 [Activations](<Acti
 - [Computational Graph](<Computational%20Graph.md>)
 - [Backpropagation](<Backpropagation.md>)
 - [Feed-Forward Network](<Feed-Forward%20Network.md>)
-- [Transformer](<../Transformer/Transformer.md>)
-- [Transformer Block](<../Transformer/Transformer%20Block.md>)
+- [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
+- [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)

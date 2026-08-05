@@ -9,7 +9,7 @@
 
 在 [Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 中，training 负责学习参数；模型训练完成后，可以在 inference 阶段使用固定参数生成 text。这里关注生成算法本身。
 
-从 [Transformer](<../../Transformer/Transformer.md>) 最后一张图可以看出来，最后模型生成的是一个 `[batch, seq, vocab_size]` 这样的 matrix，每个 sequence position 都对应一个长度为 `vocab_size` 的 [logits vector](<Logits.md>)。它是未归一化分数，经过 Softmax 后才成为 [Next-token prediction](<Next-token%20prediction.md>) 的 distribution。
+从 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 最后一张图可以看出来，最后模型生成的是一个 `[batch, seq, vocab_size]` 这样的 matrix，每个 sequence position 都对应一个长度为 `vocab_size` 的 [logits vector](<Logits.md>)。它是未归一化分数，经过 Softmax 后才成为 [Next-token prediction](<Next-token%20prediction.md>) 的 distribution。
 ![TransformerLM](<../../attachments/TransformerLM.jpeg>)
 它完整的步骤是，输入 prompt 之后，根据这个 prompt 来预计 ▶️ token，也就是：
 
@@ -47,7 +47,7 @@ logits = model(input_tensor)
 next_token_logits = logits[0, -1, :]
 ```
 
-得到最后一个 position 对下一个 token 的 logit 之后，我们需要把这个 logit 通过 [Softmax](<../../Transformer/Softmax.md>) 转换成概率分布
+得到最后一个 position 对下一个 token 的 logit 之后，我们需要把这个 logit 通过 [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) 转换成概率分布
 
 假设 sequence $x_{1...t}$ 是我们的输入，输出是 $x_{t+1}$，那一个简易的 decoder 模型是
 ```math
@@ -62,7 +62,7 @@ v=\operatorname{TransformerLM}(x_{1:t})[-1]
 ```
 ## Temperature scaling
 
-这是针对 [Softmax](<../../Transformer/Softmax.md>) 的一个简单的 scaling 小技巧
+这是针对 [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) 的一个简单的 scaling 小技巧
 ```math
 \mathrm{softmax}
 =

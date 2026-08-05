@@ -4,7 +4,7 @@
 
 就是把 [backwards](<../../Neural%20Networks/Backpropagation.md>) 拆成 B 和 W
 1. Backpropagating activation (z, x)
-2. Computing weight gradients (W) --- for [optimizer state](<../../Transformer/Optimizer.md>)
+2. Computing weight gradients (W) --- for [optimizer state](<../../Transformer/05%20-%20Training/Optimizer.md>)
 
 ## Example
 

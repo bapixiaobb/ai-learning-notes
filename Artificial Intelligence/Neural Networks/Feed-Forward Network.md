@@ -117,7 +117,7 @@ y
 |---|---|---|
 | Feed-Forward Network | input → output，单向无循环 | MLP |
 | Recurrent Neural Network | hidden state 会循环传递 | RNN, LSTM |
-| [Transformer](<../Transformer/Transformer.md>) | 通过 attention 在 sequence positions 间交互 | Self-Attention |
+| [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) | 通过 attention 在 sequence positions 间交互 | Self-Attention |
 
 >**Important**
 >Feed-forward network 没有 memory state。
@@ -126,7 +126,7 @@ y
 
 ## 🧮 Feed-Forward Network in Transformer
 
-在 [Transformer Block](<../Transformer/Transformer%20Block.md>) 中，Feed-Forward Network 通常也叫 [MLP](<../Transformer/MLP.md>)。
+在 [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 中，Feed-Forward Network 通常也叫 [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)。
 
 它对每个 token position 独立作用：
 
@@ -171,7 +171,7 @@ FFN 输出仍然是：
 >
 >它对每个 token position 独立做 nonlinear transformation。
 >
->Token positions 之间的信息交换主要由 [Self-Attention](<../Transformer/Self-Attention.md>) 完成。
+>Token positions 之间的信息交换主要由 [Self-Attention](<../Transformer/02%20-%20Attention/Self-Attention.md>) 完成。
 
 ## 🔍 Intuition
 
@@ -186,10 +186,10 @@ Feed-Forward Network: 每个 token 自己内部做非线性处理
 
 ## **🦙 Modern LLM Variant**
 
-在 [Original Transformer](<../Transformer/Original%20Transformer.md>) 中，FFN 常用 [ReLU](<../Transformer/ReLU.md>)
+在 [Original Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Original%20Transformer.md>) 中，FFN 常用 [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)
 
 >**Note**
-所以在 LLM 语境里，[Feed-Forward Network](<./Feed-Forward%20Network.md>)、[MLP](<../Transformer/MLP.md>)、FFN 经常指 Transformer block 中 attention 后面的 per-token nonlinear module。
+所以在 LLM 语境里，[Feed-Forward Network](<./Feed-Forward%20Network.md>)、[MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)、FFN 经常指 Transformer block 中 attention 后面的 per-token nonlinear module。
 
 ## **🚫 Common Confusions**
 
@@ -205,15 +205,15 @@ Feed-Forward Network: 每个 token 自己内部做非线性处理
 Transformer 里面有 FFN / MLP，但 Transformer 不只是 FFN。
 Transformer 还包括：
 
-- [Self-Attention](<../Transformer/Self-Attention.md>)
-- [Residual Connection](<../Transformer/Residual%20Connection.md>)
-- [Normalization](<../Transformer/Normalization.md>)
-- [Positional Encoding](<../Transformer/Positional%20Encoding.md>)
+- [Self-Attention](<../Transformer/02%20-%20Attention/Self-Attention.md>)
+- [Residual Connection](<../Transformer/04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>)
+- [Normalization](<../Transformer/04%20-%20Normalization%20and%20Residuals/Normalization.md>)
+- [Positional Encoding](<../Transformer/01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>)
 
 ### **3. FFN 不做 token mixing**
 
 在 Transformer 中，FFN 对每个 token 独立作用。
-真正让 token positions 之间交换信息的是 [Self-Attention](<../Transformer/Self-Attention.md>)。
+真正让 token positions 之间交换信息的是 [Self-Attention](<../Transformer/02%20-%20Attention/Self-Attention.md>)。
 
 ---
 
@@ -222,7 +222,7 @@ Transformer 还包括：
 >
 >在普通 neural network 语境下，它指从 input 到 hidden layers 再到 output 的前馈结构。
 >
->在 Transformer 语境下，FFN 通常指每个 [Transformer Block](<../Transformer/Transformer%20Block.md>) 里的 per-token MLP：
+>在 Transformer 语境下，FFN 通常指每个 [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 里的 per-token MLP：
 >
 >
 ```math
@@ -240,10 +240,10 @@ d_{\text{model}}
 
 - [Neural Network](<./Neural%20Network.md>)
 - [Deep Neural Network](<./Deep%20Neural%20Network.md>)
-- [MLP](<../Transformer/MLP.md>)
-- [Transformer Block](<../Transformer/Transformer%20Block.md>)
-- [Self-Attention](<../Transformer/Self-Attention.md>)
+- [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
+- [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
+- [Self-Attention](<../Transformer/02%20-%20Attention/Self-Attention.md>)
 - [Activation Function](<./Activation%20Function.md>)
-- [ReLU](<../Transformer/ReLU.md>)
+- [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)
 - [Forward Propagation](<./Forward%20Propagation.md>)
 - [Backpropagation](<./Backpropagation.md>)

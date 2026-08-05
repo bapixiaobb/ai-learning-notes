@@ -1,7 +1,7 @@
 #AI #LanguageModeling #GPU
 
 从数学上看，我们仍然在训练同一个 model、计算同一个 gradient update。
-但当一次 training step 所需的 compute 或 memory 超过单张 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 能提供的资源时，就需要把这个计算分配到多个 devices。这里涉及到 [GPU Communication Topology](<GPU%20Communication%20Topology.md>)
+但当一次 training step 所需的 compute 或 memory 超过单张 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 能提供的资源时，就需要把这个计算分配到多个 devices。这里涉及到 [GPU Communication Topology](<../03%20-%20GPU%20and%20Systems/GPU%20Communication%20Topology.md>)
 
 所以 Parallelism 的核心问题很简单：**多张 GPU 一起训练时，到底切什么。**
 
@@ -45,6 +45,6 @@ Data parallelism 切 batch，能够使用的 GPUs 受 batch size 限制；model 
 
 这一页回答“可以切什么”；[Parallel Strategies](<Parallel%20Strategies.md>) 进一步回答“面对具体 model 和 hardware，应该怎样组合这些切法”。
 
-它本质上是一个 resource-allocation problem：先根据 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 找到 bottleneck，用最少的 model parallelism 让 model / activations 装得下，再根据 [GPU Communication Topology](<GPU%20Communication%20Topology.md>) 安排 communication groups，最后把剩余 GPUs 尽量用于 [Data parallelism](<Data%20parallelism.md>)。
+它本质上是一个 resource-allocation problem：先根据 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 找到 bottleneck，用最少的 model parallelism 让 model / activations 装得下，再根据 [GPU Communication Topology](<../03%20-%20GPU%20and%20Systems/GPU%20Communication%20Topology.md>) 安排 communication groups，最后把剩余 GPUs 尽量用于 [Data parallelism](<Data%20parallelism.md>)。
 
 ![LLM parallelism table.png](<../../attachments/LLM%20parallelism%20table.png>)

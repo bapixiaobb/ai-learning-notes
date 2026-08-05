@@ -3,7 +3,7 @@
 >**Note**
 > **Logits** 是 model 最后一层输出的未归一化分数。它们不是 probability，也不是 loss。
 
-在 decoder-only [Transformer](<../../Transformer/Transformer.md>) LM 中：
+在 decoder-only [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) LM 中：
 
 ```math
 \text{token IDs }[B,S]
@@ -16,7 +16,7 @@
 同一份 logits 在两个阶段有不同去向：
 
 - training：`logits + targets` $\rightarrow$ [Cross Entropy Loss](<Cross%20Entropy%20Loss.md>) $\rightarrow$ [loss](<../../Neural%20Networks/Loss%20Function.md>)；
-- inference：最后一个位置的 logits $\rightarrow$ [Softmax](<../../Transformer/Softmax.md>) / decoding strategy $\rightarrow$ [next token](<Autoregressive%20Decoding.md>)。
+- inference：最后一个位置的 logits $\rightarrow$ [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) / decoding strategy $\rightarrow$ [next token](<Autoregressive%20Decoding.md>)。
 
 >**Important**
-> [Softmax](<../../Transformer/Softmax.md>) 把 logits 转成 probability distribution；cross entropy 再用正确 target 对这份 distribution 评分。
+> [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) 把 logits 转成 probability distribution；cross entropy 再用正确 target 对这份 distribution 评分。

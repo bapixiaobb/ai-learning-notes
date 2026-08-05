@@ -23,7 +23,7 @@ a=\sigma(z)
 1. [Forward pass](<Forward%20Propagation.md>) 沿依赖方向计算各个 tensor 的值，得到 model output 和 intermediate [Activations](<Activations.md>)。
 2. Training 时，[loss function](<Loss%20Function.md>) 再根据 model output 和 targets 计算 loss。
 3. [Backward pass](<Backpropagation.md>) 从 loss 出发，沿依赖关系反向应用 chain rule，计算 gradients。
-4. [Optimizer step](<../Transformer/Optimizer.md>) 读取 parameter gradients，更新 parameters。
+4. [Optimizer step](<../Transformer/05%20-%20Training/Optimizer.md>) 读取 parameter gradients，更新 parameters。
 
 >**Important**
 > Forward 负责算 values，backward 负责算 gradients，optimizer 才负责更新 parameters。
@@ -56,5 +56,5 @@ a=\sigma(z)
 - [Forward Propagation](<Forward%20Propagation.md>)
 - [Backpropagation](<Backpropagation.md>)
 - [Activations](<Activations.md>)
-- [Optimizer](<../Transformer/Optimizer.md>)
+- [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>)
 - [Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)

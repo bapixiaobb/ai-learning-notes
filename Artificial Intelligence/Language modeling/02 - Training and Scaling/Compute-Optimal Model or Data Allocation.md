@@ -34,7 +34,7 @@ Chinchilla 用这个方法预测 Gopher 的 compute budget 应该训练大约 **
 ## Method 2：IsoFLOP
 
 先固定一个 [compute budget](<Training%20Compute%20-%206ND.md>)：$C\approx6ND$ 然后尝试不同的 model size $N$。为了保持 compute 不变，$N$ 改变时必须相应改变 $D$：
-![IsoFLOPS](<../../attachments/IsoFLOPS.png>)
+![IsoFLOPS](<../../attachments/chinchilla-isoflop.png>)
 - 模型变大 → tokens 减少；
 - 模型变小 → tokens 增加。
 

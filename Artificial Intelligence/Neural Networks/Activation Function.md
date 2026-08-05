@@ -32,12 +32,12 @@ Activation function 引入 nonlinearity，使模型能够表达更复杂的函�
 
 | Function | 形式 | 常见位置 |
 |---|---|---|
-| [ReLU](<../Transformer/ReLU.md>) | $\max(0,x)$ | 基础 neural network |
+| [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>) | $\max(0,x)$ | 基础 neural network |
 | Sigmoid | $\frac{1}{1+e^{-x}}$ | gating / probability-style output |
 | Tanh | $\tanh(x)$ | 早期 neural network |
 | GELU | smooth nonlinear function | Transformer MLP |
-| [SiLU](<../Transformer/SiLU.md>) | $x\cdot\operatorname{sigmoid}(x)$ | modern neural network |
-| [SwiGLU](<../Transformer/SwiGLU.md>) | gated nonlinear transformation | modern Transformer MLP |
+| [SiLU](<../Transformer/03%20-%20MLP%20and%20Activations/SiLU.md>) | $x\cdot\operatorname{sigmoid}(x)$ | modern neural network |
+| [SwiGLU](<../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>) | gated nonlinear transformation | modern Transformer MLP |
 
 ## 在 Transformer 中
 
@@ -52,5 +52,5 @@ Attention、normalization 和 residual addition 也会产生 [Activations](<./Ac
 
 - [Activations](<./Activations.md>)
 - [Forward Propagation](<./Forward%20Propagation.md>)
-- [Transformer Block](<../Transformer/Transformer%20Block.md>)
-- [MLP](<../Transformer/MLP.md>)
+- [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
+- [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)

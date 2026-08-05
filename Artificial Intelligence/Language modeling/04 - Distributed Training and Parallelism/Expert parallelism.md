@@ -72,7 +72,7 @@ experts 也被分到同样这 8 张 GPU
 
 #### EP 只切 MLP，不切 Attention
 
-一个 [Transformer Block](<../../Transformer/Transformer%20Block.md>) 里本来就有 [Attention](<../../Transformer/Query%20Key%20Value.md>) 和 [SwiGLU](<../../Transformer/SwiGLU.md>) MLP；MoE 只把其中“一个 SwiGLU MLP”替换成“router + 多个 SwiGLU expert”，EP 再把这些 expert 分配到不同 GPU，Attention 的结构完全没有变。
+一个 [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 里本来就有 [Attention](<../../Transformer/02%20-%20Attention/Query%20Key%20Value.md>) 和 [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>) MLP；MoE 只把其中“一个 SwiGLU MLP”替换成“router + 多个 SwiGLU expert”，EP 再把这些 expert 分配到不同 GPU，Attention 的结构完全没有变。
 
 **Attention 和 MLP 的 TP 冲突：**一个 block 里虽然先做 Attention、再做 MLP，但训练系统通常要为两个部分安排并行策略：
 

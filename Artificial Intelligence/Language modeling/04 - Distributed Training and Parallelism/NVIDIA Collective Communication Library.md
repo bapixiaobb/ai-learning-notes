@@ -16,7 +16,7 @@ NCCL 负责具体怎么传
 
 # What NCCL does
 
-- 识别 [GPU Communication Topology](<./GPU%20Communication%20Topology.md>)，比如哪些 GPU 在同一个 node、哪些路径走 NVLink / NVSwitch。
+- 识别 [GPU Communication Topology](<../03%20-%20GPU%20and%20Systems/GPU%20Communication%20Topology.md>)，比如哪些 GPU 在同一个 node、哪些路径走 NVLink / NVSwitch。
 - 为 collective operation 选择通信路径。
 - launch GPU kernels 来 send / receive data。
 
@@ -60,4 +60,4 @@ NCCL 负责执行这些通信；显存节省来自 sharding strategy，不是 NC
 ---
 # 🔗
 [Parallelism](<./Parallelism.md>)
-[GPU Communication Topology](<./GPU%20Communication%20Topology.md>)
+[GPU Communication Topology](<../03%20-%20GPU%20and%20Systems/GPU%20Communication%20Topology.md>)

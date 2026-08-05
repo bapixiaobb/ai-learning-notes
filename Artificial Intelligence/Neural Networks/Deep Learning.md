@@ -21,14 +21,14 @@ f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
 
 - **深层架构**：包含多个 hidden layers，可以表达复杂 nonlinear mappings。
 - **自动特征提取**：从 raw data 中学习 representation。
-- **端到端训练**：通常由 [Backpropagation](<./Backpropagation.md>) 计算 gradients，再由 [Optimizer](<../Transformer/Optimizer.md>)（例如 Gradient Descent）根据 gradients 更新 parameters。
+- **端到端训练**：通常由 [Backpropagation](<./Backpropagation.md>) 计算 gradients，再由 [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>)（例如 Gradient Descent）根据 gradients 更新 parameters。
 - **大规模数据与计算**：模型性能通常依赖大量数据和算力。
 
 ## 常见模型结构
 
 - **Convolutional Neural Network (CNN)**：常用于图像和空间结构数据。
 - **Recurrent Neural Network (RNN)**：常用于序列数据。
-- **[Transformer](<../Transformer/Transformer.md>)**：现代 [Natural Language Processing](<../Fundamentals/Natural%20Language%20Processing.md>) 和 [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 的核心结构。
+- **[Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)**：现代 [Natural Language Processing](<../Fundamentals/Natural%20Language%20Processing.md>) 和 [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 的核心结构。
 - **Generative Adversarial Network (GAN)**：常用于生成任务。
 - **Deep Reinforcement Learning**：将 [Deep Learning](<./Deep%20Learning.md>) 和 [Reinforcement Learning](<../Fundamentals/Reinforcement%20Learning.md>) 结合。
 
@@ -52,5 +52,5 @@ f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
 - [Neural Network](<./Neural%20Network.md>)
 - [Backpropagation](<./Backpropagation.md>)
 - Gradient Descent
-- [Transformer](<../Transformer/Transformer.md>)
+- [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)

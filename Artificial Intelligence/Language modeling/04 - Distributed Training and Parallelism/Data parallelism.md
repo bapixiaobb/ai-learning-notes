@@ -47,7 +47,7 @@ Naive data parallelism 可以提高 training throughput，但**不能解决完�
 Naïve data parallelism 只切了 batch，没有切 model states。所以每张 GPU 仍然保存完整的：
 - parameters
 - gradients
-- **[Optimizer](<../../Transformer/Optimizer.md>) states** --- 真正占显存的
+- **[Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) states** --- 真正占显存的
 - 当前 rank 所需的 [Activations](<../../Neural%20Networks/Activations.md>)
 
 例如，一个模型训练状态需要 112 GB：

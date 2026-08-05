@@ -67,7 +67,7 @@ Transformer 的主要计算来自 matrix multiplication，例如 attention proje
     GPU ↔ GPU
     node ↔ node
 
-这时还要计算 communication volume，并结合 [GPU Communication Topology](<../04%20-%20Distributed%20Training%20and%20Parallelism/GPU%20Communication%20Topology.md>) 判断传输速度。
+这时还要计算 communication volume，并结合 [GPU Communication Topology](<../03%20-%20GPU%20and%20Systems/GPU%20Communication%20Topology.md>) 判断传输速度。
 
 # Resource Accounting 如何导向 Parallelism
 
@@ -101,7 +101,7 @@ Parallelism 决定把什么拆开：
 # 🔗
 
 [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
-[Transformer](<../../Transformer/Transformer.md>)
+[Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 [Training Recipe](<./Training%20Recipe.md>)
 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)

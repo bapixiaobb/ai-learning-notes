@@ -3,7 +3,7 @@
 
 We can think of [pipeline parallel](<./Pipeline%20Parallelism.md>) as cutting up along depth. What about width?
 
-Tensor Parallelism 是沿 hidden dimension (h) 切，具体 shape 见 [Transformer](<../../Transformer/Transformer.md>) 最后的那张图
+Tensor Parallelism 是沿 hidden dimension (h) 切，具体 shape 见 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 最后的那张图
 ![Decomposition of matrix multiplication.png](<../../attachments/Decomposition%20of%20matrix%20multiplication.png>)
 
 图中：

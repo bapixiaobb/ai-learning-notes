@@ -122,7 +122,7 @@ DNN 的参数通过 training 学习。
 1. [Forward pass](<./Forward%20Propagation.md>)：输入经过网络得到 prediction；
 2. 使用 loss function 比较 prediction 和 target，得到 loss；
 3. [Backpropagation](<./Backpropagation.md>)：计算 loss 对参数的 gradients；
-4. [Optimizer](<../Transformer/Optimizer.md>)：根据 gradients 更新参数。
+4. [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>)：根据 gradients 更新参数。
 
 抽象写成：
 
@@ -146,11 +146,11 @@ DNN 的参数通过 training 学习。
 
 - Convolutional Neural Network
 - Recurrent Neural Network
-- [Transformer](<../Transformer/Transformer.md>)
+- [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - [Feed-Forward Network](<./Feed-Forward%20Network.md>)
 
 >**Note**
->[Transformer](<../Transformer/Transformer.md>) 也是一种 deep neural network architecture。
+>[Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 也是一种 deep neural network architecture。
 >
 >现代 [Large Language Model (LLM)](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>) 通常是非常深的 Transformer-based neural network。
 
@@ -180,7 +180,7 @@ DNN 的参数通过 training 学习。
 >
 >它通过多层 nonlinear transformations，把输入逐步转换成更抽象的 representations。
 >
->DNN 先通过 [Backpropagation](<./Backpropagation.md>) 计算 gradients，再由 [Optimizer](<../Transformer/Optimizer.md>) 更新 parameters；现代 Transformer-based LLM 可以看作一种非常大的 deep neural network。
+>DNN 先通过 [Backpropagation](<./Backpropagation.md>) 计算 gradients，再由 [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>) 更新 parameters；现代 Transformer-based LLM 可以看作一种非常大的 deep neural network。
 
 ## 🔗 Connections
 
@@ -190,7 +190,7 @@ DNN 的参数通过 training 学习。
 - [Activation Function](<./Activation%20Function.md>)
 - [Forward Propagation](<./Forward%20Propagation.md>)
 - [Backpropagation](<./Backpropagation.md>)
-- [Optimizer](<../Transformer/Optimizer.md>)
+- [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>)
 - Loss Function
-- [Transformer](<../Transformer/Transformer.md>)
+- [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - [Large Language Model (LLM)](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)

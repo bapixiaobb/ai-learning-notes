@@ -33,7 +33,7 @@ Transformer 处理的是一系列 tensor representations。常见 activations �
 | attention output | $[B,S,d_{\text{model}}]$ | attention 对 residual stream 的更新 |
 | MLP intermediate | $[B,S,d_{\text{ff}}]$ | MLP 扩展维度后的中间 tensor |
 
-这些数据来自 [Transformer Block](<../Transformer/Transformer%20Block.md>) 中的 embedding、attention、normalization、MLP 和 residual operations。只有其中某些 operations 使用 activation function，但它们产生的 intermediate tensors 都可以称为 activations。
+这些数据来自 [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 中的 embedding、attention、normalization、MLP 和 residual operations。只有其中某些 operations 使用 activation function，但它们产生的 intermediate tensors 都可以称为 activations。
 
 ## Parameters 和 Activations
 
@@ -63,7 +63,7 @@ Transformer 处理的是一系列 tensor representations。常见 activations �
 - [Activation Function](<./Activation%20Function.md>)
 - [Forward Propagation](<./Forward%20Propagation.md>)
 - [Backpropagation](<./Backpropagation.md>)
-- [Transformer Block](<../Transformer/Transformer%20Block.md>)
+- [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)
 - [Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
 - [ZeRO](<../Language%20modeling/04%20-%20Distributed%20Training%20and%20Parallelism/ZeRO.md>)

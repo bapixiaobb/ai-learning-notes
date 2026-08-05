@@ -1,7 +1,7 @@
 #AI #MachineLearning #DeepLearning #NLP #LanguageModeling
 
 >**Note**
-> **Large Language Model (LLM)** 是大规模的 language model，通常基于 [Transformer](<../../Transformer/Transformer.md>) 架构，通过大量文本数据训练，学习建模 token sequence 的概率分布，并用于文本生成、问答、代码生成、推理等任务。
+> **Large Language Model (LLM)** 是大规模的 language model，通常基于 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 架构，通过大量文本数据训练，学习建模 token sequence 的概率分布，并用于文本生成、问答、代码生成、推理等任务。
 
 ## 所属位置
 
@@ -51,9 +51,9 @@ p_\theta(x_t \mid x_{<t})
 \rightarrow
 \text{token IDs}
 \rightarrow
-\text{[Embedding](<../../Transformer/Embedding.md>)}
+\text{[Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Embedding.md>)}
 \rightarrow
-\text{[Transformer](<../../Transformer/Transformer.md>)}
+\text{[Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)}
 \rightarrow
 \text{logits}
 \rightarrow
@@ -63,7 +63,7 @@ p_\theta(x_t \mid x_{<t})
 ## 与 Transformer 的关系
 
 >**Note**
-> 现代 LLM 大多基于 [Transformer](<../../Transformer/Transformer.md>) 架构，尤其是 decoder-only Transformer，例如 GPT、LLaMA、Qwen 等。
+> 现代 LLM 大多基于 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 架构，尤其是 decoder-only Transformer，例如 GPT、LLaMA、Qwen 等。
 
 可以理解成：
 
@@ -107,7 +107,7 @@ p_\theta(x_t \mid x_{<t})
 ### Transformer
 
 >**Note**
-> [Transformer](<../../Transformer/Transformer.md>) 是现代 LLM 的基础架构。它通过 [Self-Attention](<../../Transformer/Self-Attention.md>) 建模 token 之间的上下文关系。
+> [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 是现代 LLM 的基础架构。它通过 [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>) 建模 token 之间的上下文关系。
 
 ### Mixture of Experts
 
@@ -175,10 +175,10 @@ x_{t+1}
 - [Language Modeling](<./Language%20Modeling.md>)
 - [Natural Language Processing](<../../Fundamentals/Natural%20Language%20Processing.md>)
 - [Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)
-- [Transformer](<../../Transformer/Transformer.md>)
-- [Self-Attention](<../../Transformer/Self-Attention.md>)
+- [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
+- [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)
 - [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
-- [Embedding](<../../Transformer/Embedding.md>)
+- [Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Embedding.md>)
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
 - [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>)

@@ -36,9 +36,9 @@ p_\theta(x_1,\dots,x_T)
 | Concept                         | 它回答的问题                          | 典型笔记                                                                                  |
 | ------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------- |
 | [Language Modeling](<./Language%20Modeling.md>)           | 模型要学什么目标？                       | next-token probability                                                                |
-| [Transformer](<../../Transformer/Transformer.md>)                 | 用什么 neural architecture 实现这个目标？ | self-attention, block, residual stream                                                |
-| [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>) | 模型内部有哪些 design choices？         | norm, position, [MLP](<../../Transformer/MLP.md>), attention variant                                            |
-| [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | 参数怎么被训练出来？                      | [Optimizer](<../../Transformer/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>), batch size                                 |
+| [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)                 | 用什么 neural architecture 实现这个目标？ | self-attention, block, residual stream                                                |
+| [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>) | 模型内部有哪些 design choices？         | norm, position, [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>), attention variant                                            |
+| [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | 参数怎么被训练出来？                      | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), batch size                                 |
 | [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)         | 训练和推理要花多少 compute / memory？     | [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>), memory, [activation](<../../Neural%20Networks/Activations.md>), optimizer states                       |
 | [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)            | 怎么让 workload 在硬件上跑得快？           | [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>), [Operator fusion](<../03%20-%20GPU%20and%20Systems/Operator%20fusion.md>), [Memory Coalescing](<../03%20-%20GPU%20and%20Systems/Memory%20Coalescing.md>), [Low precision computation](<../02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>) |
 
@@ -54,18 +54,18 @@ p_\theta(x_1,\dots,x_T)
 raw text
 -> [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
 -> token IDs
--> [Token Embedding](<../../Transformer/Token%20Embedding.md>)
--> positional information, usually [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
--> stacked [Transformer Block](<../../Transformer/Transformer%20Block.md>)
+-> [Token Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Token%20Embedding.md>)
+-> positional information, usually [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
+-> stacked [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 -> final hidden states
 -> language modeling head
 -> logits
--> [Softmax](<../../Transformer/Softmax.md>)
+-> [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>)
 -> next-token probability
 -> [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 ```
 
-其中 [Causal Mask](<../../Transformer/Causal%20Mask.md>) 保证每个位置只能看到 prefix，不能偷看 future tokens。
+其中 [Causal Mask](<../../Transformer/02%20-%20Attention/Causal%20Mask.md>) 保证每个位置只能看到 prefix，不能偷看 future tokens。
 
 ## 4. Objective And Loss
 
@@ -92,19 +92,19 @@ raw text
 
 ### 5.1 Transformer 是主体网络
 
-[Transformer](<../../Transformer/Transformer.md>) 是 attention-based sequence model。它的关键不是 recurrence，而是让 token positions 通过 [Self-Attention](<../../Transformer/Self-Attention.md>) 交换信息。
+[Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 是 attention-based sequence model。它的关键不是 recurrence，而是让 token positions 通过 [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>) 交换信息。
 
 Transformer 本身不等于 language modeling。GPT-style LM 更准确地说是：
 
 ```text
-[Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
+[Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 +
 autoregressive next-token prediction objective
 ```
 
 ### 5.2 Modern LLM 通常是 decoder-only
 
-[Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>) 的关键是：
+[Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>) 的关键是：
 
 - causal self-attention；
 - 每个位置只能 attend to prefix；
@@ -114,7 +114,7 @@ autoregressive next-token prediction objective
 
 ### 5.3 Transformer block 是重复单元
 
-[Transformer Block](<../../Transformer/Transformer%20Block.md>) 可以理解为：
+[Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 可以理解为：
 
 ```text
 residual stream
@@ -126,34 +126,34 @@ residual stream
 
 其中：
 
-- [Self-Attention](<../../Transformer/Self-Attention.md>) / [Causal Attention](<../../Transformer/Causal%20Attention.md>) 负责 token mixing；
-- [MLP](<../../Transformer/MLP.md>) 负责 per-token nonlinear processing；
-- [Residual Connection](<../../Transformer/Residual%20Connection.md>) 保留主 hidden state path；
-- [Normalization](<../../Transformer/Normalization.md>) / [RMSNorm](<../../Transformer/RMSNorm.md>) 稳定 hidden state scale；
-- [Pre-Norm Transformer](<../../Transformer/Pre-Norm%20Transformer.md>) 是现代 LLM 常见 block layout。
+- [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>) / [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>) 负责 token mixing；
+- [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>) 负责 per-token nonlinear processing；
+- [Residual Connection](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>) 保留主 hidden state path；
+- [Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Normalization.md>) / [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) 稳定 hidden state scale；
+- [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) 是现代 LLM 常见 block layout。
 
 ### 5.4 Llama-style 是 modern decoder-only 的代表范式
 
-[Llama-style Architecture](<../../Transformer/Llama-style%20Architecture.md>) 不是说所有模型都是 Llama，而是代表一组常见 choices：
+[Llama-style Architecture](<../../Transformer/00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md>) 不是说所有模型都是 Llama，而是代表一组常见 choices：
 
-- [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
-- [Causal Attention](<../../Transformer/Causal%20Attention.md>)
-- [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
-- [RMSNorm](<../../Transformer/RMSNorm.md>)
-- [SwiGLU](<../../Transformer/SwiGLU.md>)
-- [Pre-Norm Transformer](<../../Transformer/Pre-Norm%20Transformer.md>)
+- [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
+- [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)
+- [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
+- [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
+- [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>)
+- [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>)
 - often Grouped Query Attention
 
 ## 6. Attention 主线
 
 Attention 相关笔记可以按这个顺序复习：
 
-1. [Self-Attention](<../../Transformer/Self-Attention.md>)：同一个 sequence 内部 token positions 交换信息。
-2. [Query Key Value](<../../Transformer/Query%20Key%20Value.md>)：Q 表示当前 token 要找什么，K 表示其他 token 提供什么索引，V 表示真正被聚合的信息。
-3. [Multi-Head Attention](<../../Transformer/Multi-Head%20Attention.md>)：多个 attention heads 学不同的关系子空间。
-4. [Causal Attention](<../../Transformer/Causal%20Attention.md>)：加上 causal constraint 后只允许看 prefix。
-5. [Causal Mask](<../../Transformer/Causal%20Mask.md>)：实现上把 future positions 的 attention score 变成 $-\infty$。
-6. [Flash Attention](<../../Transformer/Flash%20Attention.md>) / [Online Softmax](<../../Transformer/Online%20Softmax.md>)：通过 tiling 和 online softmax 减少 HBM traffic。
+1. [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)：同一个 sequence 内部 token positions 交换信息。
+2. [Query Key Value](<../../Transformer/02%20-%20Attention/Query%20Key%20Value.md>)：Q 表示当前 token 要找什么，K 表示其他 token 提供什么索引，V 表示真正被聚合的信息。
+3. [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)：多个 attention heads 学不同的关系子空间。
+4. [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)：加上 causal constraint 后只允许看 prefix。
+5. [Causal Mask](<../../Transformer/02%20-%20Attention/Causal%20Mask.md>)：实现上把 future positions 的 attention score 变成 $-\infty$。
+6. [Flash Attention](<../../Transformer/02%20-%20Attention/Flash%20Attention.md>) / [Online Softmax](<../../Transformer/02%20-%20Attention/Online%20Softmax.md>)：通过 tiling 和 online softmax 减少 HBM traffic。
 
 核心直觉：
 
@@ -166,8 +166,8 @@ Attention 相关笔记可以按这个顺序复习：
 关键组成：
 
 - objective：next-token prediction / cross entropy；
-- [Optimizer](<../../Transformer/Optimizer.md>)：常见是 AdamW；
-- [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>)：warmup + decay；
+- [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)：常见是 AdamW；
+- [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>)：warmup + decay；
 - batch size：通常按 batch tokens 理解；
 - [Gradient Accumulation](<../02%20-%20Training%20and%20Scaling/Gradient%20Accumulation.md>)：用多个 microbatches 模拟更大的 effective batch；
 - weight decay：控制参数范数；
@@ -286,16 +286,16 @@ MoE 的核心思想是：
 2. [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
 3. [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 4. [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
-5. [Transformer](<../../Transformer/Transformer.md>)
-6. [Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>)
+5. [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
+6. [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 7. [Forward Propagation](<../../Neural%20Networks/Forward%20Propagation.md>)
-8. [Transformer Block](<../../Transformer/Transformer%20Block.md>)
-9. [Self-Attention](<../../Transformer/Self-Attention.md>)
-10. [Causal Mask](<../../Transformer/Causal%20Mask.md>)
-11. [Residual Stream](<../../Transformer/Residual%20Stream.md>)
-12. [RMSNorm](<../../Transformer/RMSNorm.md>)
-13. [Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)
-14. [Llama-style Architecture](<../../Transformer/Llama-style%20Architecture.md>)
+8. [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
+9. [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)
+10. [Causal Mask](<../../Transformer/02%20-%20Attention/Causal%20Mask.md>)
+11. [Residual Stream](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Residual%20Stream.md>)
+12. [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
+13. [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
+14. [Llama-style Architecture](<../../Transformer/00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md>)
 15. [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
 16. [Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
 17. [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)
@@ -303,7 +303,7 @@ MoE 的核心思想是：
 19. [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)
 20. [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
 21. [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>)
-22. [Flash Attention](<../../Transformer/Flash%20Attention.md>)
+22. [Flash Attention](<../../Transformer/02%20-%20Attention/Flash%20Attention.md>)
 23. [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>)
 
 ## 13. 目前笔记的强项
@@ -323,7 +323,7 @@ MoE 的核心思想是：
 - Grouped Query Attention：为什么 GQA 可以降低 KV cache cost。
 - [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)：可以作为 systems 总入口，连接 GPU、MFU、Resource Accounting、Training vs Inference。
 - AdamW：为什么 decoupled weight decay 对 LLM training 常见。
-- [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>)：warmup + cosine decay 的直觉。
+- [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>)：warmup + cosine decay 的直觉。
 - Data Mixture：不同数据源比例如何影响 LM 行为。
 - Evaluation / Perplexity：language model 怎么被评估。
 

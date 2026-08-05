@@ -2,7 +2,7 @@
 
 ![memory overhead issue of DP.png](<../../attachments/memory%20overhead%20issue%20of%20DP.png>)
 
-[Data parallelism](<./Data%20parallelism.md>) 中 Memory overhead 的问题，主要集中在 [Optimizer](<../../Transformer/Optimizer.md>) states 占用了大部分显存
+[Data parallelism](<./Data%20parallelism.md>) 中 Memory overhead 的问题，主要集中在 [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) states 占用了大部分显存
 
 >**Important** — Core idea
 >**Split up the expensive states，并利用 [All-reduce Decomposition](<./All-reduce%20Decomposition.md>) 在 replicated 与 sharded results 之间转换。**

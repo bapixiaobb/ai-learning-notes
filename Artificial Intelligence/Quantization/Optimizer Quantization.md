@@ -1,6 +1,6 @@
 #AI #LanguageModeling #Quantization
 
-在 [Optimizer](<../Transformer/Optimizer.md>) quantization 中，主要的量化对象是 [AdamW](<../Transformer/AdamW.md>) 长期保存的 first moment ($m$) 和 second moment ($v$)。二者与 parameters shape 相同，通常以 FP32 保存，并会跨越整个 training run 持续累积，因此是 optimizer memory 的主要来源。
+在 [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>) quantization 中，主要的量化对象是 AdamW 长期保存的 first moment ($m$) 和 second moment ($v$)。二者与 parameters shape 相同，通常以 FP32 保存，并会跨越整个 training run 持续累积，因此是 optimizer memory 的主要来源。
 
 Low-bit optimizer 通常只降低 ($m,v$) 的存储精度：在 optimizer step 中先将它们 dequantize 到 FP32，完成 accumulator 和 parameter update，再重新 quantize 保存。FP32 moments 仍然是稳健默认；[quantization](<Quantization.md>) 与 [ZeRO](<../Language%20modeling/04%20-%20Distributed%20Training%20and%20Parallelism/ZeRO.md>) / FSDP sharding 是可以组合的两种 memory optimization。
 
@@ -63,7 +63,7 @@ optimizer 中的 gradient 是 current-step state，通常不属于 persistent op
 
 ## Optimizer state
 
-是 optimizer quantization 的重心。**当前比较成熟、使用较多的是 8-bit Adam/[AdamW](<../Transformer/AdamW.md>) optimizer states。**  
+是 optimizer quantization 的重心。**当前比较成熟、使用较多的是 8-bit Adam/AdamW optimizer states。**
 4-bit 和 FP8 optimizer states 已经有实现，但更多处于逐步落地阶段。大规模预训练仍常见 FP32 moments 配合 [ZeRO](<../Language%20modeling/04%20-%20Distributed%20Training%20and%20Parallelism/ZeRO.md>)/FSDP。
 
 Optimizer state 通常量化的是 **persistent $m,v$ 的存储**：

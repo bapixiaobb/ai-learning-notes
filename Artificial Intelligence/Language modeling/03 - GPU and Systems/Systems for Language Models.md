@@ -12,7 +12,7 @@ batch
 → [forward](<../../Neural%20Networks/Forward%20Propagation.md>)
 → loss
 → [backward](<../../Neural%20Networks/Backpropagation.md>) 得到 gradients
-→ [optimizer](<../../Transformer/Optimizer.md>) 更新 parameters
+→ [optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) 更新 parameters
 
 如果完全不考虑机器，到这里就结束了。
 
@@ -25,7 +25,7 @@ batch
 
 [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 定义目标
             ↓
-[Transformer](<../../Transformer/Transformer.md>) architecture 定义 model forward 的 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)
+[Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) architecture 定义 model forward 的 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)
             ↓
 [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 定义怎样更新 parameters
             ↓
@@ -74,5 +74,5 @@ batch
 
 [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-[GPU Communication Topology](<../04%20-%20Distributed%20Training%20and%20Parallelism/GPU%20Communication%20Topology.md>)
+[GPU Communication Topology](<GPU%20Communication%20Topology.md>)
 [Model FLOPs Utilization](<./Model%20FLOPs%20Utilization.md>)

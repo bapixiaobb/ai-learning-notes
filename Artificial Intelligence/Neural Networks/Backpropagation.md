@@ -107,7 +107,7 @@ optimizer.zero_grad()
 ## Backpropagation vs Optimizer
 
 >**Important**
-> Backpropagation 和 [Optimizer](<../Transformer/Optimizer.md>) 不是同一件事。
+> Backpropagation 和 [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>) 不是同一件事。
 
 Backpropagation 计算：
 
@@ -149,6 +149,6 @@ Autograd 可以从 loss 反向计算到本次 loss 所依赖、且 `requires_gra
 - [Forward Propagation](<./Forward%20Propagation.md>)
 - [Activations](<./Activations.md>)
 - [Computational Graph](<./Computational%20Graph.md>)
-- [Optimizer](<../Transformer/Optimizer.md>)
+- [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>)
 - Gradient Descent
 - [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)

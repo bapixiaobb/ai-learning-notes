@@ -13,8 +13,8 @@
 在 language modeling 中，一个 training recipe 通常包括：
 
 - objective / [loss function](<../../Neural%20Networks/Loss%20Function.md>)；
-- [Optimizer](<../../Transformer/Optimizer.md>)；
-- [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>)；
+- [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)；
+- [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>)；
 - [batch size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)；
 - weight decay；
 - dropout；
@@ -39,7 +39,7 @@
 >**Important**
 >Architecture 是模型结构；training recipe 是训练过程。
 >
->例如 [RMSNorm](<../../Transformer/RMSNorm.md>)、[Rotary Position Embedding](<../../Transformer/Rotary%20Position%20Embedding.md>)、Grouped Query Attention 属于 architecture choices。
+>例如 [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)、[Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)、Grouped Query Attention 属于 architecture choices。
 >
 >但 learning rate、batch size、weight decay、optimizer 属于 [Training Recipe](<Training%20Recipe.md>)。
 
@@ -83,18 +83,18 @@ p_\theta(x_t \mid x_{<t})
 >**Note**
 >对 decoder-only language model 来说，training objective 和 architecture 是高度匹配的：
 >
->[Decoder-Only Transformer](<../../Transformer/Decoder-Only%20Transformer.md>) 用 Causal Mask 保证每个位置只能看见 prefix，然后通过 Language Modeling Head 输出 next-token [logits](<../01%20-%20Language%20Modeling%20Basics/Logits.md>)。
+>[Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>) 用 Causal Mask 保证每个位置只能看见 prefix，然后通过 Language Modeling Head 输出 next-token [logits](<../01%20-%20Language%20Modeling%20Basics/Logits.md>)。
 
 ## ⚙️ Optimizer
 
-[Optimizer](<../../Transformer/Optimizer.md>) 决定参数如何根据 gradient 更新。
+[Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) 决定参数如何根据 gradient 更新。
 
 最常见的是：
 
-- [SGD](<../../Transformer/Stochastic%20Gradient%20Descent.md>)
-- [AdamW](<../../Transformer/AdamW.md>)
+- SGD
+- AdamW
 
-现代 LLM 训练中常用的是 [AdamW](<../../Transformer/AdamW.md>)，因为它把 weight decay 从 Adam 的梯度更新中 decouple 出来。
+现代 LLM 训练中常用的是 AdamW，因为它把 weight decay 从 Adam 的梯度更新中 decouple 出来。
 
 一个抽象的参数更新可以写成：
 
@@ -108,7 +108,7 @@ p_\theta(x_t \mid x_{<t})
 
 ## 📉 Learning Rate Schedule
 
-[Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>) 决定训练过程中 step size 如何变化。
+[Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>) 决定训练过程中 step size 如何变化。
 
 在 LLM 训练中，常见模式是：
 
@@ -146,7 +146,7 @@ Weight decay 是一种 regularization 方法，用来限制参数过大。
 \lambda \|\theta\|_2^2
 ```
 
-在 [AdamW](<../../Transformer/AdamW.md>) 中，weight decay 通常是 decoupled weight decay，也就是单独对参数做 shrinkage，而不是简单加到 gradient 里。
+在 AdamW 中，weight decay 通常是 decoupled weight decay，也就是单独对参数做 shrinkage，而不是简单加到 gradient 里。
 
 >**Note**
 >Weight decay 属于 training recipe，不属于 architecture。
@@ -321,9 +321,9 @@ Training recipe 还包括训练过程中如何保存和评估模型。
 - [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
 - [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
-- [Optimizer](<../../Transformer/Optimizer.md>)
-- [AdamW](<../../Transformer/AdamW.md>)
-- [Learning Rate Schedule](<../../Transformer/Learning%20Rate%20Schedule.md>)
+- [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)
+- AdamW
+- [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>)
 - [Batch Size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)
 - [Gradient Accumulation](<Gradient%20Accumulation.md>)
 - Weight Decay

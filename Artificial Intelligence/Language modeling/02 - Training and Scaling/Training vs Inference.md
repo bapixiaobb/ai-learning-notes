@@ -36,7 +36,7 @@ Training vs Inference 描述的是同一个模型在两个不同运行阶段的�
 >**Note**
 >Inference 不是“模型开始工作”，training 也不是“没有 forward pass”。
 >
->两者都会执行 model forward；training 还会计算 loss、执行 [backward pass](<../../Neural%20Networks/Backpropagation.md>)，再由 [Optimizer](<../../Transformer/Optimizer.md>) 更新参数。
+>两者都会执行 model forward；training 还会计算 loss、执行 [backward pass](<../../Neural%20Networks/Backpropagation.md>)，再由 [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) 更新参数。
 
 ## Execution Flow
 
@@ -181,7 +181,7 @@ temperature、top-k、top-p 决定如何选择 token；[KV Cache](<../06%20-%20I
 
 - [Forward Propagation](<../../Neural%20Networks/Forward%20Propagation.md>)
 - [Backpropagation](<../../Neural%20Networks/Backpropagation.md>)
-- [Optimizer](<../../Transformer/Optimizer.md>)
+- [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)
 - [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
 - [Training Recipe](<./Training%20Recipe.md>)
 - [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)

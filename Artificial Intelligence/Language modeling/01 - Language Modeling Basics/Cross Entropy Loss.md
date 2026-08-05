@@ -44,7 +44,7 @@ y_k \log \hat{p}_k
 
 ## Implementation
 ![TransformerLM.jpeg](<../../attachments/TransformerLM.jpeg>)
-一个完整的 [Transformer](<../../Transformer/Transformer.md>) 最后的输出是 [logits](<Logits.md>)：
+一个完整的 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 最后的输出是 [logits](<Logits.md>)：
 ```
 logits: [batch, seq, vocab_size]
 ```
@@ -52,7 +52,7 @@ cross-entropy loss 计算的是，对于在
 ```
 logit: [B, S, :] = [...]
 ```
-这有一个`vocab_size` 大小的 vector，是模型根据当前位置及之前的 tokens，对 vocabulary 中所有 next-token candidates 给出的未归一化分数。这里得到的只是分数，所以我们要做个 [Softmax](<../../Transformer/Softmax.md>)
+这有一个`vocab_size` 大小的 vector，是模型根据当前位置及之前的 tokens，对 vocabulary 中所有 next-token candidates 给出的未归一化分数。这里得到的只是分数，所以我们要做个 [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>)
 ```
 probabilities = Softmax(logits): [batch, seq, vocab_size]
 ```
@@ -158,7 +158,7 @@ y_k = 0, \quad k \neq c
 z = (z_1, z_2, \dots, z_K)
 ```
 
-[Softmax](<../../Transformer/Softmax.md>) 定义为：
+[Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) 定义为：
 
 ```math
 \hat{p}_k
@@ -247,7 +247,7 @@ p_\theta(x_t \mid x_{<t})
 ## Related
 
 - [Loss Function](<../../Neural%20Networks/Loss%20Function.md>)
-- [Softmax](<../../Transformer/Softmax.md>)
+- [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 - Maximum Likelihood Estimation
 - Classification

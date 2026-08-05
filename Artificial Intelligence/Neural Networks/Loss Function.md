@@ -3,7 +3,7 @@
 ## From Transformer LM to Loss
 ![TransformerLM.jpeg](<../attachments/TransformerLM.jpeg>)
 
-这张图描述了 [Transformer](<../Transformer/Transformer.md>) LM 的 [forward](<Forward%20Propagation.md>)：
+这张图描述了 [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) LM 的 [forward](<Forward%20Propagation.md>)：
 
 ```math
 \text{token IDs}
@@ -41,7 +41,7 @@ next-token targets     -> target: [B, S]
 对位置 $(b,s)$：
 
 1. `logits[b, s, :]` 给所有 vocabulary tokens 打分；
-2. [Softmax](<../Transformer/Softmax.md>) 把这些 logits 解释成 probability distribution；
+2. [Softmax](<../Transformer/02%20-%20Attention/Softmax.md>) 把这些 logits 解释成 probability distribution；
 3. `target[b, s]` 指出正确的 next token；
 4. cross entropy 取正确 token 的 probability，并计算：
 
@@ -77,7 +77,7 @@ next-token targets     -> target: [B, S]
 
 - Loss function 说明 model prediction 有多差；
 - [Backpropagation](<Backpropagation.md>) 计算每个 parameter 对这个 loss 的影响，也就是 gradients；
-- [Optimizer](<../Transformer/Optimizer.md>) 使用 gradients 更新 parameters，尝试让未来的 loss 变小。
+- [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>) 使用 gradients 更新 parameters，尝试让未来的 loss 变小。
 
 >**Important**
 > Optimizer minimize 的是 loss。它不负责产生 logits，也不负责定义或计算 loss。
