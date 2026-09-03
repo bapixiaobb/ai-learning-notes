@@ -1,9 +1,9 @@
 #DeepLearning #NeuralNetwork
 
-Activation Function 是 [Neural Network](<./Neural%20Network.md>) 中的 nonlinear operation。
+Activation Function 是 [Neural Network](<Neural%20Network.md>) 中的 nonlinear operation。
 
 >**Important**
-> Activation Function 不等于 [Activations](<./Activations.md>)。
+> Activation Function 不等于 [Activations](<Activations.md>)。
 > 前者是模型执行的函数；后者是 forward 过程中产生的 intermediate tensors。
 
 一层基础 neural network 常写成：
@@ -43,14 +43,14 @@ Activation function 引入 nonlinearity，使模型能够表达更复杂的函�
 
 Transformer 的 activation function 主要出现在 MLP / FFN 中，例如 GELU 或 SwiGLU。
 
-Attention、normalization 和 residual addition 也会产生 [Activations](<./Activations.md>)，但它们本身不是 activation functions。
+Attention、normalization 和 residual addition 也会产生 [Activations](<Activations.md>)，但它们本身不是 activation functions。
 
 >**Summary**
-> Activation function 回答的是“模型用了什么 nonlinear operation”；[Activations](<./Activations.md>) 回答的是“forward 产生了什么数据”。
+> Activation function 回答的是“模型用了什么 nonlinear operation”；[Activations](<Activations.md>) 回答的是“forward 产生了什么数据”。
 
 ## Related
 
-- [Activations](<./Activations.md>)
-- [Forward Propagation](<./Forward%20Propagation.md>)
+- [Activations](<Activations.md>)
+- [Forward Propagation](<Forward%20Propagation.md>)
 - [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)

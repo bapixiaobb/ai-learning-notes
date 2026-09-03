@@ -4,12 +4,12 @@
 
 ## Why doing EP?
 
-Expert parallelism 和 [Tensor Parallelism](<./Tensor%20Parallelism.md>) 很像，它们都是 high bandwidth，并且能 reduce [Activations](<../../Neural%20Networks/Activations.md>) memory
+Expert parallelism 和 [Tensor Parallelism](<Tensor%20Parallelism.md>) 很像，它们都是 high bandwidth，并且能 reduce [Activations](<../../Neural%20Networks/Activations.md>) memory
 
 但是 在 MoE layer 里，如果你既可以增加 EP degree，也可以增加 TP degree，通常先增加 EP，尽量不要过早地把单个 expert 用 TP 切得很碎。
 
 有几个原因：
-- [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 喜欢大的 matrix multiplication。[Tensor Parallelism](<./Tensor%20Parallelism.md>) degree 越高，每张 GPU 得到的矩阵越小，切得太细以后：
+- [GPU](<../../GPU%20and%20NPU/GPU.md>) 喜欢大的 matrix multiplication。[Tensor Parallelism](<Tensor%20Parallelism.md>) degree 越高，每张 GPU 得到的矩阵越小，切得太细以后：
 	- Tensor Cores 吃不满；
 	- kernel launch 等固定开销占比增大；
 	- GPU utilization 下降。
@@ -93,5 +93,5 @@ experts 也被分到同样这 8 张 GPU
 >Attention 使用一套 parallel configuration，MoE MLP 使用另一套 parallel configuration。
 
 它把同一批 GPU 看成两套不同的 logical groups：
-- Attention：[Tensor Parallelism](<./Tensor%20Parallelism.md>) × Context Parallelism × [Data parallelism](<./Data%20parallelism.md>) × [Pipeline Parallelism](<./Pipeline%20Parallelism.md>)
-- MoE MLP： Expert Tensor Parallel × Expert Parallel × Expert Data Parallel × [Pipeline Parallelism](<./Pipeline%20Parallelism.md>)
+- Attention：[Tensor Parallelism](<Tensor%20Parallelism.md>) × Context Parallelism × [Data parallelism](<Data%20parallelism.md>) × [Pipeline Parallelism](<Pipeline%20Parallelism.md>)
+- MoE MLP： Expert Tensor Parallel × Expert Parallel × Expert Data Parallel × [Pipeline Parallelism](<Pipeline%20Parallelism.md>)

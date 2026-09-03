@@ -9,36 +9,36 @@
 一次 training step 大致是：
 
 batch
-→ [forward](<../../Neural%20Networks/Forward%20Propagation.md>)
+→ [forward](<../Neural%20Networks/Forward%20Propagation.md>)
 → loss
-→ [backward](<../../Neural%20Networks/Backpropagation.md>) 得到 gradients
-→ [optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) 更新 parameters
+→ [backward](<../Neural%20Networks/Backpropagation.md>) 得到 gradients
+→ [optimizer](<../Transformer/05%20-%20Training/Optimizer.md>) 更新 parameters
 
 如果完全不考虑机器，到这里就结束了。
 
-但真正训练时，这些计算必须落到硬件上：parameters、[activations](<../../Neural%20Networks/Activations.md>)、gradients 和 optimizer states 要放进 memory；matrix multiplications 要交给 compute units；不同 devices 上的局部结果还要互相传输。
+但真正训练时，这些计算必须落到硬件上：parameters、[activations](<../Neural%20Networks/Activations.md>)、gradients 和 optimizer states 要放进 memory；matrix multiplications 要交给 compute units；不同 devices 上的局部结果还要互相传输。
 
 >**Note**
 > **Systems for Language Models 研究的不是另一个模型，而是同一个数学模型怎样在现实硬件上被执行。**
 
 # 从 Model 到 Hardware
 
-[Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 定义目标
+[Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 定义目标
             ↓
-[Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) architecture 定义 model forward 的 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)
+[Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) architecture 定义 model forward 的 [computation graph](<../Neural%20Networks/Computational%20Graph.md>)
             ↓
-[Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 定义怎样更新 parameters
+[Training Recipe](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 定义怎样更新 parameters
             ↓
-[Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 数清 compute / memory / data movement
+[Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 数清 compute / memory / data movement
             ↓
-[GPU](<./GPU.md>) / cluster 提供实际资源
+[GPU](<GPU.md>) / cluster 提供实际资源
             ↓
-[Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 把 computation 和 model states 分配到多个 devices
+[Parallelism](<../Language%20modeling/04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 把 computation 和 model states 分配到多个 devices
 
 这几层不是互相独立的：
 
 - model architecture 决定有哪些 operators、tensor shapes 和 layer dependencies；
-- training recipe 决定 [batch size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)、optimizer states 和 precision；
+- training recipe 决定 [batch size](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)、optimizer states 和 precision；
 - 这些选择共同决定需要多少 compute、memory 和 communication；
 - hardware 和 topology 决定哪种执行方式更高效。
 
@@ -57,7 +57,7 @@ batch
 
 当一张 GPU 的 memory 或 compute 不够时，我们并不是重新定义一个模型，而是把原来的训练计算拆开：
 
-- batch 中样本梯度的求和可以拆成 [Data parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Data%20parallelism.md>)；
+- batch 中样本梯度的求和可以拆成 [Data parallelism](<../Language%20modeling/04%20-%20Distributed%20Training%20and%20Parallelism/Data%20parallelism.md>)；
 - matrix multiplication / hidden dimension 可以拆成 tensor parallelism；
 - 多层函数的复合可以拆成 pipeline parallelism；
 - parameters、gradients 和 optimizer states 可以用 ZeRO / FSDP 分片。
@@ -72,7 +72,7 @@ batch
 ---
 # 🔗
 
-[Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
-[Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+[Language Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
+[Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
 [GPU Communication Topology](<GPU%20Communication%20Topology.md>)
-[Model FLOPs Utilization](<./Model%20FLOPs%20Utilization.md>)
+[Model FLOPs Utilization](<../Language%20modeling/03%20-%20System/Model%20FLOPs%20Utilization.md>)

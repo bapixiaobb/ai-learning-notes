@@ -1,6 +1,6 @@
 #AI #GPU
 
-Data parallelism 是最直接的 [Parallelism](<./Parallelism.md>)：不拆 model，只拆 batch。
+Data parallelism 是最直接的 [Parallelism](<Parallelism.md>)：不拆 model，只拆 batch。
 
 >**Important** — Data parallelism 不拆 model，而是把一个 batch 拆给多个 ranks 并行计算。
 
@@ -32,7 +32,7 @@ g=\frac{1}{M}\sum_{m=1}^Mg_m
 
 ## How does it works
 >**Note**
-> Data parallelism 利用 batch gradient 可以分解求和这一点，用更多 GPU 并行处理数据；[All-Reduce](<./All-Reduce.md>) 再把局部 gradients 还原成全局 gradient。
+> Data parallelism 利用 batch gradient 可以分解求和这一点，用更多 GPU 并行处理数据；[All-Reduce](<All-Reduce.md>) 再把局部 gradients 还原成全局 gradient。
 
 ```
 Compute：每个 rank 只处理 B/M 个 samples
@@ -57,4 +57,4 @@ Naïve data parallelism 只切了 batch，没有切 model states。所以每张 
 ```
 集群虽然总共有很多显存，但 naïve DP 只是保存了 8 份相同副本，并没有把这些显存合起来使用。
 
-关于 data parallelism 里的 Memory overhead 问题，可以看看 [ZeRO](<./ZeRO.md>)
+关于 data parallelism 里的 Memory overhead 问题，可以看看 [ZeRO](<ZeRO.md>)

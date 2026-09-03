@@ -60,9 +60,9 @@ linear transformation + nonlinear activation
 
 Neural network 的训练过程通常包括：
 
-1. 使用 [Forward Propagation](<./Forward%20Propagation.md>) 计算 prediction；
+1. 使用 [Forward Propagation](<Forward%20Propagation.md>) 计算 prediction；
 2. 使用 loss function 比较 prediction 和 target，得到 loss；
-3. 使用 [Backpropagation](<./Backpropagation.md>) 计算 loss 对参数的 gradients；
+3. 使用 [Backpropagation](<Backpropagation.md>) 计算 loss 对参数的 gradients；
 4. 使用 [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>) 更新参数。
 
 整体过程可以写成：
@@ -132,12 +132,12 @@ p_\theta(x_t \mid x_{<t})
 
 ## **Related**
 
-- [Deep Learning](<./Deep%20Learning.md>)
+- [Deep Learning](<Deep%20Learning.md>)
 - Regression Analysis
 - Statistical Learning
 - An Optimization Problem
-- [Forward Propagation](<./Forward%20Propagation.md>)
-- [Backpropagation](<./Backpropagation.md>)
+- [Forward Propagation](<Forward%20Propagation.md>)
+- [Backpropagation](<Backpropagation.md>)
 - Gradient Descent
 - [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)
 - [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)

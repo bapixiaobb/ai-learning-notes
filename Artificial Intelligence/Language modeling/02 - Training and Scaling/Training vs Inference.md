@@ -63,7 +63,7 @@ training tokens
 
 causal mask 保证每个位置只能使用 prefix，但由于整段正确 token 已经存在，Transformer 可以一次并行计算多个 positions 的 logits 和 loss。
 
-更详细的训练目标见 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)、[Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>) 和 [Training Recipe](<./Training%20Recipe.md>)。
+更详细的训练目标见 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)、[Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>) 和 [Training Recipe](<Training%20Recipe.md>)。
 
 ### Inference
 
@@ -183,11 +183,11 @@ temperature、top-k、top-p 决定如何选择 token；[KV Cache](<../06%20-%20I
 - [Backpropagation](<../../Neural%20Networks/Backpropagation.md>)
 - [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)
 - [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
-- [Training Recipe](<./Training%20Recipe.md>)
+- [Training Recipe](<Training%20Recipe.md>)
 - [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Autoregressive Decoding](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)
 - Inference
 - [KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)
-- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
-- [Resource Accounting](<./Resource%20Accounting.md>)
+- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
+- [Resource Accounting](<Resource%20Accounting.md>)

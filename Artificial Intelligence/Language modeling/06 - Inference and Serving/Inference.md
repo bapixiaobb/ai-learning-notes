@@ -51,7 +51,7 @@ $T$ 是这一次 model execution 中，正在计算输出的 token positions 数
 
 #### Sequential vs. Parallel
 
-Training 可以用 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 来充分利用 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 的 compute，但是 inference 是 sequentially 的，所以没有并行的天然优势，[Why Training Parallelizes Across Positions but Generation Does Not](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md#why-training-parallelizes-across-positions-but-generation-does-not>) 解释了这种现象
+Training 可以用 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 来充分利用 [GPU](<../../GPU%20and%20NPU/GPU.md>) 的 compute，但是 inference 是 sequentially 的，所以没有并行的天然优势，[Why Training Parallelizes Across Positions but Generation Does Not](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md#why-training-parallelizes-across-positions-but-generation-does-not>) 解释了这种现象
 
 #### [Arithmetic Intensity in Inference](<Arithmetic%20Intensity%20in%20Inference.md>)
 

@@ -1,5 +1,5 @@
 #AI #LanguageModeling #GPU
-![CPU vs. GPU.png](<../../attachments/CPU%20vs.%20GPU.png>)
+![CPU vs. GPU.png](<../attachments/CPU%20vs.%20GPU.png>)
 
 ## CPU 优化 latency
 >**Note** — **latency**
@@ -7,7 +7,7 @@
 
 例如：打开浏览器的用时
 
-## [GPU](<./GPU.md>) 优化 throughput
+## [GPU](<GPU.md>) 优化 throughput
 >**Note** — throughput
 >单位时间完成多少工作
 

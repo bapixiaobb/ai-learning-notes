@@ -1,11 +1,11 @@
 #AI #LanguageModeling #GPU
 
-是 [GPU Memory Bound](<./GPU%20Memory%20Bound.md>) 的一种重要的针对 Matmul 的优化方法
+是 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>) 的一种重要的针对 Matmul 的优化方法
 
 >**Important** — Intuition
 >Tiling = 把大矩阵乘法拆成小块，让每一小块数据搬进快 memory 后，被尽可能多次复用，再写回慢 memory。
 
-它不是单纯“切块”，而是适配 [GPU](<./GPU.md>) 类似硬件的方法：
+它不是单纯“切块”，而是适配 [GPU](<../../GPU%20and%20NPU/GPU.md>) 类似硬件的方法：
 ```
 切块
 ↓
@@ -133,7 +133,7 @@ M tile 读进来一次，N tile 读进来一次，在 local/shared/register 里�
 >alignment requirement
 >```
 >所以如果你的矩阵维度能被：16 / 32 / 64 / 128 整除，通常更容易：
->>[Memory Coalescing](<./Memory%20Coalescing.md>)
+>>[Memory Coalescing](<../../GPU%20and%20NPU/Memory%20Coalescing.md>)
 >>vectorized load/store
 >>避免 ragged tile
 >>吃满 tensor core

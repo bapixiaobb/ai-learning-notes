@@ -90,9 +90,9 @@ QK^\top
 >**Important**
 >Q 和 K 决定“看谁”；V 决定“拿什么信息”。
 
-### 3. Optimization with [GPU](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU.md>)
+### 3. Optimization with [GPU](<../../GPU%20and%20NPU/GPU.md>)
 
-[Flash Attention](<Flash%20Attention.md>) 可以把 $QK^\top \rightarrow \mathrm{softmax}\rightarrow AV$ 这整个 attention 过程做成一个 memory- efficient fused kernel，以解决 [GPU Memory Bound](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>) 的问题。
+[Flash Attention](<Flash%20Attention.md>) 可以把 $QK^\top \rightarrow \mathrm{softmax}\rightarrow AV$ 这整个 attention 过程做成一个 memory- efficient fused kernel，以解决 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>) 的问题。
 
 ## 📐 Shape View
 

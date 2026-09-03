@@ -1,6 +1,6 @@
 #AI #LanguageModeling
 
-vLLM 提出的 [Kwon+ 2023](https://arxiv.org/pdf/2309.06180.pdf)，用来解决 [Inference](<Inference.md>) 中 [KV Cache](<KV%20Cache.md>) size 过大的问题，但是这个解决不是 ⬇️ 它的大小，而是改变 memory layout，让 KV 数据更紧凑、灵活地放进 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) [memory](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)。
+vLLM 提出的 [Kwon+ 2023](https://arxiv.org/pdf/2309.06180.pdf)，用来解决 [Inference](<Inference.md>) 中 [KV Cache](<KV%20Cache.md>) size 过大的问题，但是这个解决不是 ⬇️ 它的大小，而是改变 memory layout，让 KV 数据更紧凑、灵活地放进 [GPU](<../../GPU%20and%20NPU/GPU.md>) [memory](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)。
 
 ## KV Cache 的 memory allocation
 ![paged-attention-fragmentation](<../../attachments/paged-attention-fragmentation.png>)

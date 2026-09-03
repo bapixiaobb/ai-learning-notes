@@ -21,7 +21,7 @@
 \frac{QK^\top}{\sqrt{d_k}}
 \right)V
 ```
-的普通 [GPU](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU.md>) 上的实现（⚠️ 这里已经经过 projection 拿到完整的 $Q, K, V$ 了）：
+的普通 [GPU](<../../GPU%20and%20NPU/GPU.md>) 上的实现（⚠️ 这里已经经过 projection 拿到完整的 $Q, K, V$ 了）：
 ```
 1. 读 Q, K
 2. 算 score = QK^T
@@ -36,7 +36,7 @@
 9. 把 O 写回 HBM/ global memory
 ```
 
-但是这里 $\mathrm{score} = QK^\top$ 这个 attention score matrix 很大，如果 sequence length 是 $n$，那 $\mathrm{score}$ 的大小是 $n\times n$，所以它是 quadratic memory。而对于 [GPU Bottleneck](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU%20Bottleneck.md>) 其实主要问题还是在于 [GPU Memory Bound](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，所以这个问题是，它会把巨大的中间矩阵 `score` 和 `P`来回读写，就很浪费 memory bandwidth
+但是这里 $\mathrm{score} = QK^\top$ 这个 attention score matrix 很大，如果 sequence length 是 $n$，那 $\mathrm{score}$ 的大小是 $n\times n$，所以它是 quadratic memory。而对于 [GPU Bottleneck](<../../GPU%20and%20NPU/GPU%20Bottleneck.md>) 其实主要问题还是在于 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)，所以这个问题是，它会把巨大的中间矩阵 `score` 和 `P`来回读写，就很浪费 memory bandwidth
 
 ---
 # FlashAttention
@@ -51,13 +51,13 @@ Optimization:
 4. 更新输出 `O`
 5. 然后丢掉这个 tile
 
-![FlashAttention.png](<../../attachments/FlashAttention.png>)
-如上图所示，它不再完整算完整个 tensor，而是 tile by tile 地把 `score = QK^T`、`softmax` 还有 `*V` 融合在一起，这里是一个 [Operator fusion](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/Operator%20fusion.md>)
+![FlashAttention](<../../attachments/FlashAttention.png>)
+如上图所示，它不再完整算完整个 tensor，而是 tile by tile 地把 `score = QK^T`、`softmax` 还有 `*V` 融合在一起，这里是一个 [Operator fusion](<../../GPU%20and%20NPU/Operator%20fusion.md>)
 
 ---
 # Tile [Softmax](<Softmax.md>)?
 
->**problem** — safe softmax 需要知道整行的 $\max(x)$ 和 $\sum e$
+>**Problem** — safe softmax 需要知道整行的 $\max(x)$ 和 $\sum e$
 >所以看起来不能分块
 
 为了配合 FlashAttention 的 tile by tile 计算，**[Online Softmax](<Online%20Softmax.md>)**

@@ -1,6 +1,6 @@
 #AI #LanguageModeling #GPU
 
-为了解决 [Pipeline Parallelism](<./Pipeline%20Parallelism.md>) 中 bubble 的问题，这是一种特殊的调度技巧
+为了解决 [Pipeline Parallelism](<Pipeline%20Parallelism.md>) 中 bubble 的问题，这是一种特殊的调度技巧
 
 就是把 [backwards](<../../Neural%20Networks/Backpropagation.md>) 拆成 B 和 W
 1. Backpropagating activation (z, x)

@@ -39,12 +39,12 @@ W_2 h + b_2
 - $x$ 是输入；
 - $W_1, W_2$ 是 learnable weights；
 - $b_1, b_2$ 是 biases；
-- $\sigma$ 是 [Activation Function](<./Activation%20Function.md>)；
+- $\sigma$ 是 [Activation Function](<Activation%20Function.md>)；
 - $y$ 是输出。
 
 ## 🧩 Relation to Neural Network
 
-[Neural Network](<./Neural%20Network.md>) 是更大的概念。
+[Neural Network](<Neural%20Network.md>) 是更大的概念。
 Feed-forward network 是 neural network 的一种基本结构。
 
 可以理解成：
@@ -61,10 +61,10 @@ Feed-forward network 是 neural network 的一种基本结构。
 - 每一层接收上一层的输出；
 - 信息只向前流动；
 - 参数通过 training 被学习；
-- 通常用 [Backpropagation](<./Backpropagation.md>) 计算 gradients。
+- 通常用 [Backpropagation](<Backpropagation.md>) 计算 gradients。
 
 >**Note**
->你之前那张 [Neural Network](<./Neural%20Network.md>) 卡讲的是神经网络这个大类。
+>你之前那张 [Neural Network](<Neural%20Network.md>) 卡讲的是神经网络这个大类。
 >
 >Feed-Forward Network 这张卡更具体，关注的是一种没有循环结构、信息单向流动的网络结构。
 
@@ -109,7 +109,7 @@ y
 ```
 
 >**Note**
->如果 feed-forward network 有很多 hidden layers，它就可以是 [Deep Neural Network](<./Deep%20Neural%20Network.md>) 的一种。
+>如果 feed-forward network 有很多 hidden layers，它就可以是 [Deep Neural Network](<Deep%20Neural%20Network.md>) 的一种。
 
 ## ⚖️ Feed-Forward vs Recurrent
 
@@ -189,14 +189,14 @@ Feed-Forward Network: 每个 token 自己内部做非线性处理
 在 [Original Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Original%20Transformer.md>) 中，FFN 常用 [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)
 
 >**Note**
-所以在 LLM 语境里，[Feed-Forward Network](<./Feed-Forward%20Network.md>)、[MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)、FFN 经常指 Transformer block 中 attention 后面的 per-token nonlinear module。
+所以在 LLM 语境里，[Feed-Forward Network](<Feed-Forward%20Network.md>)、[MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)、FFN 经常指 Transformer block 中 attention 后面的 per-token nonlinear module。
 
 ## **🚫 Common Confusions**
 
 ### **1. Feed-forward 不等于 forward pass**
 
-[Forward Propagation](<./Forward%20Propagation.md>) 指一次模型前向计算过程。
-[Feed-Forward Network](<./Feed-Forward%20Network.md>) 指一种 neural network structure。
+[Forward Propagation](<Forward%20Propagation.md>) 指一次模型前向计算过程。
+[Feed-Forward Network](<Feed-Forward%20Network.md>) 指一种 neural network structure。
 
 它们名字相似，但不是同一个概念。
 
@@ -238,12 +238,12 @@ d_{\text{model}}
 
 ## **🔗 Connections**
 
-- [Neural Network](<./Neural%20Network.md>)
-- [Deep Neural Network](<./Deep%20Neural%20Network.md>)
+- [Neural Network](<Neural%20Network.md>)
+- [Deep Neural Network](<Deep%20Neural%20Network.md>)
 - [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
 - [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Self-Attention](<../Transformer/02%20-%20Attention/Self-Attention.md>)
-- [Activation Function](<./Activation%20Function.md>)
+- [Activation Function](<Activation%20Function.md>)
 - [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)
-- [Forward Propagation](<./Forward%20Propagation.md>)
-- [Backpropagation](<./Backpropagation.md>)
+- [Forward Propagation](<Forward%20Propagation.md>)
+- [Backpropagation](<Backpropagation.md>)

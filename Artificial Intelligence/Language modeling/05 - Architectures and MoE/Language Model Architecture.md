@@ -20,7 +20,7 @@ Lecture 3 的主线可以概括为：
 >**Summary**
 >**现代 LLM 的 architecture choices 有哪些？哪些已经形成共识？哪些只是 variation？**
 
-其中最重要的入口概念是 [Model Architecture](<./Model%20Architecture.md>)。
+其中最重要的入口概念是 [Model Architecture](<Model%20Architecture.md>)。
 
 ## 🧭 Lecture 3 Main Thread (CS336)
 
@@ -40,7 +40,7 @@ Lecture 3 的主线可以概括为：
 - residual path；
 - output head。
 
-这些内容共同构成 [Model Architecture](<./Model%20Architecture.md>)。
+这些内容共同构成 [Model Architecture](<Model%20Architecture.md>)。
 
 ## 🧱 Architecture / Training / Systems
 
@@ -48,16 +48,16 @@ Lecture 3 的主线可以概括为：
 
 | Concept | Main Question | Examples                                                                                   |
 | ------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
-| [Model Architecture](<./Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape                       |
+| [Model Architecture](<Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape                       |
 | [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) | 模型如何被训练出来？ | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), batch size, weight decay, dropout, data mixture |
-| [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost                               |
+| [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost                               |
 
 >**Note**
 >这三条线相互影响，但不是同一个层面的概念。
 >
 >Architecture choices 会影响 systems cost；training recipe 会影响模型最终效果；systems constraints 也会反过来影响 architecture choices。
 >
->但在理解 Lecture 3 时，主线仍然是 [Model Architecture](<./Model%20Architecture.md>)。
+>但在理解 Lecture 3 时，主线仍然是 [Model Architecture](<Model%20Architecture.md>)。
 
 ## 🧩 Basic Pipeline
 
@@ -90,7 +90,7 @@ p(x_{t+1} \mid x_{\leq t})
 
 ### 1. Model Architecture
 
-[Model Architecture](<./Model%20Architecture.md>) 解释 architecture 这个概念本身。
+[Model Architecture](<Model%20Architecture.md>) 解释 architecture 这个概念本身。
 
 Architecture 不只是 number of layers，而是包括：
 
@@ -130,7 +130,7 @@ Architecture 不只是 number of layers，而是包括：
 
 ### 3. Systems for Language Models
 
-[Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) 关注 language model 如何在硬件上高效训练和推理。
+[Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) 关注 language model 如何在硬件上高效训练和推理。
 
 它包括：
 
@@ -193,7 +193,7 @@ Architecture 不只是 number of layers，而是包括：
 ---
 
 >**Summary** — My Understanding
->[Language Model Architecture](<./Language%20Model%20Architecture.md>) 这部分的核心不是记住某一个模型有多少层，而是建立一个关于 modern LLM 结构的整体认识：
+>[Language Model Architecture](<Language%20Model%20Architecture.md>) 这部分的核心不是记住某一个模型有多少层，而是建立一个关于 modern LLM 结构的整体认识：
 >
 >**architecture 是一组 design choices。**
 >
@@ -205,9 +205,9 @@ Architecture 不只是 number of layers，而是包括：
 
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 - [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)
-- [Model Architecture](<./Model%20Architecture.md>)
+- [Model Architecture](<Model%20Architecture.md>)
 - [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
+- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
 - [Transformer Family](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Family.md>)
 - [Original Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Original%20Transformer.md>)
 - [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)

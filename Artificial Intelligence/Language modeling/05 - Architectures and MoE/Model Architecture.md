@@ -151,7 +151,7 @@ Model architecture 首先包含模型所属的整体结构族。
 - Encoder-Only Transformer
 - [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - Encoder-Decoder Transformer
-- [Mixture of Experts (MoE)](<Mixture%20of%20Experts%20%28MoE%29.md>)
+- [Mixture of Experts (MoE)](<Mixture%20of%20Experts%20(MoE).md>)
 
 > **Note**
 >Modern LLM 最常见的是 [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)。
@@ -375,7 +375,7 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 | ------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ |
 | [Model Architecture](<Model%20Architecture.md>)          | attention, [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>), norm, position embedding, layer layout                        | learning rate, optimizer, batch size |
 | [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), weight decay, batch size, data mixture | RoPE, RMSNorm, GQA                   |
-| [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) | memory layout, kernel optimization, parallelism, KV cache efficiency              | architecture 概念本身                    |
+| [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) | memory layout, kernel optimization, parallelism, KV cache efficiency              | architecture 概念本身                    |
 
 > **Important**
 >同一个 architecture 可以用不同 training recipes 训练。
@@ -430,7 +430,7 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 
 - [Language Model Architecture](<Language%20Model%20Architecture.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
-- [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
+- [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)
 - [Transformer Family](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Family.md>)
 - [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - [Llama-style Architecture](<../../Transformer/00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md>)
@@ -442,5 +442,5 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 - [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 - [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
 - [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
+- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
 - [Model Hyperparameters](<../01%20-%20Language%20Modeling%20Basics/Model%20Hyperparameters.md>)

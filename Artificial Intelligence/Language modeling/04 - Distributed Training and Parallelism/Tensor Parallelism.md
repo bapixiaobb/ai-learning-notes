@@ -1,7 +1,7 @@
 #AI #LanguageModeling #GPU
 # Width-wise parallel
 
-We can think of [pipeline parallel](<./Pipeline%20Parallelism.md>) as cutting up along depth. What about width?
+We can think of [pipeline parallel](<Pipeline%20Parallelism.md>) as cutting up along depth. What about width?
 
 Tensor Parallelism 是沿 hidden dimension (h) 切，具体 shape 见 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 最后的那张图
 ![Decomposition of matrix multiplication.png](<../../attachments/Decomposition%20of%20matrix%20multiplication.png>)
@@ -30,7 +30,7 @@ Y=XA=X_1A_1+X_2A_2
 Y_1=X_1A_1,\qquad Y_2=X_2A_2
 ```
 
-最后通过 [All-Reduce](<./All-Reduce.md>) 求和，恢复完整的 $Y$。
+最后通过 [All-Reduce](<All-Reduce.md>) 求和，恢复完整的 $Y$。
 
 ## Trade-off
 
@@ -38,9 +38,9 @@ Tensor Parallelism 把同一个 layer 的 parameters、activations 和 matrix mu
 
 代价是每一层附近都可能需要 activation-sized collective communication。所以它依赖高bandwidth、低 latency 的连接，通常优先放在同一 node 内通过 NVLink / NVSwitch 连接的 GPUs 上。
 
-相比之下，[Pipeline Parallelism](<./Pipeline%20Parallelism.md>) 通信频率较低且主要是相邻 stages 之间的 point-to-point communication，因此更适合跨 node 的慢链路。
+相比之下，[Pipeline Parallelism](<Pipeline%20Parallelism.md>) 通信频率较低且主要是相邻 stages 之间的 point-to-point communication，因此更适合跨 node 的慢链路。
 
-# 概念类似于 [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>)
+# 概念类似于 [Tiling](<../03%20-%20System/Tiling.md>)
 
 |                    | Tiling                                  | Tensor Parallelism                        |
 | ------------------ | --------------------------------------- | ----------------------------------------- |

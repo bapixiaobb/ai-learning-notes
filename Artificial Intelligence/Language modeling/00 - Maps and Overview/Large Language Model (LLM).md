@@ -6,7 +6,7 @@
 ## 所属位置
 
 >**Note**
-> LLM 位于 [Machine Learning](<../../Fundamentals/Machine%20Learning.md>)、[Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)、[Natural Language Processing](<../../Fundamentals/Natural%20Language%20Processing.md>) 和 [Language Modeling](<./Language%20Modeling.md>) 的交叉处。
+> LLM 位于 [Machine Learning](<../../Fundamentals/Machine%20Learning.md>)、[Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)、[Natural Language Processing](<../../Fundamentals/Natural%20Language%20Processing.md>) 和 [Language Modeling](<Language%20Modeling.md>) 的交叉处。
 >
 > 它不是一个单独的机器学习范式，而是现代 language modeling 在大规模数据、参数和算力下形成的模型类别。
 
@@ -38,7 +38,7 @@ p_\theta(x_t \mid x_{<t})
 ## 与 Language Modeling 的关系
 
 >**Note**
-> [Language Modeling](<./Language%20Modeling.md>) 是任务；LLM 是大规模执行这个任务的模型。
+> [Language Modeling](<Language%20Modeling.md>) 是任务；LLM 是大规模执行这个任务的模型。
 >
 > 换句话说，LLM 通常是通过 language modeling objective 训练出来的。
 
@@ -150,7 +150,7 @@ x_{t+1}
 ## 与 Foundation Model 的关系
 
 >**Note**
-> LLM 通常也是一种 [Foundation Model](<./Foundation%20Model.md>)。它先通过大规模预训练获得通用语言能力，再通过 instruction tuning、alignment 或 fine-tuning 适配具体任务。
+> LLM 通常也是一种 [Foundation Model](<Foundation%20Model.md>)。它先通过大规模预训练获得通用语言能力，再通过 instruction tuning、alignment 或 fine-tuning 适配具体任务。
 
 常见阶段包括：
 
@@ -169,10 +169,10 @@ x_{t+1}
 
 - [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
 - [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
-- [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)
+- [Model FLOPs Utilization](<../03%20-%20System/Model%20FLOPs%20Utilization.md>)
 ## Related
 
-- [Language Modeling](<./Language%20Modeling.md>)
+- [Language Modeling](<Language%20Modeling.md>)
 - [Natural Language Processing](<../../Fundamentals/Natural%20Language%20Processing.md>)
 - [Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)
 - [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
@@ -182,4 +182,4 @@ x_{t+1}
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
 - [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>)
-- [Foundation Model](<./Foundation%20Model.md>)
+- [Foundation Model](<Foundation%20Model.md>)

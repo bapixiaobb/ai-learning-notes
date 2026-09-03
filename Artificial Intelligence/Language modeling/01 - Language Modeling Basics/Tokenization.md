@@ -17,7 +17,7 @@ Language model 不能直接处理字符串，它只能处理离散 token ID，�
 | **Byte token** | 按 UTF-8 byte 切分 | vocabulary 很小，通常 256；能覆盖任意文本，但 sequence length 较长 |
 | **Character token** | 按字符切分 | 比 byte 更接近人类字符直觉，但仍然 sequence length 较长 |
 | **Word token** | 按词切分 | sequence length 较短，但 vocabulary 很大，容易遇到 out-of-vocabulary 问题 |
-| **Subword token** | 按常见子词片段切分 | 在 vocabulary size 和 sequence length 之间折中，例如 [Byte Pair Encoding (BPE)](<../../Transformer/01%20-%20Inputs%20and%20Position/Byte%20Pair%20Encoding%20%28BPE%29.md>) |
+| **Subword token** | 按常见子词片段切分 | 在 vocabulary size 和 sequence length 之间折中，例如 [Byte Pair Encoding (BPE)](<../../Transformer/01%20-%20Inputs%20and%20Position/Byte%20Pair%20Encoding%20(BPE).md>) |
 
 ## 影响
 
@@ -32,7 +32,7 @@ Tokenization 会影响：
 
 ## Related
 
-- [Byte Pair Encoding (BPE)](<../../Transformer/01%20-%20Inputs%20and%20Position/Byte%20Pair%20Encoding%20%28BPE%29.md>)
+- [Byte Pair Encoding (BPE)](<../../Transformer/01%20-%20Inputs%20and%20Position/Byte%20Pair%20Encoding%20(BPE).md>)
 - [Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Embedding.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 - [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)

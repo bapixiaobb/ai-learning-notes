@@ -16,7 +16,7 @@ Pipeline parallelism 把连续的 layer groups 分成 stages，放到不同的 G
 想象一下，如果做 layer-wise parallel 的话，GPUs 的并行度是很糟糕的，因为如下图所示
 ![layer-wise parallel 1 batch.png](<../../attachments/layer-wise%20parallel%201%20batch.png>)
 F 是 [Forward Propagation](<../../Neural%20Networks/Forward%20Propagation.md>)，B 是 [Backpropagation](<../../Neural%20Networks/Backpropagation.md>)，这几个不同颜色的块就代表了不同的 GPUs，一行代表了一张卡
-在一层一层 layers 传递的过程中，需要等上一层算完，再传递给下一层，这样是串行的，和我们说的 [GPU 核心思想](<../03%20-%20GPU%20and%20Systems/GPU%20%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3.md>) 不一样
+在一层一层 layers 传递的过程中，需要等上一层算完，再传递给下一层，这样是串行的，和我们说的 [GPU 核心思想](<../../GPU%20and%20NPU/GPU%20%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3.md>) 不一样
 
 ## Solution
 
@@ -44,7 +44,7 @@ F 是 [Forward Propagation](<../../Neural%20Networks/Forward%20Propagation.md>)�
 
 如果 pipeline parallel 有这么大的问题，为什么还用它？
 
-- 相比于 [Data parallelism](<./Data%20parallelism.md>)，显存需求低：切了 [Activations](<../../Neural%20Networks/Activations.md>)
+- 相比于 [Data parallelism](<Data%20parallelism.md>)，显存需求低：切了 [Activations](<../../Neural%20Networks/Activations.md>)
 - communication properties good: 只在相邻 stage 之间做 point-to-point communication，不需要每次都让整个 group 一起通信。
 ```
 GPU 0 ──activations──> GPU 1 ──activations──> GPU 2
@@ -55,4 +55,4 @@ GPU 0 <──activation gradients── GPU 1 <──activation gradients── 
 **Pipeline parallelism 不是为了让单张卡算得更快。它接受 bubble 带来的计算利用率损失，换取“更大的模型能运行”，并让跨慢速网络的通信更加可控。**
 
 ---
-# 一种调度技巧：[Zero Bubble Pipelining](<./Zero%20Bubble%20Pipelining.md>)
+# 一种调度技巧：[Zero Bubble Pipelining](<Zero%20Bubble%20Pipelining.md>)

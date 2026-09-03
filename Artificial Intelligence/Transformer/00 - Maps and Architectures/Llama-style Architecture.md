@@ -460,7 +460,7 @@ Llama-style architecture 中的一些 choices 会直接影响 systems cost。
 >**Note**
 >Architecture choices 不等于 systems optimization，但它们会决定很多 compute / memory bottlenecks。
 >
->这部分连接到 [Systems for Language Models](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) 和 [Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)。
+>这部分连接到 [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) 和 [Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)。
 
 ---
 
@@ -501,5 +501,5 @@ Llama-style architecture 中的一些 choices 会直接影响 systems cost。
 - [Softmax](<../02%20-%20Attention/Softmax.md>)
 - Next Token Prediction
 - [Training Recipe](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- [Systems for Language Models](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
+- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
 - [Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)

@@ -21,7 +21,7 @@ logits
 ```
 
 这一次 forward 就叫做 **prefill**。
-## Prefill 是 [compute-bound](<../03%20-%20GPU%20and%20Systems/GPU%20Bottleneck.md>)
+## Prefill 是 [compute-bound](<../../GPU%20and%20NPU/GPU%20Bottleneck.md>)
 
 要分两层来看
 

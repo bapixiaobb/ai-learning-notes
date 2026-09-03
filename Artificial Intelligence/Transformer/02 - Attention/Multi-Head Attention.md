@@ -183,7 +183,7 @@ Modern LLM 中也常用 multi-head structure，但可能会修改 K/V 的组织�
 >**Note**
 >这些 variants 的主要动机之一是减少 inference 时的 KV Cache memory cost。
 >
->所以 attention head 的设计既是 [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 问题，也会影响 [Systems for Language Models](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)。
+>所以 attention head 的设计既是 [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 问题，也会影响 [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)。
 
 ## 🚫 Common Confusions
 

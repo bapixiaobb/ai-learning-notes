@@ -12,7 +12,7 @@ The capital of France is ___
 
 训练时，我们最主要优化的是：**让真实下一个 token 的 probability 越高越好**
 
-也就是常说的：minimize [Cross Entropy Loss](<./Cross%20Entropy%20Loss.md>)，或者 maximize likelihood of next token
+也就是常说的：minimize [Cross Entropy Loss](<Cross%20Entropy%20Loss.md>)，或者 maximize likelihood of next token
 
 这就是 **next-token prediction objective**。
 

@@ -3,7 +3,7 @@
 > **GPU compute 很强，但 memory bandwidth 跟不上**
 
 所以要判断一个算子是 compute-bound 还是 [GPU Memory Bound](<GPU%20Memory%20Bound.md>)
-这里涉及 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 和 data movement
+这里涉及 [Arithmetic Intensity](<../Fundamentals/Arithmetic%20Intensity.md>) 和 data movement
 
 ---
 对于一个算子：
@@ -14,7 +14,7 @@ I_{\text{arith}}
 \frac{\text{FLOPs}}{\text{bytes moved}}
 ```
 
-这是 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>)。
+这是 [Arithmetic Intensity](<../Fundamentals/Arithmetic%20Intensity.md>)。
 
 对于一个硬件：
 
@@ -24,7 +24,7 @@ I_{\text{accel}}
 \frac{\text{peak FLOP/s}}{\text{memory bandwidth}}
 ```
 
-这是 [Accelerator Intensity](<../../Fundamentals/Accelerator%20Intensity.md>)。
+这是 [Accelerator Intensity](<../Fundamentals/Accelerator%20Intensity.md>)。
 
 判断规则：
 

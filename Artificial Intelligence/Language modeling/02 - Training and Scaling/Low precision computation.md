@@ -1,10 +1,10 @@
 #AI #LanguageModeling #LLM
 
-一种 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>) 的优化方法：**用低精度格式参与实际计算**
-# Why it is an optimization for [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
+一种 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>) 的优化方法：**用低精度格式参与实际计算**
+# Why it is an optimization for [GPU](<../../GPU%20and%20NPU/GPU.md>)
 ## Memory Optimization
 
-这是一个很直接的减少数据搬运的方法，既然有 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那我就**每个数字少用一点 bit 表示。** 这个方法叫做 [Quantization](<../../Quantization/Quantization.md>)
+这是一个很直接的减少数据搬运的方法，既然有 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)，那我就**每个数字少用一点 bit 表示。** 这个方法叫做 [Quantization](<../../Quantization/Quantization.md>)
 
 >**Note** — if you have fewer bits, you have fewer bits to move。
 
@@ -68,7 +68,7 @@ C: maybe FP32 / BF16 / FP8
 Why? 因为矩阵乘法里一个元素是：`C[i, j] = sum_k A[i, k] B[k, j]`，C 的一个元素有很多项相加，如果每一步累加都用很低精度，误差会不断积累。
 
 ---
->**Question** — low precision 讲成减少 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)，那它对 compute 有没有帮助？
+>**Question** — low precision 讲成减少 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)，那它对 compute 有没有帮助？
 >有，compute 肯定也有帮助。
 >对 quantized numbers 做乘法，基本可以得到接近线性的 compute improvement。
 >但是因为还要 quantize / dequantize，所以整体收益会被 diluted

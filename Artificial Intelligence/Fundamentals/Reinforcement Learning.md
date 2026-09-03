@@ -1,5 +1,5 @@
 #AI
-Artificial Intelligence (AI) > [Machine Learning](<./Machine%20Learning.md>)
+Artificial Intelligence (AI) > [Machine Learning](<Machine%20Learning.md>)
 
 **智能体通过与环境交互，基于反馈奖励调整策略**
 

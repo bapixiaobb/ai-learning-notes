@@ -20,4 +20,4 @@ KV cache：
 - 不消除不同 generation steps 之间的 [sequential dependency](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md#why-training-parallelizes-across-positions-but-generation-does-not>)；
 - 用额外 memory 换取更少的重复 compute。
 
-它也是 inference 的主要 [memory](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>) 成本之一，会随着 sequence length、batch/request 数量、layer 数量和 KV heads 等因素增长。所以一个 memory 优化方向是 [Reduce KV cache size](<Reduce%20KV%20cache%20size.md>)
+它也是 inference 的主要 [memory](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>) 成本之一，会随着 sequence length、batch/request 数量、layer 数量和 KV heads 等因素增长。所以一个 memory 优化方向是 [Reduce KV cache size](<Reduce%20KV%20cache%20size.md>)

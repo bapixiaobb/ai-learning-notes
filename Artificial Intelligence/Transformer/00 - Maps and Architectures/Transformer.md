@@ -42,7 +42,7 @@ $T$ 是 sequence length，$d_{\text{model}}$ 是 hidden dimension。
 >**Note**
 >Transformer 是一种 [Neural Network](<../../Neural%20Networks/Neural%20Network.md>) architecture，属于 [Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)。
 >
->在 NLP 中，现代 [Language Modeling](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 和 [Large Language Model (LLM)](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>) 大多基于 Transformer 或其变体。
+>在 NLP 中，现代 [Language Modeling](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 和 [Large Language Model (LLM)](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>) 大多基于 Transformer 或其变体。
 
 可以理解成：
 
@@ -196,8 +196,8 @@ p_\theta(x_t \mid x_{<t})
 | RNN / LSTM | 按时间顺序递归处理                | 适合早期序列建模     | 难以并行，长距离依赖较难                          |
 | [Transformer](<Transformer.md>)    | 使用 self-attention 并行处理序列 | 易并行，适合大规模训练  | attention cost 随 sequence length 增长较快 |
 >**Note**
-Transformer 取代 RNN 的重要原因之一是它更适合 [GPU](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU.md>) / TPU 上的大规模并行计算。
-这也是为什么 Transformer 和 [Systems for Language Models](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)、[Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 有很强的联系。
+Transformer 取代 RNN 的重要原因之一是它更适合 [GPU](<../../GPU%20and%20NPU/GPU.md>) / TPU 上的大规模并行计算。
+这也是为什么 Transformer 和 [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)、[Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 有很强的联系。
 
 ## **🔢 Numerical Linear Algebra View**
 
@@ -224,7 +224,7 @@ XW_1,\quad \sigma(XW_1)W_2
 >**Note**
 从数值线性代数角度看，Transformer 的训练成本、FLOPs、memory bandwidth 和 hardware utilization 都与 Matrix Multiplication 密切相关。
 
-更详细的 compute / memory 分析应该放在 [Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 和 [Systems for Language Models](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)。
+更详细的 compute / memory 分析应该放在 [Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 和 [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)。
 
 ## **⭐ Why Transformer Matters**
 

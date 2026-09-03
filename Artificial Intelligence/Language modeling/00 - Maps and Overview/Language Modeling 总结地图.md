@@ -17,7 +17,7 @@ objective
 
 ## 1. One-Sentence Core
 
-[Language Modeling](<./Language%20Modeling.md>) 的核心是：
+[Language Modeling](<Language%20Modeling.md>) 的核心是：
 
 > 给定前面的 tokens，学习一个概率分布来预测下一个 token。
 
@@ -35,12 +35,12 @@ p_\theta(x_1,\dots,x_T)
 
 | Concept                         | 它回答的问题                          | 典型笔记                                                                                  |
 | ------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------- |
-| [Language Modeling](<./Language%20Modeling.md>)           | 模型要学什么目标？                       | next-token probability                                                                |
+| [Language Modeling](<Language%20Modeling.md>)           | 模型要学什么目标？                       | next-token probability                                                                |
 | [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)                 | 用什么 neural architecture 实现这个目标？ | self-attention, block, residual stream                                                |
 | [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>) | 模型内部有哪些 design choices？         | norm, position, [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>), attention variant                                            |
 | [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | 参数怎么被训练出来？                      | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), batch size                                 |
-| [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)         | 训练和推理要花多少 compute / memory？     | [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>), memory, [activation](<../../Neural%20Networks/Activations.md>), optimizer states                       |
-| [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)            | 怎么让 workload 在硬件上跑得快？           | [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>), [Operator fusion](<../03%20-%20GPU%20and%20Systems/Operator%20fusion.md>), [Memory Coalescing](<../03%20-%20GPU%20and%20Systems/Memory%20Coalescing.md>), [Low precision computation](<../02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>) |
+| [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)         | 训练和推理要花多少 compute / memory？     | [FLOPs](<../03%20-%20System/FLOPs.md>), memory, [activation](<../../Neural%20Networks/Activations.md>), optimizer states                       |
+| [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)            | 怎么让 workload 在硬件上跑得快？           | [Tiling](<../03%20-%20System/Tiling.md>), [Operator fusion](<../../GPU%20and%20NPU/Operator%20fusion.md>), [Memory Coalescing](<../../GPU%20and%20NPU/Memory%20Coalescing.md>), [Low precision computation](<../02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>) |
 
 一个常见混淆是：
 
@@ -72,7 +72,7 @@ raw text
 这组笔记的核心链条是：
 
 - [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)：理论目标是预测下一个 token。
-- [Language Modeling](<./Language%20Modeling.md>)：把整个 token sequence 的概率分解成 conditional probabilities。
+- [Language Modeling](<Language%20Modeling.md>)：把整个 token sequence 的概率分解成 conditional probabilities。
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)：训练时惩罚模型没有把足够高的概率分给真实 next token。
 - likelihood view：最小化 cross entropy 等价于最大化训练数据 likelihood。
 
@@ -204,8 +204,8 @@ Attention 相关笔记可以按这个顺序复习：
 
 - [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)：loss 随 model size、training tokens、compute 增加而下降。
 - [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)：dense Transformer 训练 compute 的粗略估算。
-- [FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>)：衡量计算量。
-- [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)：实际训练吞吐接近硬件峰值的程度。
+- [FLOPs](<../03%20-%20System/FLOPs.md>)：衡量计算量。
+- [Model FLOPs Utilization](<../03%20-%20System/Model%20FLOPs%20Utilization.md>)：实际训练吞吐接近硬件峰值的程度。
 - [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)：把 parameters、activations、gradients、optimizer states、KV cache、FLOPs 分开算。
 
 常用粗略公式：
@@ -228,29 +228,29 @@ C \approx 6ND
 
 ### 10.1 GPU execution model
 
-- [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)：大量 threads 并行执行。
-- [SIMT](<../03%20-%20GPU%20and%20Systems/SIMT.md>)：single instruction, multiple threads。
-- [GPU vs. CPU](<../03%20-%20GPU%20and%20Systems/GPU%20vs.%20CPU.md>)：CPU 偏 latency，GPU 偏 throughput。
-- [GPU Occupancy](<../03%20-%20GPU%20and%20Systems/GPU%20Occupancy.md>)：SM 上 active warps 是否足够多。
+- [GPU](<../../GPU%20and%20NPU/GPU.md>)：大量 threads 并行执行。
+- [SIMT](<../../GPU%20and%20NPU/SIMT.md>)：single instruction, multiple threads。
+- [GPU vs. CPU](<../../GPU%20and%20NPU/GPU%20vs.%20CPU.md>)：CPU 偏 latency，GPU 偏 throughput。
+- [GPU Occupancy](<../../GPU%20and%20NPU/GPU%20Occupancy.md>)：SM 上 active warps 是否足够多。
 
 ### 10.2 Memory movement
 
-- [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)：搬很多 bytes、做很少 FLOPs 的算子会被 memory bandwidth 限制。
-- [Memory Coalescing](<../03%20-%20GPU%20and%20Systems/Memory%20Coalescing.md>)：连续访问让 memory transaction 更高效。
-- [Bank Conflict](<../03%20-%20GPU%20and%20Systems/Bank%20Conflict.md>)：shared memory 中多个 threads 访问同一 bank 会冲突。
+- [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)：搬很多 bytes、做很少 FLOPs 的算子会被 memory bandwidth 限制。
+- [Memory Coalescing](<../../GPU%20and%20NPU/Memory%20Coalescing.md>)：连续访问让 memory transaction 更高效。
+- [Bank Conflict](<../../GPU%20and%20NPU/Bank%20Conflict.md>)：shared memory 中多个 threads 访问同一 bank 会冲突。
 
 ### 10.3 Kernel optimization
 
-- [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>)：把大矩阵分块，复用 shared memory / registers 中的数据。
-- [Operator fusion](<../03%20-%20GPU%20and%20Systems/Operator%20fusion.md>)：把多个算子合并，减少 intermediate memory write/read。
+- [Tiling](<../03%20-%20System/Tiling.md>)：把大矩阵分块，复用 shared memory / registers 中的数据。
+- [Operator fusion](<../../GPU%20and%20NPU/Operator%20fusion.md>)：把多个算子合并，减少 intermediate memory write/read。
 - [Recomputation](<../02%20-%20Training%20and%20Scaling/Recomputation.md>)：用额外 compute 换 activation memory。
 - [Low precision computation](<../02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>)：减少 memory traffic，提高 tensor core throughput。
 
 ### 10.4 Performance diagnosis
 
 - [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>)：FLOPs / bytes，判断偏 compute-bound 还是 memory-bound。
-- [GPU Bottleneck](<../03%20-%20GPU%20and%20Systems/GPU%20Bottleneck.md>)：定位瓶颈是 compute、memory、occupancy 还是 communication。
-- [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)：衡量训练系统整体把 GPU 算力用起来了多少。
+- [GPU Bottleneck](<../../GPU%20and%20NPU/GPU%20Bottleneck.md>)：定位瓶颈是 compute、memory、occupancy 还是 communication。
+- [Model FLOPs Utilization](<../03%20-%20System/Model%20FLOPs%20Utilization.md>)：衡量训练系统整体把 GPU 算力用起来了多少。
 
 核心直觉：
 
@@ -282,7 +282,7 @@ MoE 的核心思想是：
 
 如果你想系统复习，可以按下面顺序走：
 
-1. [Language Modeling](<./Language%20Modeling.md>)
+1. [Language Modeling](<Language%20Modeling.md>)
 2. [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
 3. [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 4. [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
@@ -300,9 +300,9 @@ MoE 的核心思想是：
 16. [Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
 17. [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)
 18. [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-19. [Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)
-20. [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
-21. [Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>)
+19. [Model FLOPs Utilization](<../03%20-%20System/Model%20FLOPs%20Utilization.md>)
+20. [GPU](<../../GPU%20and%20NPU/GPU.md>)
+21. [Tiling](<../03%20-%20System/Tiling.md>)
 22. [Flash Attention](<../../Transformer/02%20-%20Attention/Flash%20Attention.md>)
 23. [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>)
 
@@ -321,7 +321,7 @@ MoE 的核心思想是：
 - Logits：为什么 logits 不是 probability，temperature 如何影响 distribution。
 - KV Cache：推理时为什么要 cache K/V，memory cost 如何随 batch、layers、heads、context length 变化。
 - Grouped Query Attention：为什么 GQA 可以降低 KV cache cost。
-- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)：可以作为 systems 总入口，连接 GPU、MFU、Resource Accounting、Training vs Inference。
+- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)：可以作为 systems 总入口，连接 GPU、MFU、Resource Accounting、Training vs Inference。
 - AdamW：为什么 decoupled weight decay 对 LLM training 常见。
 - [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>)：warmup + cosine decay 的直觉。
 - Data Mixture：不同数据源比例如何影响 LM 行为。

@@ -25,7 +25,7 @@ Batch size 是一个 [training hyperparameter](<Model%20Hyperparameters.md>)，�
 ```
 
 >**Note**
->Batch size 既是 [training recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 的一部分，也和 [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) 强相关。
+>Batch size 既是 [training recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 的一部分，也和 [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) 强相关。
 >
 >较大的 batch size 通常能提高硬件利用率，但也会增加 memory pressure，并可能影响 optimization dynamics。
 

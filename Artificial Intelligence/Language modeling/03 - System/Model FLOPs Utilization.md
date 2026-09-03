@@ -24,7 +24,7 @@
 >**Note**
 > MFU 回答的问题是：硬件理论上可以这么快，但训练这个模型时我们实际用了多少？
 >
-> 如果 MFU 很低，说明 [GPU](<GPU.md>) /TPU 的计算单元没有被充分利用。（50%以上算不错的）
+> 如果 MFU 很低，说明 [GPU](<../../GPU%20and%20NPU/GPU.md>) /TPU 的计算单元没有被充分利用。（50%以上算不错的）
 
 例如：
 
@@ -123,7 +123,7 @@ R
 ## 与 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 的关系
 
 >**Note**
-> 如果一个 workload 的 Arithmetic Intensity 太低，它可能是 [GPU Memory Bound](<GPU%20Memory%20Bound.md>)，导致硬件计算单元吃不满，从而降低 MFU。
+> 如果一个 workload 的 Arithmetic Intensity 太低，它可能是 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)，导致硬件计算单元吃不满，从而降低 MFU。
 
 判断 bottleneck 时常比较：
 
@@ -147,7 +147,7 @@ I_{\text{accel}}
 I_{\text{arith}} < I_{\text{accel}}
 ```
 
-则 workload 更可能 [GPU Memory Bound](<GPU%20Memory%20Bound.md>)，MFU 往往较低。
+则 workload 更可能 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)，MFU 往往较低。
 
 ## 与 Resource Accounting 的关系
 
@@ -175,4 +175,4 @@ I_{\text{arith}} < I_{\text{accel}}
 - [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
 - [FLOPs](<FLOPs.md>)
 - [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
-- [Systems for Language Models](<Systems%20for%20Language%20Models.md>)
+- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)

@@ -6,7 +6,7 @@ Simple formula that maps dataset size (n) to error
 
 理想化的完整 learning curve：随着训练数据量增加，模型的 generalization error 通常会经历“几乎学不到 → power-law 下降 → 接近极限”的三个区域。
 ![expected data scaling law.png](<../../attachments/expected%20data%20scaling%20law.png>)
-## Data scaling laws for [language models](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
+## Data scaling laws for [language models](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)
 
 上面那张图中间的区域叫 Power-law Region
 

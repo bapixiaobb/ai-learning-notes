@@ -1,6 +1,6 @@
 #DeepLearning #NeuralNetwork #Optimization #ComputationalGraph
 
-Backpropagation 是从 loss 出发，沿 [Computational Graph](<./Computational%20Graph.md>) 反向应用 chain rule，计算 loss 对 graph 中相关 tensors——尤其 model parameters——的 gradients 的过程。
+Backpropagation 是从 loss 出发，沿 [Computational Graph](<Computational%20Graph.md>) 反向应用 chain rule，计算 loss 对 graph 中相关 tensors——尤其 model parameters——的 gradients 的过程。
 
 它负责**计算梯度**，不负责更新参数。
 
@@ -137,7 +137,7 @@ Autograd 可以从 loss 反向计算到本次 loss 所依赖、且 `requires_gra
 
 因此我们不需要为 Attention、RMSNorm 或 SwiGLU 手写 backward。
 
-为了进行 backward，PyTorch 通常需要保存 forward 中的一部分 [Activations](<./Activations.md>)。[Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>) 或 activation checkpointing 会选择少保存一些 activations，并在 backward 时重新计算，以交换 memory 和 compute。
+为了进行 backward，PyTorch 通常需要保存 forward 中的一部分 [Activations](<Activations.md>)。[Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>) 或 activation checkpointing 会选择少保存一些 activations，并在 backward 时重新计算，以交换 memory 和 compute。
 
 >**Summary**
 > Backpropagation 是在 computation graph 上反向应用 chain rule，计算 loss 对相关 tensors 和 parameters 的 gradients。
@@ -146,9 +146,9 @@ Autograd 可以从 loss 反向计算到本次 loss 所依赖、且 `requires_gra
 
 ## Connections
 
-- [Forward Propagation](<./Forward%20Propagation.md>)
-- [Activations](<./Activations.md>)
-- [Computational Graph](<./Computational%20Graph.md>)
+- [Forward Propagation](<Forward%20Propagation.md>)
+- [Activations](<Activations.md>)
+- [Computational Graph](<Computational%20Graph.md>)
 - [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>)
 - Gradient Descent
 - [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)

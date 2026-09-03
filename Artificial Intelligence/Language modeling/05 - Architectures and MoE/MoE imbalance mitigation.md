@@ -47,7 +47,7 @@ token B -> expert 3, expert 12
 如果这些 experts 分布在不同的 devices 上，[activation](<../../Neural%20Networks/Activations.md>) 就要跨设备移动。
 所以 MoE 训练里经常会出现 all-to-all communication：
 
-> 每张 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 可能要把 token activations 发给其他的卡
+> 每张 [GPU](<../../GPU%20and%20NPU/GPU.md>) 可能要把 token activations 发给其他的卡
 
 这个 communication 如果不均衡，就会拖慢训练
 
@@ -55,7 +55,7 @@ token B -> expert 3, expert 12
 ## 📎 Expert balancing vs. Device balancing
 
 Expert balancing 更像 optimization 问题：每个 expert 有没有足够训练信号？
-Device balancing 更像 systems 问题：每台 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 的计算和通信负载是不是均衡？
+Device balancing 更像 systems 问题：每台 [GPU](<../../GPU%20and%20NPU/GPU.md>) 的计算和通信负载是不是均衡？
 
 ### 为什么要单独考虑 device-level balancing？
 
@@ -142,5 +142,5 @@ DeepSeek V3 使用的一种均衡方法，它的直觉是：给每个 expert 的
 
 
 # 🔗
-[Mixture of Experts (MoE)](<./Mixture%20of%20Experts%20(MoE).md>)
+[Mixture of Experts (MoE)](<Mixture%20of%20Experts%20(MoE).md>)
 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)

@@ -183,7 +183,7 @@ MoE 的难点不在于概念，而在于 routing 和 systems
 ```
 所以 MoE 不只是 architecture 问题，也和 Systems for Language Models 有关
 
-### 4. MoE 负载均衡 [MoE imbalance mitigation](<./MoE%20imbalance%20mitigation.md>)
+### 4. MoE 负载均衡 [MoE imbalance mitigation](<MoE%20imbalance%20mitigation.md>)
 
 #### Per-expert balancing 和 per-device balancing
 
@@ -239,8 +239,8 @@ MoE 是一个模型内部的条件计算结构。
 
 ## **🔗 Connections**
 
-- [Language Model Architecture](<./Language%20Model%20Architecture.md>)
-- [Model Architecture](<./Model%20Architecture.md>)
+- [Language Model Architecture](<Language%20Model%20Architecture.md>)
+- [Model Architecture](<Model%20Architecture.md>)
 - [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)
 - [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)

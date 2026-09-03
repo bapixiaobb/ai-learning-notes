@@ -287,4 +287,4 @@ x_{>t}
 - Autoregressive Language Model
 - Masked Language Modeling
 - [Language Modeling](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
-- [Large Language Model (LLM)](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
+- [Large Language Model (LLM)](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)

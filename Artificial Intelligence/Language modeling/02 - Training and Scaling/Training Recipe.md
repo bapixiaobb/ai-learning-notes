@@ -34,7 +34,7 @@
 |---|---|---|
 | [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape |
 | [Training Recipe](<Training%20Recipe.md>) | 模型如何被训练出来？ | optimizer, learning rate, batch size, weight decay, dropout, data mixture |
-| [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>) | 模型如何在硬件上高效训练和推理？ | MFU, memory bandwidth, parallelism, checkpointing, KV cache |
+| [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) | 模型如何在硬件上高效训练和推理？ | MFU, memory bandwidth, parallelism, checkpointing, KV cache |
 
 >**Important**
 >Architecture 是模型结构；training recipe 是训练过程。
@@ -319,7 +319,7 @@ Training recipe 还包括训练过程中如何保存和评估模型。
 
 - [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
 - [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
-- [Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
+- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
 - [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)
 - AdamW

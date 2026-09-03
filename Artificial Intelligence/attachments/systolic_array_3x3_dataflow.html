@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3×3 Systolic Array 数据流演示</title>
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --panel:#ffffff;
+      --text:#18212f;
+      --muted:#677386;
+      --border:#d9dfE8;
+      --accent:#2563eb;
+      --accent-soft:#eaf1ff;
+      --green:#0f9f6e;
+      --green-soft:#e9f8f2;
+      --orange:#d97706;
+      --orange-soft:#fff4df;
+      --shadow:0 8px 30px rgba(20,35,60,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "PingFang SC","Microsoft YaHei",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .page{
+      width:min(1180px, calc(100% - 28px));
+      margin:24px auto 40px;
+    }
+    h1{font-size:26px;margin:0 0 8px}
+    .subtitle{color:var(--muted);margin-bottom:18px;line-height:1.7}
+    .toolbar{
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+      margin:14px 0;
+    }
+    button{
+      appearance:none;border:1px solid var(--border);background:var(--panel);
+      color:var(--text);border-radius:12px;padding:10px 16px;font-size:15px;
+      cursor:pointer;
+    }
+    button:hover{border-color:#aeb8c8}
+    button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+    .badge{
+      display:inline-flex;align-items:center;border-radius:999px;
+      padding:8px 12px;background:var(--accent-soft);color:var(--accent);font-weight:700;
+    }
+    .callout{
+      background:var(--panel);border:1px solid var(--border);border-radius:16px;
+      padding:14px 16px;box-shadow:var(--shadow);margin-bottom:18px;
+    }
+    .callout strong{display:block;margin-bottom:4px}
+    .small{font-size:14px;color:var(--muted)}
+    .stage{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      overflow:auto;
+    }
+    .flow{
+      min-width:860px;
+      display:grid;
+      grid-template-columns:128px repeat(3, 1fr);
+      grid-template-rows:52px 36px repeat(3, 138px);
+      gap:14px;
+      position:relative;
+    }
+    .top-title{
+      grid-column:2/5;
+      display:flex;justify-content:center;align-items:center;
+      color:var(--muted);font-weight:700;
+    }
+    .col-head,.row-head{
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted);font-size:14px;font-weight:700;
+    }
+    .top-port,.row-port{
+      display:flex;align-items:center;justify-content:center;position:relative;
+    }
+    .top-port::after{
+      content:"↓";
+      position:absolute;bottom:-16px;
+      color:var(--muted);font-size:25px;font-weight:700;
+    }
+    .row-port::after{
+      content:"→";
+      position:absolute;right:-17px;
+      color:var(--muted);font-size:25px;font-weight:700;
+    }
+    .pe{
+      border:2px solid var(--border);
+      border-radius:16px;
+      padding:12px;
+      background:#fbfcfe;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      min-height:138px;
+      transition:.22s ease;
+    }
+    .pe::after{
+      content:"→";
+      position:absolute;
+      right:-19px; top:50%; transform:translateY(-50%);
+      color:#aab3c2;font-size:22px;font-weight:700;
+    }
+    .pe.lastcol::after{content:""}
+    .pe.active{
+      border-color:var(--accent);
+      background:var(--accent-soft);
+      transform:translateY(-2px);
+    }
+    .pe.done{
+      border-color:#99d9c3;
+      background:var(--green-soft);
+    }
+    .pe-name{font-weight:800;font-size:17px;margin-bottom:3px}
+    .target{color:var(--muted);font-size:13px;margin-bottom:8px}
+    .op{font-weight:800;font-size:16px}
+    .acc{font-size:13px;color:var(--muted);line-height:1.45;margin-top:6px}
+    .token{
+      display:inline-flex;
+      align-items:center;justify-content:center;
+      min-width:58px;height:36px;padding:0 12px;
+      border-radius:999px;font-weight:800;
+      border:1px solid var(--border);
+      background:var(--orange-soft);
+      color:var(--orange);
+      animation:pop .35s ease;
+    }
+    .token.b{
+      background:var(--green-soft);
+      color:var(--green);
+    }
+    @keyframes pop{
+      0%{opacity:.25;transform:scale(.86)}
+      70%{opacity:1;transform:scale(1.07)}
+      100%{transform:scale(1)}
+    }
+    .legend{
+      display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;color:var(--muted);font-size:14px
+    }
+    .legend span{display:flex;align-items:center;gap:6px}
+    .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+    .dot.a{background:var(--orange)}
+    .dot.b{background:var(--green)}
+    .dot.pea{background:var(--accent)}
+    .metrics{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px
+    }
+    .metric{
+      border:1px solid var(--border);border-radius:14px;background:var(--panel);padding:14px;
+    }
+    .metric-label{font-size:13px;color:var(--muted);margin-bottom:4px}
+    .metric-value{font-size:21px;font-weight:800}
+    .detail{
+      margin-top:18px;background:var(--panel);border:1px solid var(--border);
+      border-radius:18px;padding:18px;box-shadow:var(--shadow)
+    }
+    .detail h2{font-size:18px;margin:0 0 12px}
+    .pe-list{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    }
+    .pe-card{
+      border:1px solid var(--border);border-radius:13px;padding:12px;background:#fbfcfe
+    }
+    .pe-card b{display:block;margin-bottom:4px}
+    .equation{font-size:13px;color:var(--muted);line-height:1.5}
+    @media(max-width:760px){
+      .metrics,.pe-list{grid-template-columns:1fr}
+      h1{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>3×3 Systolic Array：数据如何进入 PE</h1>
+    <div class="subtitle">
+      A 从左侧进入并向右传播，B 从顶部进入并向下传播。每个 PE 固定负责一个 C[i,j]，
+      当正确的 a[i,k] 与 b[k,j] 同拍相遇时执行一次 MAC。
+    </div>
+
+    <div class="toolbar">
+      <button id="prev">← 上一拍</button>
+      <button id="play">▶ 自动播放</button>
+      <button id="next" class="primary">下一拍 →</button>
+      <button id="reset">回到 Cycle 1</button>
+      <span id="cycleBadge" class="badge">Cycle 1 / 7</span>
+    </div>
+
+    <div class="callout">
+      <strong id="cycleText"></strong>
+      <div class="small" id="cycleExplain"></div>
+    </div>
+
+    <section class="stage">
+      <div class="flow">
+        <div></div>
+        <div class="top-title">B 从顶部进入 ↓</div>
+
+        <div></div>
+        <div class="top-port" data-col="1"></div>
+        <div class="top-port" data-col="2"></div>
+        <div class="top-port" data-col="3"></div>
+
+        <div class="row-head">A row 1 →</div>
+        <div class="pe" data-i="1" data-j="1"></div>
+        <div class="pe" data-i="1" data-j="2"></div>
+        <div class="pe lastcol" data-i="1" data-j="3"></div>
+
+        <div class="row-port" data-row="2"></div>
+        <div class="pe" data-i="2" data-j="1"></div>
+        <div class="pe" data-i="2" data-j="2"></div>
+        <div class="pe lastcol" data-i="2" data-j="3"></div>
+
+        <div class="row-port" data-row="3"></div>
+        <div class="pe" data-i="3" data-j="1"></div>
+        <div class="pe" data-i="3" data-j="2"></div>
+        <div class="pe lastcol" data-i="3" data-j="3"></div>
+      </div>
+
+      <div class="legend">
+        <span><i class="dot a"></i>A 数据</span>
+        <span><i class="dot b"></i>B 数据</span>
+        <span><i class="dot pea"></i>本拍正在计算的 PE</span>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric">
+        <div class="metric-label">当前从左侧新进入的 A</div>
+        <div id="ain" class="metric-value">a11</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">当前从顶部新进入的 B</div>
+        <div id="bin" class="metric-value">b11</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">本拍正在计算的 PE 数量</div>
+        <div id="activeCount" class="metric-value">1</div>
+      </div>
+    </section>
+
+    <section class="detail">
+      <h2>每个 PE 固定计算什么</h2>
+      <div class="pe-list" id="peList"></div>
+    </section>
+  </main>
+
+  <script>
+    const expr = {
+      "11":"a11×b11 + a12×b21 + a13×b31",
+      "12":"a11×b12 + a12×b22 + a13×b32",
+      "13":"a11×b13 + a12×b23 + a13×b33",
+      "21":"a21×b11 + a22×b21 + a23×b31",
+      "22":"a21×b12 + a22×b22 + a23×b32",
+      "23":"a21×b13 + a22×b23 + a23×b33",
+      "31":"a31×b11 + a32×b21 + a33×b31",
+      "32":"a31×b12 + a32×b22 + a33×b32",
+      "33":"a31×b13 + a32×b23 + a33×b33"
+    };
+
+    const cycleDescriptions = {
+      1:"只有 a11 和 b11 在 PE11 相遇，PE11 开始计算 C11。",
+      2:"a11 已经向右到了 PE12，b11 已经向下到了 PE21；同时 PE11 收到新的 a12 和 b21。",
+      3:"第一条计算波前铺开：PE11 完成 C11，a11 已到 PE13，b11 已到 PE31。",
+      4:"计算波继续向右下传播；PE12 与 PE21 在这一拍完成。",
+      5:"阵列中心与右上、左下形成新的波前；PE13、PE22、PE31 完成。",
+      6:"只剩靠近右下角的 PE23、PE32、PE33 继续工作。",
+      7:"最后 a33 和 b33 在 PE33 相遇，C33 完成，整个 3×3 矩阵乘结束。"
+    };
+
+    let cycle = 1;
+    let timer = null;
+
+    function inputA(row, t){
+      const k = t - row + 1;
+      return (k >= 1 && k <= 3) ? `a${row}${k}` : null;
+    }
+
+    function inputB(col, t){
+      const k = t - col + 1;
+      return (k >= 1 && k <= 3) ? `b${k}${col}` : null;
+    }
+
+    function renderRowPorts(){
+      const row1 = document.querySelector(".row-head");
+      const a1 = inputA(1, cycle);
+      row1.innerHTML = a1
+        ? `A row 1 → <span class="token">${a1}</span>`
+        : `A row 1 →`;
+
+      document.querySelectorAll(".row-port").forEach(el=>{
+        const i = Number(el.dataset.row);
+        const token = inputA(i, cycle);
+        el.innerHTML = token ? `<span class="token">${token}</span>` : "";
+      });
+    }
+
+    function renderTopPorts(){
+      document.querySelectorAll(".top-port").forEach(el=>{
+        const j = Number(el.dataset.col);
+        const token = inputB(j, cycle);
+        el.innerHTML = token ? `<span class="token b">${token}</span>` : "";
+      });
+    }
+
+    function renderPEs(){
+      let active = 0;
+
+      document.querySelectorAll(".pe").forEach(el=>{
+        const i = Number(el.dataset.i);
+        const j = Number(el.dataset.j);
+        const k = cycle - i - j + 2;
+        const key = `${i}${j}`;
+
+        el.classList.remove("active","done");
+
+        if(k >= 1 && k <= 3){
+          active++;
+          el.classList.add("active");
+
+          const partial = [];
+          for(let x=1; x<=k; x++){
+            partial.push(`a${i}${x}×b${x}${j}`);
+          }
+
+          el.innerHTML = `
+            <div class="pe-name">PE${i}${j}</div>
+            <div class="target">固定负责 C${i}${j}</div>
+            <div class="op">本拍：a${i}${k} × b${k}${j}</div>
+            <div class="acc">acc = ${partial.join(" + ")}</div>
+          `;
+        } else {
+          const finishedCycle = i + j + 1;
+          const done = cycle > finishedCycle;
+
+          if(done) el.classList.add("done");
+
+          el.innerHTML = `
+            <div class="pe-name">PE${i}${j}</div>
+            <div class="target">固定负责 C${i}${j}</div>
+            <div class="op">${done ? "✓ C"+i+j+" 已完成" : "等待数据"}</div>
+            <div class="acc">${expr[key]}</div>
+          `;
+        }
+      });
+
+      document.getElementById("activeCount").textContent = active;
+    }
+
+    function renderMetrics(){
+      const as = [1,2,3].map(i=>inputA(i,cycle)).filter(Boolean);
+      const bs = [1,2,3].map(j=>inputB(j,cycle)).filter(Boolean);
+
+      document.getElementById("ain").textContent = as.length ? as.join(", ") : "无";
+      document.getElementById("bin").textContent = bs.length ? bs.join(", ") : "无";
+    }
+
+    function render(){
+      document.getElementById("cycleBadge").textContent = `Cycle ${cycle} / 7`;
+      document.getElementById("cycleText").textContent = `第 ${cycle} 拍`;
+      document.getElementById("cycleExplain").textContent = cycleDescriptions[cycle];
+
+      renderRowPorts();
+      renderTopPorts();
+      renderPEs();
+      renderMetrics();
+    }
+
+    function stop(){
+      if(timer){
+        clearInterval(timer);
+        timer = null;
+      }
+      document.getElementById("play").textContent = "▶ 自动播放";
+    }
+
+    document.getElementById("prev").addEventListener("click",()=>{
+      stop();
+      cycle = Math.max(1, cycle-1);
+      render();
+    });
+
+    document.getElementById("next").addEventListener("click",()=>{
+      stop();
+      cycle = Math.min(7, cycle+1);
+      render();
+    });
+
+    document.getElementById("reset").addEventListener("click",()=>{
+      stop();
+      cycle = 1;
+      render();
+    });
+
+    document.getElementById("play").addEventListener("click",()=>{
+      if(timer){
+        stop();
+        return;
+      }
+
+      document.getElementById("play").textContent = "⏸ 暂停";
+      timer = setInterval(()=>{
+        if(cycle === 7){
+          cycle = 1;
+        }else{
+          cycle++;
+        }
+        render();
+      }, 1150);
+    });
+
+    document.addEventListener("keydown",(e)=>{
+      if(e.key === "ArrowLeft"){
+        stop();
+        cycle = Math.max(1, cycle-1);
+        render();
+      }
+      if(e.key === "ArrowRight"){
+        stop();
+        cycle = Math.min(7, cycle+1);
+        render();
+      }
+      if(e.code === "Space"){
+        e.preventDefault();
+        document.getElementById("play").click();
+      }
+    });
+
+    const peList = document.getElementById("peList");
+    for(let i=1;i<=3;i++){
+      for(let j=1;j<=3;j++){
+        const d = document.createElement("div");
+        d.className = "pe-card";
+        d.innerHTML = `
+          <b>PE${i}${j} → C${i}${j}</b>
+          <div class="equation">${expr[`${i}${j}`]}</div>
+        `;
+        peList.appendChild(d);
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>

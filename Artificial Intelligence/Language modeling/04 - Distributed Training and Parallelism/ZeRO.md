@@ -2,10 +2,10 @@
 
 ![memory overhead issue of DP.png](<../../attachments/memory%20overhead%20issue%20of%20DP.png>)
 
-[Data parallelism](<./Data%20parallelism.md>) 中 Memory overhead 的问题，主要集中在 [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) states 占用了大部分显存
+[Data parallelism](<Data%20parallelism.md>) 中 Memory overhead 的问题，主要集中在 [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) states 占用了大部分显存
 
 >**Important** — Core idea
->**Split up the expensive states，并利用 [All-reduce Decomposition](<./All-reduce%20Decomposition.md>) 在 replicated 与 sharded results 之间转换。**
+>**Split up the expensive states，并利用 [All-reduce Decomposition](<All-reduce%20Decomposition.md>) 在 replicated 与 sharded results 之间转换。**
 
 ZeRO 分为3个stages
 ```
@@ -14,7 +14,7 @@ ZeRO-2：再切 gradients
 ZeRO-3 / FSDP：再切 parameters
 ```
 
-和 Naïve [Data parallelism](<./Data%20parallelism.md>) 放在一起，这几个 memory 可以极简地写成：
+和 Naïve [Data parallelism](<Data%20parallelism.md>) 放在一起，这几个 memory 可以极简地写成：
 
 ```math
  \begin{aligned} \text{Naïve DP} &: P+G+O \\ \text{ZeRO-1} &: P+G+\frac{O}{M} \\ \text{ZeRO-2} &: P+\frac{G}{M}+\frac{O}{M}\\ \text{ZeRO-3} &:\frac{P}{M} +\frac{G}{M}+\frac{O}{M}\end{aligned}
@@ -30,10 +30,10 @@ ZeRO-3 / FSDP：再切 parameters
 #### How it works
 
 **Step 1.**  Everyone has the parameters + gradients
-**Step 2.** 对 gradients 做 [Reduce-Scatter](<./Reduce-Scatter.md>)，让每个 ranks 拿到自己算 optimizer state 需要的那份 gradients
+**Step 2.** 对 gradients 做 [Reduce-Scatter](<Reduce-Scatter.md>)，让每个 ranks 拿到自己算 optimizer state 需要的那份 gradients
 **Step 3.** Each machine updates their param using their gradient + state.
-**Step 4.** [All-Gather](<./All-Gather.md>) parameters
-#### Compare to [Data parallelism](<./Data%20parallelism.md>) its a free memory saving
+**Step 4.** [All-Gather](<All-Gather.md>) parameters
+#### Compare to [Data parallelism](<Data%20parallelism.md>) its a free memory saving
 
 设完整 gradient/parameter tensor 的大小都是 \(P\)。
 
@@ -73,11 +73,11 @@ All-Gather updated parameters  ≈ P
 #### How it works
 
 **Step 1.** 每个 rank layer by layer 执行 backward。
-	**Step 1a.** 某层的 local gradients 一生成，就立即进行 [Reduce-Scatter](<./Reduce-Scatter.md>)。
+	**Step 1a.** 某层的 local gradients 一生成，就立即进行 [Reduce-Scatter](<Reduce-Scatter.md>)。
 	![Reduce.png](<../../attachments/Reduce.png>)
 	**Step 1b.** Reduce-Scatter 完成后，释放该层未分片的 local gradient buffer；每个 rank 只长期保留自己负责的 global gradient shard。
 **Step 2.** 每个 rank 使用自己负责的 gradient shard 和 optimizer state，更新对应的 parameter shard。
-**Step 3.** [All-Gather](<./All-Gather.md>) parameters
+**Step 3.** [All-Gather](<All-Gather.md>) parameters
 
 最后没有任何 rank 保存完整 gradient：
 
@@ -116,7 +116,7 @@ Compared to stage 2 shard parameters
 | ZeRO-3 | \(1/M\) parameters，\(1/M\) gradients，\(1/M\) optimizer states |
 
 >**Question** — 如果每张 GPU 只有一部份 weights，它怎么完成这一层的 forward?
->Send and request parameters on demand while stepping through the compute graph. 计算前临时 [All-Gather](<./All-Gather.md>)
+>Send and request parameters on demand while stepping through the compute graph. 计算前临时 [All-Gather](<All-Gather.md>)
 >
 
 #### How it works? （用一个简单的 Linear 来举例）
@@ -169,7 +169,7 @@ Backward 又需要 $W$，例如：
 
  #### Cost
 
-从上面的例子可以看出来，Communication Cost - 2 $\times$ [All-Gather](<./All-Gather.md>)，1 $\times$ [Reduce-Scatter](<./Reduce-Scatter.md>)
+从上面的例子可以看出来，Communication Cost - 2 $\times$ [All-Gather](<All-Gather.md>)，1 $\times$ [Reduce-Scatter](<Reduce-Scatter.md>)
 
 ```
 Forward parameters All-Gather   ≈ P

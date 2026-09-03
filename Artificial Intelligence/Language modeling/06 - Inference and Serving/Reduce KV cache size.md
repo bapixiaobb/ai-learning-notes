@@ -1,6 +1,6 @@
 #AI #LanguageModeling
 
-[Inference](<Inference.md>) 是 [memory bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>) 的，其中 [KV Cache](<KV%20Cache.md>) 占大头，所以保证精度的前提下，降低 KV cache 的 size 是一大优化
+[Inference](<Inference.md>) 是 [memory bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>) 的，其中 [KV Cache](<KV%20Cache.md>) 占大头，所以保证精度的前提下，降低 KV cache 的 size 是一大优化
 
 ## [Grouped-Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>)
 

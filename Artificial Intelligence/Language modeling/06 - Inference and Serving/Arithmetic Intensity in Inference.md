@@ -1,6 +1,6 @@
 #AI #LanguageModeling
 
-Inference 中的 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 要分 [Prefill](<./Prefill.md>) 和 [Generation](<./Generation.md>) 还有 [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>) 和 [Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>) 来看
+Inference 中的 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 要分 [Prefill](<Prefill.md>) 和 [Generation](<Generation.md>) 还有 [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>) 和 [Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>) 来看
 
 输入为：
 
@@ -30,11 +30,11 @@ I\approx\frac{3BTDF}{3DF}
 ```math
 \boxed{  I = \frac{ST} {S+T}  }
 ```
-在 [Prefill](<./Prefill.md>) 阶段 $T=S$
+在 [Prefill](<Prefill.md>) 阶段 $T=S$
 ```math
 I=S/2
 ```
-在 [Generation](<./Generation.md>) 阶段 $T=1$
+在 [Generation](<Generation.md>) 阶段 $T=1$
 ```math
 I=\frac{S}{S+1}<1
 ```

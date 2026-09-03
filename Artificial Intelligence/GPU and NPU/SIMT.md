@@ -3,11 +3,12 @@
 >**Question** — What is SIMT
 >**Single Instruction, Multiple Threads**
 
+ **SIMT 是 [GPU](<GPU.md>) 的 Execution Model**
 ## Core
 
 SIMT 的核心是：一个 warp 里的多个 thread，一起执行同一条 instruction，但处理不同的数据
 
-[GPU](<./GPU.md>) 上这么多 thread，到底是怎么一起执行的？
+[GPU](<GPU.md>) 上这么多 thread，到底是怎么一起执行的？
 
 >**Example**
 >```
@@ -37,8 +38,8 @@ kernel 要尽量写成“很多 thread 做同一种事”，GPU 才舒服。
 
 
 下面这张图可以说明，如果走分支的话，可能会出现空块，会导致串行，我们尽量要让它并行
-![GPU control divergence.png](<../../attachments/GPU%20control%20divergence.png>)
-所以 [GPU](<./GPU.md>) 会有比较特殊的编码形式就是 mask，用 mask 做 matrix multiplication，比选择 conditional 的编码形式要对 GPU 更友好。
+![GPU control divergence](<../attachments/GPU%20control%20divergence.png>)
+所以 [GPU](<GPU.md>) 会有比较特殊的编码形式就是 mask，用 mask 做 matrix multiplication，比选择 conditional 的编码形式要对 GPU 更友好。
 
 ## Use more Warp
 

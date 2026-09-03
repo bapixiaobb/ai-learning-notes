@@ -1,6 +1,6 @@
 #AI #LanguageModeling
 
-是 Inference 里 [Prefill](<./Prefill.md>) 之后逐步产生新 tokens 的过程
+是 Inference 里 [Prefill](<Prefill.md>) 之后逐步产生新 tokens 的过程
 
 ## Generation 的起点
 假设 prompt 是：
@@ -59,4 +59,4 @@ p(x_7\mid x_1,\dots,x_6)
 
 **arithmetic intensity 很糟糕**
 
-推导见 [Arithmetic Intensity in Inference](<./Arithmetic%20Intensity%20in%20Inference.md>)
+推导见 [Arithmetic Intensity in Inference](<Arithmetic%20Intensity%20in%20Inference.md>)

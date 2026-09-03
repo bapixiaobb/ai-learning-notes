@@ -1,4 +1,4 @@
->**Note** — Triton 是一种用于编写 [GPU](<./GPU.md>) kernel 的语言和编译器
+>**Note** — Triton 是一种用于编写 [GPU](<../../GPU%20and%20NPU/GPU.md>) kernel 的语言和编译器
 >它允许程序员从 block / tile 的角度描述计算，再由 compiler 将其映射到具体的 threads、warps、registers 和 GPU instructions
 
 

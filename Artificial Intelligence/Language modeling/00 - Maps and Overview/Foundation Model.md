@@ -22,13 +22,13 @@
 
 ## 常见例子
 
-- [Large Language Model (LLM)](<./Large%20Language%20Model%20(LLM).md>)
+- [Large Language Model (LLM)](<Large%20Language%20Model%20(LLM).md>)
 - Vision foundation models
 - Multimodal foundation models
 - Speech foundation models
 
 >**Note**
-> 在 NLP 中，现代 [Large Language Model (LLM)](<./Large%20Language%20Model%20(LLM).md>) 通常就是一种 foundation model，例如 GPT、LLaMA、Qwen 等。
+> 在 NLP 中，现代 [Large Language Model (LLM)](<Large%20Language%20Model%20(LLM).md>) 通常就是一种 foundation model，例如 GPT、LLaMA、Qwen 等。
 
 ## 训练流程
 
@@ -68,7 +68,7 @@ p_\theta(x_t \mid x_{<t})
 ## 与 LLM 的关系
 
 >**Note**
-> [Large Language Model (LLM)](<./Large%20Language%20Model%20(LLM).md>) 是 foundation model 在自然语言领域的典型形式。
+> [Large Language Model (LLM)](<Large%20Language%20Model%20(LLM).md>) 是 foundation model 在自然语言领域的典型形式。
 >
 > 但 foundation model 不只包括 LLM，也可以包括 vision、speech、multimodal 等领域的大规模预训练模型。
 
@@ -85,7 +85,7 @@ p_\theta(x_t \mid x_{<t})
 ## 与 Language Modeling 的关系
 
 >**Note**
-> 在 NLP 中，许多 foundation models 是通过 [Language Modeling](<./Language%20Modeling.md>) 任务预训练出来的。
+> 在 NLP 中，许多 foundation models 是通过 [Language Modeling](<Language%20Modeling.md>) 任务预训练出来的。
 >
 > Language modeling 提供训练目标，foundation model 是训练后得到的通用模型。
 
@@ -112,8 +112,8 @@ p_\theta(x_t \mid x_{<t})
 
 ## Related
 
-- [Large Language Model (LLM)](<./Large%20Language%20Model%20(LLM).md>)
-- [Language Modeling](<./Language%20Modeling.md>)
+- [Large Language Model (LLM)](<Large%20Language%20Model%20(LLM).md>)
+- [Language Modeling](<Language%20Modeling.md>)
 - [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - Pretraining
 - Fine-tuning

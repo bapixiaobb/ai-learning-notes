@@ -1,6 +1,6 @@
 #AI #LanguageModeling #GPU
 
-这是衡量 [GPU](<./GPU.md>) performance 的一个指标
+这是衡量 [GPU](<GPU.md>) performance 的一个指标
 
 >**Question** — 一个 SM 资源有限。每个 thread 都要用一些 registers。但是如果每个 thread 用太多的 registers，那一个 SM 同时能运行的 threads / warps 就变少
 

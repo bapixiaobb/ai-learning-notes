@@ -28,9 +28,9 @@ Transformer 的主要计算来自 matrix multiplication，例如 attention proje
 \text{Training FLOPs} \approx 6ND
 ```
 
-其中 $N$ 是 parameters 数量，$D$ 是训练过的 tokens 数量。更详细的来源见 [Training Compute - 6ND](<./Training%20Compute%20-%206ND.md>)。
+其中 $N$ 是 parameters 数量，$D$ 是训练过的 tokens 数量。更详细的来源见 [Training Compute - 6ND](<Training%20Compute%20-%206ND.md>)。
 
-这个数字告诉我们总工作量，但不能直接告诉我们训练会有多快。真实速度还取决于 [GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>) 的 throughput，以及 compute units 是否在等待数据。
+这个数字告诉我们总工作量，但不能直接告诉我们训练会有多快。真实速度还取决于 [GPU](<../../GPU%20and%20NPU/GPU.md>) 的 throughput，以及 compute units 是否在等待数据。
 
 # 2. Memory：要存什么
 
@@ -48,7 +48,7 @@ Transformer 的主要计算来自 matrix multiplication，例如 attention proje
 如果放不下，可以改变执行方式：
 
 - low precision：让每个 tensor 占更少 bytes；
-- [Recomputation](<./Recomputation.md>)：少存 activations，backward 时重新计算；
+- [Recomputation](<Recomputation.md>)：少存 activations，backward 时重新计算；
 - ZeRO / FSDP：把 model states 分到多个 devices；
 - tensor / pipeline parallelism：把模型本身拆开。
 
@@ -60,14 +60,14 @@ Transformer 的主要计算来自 matrix multiplication，例如 attention proje
 
     HBM ↔ shared memory / registers ↔ compute
 
-如果 bytes 搬得很多、计算却很少，operator 就可能是 [GPU Memory Bound](<../03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>)。[Tiling](<../03%20-%20GPU%20and%20Systems/Tiling.md>)、[Operator fusion](<../03%20-%20GPU%20and%20Systems/Operator%20fusion.md>) 和 [Memory Coalescing](<../03%20-%20GPU%20and%20Systems/Memory%20Coalescing.md>) 都是在改善这笔账。
+如果 bytes 搬得很多、计算却很少，operator 就可能是 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)。[Tiling](<../03%20-%20System/Tiling.md>)、[Operator fusion](<../../GPU%20and%20NPU/Operator%20fusion.md>) 和 [Memory Coalescing](<../../GPU%20and%20NPU/Memory%20Coalescing.md>) 都是在改善这笔账。
 
 多张 GPU 之间：
 
     GPU ↔ GPU
     node ↔ node
 
-这时还要计算 communication volume，并结合 [GPU Communication Topology](<../03%20-%20GPU%20and%20Systems/GPU%20Communication%20Topology.md>) 判断传输速度。
+这时还要计算 communication volume，并结合 [GPU Communication Topology](<../../GPU%20and%20NPU/GPU%20Communication%20Topology.md>) 判断传输速度。
 
 # Resource Accounting 如何导向 Parallelism
 
@@ -100,11 +100,11 @@ Parallelism 决定把什么拆开：
 ---
 # 🔗
 
-[Systems for Language Models](<../03%20-%20GPU%20and%20Systems/Systems%20for%20Language%20Models.md>)
+[Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
-[Training Recipe](<./Training%20Recipe.md>)
-[GPU](<../03%20-%20GPU%20and%20Systems/GPU.md>)
+[Training Recipe](<Training%20Recipe.md>)
+[GPU](<../../GPU%20and%20NPU/GPU.md>)
 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)
-[FLOPs](<../03%20-%20GPU%20and%20Systems/FLOPs.md>)
-[Model FLOPs Utilization](<../03%20-%20GPU%20and%20Systems/Model%20FLOPs%20Utilization.md>)
-[Scaling Law](<./Scaling%20Law.md>)
+[FLOPs](<../03%20-%20System/FLOPs.md>)
+[Model FLOPs Utilization](<../03%20-%20System/Model%20FLOPs%20Utilization.md>)
+[Scaling Law](<Scaling%20Law.md>)

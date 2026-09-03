@@ -22,7 +22,7 @@ DeepSeek v2: reduce $N*H = 16384$ to $C = 512$
 ⚠️ MLA 和 original [RoPE](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>) 不协同，所以用 MLA 的时候要给 RoPE 加另外的 $64$ dimensions （decoupled RoPE）
 
 #### [Inference](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/Inference.md>) 优化
-这个方法和 [GQA](<Grouped-Query%20Attention.md>) 一样，减少了 [memory](<../../Language%20modeling/03%20-%20GPU%20and%20Systems/GPU%20Memory%20Bound.md>) -> [Latency](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/Latency.md>)/[Throughput](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/Throughput.md>) improvement
+这个方法和 [GQA](<Grouped-Query%20Attention.md>) 一样，减少了 [memory](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>) -> [Latency](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/Latency.md>)/[Throughput](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/Throughput.md>) improvement
 
 论文里论证了
 - MHA is better than GQA (though more expensive)
