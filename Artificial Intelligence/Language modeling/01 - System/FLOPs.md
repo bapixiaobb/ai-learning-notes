@@ -88,11 +88,6 @@ FLOPs。
 - FLOP per Second
 - Memory Bandwidth
 - [Model FLOPs Utilization](<Model%20FLOPs%20Utilization.md>)
-- parallelism
+- [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)
 - communication overhead
 - kernel efficiency
-
-## Related
-- [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
-- [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-- [Model FLOPs Utilization](<Model%20FLOPs%20Utilization.md>)

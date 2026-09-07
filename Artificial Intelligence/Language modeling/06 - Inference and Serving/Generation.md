@@ -17,7 +17,7 @@ logits: [batch, 4, vocab_size]
 ```math
 p(x_5\mid x_1,x_2,x_3,x_4)
 ```
-然后通过 greedy、[temperature](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md#temperature-scaling>)、[top-p](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md#top-p-sampling>) 等 decoding strategy，选择或采样：
+然后通过 greedy、[temperature](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md#temperature-scaling>)、[top-p](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md#top-p-sampling>) 等 decoding strategy，选择或采样：
 ```math
 x_5
 ```

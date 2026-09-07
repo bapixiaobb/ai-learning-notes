@@ -4,7 +4,7 @@
 
 ![gmqa](<../../attachments/gmqa.png>)
 👈 是 [Multi-Head Attention](<Multi-Head%20Attention.md>) 有完整的 $H$ 个 [query, key and value heads](<Query%20Key%20Value.md>)
-👉 是 Multi-Query Attention 有 $H$ 个 query heads 但是只有 1 个 key 和 value head
+👉 是 [Multi-Query Attention](<Multi-Query%20Attention.md>) 有 $H$ 个 query heads 但是只有 1 个 key 和 value head
 👆是 Grouped-Query Attention 有 $N$ query heads, 但是 $K$ key 和 value heads (interacting with N/K query heads)
 
 - Multi-headed attention (MHA): K=N
@@ -18,4 +18,4 @@
 Why does GQA improve latency and throughput?
 GQA reduces the KV cache by a factor of N/K.
 
-> **Important** — 论文里同样验证了，accuracy 没有降 （对特定模型，有些模型会有影响）
+>**Important** — 论文里同样验证了，accuracy 没有降 （对特定模型，有些模型会有影响）

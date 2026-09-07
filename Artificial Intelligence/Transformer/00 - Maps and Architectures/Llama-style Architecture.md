@@ -8,13 +8,11 @@ Llama-style Architecture 指 modern decoder-only language model 中非常常见�
 >**Note**
 >Llama-style Architecture 可以理解为：
 >
->
-```math
+>```math
 >\text{Decoder-Only Transformer}
 >+
 >\text{modern architecture choices}
->
-```
+>```
 >
 >这些 choices 通常包括：
 >
@@ -23,7 +21,7 @@ Llama-style Architecture 指 modern decoder-only language model 中非常常见�
 >- [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
 >- [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 >- [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>)
->- Grouped Query Attention / Multi-Query Attention
+>- [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) / [Multi-Query Attention](<../02%20-%20Attention/Multi-Query%20Attention.md>)
 >- Language Modeling Head
 
 它的核心仍然是 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)：
@@ -41,21 +39,16 @@ LLaMA 系列模型不是第一个 decoder-only Transformer，但它很好地代�
 
 在很多现代 LLM 中，经常看到类似组合：
 
-| Design Area | Common Llama-style Choice |
-|---|---|
-| overall structure | [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) |
-| attention | [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>) |
-| normalization | [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
-| norm placement | [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
-| position information | [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>) |
-| MLP activation | [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>) |
-| attention variant | Grouped Query Attention / Multi-Query Attention |
-| objective | Next Token Prediction |
-
->**Important**
->“Llama-style” 不是一个严格数学定义，而是一种 modern decoder-only LLM 的 architecture shorthand。
->
->它强调的是一组常见 design choices 的组合，而不是某一个单独模块。
+| Design Area          | Common Llama-style Choice                               |
+| -------------------- | ------------------------------------------------------- |
+| overall structure    | [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)                            |
+| attention            | [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)                                    |
+| normalization        | [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)                                             |
+| norm placement       | [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>)                                |
+| position information | [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)                           |
+| MLP activation       | [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>)                                              |
+| attention variant    | [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) / [Multi-Query Attention](<../02%20-%20Attention/Multi-Query%20Attention.md>) |
+| objective            | [Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)                               |
 
 ## 🧱 Relation to Original Transformer
 
@@ -165,7 +158,7 @@ h_{>t}
 这个约束通过 [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>) 实现。
 
 >**Note**
->Decoder-only structure 和 Next Token Prediction 天然匹配。
+>Decoder-only structure 和 [Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 天然匹配。
 >
 >模型在位置 $t$ 形成 prefix representation，然后用这个 representation 预测下一个 token。
 
@@ -196,7 +189,7 @@ M
 >
 >在 causal setting 下，每个 token 只能从 prefix 中收集信息，因此不会偷看未来 token。
 
-在现代 LLM 中，attention 还经常和 [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)、Grouped Query Attention、KV Cache 结合。
+在现代 LLM 中，attention 还经常和 [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)、[Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>)、[KV Cache](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>) 结合。
 
 ## 📍 Rotary Position Embedding
 
@@ -225,7 +218,7 @@ RMSNorm 的直觉是：
 >**Note**
 >RMSNorm 是 normalization choice。
 >
->它属于 [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)，因为它改变了每个 block 内部 hidden states 的处理方式。
+>它属于 [Model Architecture](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)，因为它改变了每个 block 内部 hidden states 的处理方式。
 
 现代 LLM 常用 RMSNorm 的原因包括：
 
@@ -321,17 +314,17 @@ Llama-style architecture 中的 attention variant 可能不是最原始的 [Mult
 
 常见 choices 包括：
 
-| Variant | Idea |
-|---|---|
-| [Multi-Head Attention](<../02%20-%20Attention/Multi-Head%20Attention.md>) | 每个 query head 有自己的 key/value head |
-| Multi-Query Attention | 多个 query heads 共享一组 key/value |
-| Grouped Query Attention | 多个 query heads 分组共享 key/value |
+| Variant                     | Idea                              |
+| --------------------------- | --------------------------------- |
+| [Multi-Head Attention](<../02%20-%20Attention/Multi-Head%20Attention.md>)    | 每个 query head 有自己的 key/value head |
+| [Multi-Query Attention](<../02%20-%20Attention/Multi-Query%20Attention.md>)   | 多个 query heads 共享一组 key/value     |
+| [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) | 多个 query heads 分组共享 key/value     |
 
 >**Note**
->Grouped Query Attention 经常用于 modern LLM，因为它在保留多头 query 表达能力的同时，可以减少 KV cache 的 memory cost。
+>[Grouped Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) 经常用于 modern LLM，因为它在保留多头 query 表达能力的同时，可以减少 KV cache 的 memory cost。
 
 这里可以看到 architecture 和 systems 的联系：
-GQA 是 architecture choice，但它会直接影响 KV Cache 和 Inference Cost。
+GQA 是 architecture choice，但它会直接影响 [KV Cache](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>) 和 Inference Cost。
 
 ## 🧱 Llama-style Transformer Block
 
@@ -443,7 +436,7 @@ Llama-style architecture 描述的是模型结构，不是训练方案。
 >**Note**
 >两个模型可以采用相似的 Llama-style architecture，但因为 training data、training tokens、[Optimizer](<../05%20-%20Training/Optimizer.md>)、[Learning Rate Schedule](<../05%20-%20Training/Learning%20Rate%20Schedule.md>) 不同，最终能力差异很大。
 >
->因此比较 LLM 时，不能只看 architecture，也要看 [Training Recipe](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)。
+>因此比较 LLM 时，不能只看 architecture，也要看 [Training Recipe](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Training%20Recipe.md>)。
 
 ## 🧊 Systems Implications
 
@@ -452,7 +445,7 @@ Llama-style architecture 中的一些 choices 会直接影响 systems cost。
 例如：
 
 - context length 影响 attention cost；
-- GQA / MQA 影响 KV Cache memory；
+- GQA / MQA 影响 [KV Cache](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>) memory；
 - MLP hidden size 影响 FLOPs；
 - number of layers 影响 latency；
 - hidden dimension 影响 parameter count 和 [activation memory](<../../Neural%20Networks/Activations.md>)。
@@ -460,46 +453,21 @@ Llama-style architecture 中的一些 choices 会直接影响 systems cost。
 >**Note**
 >Architecture choices 不等于 systems optimization，但它们会决定很多 compute / memory bottlenecks。
 >
->这部分连接到 [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) 和 [Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)。
+>这部分连接到 [Systems for Language Models](<../../Language%20modeling/01%20-%20System/Systems%20for%20Language%20Models.md>) 和 [Resource Accounting](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)。
 
 ---
 
 >**Summary** — My Understanding
 >Llama-style Architecture 是 modern decoder-only LLM 的一种典型结构组合。
 >
->它的核心仍然是 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 和 Next Token Prediction，但在 block 内部采用了一组现代 architecture choices：
+>它的核心仍然是 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 和 [Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)，但在 block 内部采用了一组现代 architecture choices：
 >
 >- [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
 >- [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 >- [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>)
 >- [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)
->- Grouped Query Attention
+>- [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>)
 >
 >理解 Llama-style architecture 的关键是：
 >
->**它不是 Original Transformer 的完整 encoder-decoder 结构，而是 modern decoder-only language model 的常见范式。**
-
-## 🔗 Connections
-
-- [Language Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
-- [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
-- [Transformer](<Transformer.md>)
-- [Transformer Family](<Transformer%20Family.md>)
-- [Original Transformer](<Original%20Transformer.md>)
-- [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)
-- [Transformer Block](<Transformer%20Block.md>)
-- [Residual Stream](<../04%20-%20Normalization%20and%20Residuals/Residual%20Stream.md>)
-- [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>)
-- [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
-- [Layer Normalization](<../04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>)
-- [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)
-- Grouped Query Attention
-- Multi-Query Attention
-- KV Cache
-- Logits
-- [Softmax](<../02%20-%20Attention/Softmax.md>)
-- Next Token Prediction
-- [Training Recipe](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
-- [Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+>**它是 modern decoder-only language model 的常见范式。**

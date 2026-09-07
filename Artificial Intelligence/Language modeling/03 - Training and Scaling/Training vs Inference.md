@@ -6,7 +6,7 @@ Training vs Inference 描述的是同一个模型在两个不同运行阶段的�
 - **Inference**：固定已经训练好的参数，根据输入计算预测或生成输出。
 
 >**Important** — 概念边界
->Inference 是一个运行阶段；[Autoregressive Decoding](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) 是 decoder-only language model 在 inference 阶段生成文本的一种算法。
+>Inference 是一个运行阶段；[Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) 是 decoder-only language model 在 inference 阶段生成文本的一种算法。
 >
 >因此二者不是同义词：
 >
@@ -63,7 +63,7 @@ training tokens
 
 causal mask 保证每个位置只能使用 prefix，但由于整段正确 token 已经存在，Transformer 可以一次并行计算多个 positions 的 logits 和 loss。
 
-更详细的训练目标见 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)、[Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>) 和 [Training Recipe](<Training%20Recipe.md>)。
+更详细的训练目标见 [Next-token prediction](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)、[Cross Entropy Loss](<../02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>) 和 [Training Recipe](<Training%20Recipe.md>)。
 
 ### Inference
 
@@ -76,7 +76,7 @@ input / prompt
 
 Inference 本身不等于文本生成。例如，分类模型做一次 forward 得到类别预测也是 inference。
 
-对于 decoder-only language model 的文本生成，常见 output processing 是 [Autoregressive Decoding](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)：
+对于 decoder-only language model 的文本生成，常见 output processing 是 [Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)：
 
 ```text
 last-position logits
@@ -86,7 +86,7 @@ last-position logits
 → repeat
 ```
 
-temperature、top-k 和 top-p 等 token-selection 细节统一放在 [Autoregressive Decoding](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)，不在这里重复。
+temperature、top-k 和 top-p 等 token-selection 细节统一放在 [Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)，不在这里重复。
 
 ## Why Training Parallelizes Across Positions but Generation Does Not
 
@@ -175,19 +175,19 @@ temperature、top-k、top-p 决定如何选择 token；[KV Cache](<../06%20-%20I
 >**Summary**
 >Training 用 data、loss、backward 和 optimizer 学习参数；inference 固定参数并使用 model forward 得到预测或生成输出。
 >
->对于 decoder-only language model，[Autoregressive Decoding](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) 描述“如何逐 token 生成”，而 Inference 还要研究“这套生成过程如何高效执行和服务”。
+>对于 decoder-only language model，[Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) 描述“如何逐 token 生成”，而 Inference 还要研究“这套生成过程如何高效执行和服务”。
 
 ## Connections
 
 - [Forward Propagation](<../../Neural%20Networks/Forward%20Propagation.md>)
 - [Backpropagation](<../../Neural%20Networks/Backpropagation.md>)
 - [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)
-- [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
+- [Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)
 - [Training Recipe](<Training%20Recipe.md>)
-- [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
-- [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
-- [Autoregressive Decoding](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)
+- [Next-token prediction](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
+- [Cross Entropy Loss](<../02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
+- [Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)
 - Inference
 - [KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)
-- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
+- [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>)
 - [Resource Accounting](<Resource%20Accounting.md>)

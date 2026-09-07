@@ -19,4 +19,4 @@
 # 🔗
 [Large Language Model (LLM)](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)
 [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
-[Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
+[Model Architecture](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)

@@ -30,7 +30,7 @@ a=\sigma(z)
 
 ## Architecture 和 Runtime Graph
 
-[Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 决定 model forward 的基本计算结构，例如 attention、MLP、normalization 和 residual connection 怎样连接。
+[Model Architecture](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>) 决定 model forward 的基本计算结构，例如 attention、MLP、normalization 和 residual connection 怎样连接。
 
 实际某一次运行的 computation graph 由这次真正执行的 operations 构成。Training 会把 loss 接到 model output 后面；dropout、train / eval mode 或条件分支也可能让实际执行路径有所不同。
 
@@ -57,4 +57,4 @@ a=\sigma(z)
 - [Backpropagation](<Backpropagation.md>)
 - [Activations](<Activations.md>)
 - [Optimizer](<../Transformer/05%20-%20Training/Optimizer.md>)
-- [Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
+- [Model Architecture](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)

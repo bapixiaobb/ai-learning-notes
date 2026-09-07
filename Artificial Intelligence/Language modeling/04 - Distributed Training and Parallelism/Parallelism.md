@@ -5,7 +5,7 @@
 
 所以 Parallelism 的核心问题很简单：**多张 GPU 一起训练时，到底切什么。**
 
-它是 [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) 中的一种 execution plan：[Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 先暴露资源瓶颈，Parallelism 再决定怎样拆分 computation 和 model states。
+它是 [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>) 中的一种 execution plan：[Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 先暴露资源瓶颈，Parallelism 再决定怎样拆分 computation 和 model states。
 
 一旦训练被切开，不同 ranks 手里就只有局部信息，所以需要 communication 把缺失的信息补回来。这个 communication 借助底层指令来完成 [NVIDIA Collective Communication Library](<NVIDIA%20Collective%20Communication%20Library.md>)
 
@@ -22,7 +22,7 @@ backward 后每个 rank 的 gradients 不同，所以用 [All-Reduce](<All-Reduc
 >**Question** — 为什么只靠 Data Parallelism 不够？
 >
 > **Compute scaling**
-> Data parallelism 只能沿 batch dimension 使用更多 GPUs。固定 global batch 时，GPU 数受到 [batch size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 限制；继续扩大 global batch 又会在 critical batch size 后产生 diminishing returns。
+> Data parallelism 只能沿 batch dimension 使用更多 GPUs。固定 global batch 时，GPU 数受到 [batch size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 限制；继续扩大 global batch 又会在 critical batch size 后产生 diminishing returns。
 >
 > **Memory scaling**
 > [ZeRO](<ZeRO.md>) 可以 shard parameters、gradients 和 optimizer states，但每个 data-parallel rank 仍要为自己的 local batch 执行普通 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)，并保存相应 [activations](<../../Neural%20Networks/Activations.md>)。ZeRO 本身不会切分 activation 的 layer、hidden 或 sequence dimensions。
@@ -45,6 +45,6 @@ Data parallelism 切 batch，能够使用的 GPUs 受 batch size 限制；model 
 
 这一页回答“可以切什么”；[Parallel Strategies](<Parallel%20Strategies.md>) 进一步回答“面对具体 model 和 hardware，应该怎样组合这些切法”。
 
-它本质上是一个 resource-allocation problem：先根据 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 找到 bottleneck，用最少的 model parallelism 让 model / activations 装得下，再根据 [GPU Communication Topology](<../../GPU%20and%20NPU/GPU%20Communication%20Topology.md>) 安排 communication groups，最后把剩余 GPUs 尽量用于 [Data parallelism](<Data%20parallelism.md>)。
+它本质上是一个 resource-allocation problem：先根据 [Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 找到 bottleneck，用最少的 model parallelism 让 model / activations 装得下，再根据 [GPU Communication Topology](<../../GPU%20and%20NPU/GPU%20Communication%20Topology.md>) 安排 communication groups，最后把剩余 GPUs 尽量用于 [Data parallelism](<Data%20parallelism.md>)。
 
 ![LLM parallelism table.png](<../../attachments/LLM%20parallelism%20table.png>)

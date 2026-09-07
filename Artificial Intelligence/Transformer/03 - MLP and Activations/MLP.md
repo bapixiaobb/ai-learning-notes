@@ -122,4 +122,4 @@ Modern LLM 中常见的是 [SwiGLU](<SwiGLU.md>) MLP。
 - [SwiGLU](<SwiGLU.md>)
 - [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>)
 - [Residual Stream](<../04%20-%20Normalization%20and%20Residuals/Residual%20Stream.md>)
-- [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
+- [Model Architecture](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)

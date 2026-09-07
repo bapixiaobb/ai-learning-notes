@@ -22,13 +22,13 @@
 
 ## 常见例子
 
-- [Large Language Model (LLM)](<Large%20Language%20Model%20(LLM).md>)
+- [Large Language Model (LLM)](<Large%20Language%20Model%20%28LLM%29.md>)
 - Vision foundation models
 - Multimodal foundation models
 - Speech foundation models
 
 >**Note**
-> 在 NLP 中，现代 [Large Language Model (LLM)](<Large%20Language%20Model%20(LLM).md>) 通常就是一种 foundation model，例如 GPT、LLaMA、Qwen 等。
+> 在 NLP 中，现代 [Large Language Model (LLM)](<Large%20Language%20Model%20%28LLM%29.md>) 通常就是一种 foundation model，例如 GPT、LLaMA、Qwen 等。
 
 ## 训练流程
 
@@ -68,7 +68,7 @@ p_\theta(x_t \mid x_{<t})
 ## 与 LLM 的关系
 
 >**Note**
-> [Large Language Model (LLM)](<Large%20Language%20Model%20(LLM).md>) 是 foundation model 在自然语言领域的典型形式。
+> [Large Language Model (LLM)](<Large%20Language%20Model%20%28LLM%29.md>) 是 foundation model 在自然语言领域的典型形式。
 >
 > 但 foundation model 不只包括 LLM，也可以包括 vision、speech、multimodal 等领域的大规模预训练模型。
 
@@ -95,7 +95,7 @@ p_\theta(x_t \mid x_{<t})
 \min_\theta \mathcal{L}(\theta)
 ```
 
-其中 loss 通常来自 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 的 [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。
+其中 loss 通常来自 [Next-token prediction](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 的 [Cross Entropy Loss](<../02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。
 
 ## 为什么重要
 
@@ -109,15 +109,3 @@ p_\theta(x_t \mid x_{<t})
 - 能通过 prompt 完成新任务
 - 是现代 LLM 和 multimodal AI 的基础
 - 对数据、算力和系统设计提出更高要求
-
-## Related
-
-- [Large Language Model (LLM)](<Large%20Language%20Model%20(LLM).md>)
-- [Language Modeling](<Language%20Modeling.md>)
-- [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
-- Pretraining
-- Fine-tuning
-- Instruction Tuning
-- Alignment
-- [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
-- [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)

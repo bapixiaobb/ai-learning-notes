@@ -133,7 +133,7 @@ FLOPs。
 
 | 情况                           | 原因                                         |
 | ---------------------------- | ------------------------------------------ |
-| [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>) | 每个 token 只激活部分 parameters                  |
+| [Mixture of Experts (MoE)](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>) | 每个 token 只激活部分 parameters                  |
 | embedding matrix             | token lookup 不会使用整个 embedding matrix       |
 | long context attention       | attention 有 sequence-length-dependent cost |
 | distributed training         | communication overhead 不在 $6ND$ 中        |
@@ -141,7 +141,7 @@ FLOPs。
 
 ## Related
 
-- [FLOPs](<../03%20-%20System/FLOPs.md>)
+- [FLOPs](<../01%20-%20System/FLOPs.md>)
 - [Resource Accounting](<Resource%20Accounting.md>)
 - [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)

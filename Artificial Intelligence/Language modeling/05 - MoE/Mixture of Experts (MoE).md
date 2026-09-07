@@ -239,8 +239,8 @@ MoE 是一个模型内部的条件计算结构。
 
 ## **🔗 Connections**
 
-- [Language Model Architecture](<Language%20Model%20Architecture.md>)
-- [Model Architecture](<Model%20Architecture.md>)
+- [Language Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Language%20Model%20Architecture.md>)
+- [Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)
 - [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)
 - [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)

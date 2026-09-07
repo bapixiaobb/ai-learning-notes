@@ -7,7 +7,7 @@
 
 ## What is Decoding
 
-在 [Training vs Inference](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 中，training 负责学习参数；模型训练完成后，可以在 inference 阶段使用固定参数生成 text。这里关注生成算法本身。
+在 [Training vs Inference](<../03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 中，training 负责学习参数；模型训练完成后，可以在 inference 阶段使用固定参数生成 text。这里关注生成算法本身。
 
 从 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) 最后一张图可以看出来，最后模型生成的是一个 `[batch, seq, vocab_size]` 这样的 matrix，每个 sequence position 都对应一个长度为 `vocab_size` 的 [logits vector](<Logits.md>)。它是未归一化分数，经过 Softmax 后才成为 [Next-token prediction](<Next-token%20prediction.md>) 的 distribution。
 ![TransformerLM](<../../attachments/TransformerLM.jpeg>)

@@ -1,5 +1,5 @@
 #AI
-Artificial Intelligence (AI) > [Machine Learning](<Machine%20Learning.md>)
+[Artificial Intelligence](<../Artificial%20Intelligence.md>) > [Machine Learning](<Machine%20Learning.md>)
 
 是[Machine Learning](<Machine%20Learning.md>)的一种方法
 

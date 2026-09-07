@@ -40,7 +40,7 @@ Tensor Parallelism 把同一个 layer 的 parameters、activations 和 matrix mu
 
 相比之下，[Pipeline Parallelism](<Pipeline%20Parallelism.md>) 通信频率较低且主要是相邻 stages 之间的 point-to-point communication，因此更适合跨 node 的慢链路。
 
-# 概念类似于 [Tiling](<../03%20-%20System/Tiling.md>)
+# 概念类似于 [Tiling](<../01%20-%20System/Tiling.md>)
 
 |                    | Tiling                                  | Tensor Parallelism                        |
 | ------------------ | --------------------------------------- | ----------------------------------------- |

@@ -50,7 +50,7 @@ Transformer 处理的是一系列 tensor representations。常见 activations �
 
 因此 training forward 不能立即释放所有 activations。并不是每个临时 tensor都会被保存；只需要保留 backward 所需的部分。
 
-[Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>) / activation checkpointing 会少保存一些 activations，在 backward 时重新计算：
+[Recomputation](<../Language%20modeling/03%20-%20Training%20and%20Scaling/Recomputation.md>) / activation checkpointing 会少保存一些 activations，在 backward 时重新计算：
 
 ```math
 \text{activation memory}\downarrow,
@@ -64,6 +64,6 @@ Transformer 处理的是一系列 tensor representations。常见 activations �
 - [Forward Propagation](<Forward%20Propagation.md>)
 - [Backpropagation](<Backpropagation.md>)
 - [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
-- [Recomputation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)
-- [Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+- [Recomputation](<../Language%20modeling/03%20-%20Training%20and%20Scaling/Recomputation.md>)
+- [Resource Accounting](<../Language%20modeling/03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
 - [ZeRO](<../Language%20modeling/04%20-%20Distributed%20Training%20and%20Parallelism/ZeRO.md>)

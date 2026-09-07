@@ -2,7 +2,7 @@
 
 这是 2022 年 DeepMind 的 **Training Compute-Optimal Large Language Models**。Chinchilla 是论文里训练的模型名。这篇论文发现了：
 
-****当 [training compute](<Training%20Compute%20-%206ND.md>) 固定时，当时很多 [大模型](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>) 都做得太大、训练数据却太少，也就是 undertrained。****
+**当 [training compute](<Training%20Compute%20-%206ND.md>) 固定时，当时很多 [大模型](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>) 都做得太大、训练数据却太少，也就是 undertrained。**
 
 ## Before Chinchilla
 

@@ -18,7 +18,7 @@ y=xW+b
 - weight decay：`0.1`
 这些都是训练前指定的，不会随着训练更新。
 
-其中 number of layers、hidden dimension、attention heads 是控制 [architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) shape 的 model hyperparameters；step size、batch size、optimizer、weight decay 是控制 [training process](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 的 training hyperparameters。两类都属于广义的 hyperparameters。
+其中 number of layers、hidden dimension、attention heads 是控制 [architecture](<Model%20Architecture.md>) shape 的 model hyperparameters；step size、batch size、optimizer、weight decay 是控制 [training process](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 的 training hyperparameters。两类都属于广义的 hyperparameters。
 
 所以 `hyper` 的意思不是“高维”，而是**位于普通模型参数之上的配置层级**。
 

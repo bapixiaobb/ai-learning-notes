@@ -70,4 +70,4 @@ Optimization:
 >- Tile-wise computation of the softmax via the online, telescoping sum trick
 >(We won’t cover the backward pass – but they recompute tile-by-tile..)
 
-(这里 [backward](<../../Neural%20Networks/Backpropagation.md>) 的时候，用到了 [Recomputation](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Recomputation.md>)）
+(这里 [backward](<../../Neural%20Networks/Backpropagation.md>) 的时候，用到了 [Recomputation](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Recomputation.md>)）

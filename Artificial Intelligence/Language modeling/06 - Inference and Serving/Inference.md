@@ -4,7 +4,7 @@ Inference 是使用已经训练好的固定参数，对输入执行模型并得�
 
 这份笔记主要关注 **LLM inference systems**：如何让 decoder-only language model 的生成过程高效运行并服务一个或多个 requests。
 
-| [Autoregressive Decoding](<../01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) | 模型如何根据当前 context 选择 next token，并继续生成？           |
+| [Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) | 模型如何根据当前 context 选择 next token，并继续生成？           |
 | --------------------------- | ----------------------------------------------- |
 | Inference systems           | 整个 forward / generation workload 如何执行、优化、调度和服务？ |
 # Landscape
@@ -51,7 +51,7 @@ $T$ 是这一次 model execution 中，正在计算输出的 token positions 数
 
 #### Sequential vs. Parallel
 
-Training 可以用 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 来充分利用 [GPU](<../../GPU%20and%20NPU/GPU.md>) 的 compute，但是 inference 是 sequentially 的，所以没有并行的天然优势，[Why Training Parallelizes Across Positions but Generation Does Not](<../02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md#why-training-parallelizes-across-positions-but-generation-does-not>) 解释了这种现象
+Training 可以用 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 来充分利用 [GPU](<../../GPU%20and%20NPU/GPU.md>) 的 compute，但是 inference 是 sequentially 的，所以没有并行的天然优势，[Why Training Parallelizes Across Positions but Generation Does Not](<../03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md#why-training-parallelizes-across-positions-but-generation-does-not>) 解释了这种现象
 
 #### [Arithmetic Intensity in Inference](<Arithmetic%20Intensity%20in%20Inference.md>)
 
@@ -77,7 +77,7 @@ KV cache 解决 autoregressive inference 中的重复计算；它不能解决 to
 > **Important** — **Inference is memory-bound**
 #### [Latency](<Latency.md>) & [Throughput](<Throughput.md>) tradeoff
 
-从直接的公式可以看出，这两个指标都和 [Batch Size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 有关系
+从直接的公式可以看出，这两个指标都和 [Batch Size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 有关系
 
 batch size ⬆️ $\longrightarrow$
 - 一次并行生成更多 tokens $\longrightarrow$ parameter weights 可以被 batch 共享 $\longrightarrow$ throughput ⬆️

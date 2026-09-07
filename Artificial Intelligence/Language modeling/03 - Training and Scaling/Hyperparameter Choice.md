@@ -1,6 +1,6 @@
-[Hyperparameters](<../01%20-%20Language%20Modeling%20Basics/Model%20Hyperparameters.md>) choices：
+[Hyperparameters](<../02%20-%20Language%20Modeling%20Basics/Model%20Hyperparameters.md>) choices：
 
-## [Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) choice
+## [Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>) choice
 
 Architecture 也可以作为 scaling experiment 中被比较的对象。我们可以在小规模比较 LSTM 和 Transformer 的 scaling curves，再决定大规模训练采用哪种 architecture。
 
@@ -57,7 +57,7 @@ Transformer 里的 parameters 不只有 Transformer blocks，还包括 embedding
 >**Important**
 > Not all parameters are created equal. Embedding parameters 与 Transformer block 中参与主要计算的 parameters 作用不同；是否把 embedding 算进 parameter count，会明显改变 scaling curve。因此比较 depth/width 时必须先统一 $N$ 的定义。
 
-## [Batch Size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>): Critical batch size
+## [Batch Size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>): Critical batch size
 
 critical batch size 本身也呈现可预测的 scaling behavior：
 ![critical batch size.png](<../../attachments/critical%20batch%20size.png>)
@@ -69,7 +69,7 @@ critical batch size 本身也呈现可预测的 scaling behavior：
 ## [Learning rates](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>): μP and scale-aware LR choices
 ![learning rate scaling.png](<../../attachments/learning%20rate%20scaling.png>)
 ⬆️ 代表了两种不同的 learning rate 选择策略
-⬅️ ****scale-aware****: Intuitively, the bigger my model the smaller learning rate should be. Because the bigger more parameters, more things are changing at once. **Move less**
+⬅️ **scale-aware**: Intuitively, the bigger my model the smaller learning rate should be. Because the bigger more parameters, more things are changing at once. **Move less**
 
-➡️ ****μP**** 的目标是通过调整：parameter initialization；不同 parameter tensor 的更新缩放；optimizer step 的 scale；让不同 width 的模型具有相近的训练动态。
+➡️ **μP** 的目标是通过调整：parameter initialization；不同 parameter tensor 的更新缩放；optimizer step 的 scale；让不同 width 的模型具有相近的训练动态。
 因此右图中，不同 width 的 U 形曲线基本重合，最低点也在相近位置：

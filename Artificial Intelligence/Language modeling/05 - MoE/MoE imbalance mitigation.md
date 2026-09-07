@@ -94,7 +94,7 @@ MoE 本来就希望不同 experts 学不同东西，如果太强迫均匀，rout
 
 总目标可以理解成：language modeling loss + 一个控制 expert 使用均匀性的 auxiliary loss。
 
-这个 auxiliary loss 不是从 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 的理论目标中自然推出来的，而是一个工程上非常有效的 heuristic: 它逼迫 router 不要把所有 tokens 都送到少数 experts。
+这个 auxiliary loss 不是从 [Next-token prediction](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 的理论目标中自然推出来的，而是一个工程上非常有效的 heuristic: 它逼迫 router 不要把所有 tokens 都送到少数 experts。
 
 >**Note** — 这个方法它听起来有点“不优雅”，但现实里很有用
 >从纯理论角度看，language model 只应该优化 next-token prediction loss。

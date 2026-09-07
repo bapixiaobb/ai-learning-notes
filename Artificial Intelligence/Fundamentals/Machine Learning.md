@@ -1,6 +1,6 @@
 #AI
 
-**定义**：机器学习是 **[Artificial Intelligence (AI)](<../Artificial%20Intelligence%20(AI).md>) 的一个子集**，主要研究如何让计算机**从数据中学习模式**，并**基于这些模式进行预测或决策**。
+**定义**：机器学习是 **[Artificial Intelligence](<../Artificial%20Intelligence.md>) 的一个子集**，主要研究如何让计算机**从数据中学习模式**，并**基于这些模式进行预测或决策**。
 
 机器学习的核心形式通常可以写成：
 
@@ -27,7 +27,7 @@
 - Recommender Systems
 - Robotics
 ## Related
-- [Artificial Intelligence (AI)](<../Artificial%20Intelligence%20(AI).md>)
+- [Artificial Intelligence](<../Artificial%20Intelligence.md>)
 - [Deep Learning](<../Neural%20Networks/Deep%20Learning.md>)
 - [Neural Network](<../Neural%20Networks/Neural%20Network.md>)
 - An Optimization Problem

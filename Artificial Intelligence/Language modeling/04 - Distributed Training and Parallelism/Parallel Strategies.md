@@ -2,7 +2,7 @@
 
 [Parallelism](<Parallelism.md>) 解释多张 GPU 训练时“可以切什么”；Parallel Strategies 关心的是：**面对具体 model 和 hardware，应该怎样组合这些切法。**
 
-[Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 先告诉我们瓶颈来自 parameters、[Activations](<../../Neural%20Networks/Activations.md>)、compute 还是 communication；parallel strategy 再决定把 GPU 分配到 model width、depth、sequence、experts 或 data 中。
+[Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 先告诉我们瓶颈来自 parameters、[Activations](<../../Neural%20Networks/Activations.md>)、compute 还是 communication；parallel strategy 再决定把 GPU 分配到 model width、depth、sequence、experts 或 data 中。
 
 >**Important**
 >这些策略通常不是互斥选项，而是共同组成一个 execution plan。
@@ -28,15 +28,15 @@
 - 单层 matrix 太大：使用 [Tensor Parallelism](<Tensor%20Parallelism.md>)。
 - 整个 model 太深或参数太多：增加 [Pipeline Parallelism](<Pipeline%20Parallelism.md>)。
 - sequence 太长：增加 CP。
-- model 是 [MoE](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>)：expert MLP 优先使用 [Expert parallelism](<Expert%20parallelism.md>)；attention 仍可以使用 TP。
+- model 是 [MoE](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>)：expert MLP 优先使用 [Expert parallelism](<Expert%20parallelism.md>)；attention 仍可以使用 TP。
 
-如果主要问题是 saved [Activations](<../../Neural%20Networks/Activations.md>)，[Recomputation](<../02%20-%20Training%20and%20Scaling/Recomputation.md>) 可以用额外 compute 换 memory。省下的 memory 可以转化为更大的 local batch，有时反而会提高 [hardware utilization](<../03%20-%20System/Model%20FLOPs%20Utilization.md>)。
+如果主要问题是 saved [Activations](<../../Neural%20Networks/Activations.md>)，[Recomputation](<../03%20-%20Training%20and%20Scaling/Recomputation.md>) 可以用额外 compute 换 memory。省下的 memory 可以转化为更大的 local batch，有时反而会提高 [hardware utilization](<../01%20-%20System/Model%20FLOPs%20Utilization.md>)。
 
 ### 2. Match communication to [GPU Communication Topology](<../../GPU%20and%20NPU/GPU%20Communication%20Topology.md>)
 
 - TP 和 EP communication 很频繁，优先放在 NVLink / NVSwitch 这样的 fast domain；GPU 上的 TP 通常控制在 8 以内。
 - PP 只在 stage boundaries 传 boundary activations / gradients，通信相对少，更适合跨 node 的较慢 links。
-- DP 使用剩余 GPUs 扩大吞吐，但不能无限扩大 global batch；超过 [critical batch size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 后会有 diminishing returns。
+- DP 使用剩余 GPUs 扩大吞吐，但不能无限扩大 global batch；超过 [critical batch size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 后会有 diminishing returns。
 
 ### 3. Use the remaining GPU budget for DP
 
@@ -94,8 +94,8 @@ Llama 3 训练中频繁发生 GPU failures 还说明：规模变大后，系统�
 >**Summary** — My Understanding
 >Parallel strategy 不是背一套固定配置，而是一个 resource-allocation problem：
 >
->1. 根据 model architecture 和 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 找到当前 bottleneck；
+>1. 根据 model architecture 和 [Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 找到当前 bottleneck；
 >2. 使用最少的 TP / PP / CP / EP 让 model 和 activations 装得下；
 >3. 把 communication-heavy groups 放在更快的 [links](<../../GPU%20and%20NPU/GPU%20Communication%20Topology.md>) 上；
 >4. 将剩余 GPU 尽量用于 [Data parallelism](<Data%20parallelism.md>)；
->5. 通过 batch size、microbatches、[Recomputation](<../02%20-%20Training%20and%20Scaling/Recomputation.md>) 和 communication overlap 提高 utilization。
+>5. 通过 batch size、microbatches、[Recomputation](<../03%20-%20Training%20and%20Scaling/Recomputation.md>) 和 communication overlap 提高 utilization。

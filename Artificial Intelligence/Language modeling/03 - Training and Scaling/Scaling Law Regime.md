@@ -6,7 +6,7 @@ $ \text{scale（参数、数据、compute）} \longrightarrow \text{某个 perfo
 $ \text{model size} \longrightarrow \text{cross-entropy loss / perplexity} $
 那它能支持的结论只是：
 
-> 模型变大时，next-token prediction 的平均 [loss](<../../Neural%20Networks/Loss%20Function.md>)/[perplexity](<../01%20-%20Language%20Modeling%20Basics/Perplexity.md>) 会怎样变化。
+> 模型变大时，next-token prediction 的平均 [loss](<../../Neural%20Networks/Loss%20Function.md>)/[perplexity](<../02%20-%20Language%20Modeling%20Basics/Perplexity.md>) 会怎样变化。
 
 它不能自动推出：
 

@@ -49,8 +49,8 @@ Lecture 3 的主线可以概括为：
 | Concept | Main Question | Examples                                                                                   |
 | ------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
 | [Model Architecture](<Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape                       |
-| [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) | 模型如何被训练出来？ | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), batch size, weight decay, dropout, data mixture |
-| [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost                               |
+| [Training Recipe](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>) | 模型如何被训练出来？ | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), batch size, weight decay, dropout, data mixture |
+| [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>) | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost                               |
 
 >**Note**
 >这三条线相互影响，但不是同一个层面的概念。
@@ -79,7 +79,7 @@ p(x_{t+1} \mid x_{\leq t})
 
 也就是：
 
-1. [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>) 把 text 切成 token ids；
+1. [Tokenization](<Tokenization.md>) 把 text 切成 token ids；
 2. [Token Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Token%20Embedding.md>) 把 token ids 映射成 continuous vectors；
 3. [Positional Encoding](<../../Transformer/01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>) / [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>) 注入顺序信息；
 4. 多层 [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 更新 token representations；
@@ -110,7 +110,7 @@ Architecture 不只是 number of layers，而是包括：
 
 ### 2. Training Recipe
 
-[Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 指模型结构确定后，训练这个模型所采用的一组方法和超参数。
+[Training Recipe](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>) 指模型结构确定后，训练这个模型所采用的一组方法和超参数。
 
 它包括：
 
@@ -130,7 +130,7 @@ Architecture 不只是 number of layers，而是包括：
 
 ### 3. Systems for Language Models
 
-[Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) 关注 language model 如何在硬件上高效训练和推理。
+[Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>) 关注 language model 如何在硬件上高效训练和推理。
 
 它包括：
 
@@ -146,7 +146,7 @@ Architecture 不只是 number of layers，而是包括：
 >**Note**
 >Architecture choices 会直接影响 systems cost。
 >
->例如 attention variant 会影响 KV Cache；MLP shape 会影响 FLOPs 和参数量；context length 会影响 attention memory。
+>例如 attention variant 会影响 [KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)；MLP shape 会影响 FLOPs 和参数量；context length 会影响 attention memory。
 
 ### 4. Transformer Family
 
@@ -174,7 +174,7 @@ Architecture 不只是 number of layers，而是包括：
 - [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 - [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>)
 - [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)
-- Grouped Query Attention
+- [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>)
 
 >**Note**
 >这里的 “Llama-style” 不是说所有 LLM 都是 Llama，而是用 Llama 代表一类 modern decoder-only Transformer 的 common design pattern。
@@ -184,11 +184,11 @@ Architecture 不只是 number of layers，而是包括：
 | Area | Core Question | Related Concepts |
 |---|---|---|
 | block structure | 一个 Transformer block 内部怎么组织？ | [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>), [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>), [Residual Connection](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>) |
-| attention | token positions 如何交换信息？ | [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>), [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>), [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>), Grouped Query Attention |
+| attention | token positions 如何交换信息？ | [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>), [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>), [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>), [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>) |
 | position | token 顺序如何表示？ | [Positional Encoding](<../../Transformer/01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>), [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>), Relative Position Information |
 | normalization | hidden states 如何稳定？ | [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>), [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>), [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
 | MLP | 每个 token representation 如何做 nonlinear processing？ | [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>), [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>), [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>), GELU |
-| output | hidden states 如何变成 logits？ | Language Modeling Head, Logits, [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) |
+| output | hidden states 如何变成 logits？ | Language Modeling Head, [Logits](<Logits.md>), [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) |
 
 ---
 
@@ -204,10 +204,10 @@ Architecture 不只是 number of layers，而是包括：
 ## 🔗 Connections
 
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
-- [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)
+- [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
 - [Model Architecture](<Model%20Architecture.md>)
-- [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
+- [Training Recipe](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
+- [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>)
 - [Transformer Family](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Family.md>)
 - [Original Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Original%20Transformer.md>)
 - [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
@@ -216,7 +216,7 @@ Architecture 不只是 number of layers，而是包括：
 - [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)
 - [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)
 - [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)
-- Grouped Query Attention
+- [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>)
 - [Positional Encoding](<../../Transformer/01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>)
 - [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 - [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>)
@@ -224,5 +224,5 @@ Architecture 不只是 number of layers，而是包括：
 - [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>)
 - [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
 - Language Modeling Head
-- [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-- [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)
+- [Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+- [Scaling Law](<../03%20-%20Training%20and%20Scaling/Scaling%20Law.md>)

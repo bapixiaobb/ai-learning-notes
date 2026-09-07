@@ -8,21 +8,17 @@ Causal Attention 是一种带有 causal constraint 的 attention。
 >**Note**
 >Causal Attention 的核心是：
 >
->
-```math
+>```math
 >x_t
 >\text{ can attend to }
 >x_1, x_2, \dots, x_t
->
-```
+>```
 >
 >但不能 attend to：
 >
->
-```math
+>```math
 >x_{t+1}, x_{t+2}, \dots
->
-```
+>```
 
 这使模型在预测下一个 token 时不能偷看答案。
 
@@ -64,11 +60,9 @@ p(x_t \mid x_{<t})
 >**Important**
 >Causal Attention 保证了 information flow 的方向：
 >
->
-```math
+>```math
 >\text{past} \rightarrow \text{future}
->
-```
+>```
 >
 >而不是 future tokens 反过来影响 past positions。
 
@@ -116,7 +110,7 @@ Causal Attention 控制可见范围；
 >**Summary** — My Understanding
 >Causal Attention 是只能看 prefix 的 attention。
 >
->它通常由 Self-Attention 加上 Causal Mask 实现，是 [Decoder-Only Transformer](<../00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>) 和 Next Token Prediction 匹配的关键机制。
+>它通常由 Self-Attention 加上 Causal Mask 实现，是 [Decoder-Only Transformer](<../00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>) 和 [Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 匹配的关键机制。
 
 ---
 ## 🔗 Connections

@@ -1,5 +1,5 @@
 #AI
-Artificial Intelligence (AI) > [Machine Learning](<Machine%20Learning.md>)
+[Artificial Intelligence](<../Artificial%20Intelligence.md>) > [Machine Learning](<Machine%20Learning.md>)
 
 **智能体通过与环境交互，基于反馈奖励调整策略**
 
@@ -58,4 +58,4 @@ Artificial Intelligence (AI) > [Machine Learning](<Machine%20Learning.md>)
 | **PPO2** (PPO的第二版本)                    | 和 PPO 类似，也是基于策略的方法。          |
  **适用场景**：连续动作空间
 
- ![reinforcement_learning_overview.png](<../attachments/reinforcement_learning_overview.png>)
+ ![reinforcement_learning_overview](<../attachments/reinforcement_learning_overview.png>)

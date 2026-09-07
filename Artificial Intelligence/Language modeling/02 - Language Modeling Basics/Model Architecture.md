@@ -5,7 +5,7 @@
 
 ## 🧠 Core Idea
 
-> **Note**
+>**Note**
 >Architecture 不是只指“模型有几层”。
 >
 >在 language model 中，architecture 至少包括：
@@ -49,7 +49,7 @@ p_\theta(x_{t+1} \mid x_{\leq t})
 
 | Design Dimension | Example Choices |
 |---|---|
-| attention variant | [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>), Multi-Query Attention, Grouped Query Attention |
+| attention variant | [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>), [Multi-Query Attention](<../../Transformer/02%20-%20Attention/Multi-Query%20Attention.md>), [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>) |
 | positional information | Absolute Positional Embedding, [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>), ALiBi |
 | normalization | [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>), [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
 | norm placement | [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>), [Post-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Post-Norm%20Transformer.md>) |
@@ -59,7 +59,7 @@ p_\theta(x_{t+1} \mid x_{\leq t})
 | output design | tied embedding, untied embedding |
 | context handling | fixed context length, long-context extension |
 
-> **Important**
+>**Important**
 >Number of layers 只说明模型有多深。
 >
 >Architecture 还包括模型每一层里面具体做什么、怎么连接、用什么 operation，以及 hidden representations 如何在这些 modules 之间流动。
@@ -92,7 +92,7 @@ p_\theta(x_{t+1} \mid x_{\leq t})
 - residual path 如何保留信息；
 - final hidden state 如何变成 vocabulary logits。
 
-> **Note**
+>**Note**
 >Architecture 不是训练出来的结果，而是训练开始之前已经确定的 structure。
 >
 >Training 通常改变 parameter values，而不改变 architecture 定义的 model-forward structure。但实际 runtime computation graph 由这一次真正执行的 operations 构成，也可能因 input、train / eval mode、routing 或 implementation 而不同。
@@ -118,7 +118,7 @@ p_\theta(x_t \mid x_{<t})
 
 由 model architecture 和 parameters $\theta$ 共同决定。
 
-> **Note**
+>**Note**
 >Architecture 决定 possible functions。
 >
 >Training 决定 learned function。
@@ -151,9 +151,9 @@ Model architecture 首先包含模型所属的整体结构族。
 - Encoder-Only Transformer
 - [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - Encoder-Decoder Transformer
-- [Mixture of Experts (MoE)](<Mixture%20of%20Experts%20(MoE).md>)
+- [Mixture of Experts (MoE)](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>)
 
-> **Note**
+>**Note**
 >Modern LLM 最常见的是 [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)。
 >
 >它天然适合 autoregressive next-token prediction，因为每个位置只需要基于 prefix 预测下一个 token。
@@ -171,7 +171,7 @@ Depth 和 width 是最直观的 architecture shape choices。
 | intermediate size | MLP hidden layer 的维度 |
 | context length | 模型一次最多处理多长的 sequence |
 
-> **Note**
+>**Note**
 >Depth 决定模型经过多少次 representation transformation。
 >
 >Width 决定每个 token representation 有多大的表达空间。
@@ -192,12 +192,12 @@ Architecture 中常见的 attention choices 包括：
 
 - 是否使用 [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)；
 - 是否使用 [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)；
-- 使用 [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)、Multi-Query Attention 还是 Grouped Query Attention；
+- 使用 [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)、[Multi-Query Attention](<../../Transformer/02%20-%20Attention/Multi-Query%20Attention.md>) 还是 [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>)；
 - $Q,K,V$ 的 shape 如何设计；
 - 是否使用 sliding window attention；
-- context length 如何影响 attention computation 和 KV Cache。
+- context length 如何影响 attention computation 和 [KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)。
 
-> **Note**
+>**Note**
 >Attention 是 token mixing mechanism。
 >
 >它决定每个 token representation 如何从其他 token positions 收集信息。
@@ -223,7 +223,7 @@ Transformer 本身不天然知道 token 顺序，所以 architecture 必须规�
 - [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 - ALiBi
 
-> **Question**
+>**Question**
 >为什么 position design 是 architecture 的一部分？
 >
 >因为它改变了模型表示 sequence order 的方式，也会影响 long-context behavior。
@@ -253,7 +253,7 @@ Normalization design 决定模型如何稳定深层网络中的 hidden states。
 \text{Pre-Norm} + \text{RMSNorm}
 ```
 
-> **Note**
+>**Note**
 >Normalization 不只是 training trick。
 >
 >Norm 的类型和位置改变了每一层 computation 的形式，所以它属于 architecture。
@@ -270,7 +270,7 @@ x + \mathrm{SubLayer}(\mathrm{Norm}(x))
 \mathrm{Norm}(x + \mathrm{SubLayer}(x))
 ```
 
-两者的 gradient flow 和 training stability 不同。
+两者的 gradient flow 和 training stability 不同。]]
 
 ### 6. MLP / FFN Design
 
@@ -290,7 +290,7 @@ Architecture 中的 MLP choices 包括：
 - GELU
 - [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>)
 
-> **Note**
+>**Note**
 >在 Transformer block 中，attention 负责 token mixing，MLP 负责对每个 token representation 做 nonlinear processing。
 >
 >因此 MLP shape 和 activation function 都是 architecture choices。
@@ -322,7 +322,7 @@ x_{\text{out}}
 x' + \mathrm{MLP}(\mathrm{Norm}(x'))
 ```
 
-> **Note**
+>**Note**
 >Residual path 决定 information 和 gradient 如何穿过深层模型。
 >
 >这会影响训练稳定性，也会影响模型的实际 computation graph。
@@ -345,12 +345,12 @@ z_t \in \mathbb{R}^{V}
 - vocabulary size 多大；
 - logits 如何计算。
 
-> **Note**
+>**Note**
 >Output projection 和 vocabulary logits 的设计属于 architecture。
 >
 >但 temperature、top-k、top-p 属于 Decoding Strategy，不是 model architecture。
 
-## ⚖️ Architecture vs [Hyperparameters](<../01%20-%20Language%20Modeling%20Basics/Model%20Hyperparameters.md>)
+## ⚖️ Architecture vs [Hyperparameters](<Model%20Hyperparameters.md>)
 
 Architecture 和 hyperparameters 有重叠，但不完全等同。
 
@@ -360,12 +360,12 @@ Architecture 和 hyperparameters 有重叠，但不完全等同。
 | Model Hyperparameters | 控制 architecture size / shape 的具体数值 | number of layers, hidden dimension, number of heads, context length |
 | Training Hyperparameters | 控制训练过程的数值 | learning rate, batch size, weight decay |
 
-> **Note**
+>**Note**
 >$d_{\text{model}}$、$n_{\text{layers}}$、$n_{\text{heads}}$ 是 model hyperparameters。
 >
 >它们属于 architecture 的 shape choices。
 >
->但 learning rate 和 batch size 不属于 architecture，而属于 [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)。
+>但 learning rate 和 batch size 不属于 architecture，而属于 [Training Recipe](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>)。
 
 ## 🔄 Architecture vs Training Recipe
 
@@ -374,10 +374,10 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 | Category                        | Belongs Here                                                                      | Does Not Belong Here                 |
 | ------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ |
 | [Model Architecture](<Model%20Architecture.md>)          | attention, [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>), norm, position embedding, layer layout                        | learning rate, optimizer, batch size |
-| [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), weight decay, batch size, data mixture | RoPE, RMSNorm, GQA                   |
-| [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) | memory layout, kernel optimization, parallelism, KV cache efficiency              | architecture 概念本身                    |
+| [Training Recipe](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>)             | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), weight decay, batch size, data mixture | RoPE, RMSNorm, GQA                   |
+| [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>) | memory layout, kernel optimization, parallelism, KV cache efficiency              | architecture 概念本身                    |
 
-> **Important**
+>**Important**
 >同一个 architecture 可以用不同 training recipes 训练。
 >
 >不同 architectures 也可以用类似的 training recipe 训练。
@@ -398,16 +398,16 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 | normalization | [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
 | block layout | [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
 | MLP activation | [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>) |
-| attention variant | Grouped Query Attention |
+| attention variant | [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>) |
 
-> **Note**
+>**Note**
 >这说明 architecture 是一组组合选择，而不是一个单独标签。
 >
 >“Llama-style” 的意义在于：它把一组 modern LLM 中常见的 design choices 组合成了一个稳定范式。
 
 ---
 
-> **Summary** — My Understanding
+>**Summary** — My Understanding
 >[Model Architecture](<Model%20Architecture.md>) 描述模型内部 computation structure 的整体设计。
 >
 >它不只是“几层”或“多少参数”，而是包括：
@@ -430,7 +430,7 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 
 - [Language Model Architecture](<Language%20Model%20Architecture.md>)
 - [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
-- [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)
+- [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
 - [Transformer Family](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Family.md>)
 - [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - [Llama-style Architecture](<../../Transformer/00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md>)
@@ -438,9 +438,9 @@ Architecture 定义模型结构；training recipe 定义模型如何被训练。
 - [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)
 - [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)
 - [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)
-- Grouped Query Attention
+- [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>)
 - [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 - [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
-- [Training Recipe](<../02%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
-- [Model Hyperparameters](<../01%20-%20Language%20Modeling%20Basics/Model%20Hyperparameters.md>)
+- [Training Recipe](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
+- [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>)
+- [Model Hyperparameters](<Model%20Hyperparameters.md>)

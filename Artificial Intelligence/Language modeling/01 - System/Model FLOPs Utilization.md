@@ -113,7 +113,7 @@ R
 
 - Memory Bandwidth 不足
 - communication overhead 太大
-- [batch size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 或 microbatch size 太小
+- [batch size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 或 microbatch size 太小
 - kernel launch overhead
 - tensor shape 不适合硬件
 - activation checkpointing 带来的 recomputation
@@ -152,7 +152,7 @@ I_{\text{arith}} < I_{\text{accel}}
 ## 与 Resource Accounting 的关系
 
 >**Note**
-> 在 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 中，MFU 用来把理论 compute estimate 转换成实际训练时间估计。
+> 在 [Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 中，MFU 用来把理论 compute estimate 转换成实际训练时间估计。
 >
 > 仅知道训练需要多少 FLOPs 不够，还需要知道系统能以多高的有效 FLOP/s 执行这些计算。
 
@@ -169,10 +169,3 @@ I_{\text{arith}} < I_{\text{accel}}
 ```
 
 和硬件峰值性能。
-
-## Related
-
-- [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-- [FLOPs](<FLOPs.md>)
-- [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
-- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)

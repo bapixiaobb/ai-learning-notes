@@ -21,7 +21,7 @@
 ## 核心目标
 
 >**Note**
-> 大多数 autoregressive LLM 的训练目标是 [Next-token prediction](<../01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)：根据前面的 tokens 预测下一个 token。
+> 大多数 autoregressive LLM 的训练目标是 [Next-token prediction](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)：根据前面的 tokens 预测下一个 token。
 
 ```math
 p_\theta(x_t \mid x_{<t})
@@ -33,7 +33,7 @@ p_\theta(x_t \mid x_{<t})
 - $x_{<t}$：前面的上下文 tokens
 - $\theta$：模型参数
 
-训练目标通常是最小化 [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。
+训练目标通常是最小化 [Cross Entropy Loss](<../02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。
 
 ## 与 Language Modeling 的关系
 
@@ -47,7 +47,7 @@ p_\theta(x_t \mid x_{<t})
 ```math
 \text{raw text}
 \rightarrow
-\text{[Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)}
+\text{[Tokenization](<../02%20-%20Language%20Modeling%20Basics/Tokenization.md>)}
 \rightarrow
 \text{token IDs}
 \rightarrow
@@ -112,7 +112,7 @@ p_\theta(x_t \mid x_{<t})
 ### Mixture of Experts
 
 >**Note**
-> [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>) 是一种常见的 LLM 架构扩展。MoE Transformer 会包含多个 experts，但每个 token 通常只激活其中一部分 experts。
+> [Mixture of Experts (MoE)](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>) 是一种常见的 LLM 架构扩展。MoE Transformer 会包含多个 experts，但每个 token 通常只激活其中一部分 experts。
 
 MoE 的核心思想是：
 
@@ -163,23 +163,10 @@ x_{t+1}
 ## Training Systems
 
 >**Note**
-> LLM 训练需要大量 compute、memory 和 hardware resources，因此训练前通常需要做 [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)，估算 FLOPs、显存、带宽、训练时间和硬件利用率。
+> LLM 训练需要大量 compute、memory 和 hardware resources，因此训练前通常需要做 [Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)，估算 FLOPs、显存、带宽、训练时间和硬件利用率。
 
 相关内容：
 
-- [Resource Accounting](<../02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-- [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
-- [Model FLOPs Utilization](<../03%20-%20System/Model%20FLOPs%20Utilization.md>)
-## Related
-
-- [Language Modeling](<Language%20Modeling.md>)
-- [Natural Language Processing](<../../Fundamentals/Natural%20Language%20Processing.md>)
-- [Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)
-- [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
-- [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)
-- [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
-- [Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Embedding.md>)
-- [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
-- [Training Compute - 6ND](<../02%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
-- [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>)
-- [Foundation Model](<Foundation%20Model.md>)
+- [Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+- [Training Compute - 6ND](<../03%20-%20Training%20and%20Scaling/Training%20Compute%20-%206ND.md>)
+- [Model FLOPs Utilization](<../01%20-%20System/Model%20FLOPs%20Utilization.md>)

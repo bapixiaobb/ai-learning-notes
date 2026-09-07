@@ -234,6 +234,6 @@ Causal Mask 通常不是 learnable parameter。
 - [Self-Attention](<Self-Attention.md>)
 - [Decoder-Only Transformer](<../00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
-- [Training vs Inference](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
+- [Training vs Inference](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
 - [Positional Encoding](<../01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>)
 - [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)

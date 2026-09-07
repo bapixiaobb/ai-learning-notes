@@ -35,7 +35,7 @@ p_\theta(x_t \mid x_1, \dots, x_{t-1})
 也就是根据前面的 tokens 预测下一个 token。
 
 ## Architecture
-- 什么是 [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)？
+- 什么是 [Language Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Language%20Model%20Architecture.md>)？
 - 为什么现代 language model 通常使用 [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)？
 - 一个 [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 由哪些部分组成？
 - 什么是 [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)？
@@ -50,22 +50,11 @@ p_\theta(x_t \mid x_1, \dots, x_{t-1})
 - 什么是 Language Modeling Head？
 ## **Pipeline**
 
-```text
 raw text
--> [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
+-> [Tokenization](<../02%20-%20Language%20Modeling%20Basics/Tokenization.md>)
 -> token IDs
 -> embeddings
 -> [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 -> logits
--> softmax
+-> [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>)
 -> next-token probability
-```
-## **Related**
-
-- [Natural Language Processing](<../../Fundamentals/Natural%20Language%20Processing.md>)
-- [Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)
-- [Tokenization](<../01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
-- [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
-- [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
-- [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)
-- [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)

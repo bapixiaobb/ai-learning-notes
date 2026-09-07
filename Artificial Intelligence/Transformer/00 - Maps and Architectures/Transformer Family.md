@@ -194,7 +194,7 @@ decoder 在生成时依赖两类信息：
 | normalization | [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
 | block layout | [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
 | MLP activation | [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>) |
-| attention variant | Grouped Query Attention in many modern models |
+| attention variant | [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) in many modern models |
 
 >**Note**
 >“Llama-style” 不是说所有 modern LLM 都是 LLaMA，而是指一类常见的 modern decoder-only Transformer design pattern。
@@ -205,11 +205,11 @@ decoder 在生成时依赖两类信息：
 
 不同 Transformer branches 的一个关键区别是 attention pattern。
 
-| Architecture | Attention Pattern | Can See Future Tokens? | Typical Objective |
-|---|---|---|---|
-| Encoder-Only Transformer | bidirectional self-attention | Yes | masked language modeling / representation learning |
-| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | causal self-attention | No | next-token prediction |
-| Encoder-Decoder Transformer | encoder bidirectional + decoder causal + cross-attention | decoder cannot see future target tokens | sequence-to-sequence prediction |
+| Architecture                 | Attention Pattern                                        | Can See Future Tokens?                  | Typical Objective                                  |
+| ---------------------------- | -------------------------------------------------------- | --------------------------------------- | -------------------------------------------------- |
+| Encoder-Only Transformer     | bidirectional self-attention                             | Yes                                     | masked language modeling / representation learning |
+| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | causal self-attention                                    | No                                      | next-token prediction                              |
+| Encoder-Decoder Transformer  | encoder bidirectional + decoder causal + cross-attention | decoder cannot see future target tokens | sequence-to-sequence prediction                    |
 
 >**Important**
 >Attention mask 决定一个 token position 能看见哪些 positions。
@@ -220,16 +220,16 @@ decoder 在生成时依赖两类信息：
 
 Transformer family 的不同分支通常和不同 training objective 绑定。
 
-| Architecture | Common Objective | Output Meaning |
-|---|---|---|
-| Encoder-Only Transformer | masked language modeling | 学习 contextual representation |
-| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | next-token prediction | 预测下一个 token |
-| Encoder-Decoder Transformer | conditional generation | 根据 source sequence 生成 target sequence |
+| Architecture                 | Common Objective         | Output Meaning                        |
+| ---------------------------- | ------------------------ | ------------------------------------- |
+| Encoder-Only Transformer     | masked language modeling | 学习 contextual representation          |
+| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | next-token prediction    | 预测下一个 token                           |
+| Encoder-Decoder Transformer  | conditional generation   | 根据 source sequence 生成 target sequence |
 
 >**Note**
 >Architecture 和 objective 不是完全绑定死的，但它们通常互相匹配。
 >
->例如 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 和 Next Token Prediction 非常匹配，因为 causal self-attention 刚好对应 autoregressive factorization。
+>例如 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 和 [Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 非常匹配，因为 causal self-attention 刚好对应 autoregressive factorization。
 
 ## 🧩 Relation to Language Modeling
 
@@ -268,23 +268,3 @@ x_{>t}
 >[Original Transformer](<Original%20Transformer.md>) 是 encoder-decoder structure；Encoder-Only Transformer 适合 representation learning；[Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 适合 autoregressive language modeling；[Llama-style Architecture](<Llama-style%20Architecture.md>) 则是 modern decoder-only LLM 的一种常见结构组合。
 >
 >理解这组关系后，看到“Transformer”这个词时，就需要判断它到底是在指 original Transformer、Transformer family，还是 modern decoder-only LLM。
-
-## 🔗 Connections
-
-- [Transformer](<Transformer.md>)
-- [Language Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
-- [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
-- [Original Transformer](<Original%20Transformer.md>)
-- Encoder-Only Transformer
-- [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)
-- Encoder-Decoder Transformer
-- [Llama-style Architecture](<Llama-style%20Architecture.md>)
-- [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
-- [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)
-- [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>)
-- Cross-Attention
-- Next Token Prediction
-- Autoregressive Language Model
-- Masked Language Modeling
-- [Language Modeling](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
-- [Large Language Model (LLM)](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)

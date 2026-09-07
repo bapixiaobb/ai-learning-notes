@@ -8,7 +8,7 @@ Decoder-Only Transformer 是只保留 Transformer decoder 主干的一类 Transf
 >**Note**
 >[Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 的核心是：
 >
->用 causal [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 建模 token prefix，并根据 prefix [预测下一个 token](<../../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)。
+>用 causal [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 建模 token prefix，并根据 prefix [预测下一个 token](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)。
 >
 >它没有 encoder，也通常没有 encoder-decoder Cross-Attention。
 
@@ -93,7 +93,7 @@ z_t \in \mathbb{R}^{V}
 ```
 $V$ 是 vocabulary size。
 
-通常 $z_t$ 用来[预测下一个 token](<../../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)：
+通常 $z_t$ 用来[预测下一个 token](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)：
 ```math
 p_\theta(x_{t+1} \mid x_{\leq t})
 =
@@ -181,12 +181,12 @@ x' + \mathrm{MLP}(\mathrm{Norm}(x'))
 
 ## 🧮 Inference Data Flow
 
-推理时，decoder-only Transformer 通常 [autoregressively 生成 token](<../../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)。
+推理时，decoder-only Transformer 通常 [autoregressively 生成 token](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)。
 
 >**Note**
 >训练时可以并行计算多个 positions 的 loss；推理时生成过程通常是 sequential 的。
 >
->这就是 [Training vs Inference](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 在 decoder-only Transformer 中最重要的区别之一。
+>这就是 [Training vs Inference](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>) 在 decoder-only Transformer 中最重要的区别之一。
 
 为了避免每一步重复计算所有 previous tokens，推理时通常使用 [KV Cache](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>)。
 
@@ -227,7 +227,7 @@ M =
 
 它的优势包括：
 
-- 训练目标简单：[Next-token prediction](<../../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)；
+- 训练目标简单：[Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)；
 - 数据形式统一：任意 text 都可以看成 token stream；
 - inference 形式自然：不断生成下一个 token；
 - architecture 相对简洁：没有 encoder 和 cross-attention；

@@ -13,7 +13,7 @@
 \text{logits}
 ```
 
-最后得到： `logits[b, s, :]` 都是一个长度为 `vocab_size` 的 vector，表示模型在位置 $s$ 对所有 next-token candidates 给出的 [未归一化分数](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Logits.md>)。
+最后得到： `logits[b, s, :]` 都是一个长度为 `vocab_size` 的 vector，表示模型在位置 $s$ 对所有 next-token candidates 给出的 [未归一化分数](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Logits.md>)。
 
 >**Important**
 > Transformer LM 本身只负责根据 input tokens 产生 logits。它并不知道正确答案，所以 logits 还不是 loss。
@@ -36,7 +36,7 @@ next-token targets     -> target: [B, S]
 
 ## Language Modeling Uses Cross Entropy
 
-[Next-token prediction](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 在每个位置都是一个 `vocab_size` 类的 classification problem，所以 language model 通常使用 [Cross Entropy Loss](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。
+[Next-token prediction](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) 在每个位置都是一个 `vocab_size` 类的 classification problem，所以 language model 通常使用 [Cross Entropy Loss](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。
 
 对位置 $(b,s)$：
 
@@ -90,7 +90,7 @@ next-token targets     -> target: [B, S]
 \operatorname{PPL}=\exp(\mathcal L)
 ```
 
-因此 [Perplexity](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Perplexity.md>) 不是另一套 prediction，也不是 optimizer；它只是同一个 cross-entropy loss 的另一种表示方式：
+因此 [Perplexity](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Perplexity.md>) 不是另一套 prediction，也不是 optimizer；它只是同一个 cross-entropy loss 的另一种表示方式：
 
 ```math
 \mathcal L\downarrow
@@ -132,4 +132,4 @@ next-token targets     -> target: [B, S]
 ```
 
 >**Note**
-> Inference 时没有正确的 next-token targets，因此通常不计算 loss。此时 logits 会经过 probability conversion 和 sampling / selection，用于 [Autoregressive Decoding](<../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)。
+> Inference 时没有正确的 next-token targets，因此通常不计算 loss。此时 logits 会经过 probability conversion 和 sampling / selection，用于 [Autoregressive Decoding](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)。

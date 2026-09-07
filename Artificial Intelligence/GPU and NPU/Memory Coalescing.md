@@ -64,7 +64,7 @@ thread 31 -> x[31000]
 ## 和 Tiling 的关系
 
 >**Note**
-> [Tiling](<../Language%20modeling/03%20-%20System/Tiling.md>) 不只是选择 tile size，还要考虑 tile 在 memory 里的 layout 和 alignment。
+> [Tiling](<../Language%20modeling/01%20-%20System/Tiling.md>) 不只是选择 tile size，还要考虑 tile 在 memory 里的 layout 和 alignment。
 >
 > 一个 tile 如果读取时地址连续、对齐，就更容易 coalesce；如果 stride 很怪，即使 tile size 看起来合理，也可能访问效率很差。
 
@@ -72,5 +72,5 @@ thread 31 -> x[31000]
 
 - [GPU](<GPU.md>)
 - [GPU Memory Bound](<GPU%20Memory%20Bound.md>)
-- [Tiling](<../Language%20modeling/03%20-%20System/Tiling.md>)
+- [Tiling](<../Language%20modeling/01%20-%20System/Tiling.md>)
 - [Bank Conflict](<Bank%20Conflict.md>)

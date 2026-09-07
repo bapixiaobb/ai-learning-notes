@@ -60,7 +60,7 @@ Transformer 的主要计算来自 matrix multiplication，例如 attention proje
 
     HBM ↔ shared memory / registers ↔ compute
 
-如果 bytes 搬得很多、计算却很少，operator 就可能是 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)。[Tiling](<../03%20-%20System/Tiling.md>)、[Operator fusion](<../../GPU%20and%20NPU/Operator%20fusion.md>) 和 [Memory Coalescing](<../../GPU%20and%20NPU/Memory%20Coalescing.md>) 都是在改善这笔账。
+如果 bytes 搬得很多、计算却很少，operator 就可能是 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>)。[Tiling](<../01%20-%20System/Tiling.md>)、[Operator fusion](<../../GPU%20and%20NPU/Operator%20fusion.md>) 和 [Memory Coalescing](<../../GPU%20and%20NPU/Memory%20Coalescing.md>) 都是在改善这笔账。
 
 多张 GPU 之间：
 
@@ -100,11 +100,11 @@ Parallelism 决定把什么拆开：
 ---
 # 🔗
 
-[Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
+[Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>)
 [Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>)
 [Training Recipe](<Training%20Recipe.md>)
 [GPU](<../../GPU%20and%20NPU/GPU.md>)
 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)
-[FLOPs](<../03%20-%20System/FLOPs.md>)
-[Model FLOPs Utilization](<../03%20-%20System/Model%20FLOPs%20Utilization.md>)
+[FLOPs](<../01%20-%20System/FLOPs.md>)
+[Model FLOPs Utilization](<../01%20-%20System/Model%20FLOPs%20Utilization.md>)
 [Scaling Law](<Scaling%20Law.md>)

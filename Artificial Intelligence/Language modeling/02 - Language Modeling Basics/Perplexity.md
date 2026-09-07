@@ -35,8 +35,8 @@ Perplexity 与 cross-entropy loss 包含相同信息：
 - loss 越低 $\Leftrightarrow$ perplexity 越低 $\Leftrightarrow$ next-token prediction 越好；
 - 如果图中使用 **Negative Log-Perplexity**，因为 $-\log(\operatorname{PPL})=-L$，所以数值越高越好。
 
-## [Scaling Law](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>) and Limitation
+## [Scaling Law](<../03%20-%20Training%20and%20Scaling/Scaling%20Law.md>) and Limitation
 
-Perplexity 是 pretraining 的 **upstream metric**。它通常会随 model parameters、data 或 compute 呈现比较平滑、可预测的 [scaling trend](<../02%20-%20Training%20and%20Scaling/Scaling%20Law.md>)。
+Perplexity 是 pretraining 的 **upstream metric**。它通常会随 model parameters、data 或 compute 呈现比较平滑、可预测的 [scaling trend](<../03%20-%20Training%20and%20Scaling/Scaling%20Law.md>)。
 
 但较低的 perplexity 不保证 downstream task（post- training 例如 classification、reasoning 或 SuperGLUE）一定更好：next-token prediction 的平均改善，不一定会直接转化成特定任务能力。因此 perplexity 是重要信号，但不能作为最终模型能力的唯一证据。

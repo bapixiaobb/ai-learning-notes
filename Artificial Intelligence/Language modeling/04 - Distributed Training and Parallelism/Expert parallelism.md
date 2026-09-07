@@ -1,6 +1,6 @@
 #AI #LanguageModeling #GPU
 
-现在很多大模型都是 [Mixture of Experts (MoE)](<../05%20-%20Architectures%20and%20MoE/Mixture%20of%20Experts%20(MoE).md>)，这种结构能够天然的做 parallel
+现在很多大模型都是 [Mixture of Experts (MoE)](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>)，这种结构能够天然的做 parallel
 
 ## Why doing EP?
 
@@ -39,7 +39,7 @@ expert GPU 没有输入
 
 #### Load imbalance
 
-不同 expert 收到的 token 数可能不一样；这个在 [MoE imbalance mitigation](<../05%20-%20Architectures%20and%20MoE/MoE%20imbalance%20mitigation.md>) 里有细节
+不同 expert 收到的 token 数可能不一样；这个在 [MoE imbalance mitigation](<../05%20-%20MoE/MoE%20imbalance%20mitigation.md>) 里有细节
 
 #### DP 和 EP 的 group 被绑在一起
 

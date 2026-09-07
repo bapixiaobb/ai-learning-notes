@@ -1,5 +1,5 @@
 #AI
-Artificial Intelligence (AI) > [Machine Learning](<../Fundamentals/Machine%20Learning.md>)
+[Artificial Intelligence](<../Artificial%20Intelligence.md>) > [Machine Learning](<../Fundamentals/Machine%20Learning.md>)
 
 **定义**：深度学习是 [Machine Learning](<../Fundamentals/Machine%20Learning.md>) 的一个子集，主要研究使用多层 [Neural Network](<Neural%20Network.md>) 从数据中学习复杂表示和模式。
 
@@ -38,14 +38,14 @@ f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
 - Computer Vision
 - Recommender Systems
 - [Foundation Model](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Foundation%20Model.md>)
-- [Large Language Model (LLM)](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>)
+- [Large Language Model (LLM)](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
 
 ## Systems Aspect
 
 >**Note**
 > 大规模 deep learning 不只涉及模型结构和优化算法，还涉及训练系统效率，例如 compute、memory、communication 和 hardware utilization。
 >
-> 相关内容见 [Systems for Language Models](<../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) 和 [Resource Accounting](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)。
+> 相关内容见 [Systems for Language Models](<../Language%20modeling/01%20-%20System/Systems%20for%20Language%20Models.md>) 和 [Resource Accounting](<../Language%20modeling/03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)。
 ## Related
 
 - [Machine Learning](<../Fundamentals/Machine%20Learning.md>)

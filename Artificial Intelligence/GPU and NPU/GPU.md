@@ -143,5 +143,5 @@ warp scheduler 调度 warps
 [Language Modeling](<../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
 [GPU 核心思想](<GPU%20%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3.md>)
 [GPU vs](<GPU%20vs.%20CPU.md>)
-[Language Model Architecture](<../Language%20modeling/05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
+[Language Model Architecture](<../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Language%20Model%20Architecture.md>)
 [Making ML workloads fast on a GPU](<Making%20ML%20workloads%20fast%20on%20a%20GPU.md>)

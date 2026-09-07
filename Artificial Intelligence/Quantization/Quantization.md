@@ -23,7 +23,7 @@ dequantize
 approx FP32 / BF16 tensor
 ```
 
-# Quantization $\neq$ [Low precision computation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>)
+# Quantization $\neq$ [Low precision computation](<../Language%20modeling/03%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>)
 
 > **Note** — Quantized Storage
 >比如有些部署流程会这样：
@@ -34,7 +34,7 @@ approx FP32 / BF16 tensor
 >↓
 >再用 FP16 / BF16 matmul
 >```
->这里发生了 quantization，因为存储时是 INT8。但真正计算时可能不是 INT8 compute，而是先还原到 BF16 再算。所以这种情况不算是 [Low precision computation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>)
+>这里发生了 quantization，因为存储时是 INT8。但真正计算时可能不是 INT8 compute，而是先还原到 BF16 再算。所以这种情况不算是 [Low precision computation](<../Language%20modeling/03%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>)
 
 ---
 # State of the Art
@@ -51,4 +51,4 @@ approx FP32 / BF16 tensor
 比如为了在本地电脑、手机、边缘设备上跑。
 
 > **Important** — Matmul 做 quantization 收益最大
-> 硬件有专门的适配 FP8 / MXFP8 的 tensor core，做 [Low precision computation](<../Language%20modeling/02%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>)
+> 硬件有专门的适配 FP8 / MXFP8 的 tensor core，做 [Low precision computation](<../Language%20modeling/03%20-%20Training%20and%20Scaling/Low%20precision%20computation.md>)

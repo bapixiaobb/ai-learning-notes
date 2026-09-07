@@ -143,7 +143,7 @@ rank 1：W 的 shard 1
    释放其他 ranks 的 W shards
    重新只保留自己的 W shard
 ```
-⚠️：forward 中 backward 所需的一部分 [activations](<../../Neural%20Networks/Activations.md>) 仍需暂时保存，除非使用 [Recomputation](<../02%20-%20Training%20and%20Scaling/Recomputation.md>)；这里释放的是临时 All-Gather 出来的完整 weights。
+⚠️：forward 中 backward 所需的一部分 [activations](<../../Neural%20Networks/Activations.md>) 仍需暂时保存，除非使用 [Recomputation](<../03%20-%20Training%20and%20Scaling/Recomputation.md>)；这里释放的是临时 All-Gather 出来的完整 weights。
 
 ###### Backward
 Backward 又需要 $W$，例如：

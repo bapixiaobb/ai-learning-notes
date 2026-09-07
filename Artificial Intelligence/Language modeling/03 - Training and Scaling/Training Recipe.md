@@ -1,12 +1,12 @@
 #LanguageModeling #Training #Optimization
 
 [Training Recipe](<Training%20Recipe.md>) 指训练一个 language model 时采用的一整套训练配置和训练策略。
-它不描述模型“长什么样”，而是描述：**在给定 [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 的情况下，如何把模型参数训练出来。**
+它不描述模型“长什么样”，而是描述：**在给定 [Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>) 的情况下，如何把模型参数训练出来。**
 
 ## 🧠 Core Idea
 
 >**Note**
->[Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 决定 model forward 的基本 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)；[Training Recipe](<Training%20Recipe.md>) 决定这个结构里的参数如何被学习。
+>[Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>) 决定 model forward 的基本 [computation graph](<../../Neural%20Networks/Computational%20Graph.md>)；[Training Recipe](<Training%20Recipe.md>) 决定这个结构里的参数如何被学习。
 >
 >同一个 architecture 可以用不同 training recipes 训练，得到性能、稳定性和泛化能力完全不同的模型。
 
@@ -15,7 +15,7 @@
 - objective / [loss function](<../../Neural%20Networks/Loss%20Function.md>)；
 - [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)；
 - [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>)；
-- [batch size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)；
+- [batch size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)；
 - weight decay；
 - dropout；
 - gradient clipping；
@@ -32,20 +32,20 @@
 
 | Concept | Question | Examples |
 |---|---|---|
-| [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape |
+| [Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape |
 | [Training Recipe](<Training%20Recipe.md>) | 模型如何被训练出来？ | optimizer, learning rate, batch size, weight decay, dropout, data mixture |
-| [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>) | 模型如何在硬件上高效训练和推理？ | MFU, memory bandwidth, parallelism, checkpointing, KV cache |
+| [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>) | 模型如何在硬件上高效训练和推理？ | MFU, memory bandwidth, parallelism, checkpointing, KV cache |
 
 >**Important**
 >Architecture 是模型结构；training recipe 是训练过程。
 >
->例如 [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)、[Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)、Grouped Query Attention 属于 architecture choices。
+>例如 [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)、[Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)、[Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>) 属于 architecture choices。
 >
 >但 learning rate、batch size、weight decay、optimizer 属于 [Training Recipe](<Training%20Recipe.md>)。
 
 ## 🎯 Training Objective
 
-Language model 的核心训练目标通常是 Next Token Prediction。
+Language model 的核心训练目标通常是 [Next-token prediction](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)。
 
 给定 token sequence：
 
@@ -83,7 +83,7 @@ p_\theta(x_t \mid x_{<t})
 >**Note**
 >对 decoder-only language model 来说，training objective 和 architecture 是高度匹配的：
 >
->[Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>) 用 Causal Mask 保证每个位置只能看见 prefix，然后通过 Language Modeling Head 输出 next-token [logits](<../01%20-%20Language%20Modeling%20Basics/Logits.md>)。
+>[Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>) 用 Causal Mask 保证每个位置只能看见 prefix，然后通过 Language Modeling Head 输出 next-token [logits](<../02%20-%20Language%20Modeling%20Basics/Logits.md>)。
 
 ## ⚙️ Optimizer
 
@@ -120,7 +120,7 @@ p_\theta(x_t \mid x_{<t})
 
 warmup 阶段逐渐增大学习率，避免训练初期不稳定；decay 阶段逐渐降低学习率，让模型在训练后期更稳定地收敛。
 
-## 📦 [Batch Size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)
+## 📦 [Batch Size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)
 
 指一次参数更新使用多少 training examples / tokens。
 ## 🧮 Gradient Accumulation
@@ -285,7 +285,7 @@ Training recipe 还包括训练过程中如何保存和评估模型。
 
 ## ⚖️ Why It Matters
 
-同一个 [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)，如果使用不同的 [Training Recipe](<Training%20Recipe.md>)，最终模型可能差异很大。
+同一个 [Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)，如果使用不同的 [Training Recipe](<Training%20Recipe.md>)，最终模型可能差异很大。
 
 差异可能体现在：
 
@@ -307,7 +307,7 @@ Training recipe 还包括训练过程中如何保存和评估模型。
 >**Summary** — My Understanding
 >[Training Recipe](<Training%20Recipe.md>) 描述 language model 的训练方案。
 >
->它不是模型结构本身，而是在给定 [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 后，决定如何优化参数的一整套 choices。
+>它不是模型结构本身，而是在给定 [Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>) 后，决定如何优化参数的一整套 choices。
 >
 >在 LLM 中，training recipe 至少包括 objective、optimizer、learning rate schedule、batch size、weight decay、dropout、gradient clipping、data mixture 和 training tokens。
 >
@@ -317,14 +317,14 @@ Training recipe 还包括训练过程中如何保存和评估模型。
 
 ## 🔗 Connections
 
-- [Language Model Architecture](<../05%20-%20Architectures%20and%20MoE/Language%20Model%20Architecture.md>)
-- [Model Architecture](<../05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
-- [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)
-- [Cross Entropy Loss](<../01%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
+- [Language Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Language%20Model%20Architecture.md>)
+- [Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)
+- [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>)
+- [Cross Entropy Loss](<../02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>)
 - AdamW
 - [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>)
-- [Batch Size](<../01%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)
+- [Batch Size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>)
 - [Gradient Accumulation](<Gradient%20Accumulation.md>)
 - Weight Decay
 - Dropout

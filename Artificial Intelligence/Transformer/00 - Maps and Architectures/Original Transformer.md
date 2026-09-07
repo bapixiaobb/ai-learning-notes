@@ -324,7 +324,7 @@ decoder target 是：
 >
 >推理时通常是 autoregressive generation，需要一步一步生成 target tokens。
 
-这也自然连接到 [Training vs Inference](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)。
+这也自然连接到 [Training vs Inference](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)。
 
 ## 🧱 Positional Encoding
 
@@ -465,4 +465,4 @@ Original Transformer 和 modern decoder-only LLM 最重要的区别是结构不�
 - [Positional Encoding](<../01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>)
 - Machine Translation
 - Sequence-to-Sequence
-- [Training vs Inference](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
+- [Training vs Inference](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)

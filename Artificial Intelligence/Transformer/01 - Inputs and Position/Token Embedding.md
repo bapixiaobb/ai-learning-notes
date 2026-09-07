@@ -8,7 +8,7 @@ Token Embedding 指把 discrete token id 映射成 continuous vector 的方法�
 >**Note**
 >Language model 不能直接处理 raw text。
 >
->文本会先经过 [Tokenization](<../../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Tokenization.md>)，变成一串 token IDs；然后 Token Embedding 把每个 token ID 转成一个 dense vector。
+>文本会先经过 [Tokenization](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Tokenization.md>)，变成一串 token IDs；然后 Token Embedding 把每个 token ID 转成一个 dense vector。
 
 例如：
 
@@ -189,7 +189,7 @@ z_t \in \mathbb{R}^{V}
 
 ### Token Embedding 不是 Tokenization
 
-[Tokenization](<../../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Tokenization.md>) 把 raw text 切成 token IDs。
+[Tokenization](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Tokenization.md>) 把 raw text 切成 token IDs。
 Token Embedding 把 token IDs 变成 vectors。
 
 ### Token ID 大小没有语义大小
@@ -213,7 +213,7 @@ token id 100 不代表比 token id 50 “更大”或“更重要”。
 
 ## 🔗 Connections
 
-- [Tokenization](<../../Language%20modeling/01%20-%20Language%20Modeling%20Basics/Tokenization.md>)
+- [Tokenization](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Tokenization.md>)
 - [Positional Encoding](<Positional%20Encoding.md>)
 - [Rotary Position Embedding](<Rotary%20Position%20Embedding.md>)
 - [Transformer](<../00%20-%20Maps%20and%20Architectures/Transformer.md>)

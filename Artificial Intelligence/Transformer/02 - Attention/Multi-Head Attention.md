@@ -181,9 +181,9 @@ Modern LLM 中也常用 multi-head structure，但可能会修改 K/V 的组织�
 | Grouped Query Attention | 多个 query heads 分组共享 K/V     |
 
 >**Note**
->这些 variants 的主要动机之一是减少 inference 时的 KV Cache memory cost。
+>这些 variants 的主要动机之一是减少 inference 时的 [KV Cache](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>) memory cost。
 >
->所以 attention head 的设计既是 [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) 问题，也会影响 [Systems for Language Models](<../../GPU%20and%20NPU/Systems%20for%20Language%20Models.md>)。
+>所以 attention head 的设计既是 [Model Architecture](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>) 问题，也会影响 [Systems for Language Models](<../../Language%20modeling/01%20-%20System/Systems%20for%20Language%20Models.md>)。
 
 ## 🚫 Common Confusions
 
@@ -210,9 +210,9 @@ Head 是 hidden dimension 的分解方式，不是 sequence length 的分解方�
 >
 >多个 heads 的结果会拼接后再投影回 $d_{\text{model}}$。
 >
->在 modern LLM 中，standard multi-head attention 还可以进一步变成 Multi-Query Attention 或 Grouped Query Attention，以减少 KV cache cost。
+>在 modern LLM 中，standard multi-head attention 还可以进一步变成 [Multi-Query Attention](<Multi-Query%20Attention.md>) 或 [Grouped Query Attention](<Grouped-Query%20Attention.md>)，以减少 KV cache cost。
 
-![TransformerLM.jpeg](<../../attachments/TransformerLM.jpeg>)
+![TransformerLM](<../../attachments/TransformerLM.jpeg>)
 ## 🔗 Connections
 
 - [Self-Attention](<Self-Attention.md>)
@@ -222,7 +222,7 @@ Head 是 hidden dimension 的分解方式，不是 sequence length 的分解方�
 - [Causal Mask](<Causal%20Mask.md>)
 - [Decoder-Only Transformer](<../00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
-- Multi-Query Attention
-- Grouped Query Attention
-- KV Cache
-- [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
+- [Multi-Query Attention](<Multi-Query%20Attention.md>)
+- [Grouped Query Attention](<Grouped-Query%20Attention.md>)
+- [KV Cache](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>)
+- [Model Architecture](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)

@@ -276,7 +276,7 @@ X + \mathrm{SubLayer}(\mathrm{Norm}(X))
 | normalization | [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
 | norm placement | [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
 | MLP activation | [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>) |
-| attention variant | often Grouped Query Attention |
+| attention variant | often [Grouped Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) |
 
 可以粗略写成：
 
@@ -368,7 +368,7 @@ Transformer block 是连接 architecture 和 computation 的核心单位。
 >**Note**
 >当说一个模型有 $L$ layers 时，通常指它堆叠了 $L$ 个 Transformer blocks。
 >
->但 block 内部采用什么 attention、norm、MLP、activation，仍然属于重要的 [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>) choices。
+>但 block 内部采用什么 attention、norm、MLP、activation，仍然属于重要的 [Model Architecture](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>) choices。
 
 ---
 
@@ -386,7 +386,7 @@ Transformer block 是连接 architecture 和 computation 的核心单位。
 >- [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>) 是加法结构；
 >- [Residual Stream](<../04%20-%20Normalization%20and%20Residuals/Residual%20Stream.md>) 是贯穿所有 blocks 的主 hidden state 流。
 
-![TransformerLM.jpeg](<../../attachments/TransformerLM.jpeg>)
+![TransformerLM](<../../attachments/TransformerLM.jpeg>)
 ## 🔗 Connections
 
 - [Transformer](<Transformer.md>)
@@ -394,7 +394,7 @@ Transformer block 是连接 architecture 和 computation 的核心单位。
 - [Original Transformer](<Original%20Transformer.md>)
 - [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)
 - [Llama-style Architecture](<Llama-style%20Architecture.md>)
-- [Model Architecture](<../../Language%20modeling/05%20-%20Architectures%20and%20MoE/Model%20Architecture.md>)
+- [Model Architecture](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)
 - [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
 - [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)
 - [Multi-Head Attention](<../02%20-%20Attention/Multi-Head%20Attention.md>)
@@ -404,5 +404,5 @@ Transformer block 是连接 architecture 和 computation 的核心单位。
 - [Residual Connection vs Regression Residual](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection%20vs%20Regression%20Residual.md>)
 - [Normalization](<../04%20-%20Normalization%20and%20Residuals/Normalization.md>)
 - [Layer Normalization](<../04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>)
-- [Training vs Inference](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
-- [Resource Accounting](<../../Language%20modeling/02%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+- [Training vs Inference](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
+- [Resource Accounting](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
