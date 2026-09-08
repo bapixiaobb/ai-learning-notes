@@ -13,19 +13,10 @@
 - 在训练集之外表现较差；
 - 让 parameter magnitude 在训练中持续增长。
 
-因此，我们人为加入一种 L2 penalty：
+因此，我们人为加入一种 small-norm preference：
 
 > 如果两组 parameters 都能很好地解释训练数据，那么稍微偏好 norm 较小的那一组。
 
-数学上，可以把它写成：
-
-```math
-\min_\theta \left[ \mathcal L_{\text{data}}(\theta) + \frac{\lambda}{2}\|\theta\|_2^2 \right]
-```
-
-这里同时优化两个目标：
-
-- $\mathcal L_{\text{data}}$：预测要准确；
-- $\|\theta\|_2^2$：parameters 不要无必要地变得特别大。
-
 >**Important** — 在没有足够数据证据时，不要让 parameter magnitude 无限制地增大。
+
+这种偏好可以通过在 optimization 中加入 [Weight Decay](<Weight%20Decay.md>) 来实现。
