@@ -16,12 +16,12 @@ Training vs Inference 描述的是同一个模型在两个不同运行阶段的�
 >\text{Inference}
 >```
 >
->Lecture 10 中的 prefill、[KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)、latency、throughput、batching 和 serving 属于 Inference 的执行与系统层。
+>Lecture 10 中的 prefill、[KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)、latency、throughput、batching 和 serving 属于 [Inference](<../06%20-%20Inference%20and%20Serving/Inference.md>) 的执行与系统层。
 
 ## Core Difference
 
 | Aspect | Training | Inference |
-|---|---|---|
+| --- | --- | --- |
 | parameters | updated | fixed |
 | input | training data | prompt / request |
 | forward pass | yes | yes |
@@ -88,7 +88,7 @@ last-position logits
 
 temperature、top-k 和 top-p 等 token-selection 细节统一放在 [Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)，不在这里重复。
 
-## Why Training Parallelizes Across Positions but Generation Does Not
+## Why Training Parallelizes Across Positions but Decode Does Not
 
 **训练**时，sequence 中所有正确 tokens 已经给定：
 
@@ -110,7 +110,7 @@ x_{T+2}
 x_{T+3}
 ```
 
-必须先选出 $x_{T+1}$，才能把它作为 context 生成 $x_{T+2}$。因此不同 generation steps 之间存在 [sequential dependency](<../06%20-%20Inference%20and%20Serving/Generation.md#sequential>)。
+必须先选出 $x_{T+1}$，才能把它作为 context 生成 $x_{T+2}$。因此不同 generation steps 之间存在 [sequential dependency](<../06%20-%20Inference%20and%20Serving/Decode.md#sequential>)。
 
 ## Execution Mode
 
@@ -140,13 +140,13 @@ Inference 不需要普通训练中的 backward 和 optimizer states，但有自�
 - serving throughput。
 
 | Main concern | Training | Inference |
-|---|---|---|
+| --- | --- | --- |
 | optimization | loss and parameter updates | fixed-parameter execution |
 | parallelism | dense tokens and large training batches | requests, prefill and decode scheduling |
 | memory | parameters, activations, gradients, optimizer states | parameters and KV cache |
 | performance | training throughput / time-to-train | latency, throughput and memory capacity |
 
-这些 inference-specific 问题统一从 Inference 继续展开。
+这些 inference-specific 问题统一从 [Inference](<../06%20-%20Inference%20and%20Serving/Inference.md>) 继续展开。
 
 ## Common Confusions
 
@@ -175,7 +175,7 @@ temperature、top-k、top-p 决定如何选择 token；[KV Cache](<../06%20-%20I
 >**Summary**
 >Training 用 data、loss、backward 和 optimizer 学习参数；inference 固定参数并使用 model forward 得到预测或生成输出。
 >
->对于 decoder-only language model，[Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) 描述“如何逐 token 生成”，而 Inference 还要研究“这套生成过程如何高效执行和服务”。
+>对于 decoder-only language model，[Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) 描述“如何逐 token 生成”，而 [Inference](<../06%20-%20Inference%20and%20Serving/Inference.md>) 还要研究“这套生成过程如何高效执行和服务”。
 
 ## Connections
 
@@ -187,7 +187,7 @@ temperature、top-k、top-p 决定如何选择 token；[KV Cache](<../06%20-%20I
 - [Next-token prediction](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
 - [Cross Entropy Loss](<../02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 - [Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)
-- Inference
+- [Inference](<../06%20-%20Inference%20and%20Serving/Inference.md>)
 - [KV Cache](<../06%20-%20Inference%20and%20Serving/KV%20Cache.md>)
 - [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>)
 - [Resource Accounting](<Resource%20Accounting.md>)

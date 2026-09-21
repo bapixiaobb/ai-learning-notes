@@ -16,13 +16,13 @@ Llama-style Architecture 指 modern decoder-only language model 中非常常见�
 >
 >这些 choices 通常包括：
 >
->- [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)
+>- [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>)
 >- [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>)
 >- [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
 >- [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 >- [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>)
 >- [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) / [Multi-Query Attention](<../02%20-%20Attention/Multi-Query%20Attention.md>)
->- Language Modeling Head
+
 
 它的核心仍然是 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)：
 模型根据 prefix 预测下一个 token。
@@ -39,16 +39,16 @@ LLaMA 系列模型不是第一个 decoder-only Transformer，但它很好地代�
 
 在很多现代 LLM 中，经常看到类似组合：
 
-| Design Area          | Common Llama-style Choice                               |
+| Design Area | Common Llama-style Choice |
 | -------------------- | ------------------------------------------------------- |
-| overall structure    | [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)                            |
-| attention            | [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)                                    |
-| normalization        | [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)                                             |
-| norm placement       | [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>)                                |
-| position information | [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)                           |
-| MLP activation       | [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>)                                              |
-| attention variant    | [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) / [Multi-Query Attention](<../02%20-%20Attention/Multi-Query%20Attention.md>) |
-| objective            | [Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)                               |
+| overall structure | [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) |
+| attention | [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>) |
+| normalization | [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
+| norm placement | [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
+| position information | [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>) |
+| MLP activation | [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>) |
+| attention variant | [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) / [Multi-Query Attention](<../02%20-%20Attention/Multi-Query%20Attention.md>) |
+| objective | [Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>) |
 
 ## 🧱 Relation to Original Transformer
 
@@ -167,7 +167,7 @@ prompt 和 generated text 都可以被看成同一个 autoregressive token strea
 
 ## 🎭 Causal Attention
 
-Llama-style model 使用 [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)。
+Llama-style model 使用 [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>)。
 
 Self-attention 的基本形式仍然是：
 
@@ -314,11 +314,11 @@ Llama-style architecture 中的 attention variant 可能不是最原始的 [Mult
 
 常见 choices 包括：
 
-| Variant                     | Idea                              |
+| Variant | Idea |
 | --------------------------- | --------------------------------- |
-| [Multi-Head Attention](<../02%20-%20Attention/Multi-Head%20Attention.md>)    | 每个 query head 有自己的 key/value head |
-| [Multi-Query Attention](<../02%20-%20Attention/Multi-Query%20Attention.md>)   | 多个 query heads 共享一组 key/value     |
-| [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) | 多个 query heads 分组共享 key/value     |
+| [Multi-Head Attention](<../02%20-%20Attention/Multi-Head%20Attention.md>) | 每个 query head 有自己的 key/value head |
+| [Multi-Query Attention](<../02%20-%20Attention/Multi-Query%20Attention.md>) | 多个 query heads 共享一组 key/value |
+| [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) | 多个 query heads 分组共享 key/value |
 
 >**Note**
 >[Grouped Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) 经常用于 modern LLM，因为它在保留多头 query 表达能力的同时，可以减少 KV cache 的 memory cost。
@@ -424,14 +424,14 @@ Llama-style architecture 描述的是模型结构，不是训练方案。
 
 例如：
 
-| Belongs to Architecture | Belongs to Training Recipe  |
+| Belongs to Architecture | Belongs to Training Recipe |
 | ----------------------- | --------------------------- |
-| RMSNorm                 | [Optimizer](<../05%20-%20Training/Optimizer.md>)               |
-| RoPE                    | [Learning Rate Schedule](<../05%20-%20Training/Learning%20Rate%20Schedule.md>)  |
-| SwiGLU                  | batch size                  |
-| causal attention        | weight decay                |
-| GQA                     | data mixture                |
-| decoder-only structure  | training tokens             |
+| RMSNorm | [Optimizer](<../05%20-%20Training/Optimizer.md>) |
+| RoPE | [Learning Rate Schedule](<../05%20-%20Training/Learning%20Rate%20Schedule.md>) |
+| SwiGLU | batch size |
+| causal attention | weight decay |
+| GQA | data mixture |
+| decoder-only structure | training tokens |
 
 >**Note**
 >两个模型可以采用相似的 Llama-style architecture，但因为 training data、training tokens、[Optimizer](<../05%20-%20Training/Optimizer.md>)、[Learning Rate Schedule](<../05%20-%20Training/Learning%20Rate%20Schedule.md>) 不同，最终能力差异很大。
@@ -465,7 +465,7 @@ Llama-style architecture 中的一些 choices 会直接影响 systems cost。
 >- [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
 >- [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 >- [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>)
->- [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)
+>- [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>)
 >- [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>)
 >
 >理解 Llama-style architecture 的关键是：

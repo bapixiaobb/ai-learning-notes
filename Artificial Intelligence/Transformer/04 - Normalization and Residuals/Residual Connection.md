@@ -75,17 +75,15 @@ x + F(x)
 >
 >如果某一层暂时学不到有用 transformation，它可以让 $F(x)$ 接近 0，于是：
 >
->
-```math
+>```math
 >x_{\text{out}} \approx x
->
-```
+>```
 >
 >这让深层网络更容易优化。
 
 ## 🔁 Residual Connection in Transformer
 
-在 [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 中，[Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 和 [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) 通常都会通过 residual connection 写回主 hidden states。
+在 [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 中，[Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 和 [MLP](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) 通常都会通过 residual connection 写回主 hidden states。
 
 以 modern Pre-Norm Transformer 为例：
 
@@ -140,7 +138,7 @@ F(x)
 两者的区别是：
 
 | Structure | Formula | Meaning |
-|---|---|---|
+| --- | --- | --- |
 | plain layer | $F(x)$ | 直接用 transformation output 替换输入 |
 | residual layer | $x + F(x)$ | 保留输入，并加上 learned update |
 
@@ -353,11 +351,9 @@ Residual connection 本身通常没有参数。
 >**Summary** — My Understanding
 >Residual Connection 是 neural network 中的加法结构：
 >
->
-```math
+>```math
 >x_{\text{out}} = x + F(x)
->
-```
+>```
 >
 >它让 layer 学习对输入 representation 的增量更新，而不是完全替换输入。
 >
@@ -374,5 +370,5 @@ Residual connection 本身通常没有参数。
 - [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Transformer](<../00%20-%20Maps%20and%20Architectures/Transformer.md>)
 - [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)
+- [Multilayer Perceptron](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)
 - [Normalization](<Normalization.md>)

@@ -155,7 +155,7 @@ A^{(\ell)}
 
 ### MLP Update
 
-[MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) 读取 attention 更新后的 residual stream，对每个 token position 独立做 nonlinear transformation：
+[MLP](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) 读取 attention 更新后的 residual stream，对每个 token position 独立做 nonlinear transformation：
 
 ```math
 M^{(\ell)}
@@ -256,7 +256,7 @@ x_t^{(\ell)}
 在很多语境下，residual stream 和 hidden states 会被近似混用，但它们强调的重点不同。
 
 | Term | Emphasis |
-|---|---|
+| --- | --- |
 | hidden states | 某一层输出的 token representations |
 | residual stream | 贯穿多个 layers、被 residual updates 不断修改的主数据流 |
 
@@ -270,7 +270,7 @@ x_t^{(\ell)}
 Residual Stream 和 [Residual Connection](<Residual%20Connection.md>) 相关，但不是同一个概念。
 
 | Concept | Meaning |
-|---|---|
+| --- | --- |
 | [Residual Connection](<Residual%20Connection.md>) | 具体的加法结构：$x + F(x)$ |
 | Residual Stream | 多个 residual connections 串起来后形成的主 hidden state 流 |
 
@@ -323,7 +323,7 @@ X^{(L)}
 \text{layer L updates}
 ```
 
-最终的 residual stream 再被 Language Modeling Head 映射到 logits。
+最终的 residual stream 再被 [Language Modeling Head](<../00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md#-language-modeling-head>) 映射到 logits。
 
 >**Note**
 >从这个角度看，Transformer 的每一层都在逐步编辑 token representation。
@@ -357,12 +357,12 @@ x_{\leq t}^{(0)}
 x_{>t}^{(0)}
 ```
 
-这个因果约束由 [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>) 和 [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>) 保证。
+这个因果约束由 [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>) 和 [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>) 保证。
 
 >**Note**
 >因此，在 decoder-only LM 中，每个位置最终的 residual stream 都是 prefix representation。
 >
->这个 representation 再经过 Language Modeling Head 预测 next token。
+>这个 representation 再经过  [Language Modeling Head](<../00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md#-language-modeling-head>)  预测 next token。
 
 ## 🔄 Forward Pass View
 
@@ -463,5 +463,5 @@ Residual stream 是这些参数作用在输入 token sequence 上产生的 hidde
 - [Residual Connection](<Residual%20Connection.md>)
 - [Residual Connection vs Regression Residual](<Residual%20Connection%20vs%20Regression%20Residual.md>)
 - [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)
+- [Multilayer Perceptron](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)
 - [Normalization](<Normalization.md>)

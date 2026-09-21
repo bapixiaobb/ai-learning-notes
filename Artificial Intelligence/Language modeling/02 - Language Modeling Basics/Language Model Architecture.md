@@ -46,11 +46,11 @@ Lecture 3 的主线可以概括为：
 
 学习 language models 时，需要区分三条线：
 
-| Concept | Main Question | Examples                                                                                   |
+| Concept | Main Question | Examples |
 | ------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
-| [Model Architecture](<Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape                       |
+| [Model Architecture](<Model%20Architecture.md>) | 模型内部结构怎么设计？ | attention variant, norm, activation, positional embedding, MLP shape |
 | [Training Recipe](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>) | 模型如何被训练出来？ | [Optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>), [Learning Rate Schedule](<../../Transformer/05%20-%20Training/Learning%20Rate%20Schedule.md>), batch size, weight decay, dropout, data mixture |
-| [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>) | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost                               |
+| [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>) | 模型如何被高效训练和推理？ | MFU, memory bandwidth, KV cache, parallelism, inference cost |
 
 >**Note**
 >这三条线相互影响，但不是同一个层面的概念。
@@ -173,7 +173,7 @@ Architecture 不只是 number of layers，而是包括：
 - [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
 - [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
 - [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>)
-- [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)
+- [Self-Causal Attention](<../../Transformer/02%20-%20Attention/Self-Causal%20Attention.md>)
 - [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>)
 
 >**Note**
@@ -182,47 +182,10 @@ Architecture 不只是 number of layers，而是包括：
 ## 🔬 Architecture Design Areas
 
 | Area | Core Question | Related Concepts |
-|---|---|---|
+| --------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | block structure | 一个 Transformer block 内部怎么组织？ | [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>), [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>), [Residual Connection](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>) |
-| attention | token positions 如何交换信息？ | [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>), [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>), [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>), [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>) |
+| attention | token positions 如何交换信息？ | [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>), [Self-Causal Attention](<../../Transformer/02%20-%20Attention/Self-Causal%20Attention.md>), [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>), [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>) |
 | position | token 顺序如何表示？ | [Positional Encoding](<../../Transformer/01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>), [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>), Relative Position Information |
 | normalization | hidden states 如何稳定？ | [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>), [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>), [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
-| MLP | 每个 token representation 如何做 nonlinear processing？ | [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>), [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>), [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>), GELU |
-| output | hidden states 如何变成 logits？ | Language Modeling Head, [Logits](<Logits.md>), [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) |
-
----
-
->**Summary** — My Understanding
->[Language Model Architecture](<Language%20Model%20Architecture.md>) 这部分的核心不是记住某一个模型有多少层，而是建立一个关于 modern LLM 结构的整体认识：
->
->**architecture 是一组 design choices。**
->
->在 modern LLM 中，这些 choices 通常围绕 [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>) 展开，包括 attention、position embedding、normalization、MLP、activation、residual path 和 output head。
->
->Lecture 3 的学习重点是理解这些 choices 如何共同决定模型的表达能力、训练稳定性和计算成本。
-
-## 🔗 Connections
-
-- [Language Modeling](<../00%20-%20Maps%20and%20Overview/Language%20Modeling.md>)
-- [Large Language Model (LLM)](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
-- [Model Architecture](<Model%20Architecture.md>)
-- [Training Recipe](<../03%20-%20Training%20and%20Scaling/Training%20Recipe.md>)
-- [Systems for Language Models](<../01%20-%20System/Systems%20for%20Language%20Models.md>)
-- [Transformer Family](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Family.md>)
-- [Original Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Original%20Transformer.md>)
-- [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
-- [Llama-style Architecture](<../../Transformer/00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md>)
-- [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
-- [Self-Attention](<../../Transformer/02%20-%20Attention/Self-Attention.md>)
-- [Causal Attention](<../../Transformer/02%20-%20Attention/Causal%20Attention.md>)
-- [Multi-Head Attention](<../../Transformer/02%20-%20Attention/Multi-Head%20Attention.md>)
-- [Grouped Query Attention](<../../Transformer/02%20-%20Attention/Grouped-Query%20Attention.md>)
-- [Positional Encoding](<../../Transformer/01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>)
-- [Rotary Position Embedding](<../../Transformer/01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
-- [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>)
-- [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)
-- [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>)
-- [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
-- Language Modeling Head
-- [Resource Accounting](<../03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
-- [Scaling Law](<../03%20-%20Training%20and%20Scaling/Scaling%20Law.md>)
+| MLP | 每个 token representation 如何做 nonlinear processing？ | [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>), [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>), [SwiGLU](<../../Transformer/03%20-%20MLP%20and%20Activations/SwiGLU.md>), GELU |
+| output | hidden states 如何变成 logits？ | [Language Modeling Head](<../../Transformer/00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md#language-modeling-head>), [Logits](<Logits.md>), [Softmax](<../../Transformer/02%20-%20Attention/Softmax.md>) |

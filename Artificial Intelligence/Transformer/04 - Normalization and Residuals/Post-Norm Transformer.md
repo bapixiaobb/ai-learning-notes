@@ -13,7 +13,7 @@ x_{\text{out}}
 其中：
 
 - $x$ 是输入 hidden state / [Residual Stream](<Residual%20Stream.md>)；
-- $F$ 是 sublayer，例如 [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 或 [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)；
+- $F$ 是 sublayer，例如 [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 或 [MLP](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)；
 - $x + F(x)$ 是 [Residual Connection](<Residual%20Connection.md>)；
 - $\mathrm{Norm}$ 可以是 [Layer Normalization](<Layer%20Normalization.md>) 或其他 normalization 方法。
 
@@ -26,15 +26,13 @@ x_{\text{out}}
 >
 >也就是：
 >
->
-```math
+>```math
 >\mathrm{SubLayer}
 >\rightarrow
 >\mathrm{Residual Add}
 >\rightarrow
 >\mathrm{Norm}
->
-```
+>```
 
 这和 [Pre-Norm Transformer](<Pre-Norm%20Transformer.md>) 相反。
 Pre-Norm 是先 normalization，再进入 sublayer：
@@ -118,7 +116,7 @@ x' + \mathrm{MLP}(x')
 ## ⚖️ Post-Norm vs Pre-Norm
 
 | Structure | Formula | Norm Position |
-|---|---|---|
+| --- | --- | --- |
 | [Post-Norm Transformer](<Post-Norm%20Transformer.md>) | $\mathrm{Norm}(x + F(x))$ | after residual add |
 | [Pre-Norm Transformer](<Pre-Norm%20Transformer.md>) | $x + F(\mathrm{Norm}(x))$ | before sublayer |
 
@@ -206,11 +204,9 @@ Post-Norm 只决定 norm 放在哪里。
 >**Summary**
 >[Post-Norm Transformer](<Post-Norm%20Transformer.md>) 的核心公式是：
 >
->
-```math
+>```math
 >x_{\text{out}} = \mathrm{Norm}(x + F(x))
->
-```
+>```
 >
 >它先做 sublayer transformation 和 residual addition，再做 normalization。
 >
@@ -219,17 +215,3 @@ Post-Norm 只决定 norm 放在哪里。
 >理解 Post-Norm 的关键是：
 >
 >**Post-Norm / Pre-Norm 讨论的是 normalization placement，不是 normalization formula。**
-
-## 🔗 Connections
-
-- [Pre-Norm Transformer](<Pre-Norm%20Transformer.md>)
-- [Original Transformer](<../00%20-%20Maps%20and%20Architectures/Original%20Transformer.md>)
-- [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
-- [Normalization](<Normalization.md>)
-- [Layer Normalization](<Layer%20Normalization.md>)
-- [RMSNorm](<RMSNorm.md>)
-- [Residual Connection](<Residual%20Connection.md>)
-- [Residual Stream](<Residual%20Stream.md>)
-- [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)
-- [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)

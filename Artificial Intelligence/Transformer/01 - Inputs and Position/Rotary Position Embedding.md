@@ -232,10 +232,10 @@ Q\rightarrow\mathrm{RoPE}(Q), \qquad K\rightarrow\mathrm{RoPE}(K)
 ## 和 Causal Mask 的区别
 
 | Concept | Role |
-|---|---|
+| --- | --- |
 | RoPE | 注入 position information, 尤其是 relative position effect |
 | [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>) | 防止看到 future tokens |
-| [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>) | 只能 attend to prefix 的 attention pattern |
+| [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>) | 只能 attend to prefix 的 attention pattern |
 
 >**Note**
 > RoPE 告诉模型 token 的位置关系。
@@ -257,7 +257,7 @@ Q\rightarrow\mathrm{RoPE}(Q), \qquad K\rightarrow\mathrm{RoPE}(K)
 - [Positional Encoding](<Positional%20Encoding.md>)
 - [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
 - [Query Key Value](<../02%20-%20Attention/Query%20Key%20Value.md>)
-- [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)
+- [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>)
 - [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>)
 - [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Decoder-Only Transformer](<../00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)

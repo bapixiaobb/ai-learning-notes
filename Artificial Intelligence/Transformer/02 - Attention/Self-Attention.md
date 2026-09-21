@@ -65,14 +65,14 @@ h_1, h_2, \dots, h_T
 >**Important**
 >Self-Attention 负责 token positions 之间的信息交互。
 >
->[MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) 通常负责每个 token position 内部的 nonlinear transformation。
+>[MLP](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) 通常负责每个 token position 内部的 nonlinear transformation。
 
 ## 🔁 Relation to Causal Attention
 
 Self-Attention 本身不一定是 causal 的。
 
 如果每个 token 可以看整个 sequence，就是 bidirectional self-attention。
-如果加上 [Causal Mask](<Causal%20Mask.md>)，只能看 prefix，就变成 [Causal Attention](<Causal%20Attention.md>)。
+如果加上 [Causal Mask](<Causal%20Mask.md>)，只能看 prefix，就变成 [Self-Causal Attention](<Self-Causal%20Attention.md>)。
 
 ```math
 \text{Self-Attention}
@@ -90,13 +90,3 @@ Self-Attention 本身不一定是 causal 的。
 >它让同一个 sequence 中的 token positions 互相交换信息，从而把 token embedding 更新成 context-dependent representation。
 >
 >在 decoder-only language model 中，Self-Attention 通常会加上 Causal Mask，变成 Causal Attention。
-
-## 🔗 Connections
-
-- [Transformer](<../00%20-%20Maps%20and%20Architectures/Transformer.md>)
-- [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
-- [Causal Attention](<Causal%20Attention.md>)
-- [Causal Mask](<Causal%20Mask.md>)
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)
-- [Query Key Value](<Query%20Key%20Value.md>)
-- [Multi-Head Attention](<Multi-Head%20Attention.md>)

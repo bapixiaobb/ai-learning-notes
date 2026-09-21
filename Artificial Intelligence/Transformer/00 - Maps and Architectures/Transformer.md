@@ -42,7 +42,7 @@ $T$ 是 sequence length，$d_{\text{model}}$ 是 hidden dimension。
 >**Note**
 >Transformer 是一种 [Neural Network](<../../Neural%20Networks/Neural%20Network.md>) architecture，属于 [Deep Learning](<../../Neural%20Networks/Deep%20Learning.md>)。
 >
->在 NLP 中，现代 [Language Modeling](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 和 [Large Language Model (LLM)](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20(LLM).md>) 大多基于 Transformer 或其变体。
+>在 NLP 中，现代 [Language Modeling](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Language%20Modeling.md>) 和 [Large Language Model (LLM)](<../../Language%20modeling/00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>) 大多基于 Transformer 或其变体。
 
 可以理解成：
 
@@ -73,8 +73,8 @@ Transformer 通常由多个 [Transformer Block](<Transformer%20Block.md>) 堆叠
 
 一个 Transformer block 通常包含：
 
-- [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)
+- [Attention](<../02%20-%20Attention/Self-Attention.md>)
+- [MLP](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)
 - [Normalization](<../04%20-%20Normalization%20and%20Residuals/Normalization.md>)
 
 粗略地看，一个 Transformer 会反复执行：
@@ -132,7 +132,7 @@ Transformer 的核心重复单元是 [Transformer Block](<Transformer%20Block.md
 其中：
 
 - [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 负责 token positions 之间的信息交互；
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) 负责对每个 token representation 做 nonlinear transformation；
+- [Multilayer Perceptron](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) 负责对每个 token representation 做 nonlinear transformation；
 - [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>) 让信息沿着主路径稳定传递；
 - [Normalization](<../04%20-%20Normalization%20and%20Residuals/Normalization.md>) 稳定 hidden states 的尺度。
 
@@ -147,11 +147,11 @@ Transformer 不是单一模型，而是一族 architecture。
 
 从 [Original Transformer](<Original%20Transformer.md>) 出发，可以发展出几类常见结构：
 
-| **Architecture**                | **Typical Use**                                            |
+| **Architecture** | **Typical Use** |
 | ------------------------------- | ---------------------------------------------------------- |
-| Encoder-Only Transformer    | representation learning, classification, BERT-style models |
-| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)    | autoregressive language modeling, GPT/Llama-style models   |
-| Encoder-Decoder Transformer | sequence-to-sequence tasks, translation, T5-style models   |
+| Encoder-Only Transformer | representation learning, classification, BERT-style models |
+| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | autoregressive language modeling, GPT/Llama-style models |
+| Encoder-Decoder Transformer | sequence-to-sequence tasks, translation, T5-style models |
 >**Note**
 现代 LLM 通常不是泛泛地“用了 Transformer”，而是更具体地使用了 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)。
 而 [Llama-style Architecture](<Llama-style%20Architecture.md>) 可以看作 modern decoder-only Transformer 的一种代表性结构组合。
@@ -191,10 +191,10 @@ p_\theta(x_t \mid x_{<t})
 其中 [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>) 保证模型在预测当前位置时不能看到 future tokens。
 ## **⚖️ Transformer vs RNN**
 
-| **Model**          | **Sequence Processing**  | **Strength** | **Limitation**                        |
+| **Model** | **Sequence Processing** | **Strength** | **Limitation** |
 | ------------------ | ------------------------ | ------------ | ------------------------------------- |
-| RNN / LSTM | 按时间顺序递归处理                | 适合早期序列建模     | 难以并行，长距离依赖较难                          |
-| [Transformer](<Transformer.md>)    | 使用 self-attention 并行处理序列 | 易并行，适合大规模训练  | attention cost 随 sequence length 增长较快 |
+| RNN / LSTM | 按时间顺序递归处理 | 适合早期序列建模 | 难以并行，长距离依赖较难 |
+| [Transformer](<Transformer.md>) | 使用 self-attention 并行处理序列 | 易并行，适合大规模训练 | attention cost 随 sequence length 增长较快 |
 >**Note**
 Transformer 取代 RNN 的重要原因之一是它更适合 [GPU](<../../GPU%20and%20NPU/GPU.md>) / TPU 上的大规模并行计算。
 这也是为什么 Transformer 和 [Systems for Language Models](<../../Language%20modeling/01%20-%20System/Systems%20for%20Language%20Models.md>)、[Resource Accounting](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>) 有很强的联系。

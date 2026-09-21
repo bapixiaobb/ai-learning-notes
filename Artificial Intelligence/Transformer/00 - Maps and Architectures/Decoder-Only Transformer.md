@@ -102,7 +102,7 @@ p_\theta(x_{t+1} \mid x_{\leq t})
 
 ## 🎭 Causal [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
 
-Decoder-only Transformer 的关键是 [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)。
+Decoder-only Transformer 的关键是 [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>)。
 
 在第 $t$ 个位置，模型只能 attend to 当前和之前的位置：
 
@@ -116,6 +116,7 @@ h_1, h_2, \dots, h_t
 h_{t+1}, h_{t+2}, \dots, h_T
 ```
 这通过 [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>) 实现。
+
 
 ## 🏗️ Decoder-Only Transformer Block
 
@@ -166,7 +167,7 @@ x' + \mathrm{MLP}(\mathrm{Norm}(x'))
 也就是：
 
 | Position | Visible Prefix | Prediction Target |
-|---|---|---|
+| --- | --- | --- |
 | 1 | $x_1$ | $x_2$ |
 | 2 | $x_1, x_2$ | $x_3$ |
 | 3 | $x_1, x_2, x_3$ | $x_4$ |
@@ -179,7 +180,7 @@ x' + \mathrm{MLP}(\mathrm{Norm}(x'))
 
 这就是为什么 decoder-only Transformer 同时适合 autoregressive modeling 和大规模并行训练。
 
-## 🧮 Inference Data Flow
+## 🧮 [Inference](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/Inference.md>) Data Flow
 
 推理时，decoder-only Transformer 通常 [autoregressively 生成 token](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>)。
 
@@ -250,6 +251,6 @@ M =
 >
 >它来自 [Original Transformer](<Original%20Transformer.md>) 的 decoder side，但通常去掉了 encoder 和 cross-attention，只保留 causal self-attention + MLP + residual + normalization 的主干。
 >
->它的核心约束是：每个 token position 只能看见 prefix，因此天然适合 Next Token Prediction。
+>它的核心约束是：每个 token position 只能看见 prefix，因此天然适合 [Next-token prediction](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)。
 >
 >GPT / LLaMA-style models 可以理解为 decoder-only Transformer 加上一组 modern architecture choices，例如 [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)、[Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>) 和 [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>)。

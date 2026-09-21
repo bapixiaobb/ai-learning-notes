@@ -55,7 +55,7 @@
 ## 🌳 Main Branches
 
 | Branch | Typical Models | Main Use |
-|---|---|---|
+| --- | --- | --- |
 | [Original Transformer](<Original%20Transformer.md>) / Encoder-Decoder Transformer | Transformer, T5, BART | translation, sequence-to-sequence |
 | Encoder-Only Transformer | BERT, RoBERTa | representation learning, classification |
 | [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | GPT, LLaMA, Mistral | autoregressive language modeling |
@@ -187,9 +187,9 @@ decoder 在生成时依赖两类信息：
 它通常不是简单复刻 [Original Transformer](<Original%20Transformer.md>)，而是在 decoder-only Transformer 基础上采用一组 modern design choices：
 
 | Component | Common Choice |
-|---|---|
+| -------------------- | ----------------------------- |
 | overall structure | [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) |
-| attention | [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>) |
+| attention | [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>) |
 | position information | [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>) |
 | normalization | [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
 | block layout | [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
@@ -205,11 +205,11 @@ decoder 在生成时依赖两类信息：
 
 不同 Transformer branches 的一个关键区别是 attention pattern。
 
-| Architecture                 | Attention Pattern                                        | Can See Future Tokens?                  | Typical Objective                                  |
+| Architecture | Attention Pattern | Can See Future Tokens? | Typical Objective |
 | ---------------------------- | -------------------------------------------------------- | --------------------------------------- | -------------------------------------------------- |
-| Encoder-Only Transformer     | bidirectional self-attention                             | Yes                                     | masked language modeling / representation learning |
-| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | causal self-attention                                    | No                                      | next-token prediction                              |
-| Encoder-Decoder Transformer  | encoder bidirectional + decoder causal + cross-attention | decoder cannot see future target tokens | sequence-to-sequence prediction                    |
+| Encoder-Only Transformer | bidirectional self-attention | Yes | masked language modeling / representation learning |
+| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | causal self-attention | No | next-token prediction |
+| Encoder-Decoder Transformer | encoder bidirectional + decoder causal + cross-attention | decoder cannot see future target tokens | sequence-to-sequence prediction |
 
 >**Important**
 >Attention mask 决定一个 token position 能看见哪些 positions。
@@ -220,11 +220,11 @@ decoder 在生成时依赖两类信息：
 
 Transformer family 的不同分支通常和不同 training objective 绑定。
 
-| Architecture                 | Common Objective         | Output Meaning                        |
+| Architecture | Common Objective | Output Meaning |
 | ---------------------------- | ------------------------ | ------------------------------------- |
-| Encoder-Only Transformer     | masked language modeling | 学习 contextual representation          |
-| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | next-token prediction    | 预测下一个 token                           |
-| Encoder-Decoder Transformer  | conditional generation   | 根据 source sequence 生成 target sequence |
+| Encoder-Only Transformer | masked language modeling | 学习 contextual representation |
+| [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) | next-token prediction | 预测下一个 token |
+| Encoder-Decoder Transformer | conditional generation | 根据 source sequence 生成 target sequence |
 
 >**Note**
 >Architecture 和 objective 不是完全绑定死的，但它们通常互相匹配。

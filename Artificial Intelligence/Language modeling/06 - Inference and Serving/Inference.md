@@ -4,16 +4,16 @@ Inference 是使用已经训练好的固定参数，对输入执行模型并得�
 
 这份笔记主要关注 **LLM inference systems**：如何让 decoder-only language model 的生成过程高效运行并服务一个或多个 requests。
 
-| [Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) | 模型如何根据当前 context 选择 next token，并继续生成？           |
+| [Autoregressive Decoding](<../02%20-%20Language%20Modeling%20Basics/Autoregressive%20Decoding.md>) | 模型如何根据当前 context 选择 next token，并继续生成？ |
 | --------------------------- | ----------------------------------------------- |
-| Inference systems           | 整个 forward / generation workload 如何执行、优化、调度和服务？ |
+| Inference systems | 整个 forward / generation workload 如何执行、优化、调度和服务？ |
 # Landscape
 #### Shows Up in many places
 - Actual use (chatbots, code completion, agents, batch data processing)
 - Model evaluation (e.g., on instruction following)
 - Reinforcement learning (sample many generations, then apply score)
 
-> **Important**
+>**Important**
 > Training is a one-time cost
 > **Inference is repeated many times**
 
@@ -24,12 +24,12 @@ Inference 是使用已经训练好的固定参数，对输入执行模型并得�
 request / prompt
 → prefill
 → first generated token
-→ repeated decode steps (generation)
+→ repeated decode steps
 → completed response
 ```
 
 - **[Prefill](<Prefill.md>)**：处理 prompt 中已经给定的 tokens。
-- **[Generation](<Generation.md>)**：每一步基于已有 context 生成一个新 token。
+- **[Decode](<Decode.md>)**：每一步基于已有 context 生成一个新 token。
 - **[KV Cache](<KV%20Cache.md>)**：复用 previous tokens 的 keys 和 values，避免每个 decode step 重算完整 prefix。
 
 所以对于 inference 来说，输入并不是完整的 sequence 长度，一般会取：
@@ -38,26 +38,26 @@ X\in\mathbb{R}^{B\times T\times D}
 ```
 $T$ 是这一次 model execution 中，正在计算输出的 token positions 数量，不一定是当前完整 sequence/context 的长度。
 - 在 [Prefill](<Prefill.md>) 阶段 $T=S$
-- 在 [Generation](<Generation.md>) 阶段 $T=1$
+- 在 [Decode](<Decode.md>) 阶段 $T=1$
 
 ---
 # Make inference "**Fast**"
 
 ## What does "fast" mean (metrics)?
 
-- [Time-to-first-token](<Time-to-first-token.md>) (TTFT): How long user waits before any generation happens (for interactive applications)
+- [Time-to-first-token](<Time-to-first-token.md>) (TTFT): How long user waits before any decode happens (for interactive applications)
 - [Latency](<Latency.md>) (seconds/token): how fast tokens appear for _one_ query (for interactive applications)
 - [Throughput](<Throughput.md>) (tokens/second): how fast tokens appear for _many_ queries (for batch processing)
 
 #### Sequential vs. Parallel
 
-Training 可以用 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 来充分利用 [GPU](<../../GPU%20and%20NPU/GPU.md>) 的 compute，但是 inference 是 sequentially 的，所以没有并行的天然优势，[Why Training Parallelizes Across Positions but Generation Does Not](<../03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md#why-training-parallelizes-across-positions-but-generation-does-not>) 解释了这种现象
+Training 可以用 [Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>) 来充分利用 [GPU](<../../GPU%20and%20NPU/GPU.md>) 的 compute，但是 inference 是 sequentially 的，所以没有并行的天然优势，[Why Training Parallelizes Across Positions but Decode Does Not](<../03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md#why-training-parallelizes-across-positions-but-decode-does-not>) 解释了这种现象
 
 #### [Arithmetic Intensity in Inference](<Arithmetic%20Intensity%20in%20Inference.md>)
 
-Inference 中的 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 主要出问题在 [Generation](<Generation.md>) 的阶段，由 Attention layers 引入的
+Inference 中的 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 主要出问题在 [Decode](<Decode.md>) 的阶段，由 Attention layers 引入的
 
-> **Summary** — Prefill is compute-bound, generation is memory-bound
+>**Summary** — Prefill is compute-bound, Decode is memory-bound
 
 #### 重复计算
 
@@ -74,7 +74,7 @@ Inference 中的 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensi
 
 KV cache 解决 autoregressive inference 中的重复计算；它不能解决 token 间的顺序依赖，也没有消除低 arithmetic intensity，反而使 decode 的 memory-bound 特征更加明显。
 
-> **Important** — **Inference is memory-bound**
+>**Important** — **Inference is memory-bound**
 #### [Latency](<Latency.md>) & [Throughput](<Throughput.md>) tradeoff
 
 从直接的公式可以看出，这两个指标都和 [Batch Size](<../02%20-%20Language%20Modeling%20Basics/Batch%20Size.md>) 有关系

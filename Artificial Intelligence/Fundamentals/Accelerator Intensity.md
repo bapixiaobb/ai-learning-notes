@@ -1,6 +1,6 @@
 #AI #GPU
 
-硬件指标
+硬件指标（硬件平衡点）
 
 ```math
 I_{\text{accel}}
@@ -20,3 +20,8 @@ accelerator_intensity ≈ 295 FLOP/byte
 ```
 
 在假设 dense FP16/BF16 Tensor Core 计算时，算子的 arithmetic intensity 大约需要超过 `295 FLOP/byte`，理论上才可能从 memory-bound 转向 compute-bound。
+
+## [Arithmetic Intensity](<Arithmetic%20Intensity.md>)
+
+Arithmetic Intensity > Accelerator Intensity -> compute bound
+Arithmetic Intensity < Accelerator Intensity -> memory bound

@@ -13,11 +13,11 @@ Query、Key、Value，简称 QKV，是 [Self-Attention](<Self-Attention.md>) 中
 
 可以粗略理解为：
 
-| Vector | Intuition                            |
+| Vector | Intuition |
 | ------ | ------------------------------------ |
-| Query  | 当前 token 发出的“查询”，也就是我这个 token 想找什么信息 |
-| Key    | 每个 token 提供的“索引 / 匹配信号”              |
-| Value  | 每个 token 真正被取走的信息内容                  |
+| Query | 当前 token 发出的“查询”，也就是我这个 token 想找什么信息 |
+| Key | 每个 token 提供的“索引 / 匹配信号” |
+| Value | 每个 token 真正被取走的信息内容 |
 
 ## 🧩 Where QKV Comes From
 
@@ -46,11 +46,6 @@ V = XW_V
 - $W_Q$ 生成 queries；
 - $W_K$ 生成 keys；
 - $W_V$ 生成 values。
-
->**Note**
->Q、K、V 都来自同一个 input sequence 时，就是 [Self-Attention](<Self-Attention.md>)。
->
->如果 Q 来自 decoder，K/V 来自 encoder outputs，就是 Cross-Attention。
 
 ## 🔍 How They Work
 
@@ -90,10 +85,6 @@ QK^\top
 >**Important**
 >Q 和 K 决定“看谁”；V 决定“拿什么信息”。
 
-### 3. Optimization with [GPU](<../../GPU%20and%20NPU/GPU.md>)
-
-[Flash Attention](<Flash%20Attention.md>) 可以把 $QK^\top \rightarrow \mathrm{softmax}\rightarrow AV$ 这整个 attention 过程做成一个 memory- efficient fused kernel，以解决 [GPU Memory Bound](<../../GPU%20and%20NPU/GPU%20Memory%20Bound.md>) 的问题。
-
 ## 📐 Shape View
 
 如果省略 batch 和 head dimension：
@@ -128,32 +119,6 @@ QK^\top \in \mathbb{R}^{T \times T}
 
 >**Note**
 >$T \times T$ 的 score matrix 表示每个 token 对每个 token 的关注程度。
-
-## 🎭 In Causal Attention
-
-在 [Causal Attention](<Causal%20Attention.md>) 中，QKV 仍然照常计算：
-
-```math
-Q = XW_Q,\quad K = XW_K,\quad V = XW_V
-```
-
-区别是 attention score 会加上 [Causal Mask](<Causal%20Mask.md>)：
-
-```math
-\mathrm{softmax}
-\left(
-\frac{QK^\top}{\sqrt{d_k}}
-+
-M
-\right)V
-```
-
-mask 会阻止第 $t$ 个 token attend to future tokens。
-
->**Note**
->Causal mask 不改变 Q、K、V 本身。
->
->它只改变哪些 query-key pairs 可以参与 attention。
 
 ## 📍 Relation to RoPE
 
@@ -201,14 +166,3 @@ attention output 后面通常还会经过 output projection、residual connectio
 >一句话理解：
 >
 >**Q/K 决定看谁，V 决定拿什么。**
-
-## 🔗 Connections
-
-- [Self-Attention](<Self-Attention.md>)
-- [Causal Attention](<Causal%20Attention.md>)
-- [Causal Mask](<Causal%20Mask.md>)
-- [Multi-Head Attention](<Multi-Head%20Attention.md>)
-- [Multi-Head Attention](<Multi-Head%20Attention.md>)
-- [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>)
-- [KV Cache](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>)
-- [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)

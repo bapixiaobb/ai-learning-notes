@@ -106,20 +106,9 @@ Modern LLM 中常见的是 [SwiGLU](<SwiGLU.md>) MLP。
 >常见 shape 是：
 >
 >```math
->d_{\text{model}}
->\rightarrow
->d_{\text{ff}}
->\rightarrow
->d_{\text{model}}
+d_{\text{model}}
+\rightarrow
+d_{\text{ff}}
+\rightarrow
+d_{\text{model}}
 >```
-
-## **🔗 Connections**
-
-- [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
-- [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)
-- [Activation Function](<../../Neural%20Networks/Activation%20Function.md>)
-- GELU
-- [SwiGLU](<SwiGLU.md>)
-- [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>)
-- [Residual Stream](<../04%20-%20Normalization%20and%20Residuals/Residual%20Stream.md>)
-- [Model Architecture](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)

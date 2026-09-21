@@ -132,7 +132,7 @@ Q_i, K_i, V_i
 例如：
 
 | Head Type | Possible Pattern |
-|---|---|
+| --- | --- |
 | local head | 关注附近 tokens |
 | syntax head | 关注语法相关 tokens |
 | induction head | 关注重复模式 |
@@ -174,11 +174,11 @@ Multi-Head Attention 通常是在 [Self-Attention](<Self-Attention.md>) 上做�
 
 Modern LLM 中也常用 multi-head structure，但可能会修改 K/V 的组织方式：
 
-| Variant                 | Main Idea                   |
+| Variant | Main Idea |
 | ----------------------- | --------------------------- |
-| Multi-Head Attention    | 每个 query head 有自己的 K/V head |
-| Multi-Query Attention   | 多个 query heads 共享一组 K/V     |
-| Grouped Query Attention | 多个 query heads 分组共享 K/V     |
+| Multi-Head Attention | 每个 query head 有自己的 K/V head |
+| Multi-Query Attention | 多个 query heads 共享一组 K/V |
+| Grouped Query Attention | 多个 query heads 分组共享 K/V |
 
 >**Note**
 >这些 variants 的主要动机之一是减少 inference 时的 [KV Cache](<../../Language%20modeling/06%20-%20Inference%20and%20Serving/KV%20Cache.md>) memory cost。
@@ -212,13 +212,13 @@ Head 是 hidden dimension 的分解方式，不是 sequence length 的分解方�
 >
 >在 modern LLM 中，standard multi-head attention 还可以进一步变成 [Multi-Query Attention](<Multi-Query%20Attention.md>) 或 [Grouped Query Attention](<Grouped-Query%20Attention.md>)，以减少 KV cache cost。
 
-![TransformerLM](<../../attachments/TransformerLM.jpeg>)
+![TransformerLM.jpeg](<../../attachments/TransformerLM.jpeg>)
 ## 🔗 Connections
 
 - [Self-Attention](<Self-Attention.md>)
 - [Query Key Value](<Query%20Key%20Value.md>)
 - Attention Head
-- [Causal Attention](<Causal%20Attention.md>)
+- [Self-Causal Attention](<Self-Causal%20Attention.md>)
 - [Causal Mask](<Causal%20Mask.md>)
 - [Decoder-Only Transformer](<../00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - [Transformer Block](<../00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)

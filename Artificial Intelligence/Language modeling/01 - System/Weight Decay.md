@@ -1,7 +1,5 @@
 #AI #LanguageModeling #Optimization
 
-# Weight Decay
-
 [Small-norm Preference](<Small-norm%20Preference.md>) 解释为什么偏好较小的 parameter norm；weight decay 描述怎样在 optimizer step 中实现这种偏好。
 
 数学上，small-norm preference 可以写成：

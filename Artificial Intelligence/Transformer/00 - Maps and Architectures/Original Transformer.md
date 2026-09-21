@@ -62,7 +62,7 @@
 [Original Transformer](<Original%20Transformer.md>) 由两个主要部分组成：
 
 | Part | Role |
-|---|---|
+| --- | --- |
 | encoder | 读取 source sequence，生成 contextual representations |
 | decoder | 根据 target prefix 和 encoder outputs 逐步生成 target sequence |
 
@@ -151,7 +151,7 @@ h_i
 h_1, h_2, \dots, h_S
 ```
 
-这和 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 中的 [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>) 不同。
+这和 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 中的 [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>) 不同。
 
 ## 📤 Decoder
 
@@ -180,7 +180,7 @@ Original Transformer 的 decoder block 比 encoder block 多一个 attention sub
 
 每个 decoder block 包含：
 
-1. Masked Self-Attention
+1. [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>)
 2. Cross-Attention
 3. [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)
 4. [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>)
@@ -299,7 +299,7 @@ V = H_{\text{enc}} W_V
 Original Transformer 的输入输出可以理解成两个序列：
 
 | Sequence | Meaning |
-|---|---|
+| --- | --- |
 | source sequence | 输入序列，例如待翻译的句子 |
 | target sequence | 输出序列，例如翻译后的句子 |
 
@@ -392,7 +392,7 @@ W_2 \sigma(W_1 x + b_1) + b_2
 Original Transformer 和 modern decoder-only LLM 最重要的区别是结构不同。
 
 | Aspect | Original Transformer | Decoder-Only Transformer |
-|---|---|---|
+| --- | --- | --- |
 | overall structure | encoder-decoder | decoder-only |
 | encoder | yes | no |
 | cross-attention | yes | usually no |
@@ -441,28 +441,3 @@ Original Transformer 和 modern decoder-only LLM 最重要的区别是结构不�
 >- encoder-decoder cross-attention。
 >
 >现代 GPT / LLaMA-style LLM 通常不是完整的 Original Transformer，而是从 Transformer family 中发展出的 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)。
-
-## 🔗 Connections
-
-- [Transformer](<Transformer.md>)
-- [Transformer Family](<Transformer%20Family.md>)
-- Encoder-Decoder Transformer
-- Encoder-Only Transformer
-- [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)
-- [Llama-style Architecture](<Llama-style%20Architecture.md>)
-- [Transformer Block](<Transformer%20Block.md>)
-- [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
-- Masked Self-Attention
-- [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)
-- [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>)
-- Cross-Attention
-- [Multi-Head Attention](<../02%20-%20Attention/Multi-Head%20Attention.md>)
-- [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)
-- [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>)
-- [Residual Stream](<../04%20-%20Normalization%20and%20Residuals/Residual%20Stream.md>)
-- [Layer Normalization](<../04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>)
-- [Post-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Post-Norm%20Transformer.md>)
-- [Positional Encoding](<../01%20-%20Inputs%20and%20Position/Positional%20Encoding.md>)
-- Machine Translation
-- Sequence-to-Sequence
-- [Training vs Inference](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)

@@ -3,7 +3,7 @@
 Mixture of Experts，简称 MoE，是一种在 neural network 中引入多个 experts，并根据输入动态选择部分 experts 参与计算的 architecture。
 
 在 modern language model 中，MoE 最常见的形式是：
-用 MoE layer 替换 Transformer block 里的 [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) / [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)。
+用 MoE layer 替换 Transformer block 里的 [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) / [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)。
 
 ---
 ## 🧠 Core Idea
@@ -58,23 +58,36 @@ MoE 的常见做法是把 FFN 替换成多个 experts：
 ## 🧱 Two Main Parts
 MoE主要由两个部分组成
 
-|**Part**|**Role**|
-|---|---|
-|experts|真正处理 token 的 neural networks，通常是 FFNs|
-|router / gate|决定每个 token 应该送到哪些 experts|
+| **Part** | **Role** |
+| --- | --- |
+| experts | 真正处理 token 的 neural networks，通常是 FFNs |
+| router / gate | 决定每个 token 应该送到哪些 experts |
 #### Experts
 
 每个 expert 是一个独立的 neural network。
 在 Transformer MoE 中，expert 通常是 FFN / MLP。
-如果有 $N$ 个 experts：$ E_1, E_2, ..., E_N$
+如果有 $N$ 个 experts：
+```math
+ E_1, E_2, ..., E_N
+```
 每个 token 不会经过所有 experts，而是指选择其中一小部分
 
 #### Router / Gate
 
 Router 负责为每个 token 计算 experts scores，并选择 top-k experts。
-对于 token representation $x$，router 可以产生 $s=Router(x)$
-其中：$s\in\mathbb{R}^N$ 表示这个 token 对 $N$ 个 experts 的 scores。
-然后选出 top-k experts: $\mathrm{TopK}(s)$
+对于 token representation $x$，router 可以产生
+```math
+s=Router(x)
+```
+其中：
+```math
+s\in\mathbb{R}^N
+```
+ 表示这个 token 对 $N$ 个 experts 的 scores。
+然后选出 top-k experts:
+```math
+\mathrm{TopK}(s)
+```
 >**Note**
 >在很多 MoE 里，routing 是 token-level 的。
 >也就是每个 token 都会单独决定自己要去哪个 expert，而不是整句话统一送到同一个 expert。
@@ -87,7 +100,6 @@ MoE 的 sparsity 指：每个 token 只激活全部 experts 中的一小部分�
 ```math
 64 \text{ experts total}
 ```
-
 ```math
 2 \text{ experts active per token}
 ```
@@ -97,9 +109,9 @@ MoE 的 sparsity 指：每个 token 只激活全部 experts 中的一小部分�
 
 这也是 MoE 和 dense Transformer 的关键区别：
 
-| **Model Type**   | **每个 token 使用的参数**    |
+| **Model Type** | **每个 token 使用的参数** |
 | ---------------- | --------------------- |
-| dense model      | 通常使用整层参数              |
+| dense model | 通常使用整层参数 |
 | sparse MoE model | 只使用被 route 到的 experts |
 
 ---
@@ -107,10 +119,10 @@ MoE 的 sparsity 指：每个 token 只激活全部 experts 中的一小部分�
 
 MoE 中需要区分两个参数量：
 
-|**Term**|**Meaning**|
-|---|---|
-|total parameters|所有 experts 加起来的总参数量|
-|active parameters|每个 token 实际激活并参与计算的参数量|
+| **Term** | **Meaning** |
+| --- | --- |
+| total parameters | 所有 experts 加起来的总参数量 |
+| active parameters | 每个 token 实际激活并参与计算的参数量 |
 例如，一个 MoE model 可能有：$\text{large total parameters}$，但每个 token 只使用 $\text{small active parameters}$
 
 >**Important**
@@ -181,7 +193,7 @@ MoE 的难点不在于概念，而在于 routing 和 systems
 ```math
 \text{route activations} \rightarrow \text{expert computation} \rightarrow \text{return outputs}
 ```
-所以 MoE 不只是 architecture 问题，也和 Systems for Language Models 有关
+ 所以 MoE 不只是 architecture 问题，也和 Systems for Language Models 有关
 
 ### 4. MoE 负载均衡 [MoE imbalance mitigation](<MoE%20imbalance%20mitigation.md>)
 
@@ -198,13 +210,13 @@ MoE 的难点不在于概念，而在于 routing 和 systems
 ---
 ## 🧪 MoE vs Dense FFN
 
-| **Aspect**  | **Dense FFN**        | **MoE Layer**                      |
+| **Aspect** | **Dense FFN** | **MoE Layer** |
 | ----------- | -------------------- | ---------------------------------- |
-| parameters  | 所有 token 共享同一个 FFN   | 多个 experts                         |
-| computation | 每个 token 用同一组 FFN 参数 | 每个 token 只用 top-k experts          |
-| capacity    | 参数量和 compute 通常一起增加  | total parameters 可以大幅增加            |
-| routing     | no routing           | router / gate 决定 expert assignment |
-| challenge   | 相对简单稳定               | routing imbalance、通信、训练复杂度         |
+| parameters | 所有 token 共享同一个 FFN | 多个 experts |
+| computation | 每个 token 用同一组 FFN 参数 | 每个 token 只用 top-k experts |
+| capacity | 参数量和 compute 通常一起增加 | total parameters 可以大幅增加 |
+| routing | no routing | router / gate 决定 expert assignment |
+| challenge | 相对简单稳定 | routing imbalance、通信、训练复杂度 |
 
 ---
 ## 🚫 Common Confusions
@@ -243,4 +255,4 @@ MoE 是一个模型内部的条件计算结构。
 - [Model Architecture](<../02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)
 - [Transformer Block](<../../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)
-- [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
+- MLP

@@ -16,7 +16,7 @@ F(\mathrm{Norm}(x))
 
 - $x$ 是输入 hidden state / [Residual Stream](<Residual%20Stream.md>)；
 - $\mathrm{Norm}$ 可以是 [Layer Normalization](<Layer%20Normalization.md>) 或 [RMSNorm](<RMSNorm.md>)；
-- $F$ 是某个 sublayer，例如 [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 或 [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)；
+- $F$ 是某个 sublayer，例如 [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 或 [MLP](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)；
 - $x + F(\mathrm{Norm}(x))$ 是 [Residual Connection](<Residual%20Connection.md>)。
 
 ## 🧠 Core Idea
@@ -28,15 +28,13 @@ F(\mathrm{Norm}(x))
 >
 >也就是：
 >
->
-```math
+>```math
 >\mathrm{Norm}
 >\rightarrow
 >\mathrm{SubLayer}
 >\rightarrow
 >\mathrm{Residual Add}
->
-```
+>```
 
 这和 [Post-Norm Transformer](<Post-Norm%20Transformer.md>) 不同。
 Post-Norm 是先 residual add，再 normalization：
@@ -137,7 +135,7 @@ X^{(L)}
 ## ⚖️ Pre-Norm vs Post-Norm
 
 | Structure | Formula | Norm Position |
-|---|---|---|
+| --- | --- | --- |
 | [Pre-Norm Transformer](<Pre-Norm%20Transformer.md>) | $x + F(\mathrm{Norm}(x))$ | before sublayer |
 | [Post-Norm Transformer](<Post-Norm%20Transformer.md>) | $\mathrm{Norm}(x + F(x))$ | after residual add |
 
@@ -231,18 +229,16 @@ Pre-Norm 说的是 norm 的位置。
 ### 3. Pre-Norm 不改变 causal mask
 
 Pre-Norm 只改变 normalization placement。
-是否 causal 由 [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>) 和 [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>) 决定。
+是否 causal 由 [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>) 和 [Causal Mask](<../02%20-%20Attention/Causal%20Mask.md>) 决定。
 
 ---
 
 >**Summary** — My Understanding
 >[Pre-Norm Transformer](<Pre-Norm%20Transformer.md>) 的核心公式是：
 >
->
-```math
+>```math
 >x_{\text{out}} = x + F(\mathrm{Norm}(x))
->
-```
+>```
 >
 >它把 normalization 放在 attention / MLP 之前，再把 sublayer output 加回 residual stream。
 >
@@ -260,4 +256,4 @@ Pre-Norm 只改变 normalization placement。
 - [Decoder-Only Transformer](<../00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - [Llama-style Architecture](<../00%20-%20Maps%20and%20Architectures/Llama-style%20Architecture.md>)
 - [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)
+- [Multilayer Perceptron](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)

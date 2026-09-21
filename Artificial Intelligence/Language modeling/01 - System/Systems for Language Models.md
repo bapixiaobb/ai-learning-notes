@@ -1,4 +1,4 @@
-#DeepLearning #LanguageModeling #Systems
+ #DeepLearning #LanguageModeling #Systems
 
 ## 从传统统计学的角度来理解 [LLM](<../00%20-%20Maps%20and%20Overview/Large%20Language%20Model%20%28LLM%29.md>)
 
@@ -7,21 +7,19 @@ Language model 可以表示为一个带参数的函数
 f_\theta(x)
 ```
 
-给定前文 $x$，它输出[下一个 token 在整个 vocabulary 上的 logits](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
+给定前文 $x$，它输出[下一个 token 在整个 vocabulary 上的分数 (logits)](<../02%20-%20Language%20Modeling%20Basics/Next-token%20prediction.md>)
 
 不同的参数 $\theta$ 会产生不同的预测结果，因此训练就是不断调整 $\theta$，让模型在训练数据上的预测误差尽可能小：
-
 ```math
 \min_\theta \mathcal L(\theta)
 ```
-
 一次 training step 大致是：
 
 batch
 → [forward](<../../Neural%20Networks/Forward%20Propagation.md>)
 → [loss](<../02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)
 → [backward](<../../Neural%20Networks/Backpropagation.md>) 得到 gradients
-→ [optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) 更新 parameters
+→ [optimizer](<../../Transformer/05%20-%20Training/Optimizer.md>) 更新 $\theta$
 
 如果完全不考虑机器，到这里就结束了。
 

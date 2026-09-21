@@ -8,15 +8,13 @@ Feed-Forward Network 指信息只沿一个方向从输入流向输出的 neural 
 >**Note**
 >Feed-forward 的意思是：
 >
->
-```math
+>```math
 >\text{input}
 >\rightarrow
 >\text{hidden layers}
 >\rightarrow
 >\text{output}
->
-```
+>```
 >
 >信息只向前传播，不形成循环。
 
@@ -114,7 +112,7 @@ y
 ## ⚖️ Feed-Forward vs Recurrent
 
 | Network Type | Information Flow | Example |
-|---|---|---|
+| --- | --- | --- |
 | Feed-Forward Network | input → output，单向无循环 | MLP |
 | Recurrent Neural Network | hidden state 会循环传递 | RNN, LSTM |
 | [Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer.md>) | 通过 attention 在 sequence positions 间交互 | Self-Attention |
@@ -126,7 +124,7 @@ y
 
 ## 🧮 Feed-Forward Network in Transformer
 
-在 [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 中，Feed-Forward Network 通常也叫 [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)。
+在 [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 中，Feed-Forward Network 通常也叫 [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)。
 
 它对每个 token position 独立作用：
 
@@ -189,7 +187,7 @@ Feed-Forward Network: 每个 token 自己内部做非线性处理
 在 [Original Transformer](<../Transformer/00%20-%20Maps%20and%20Architectures/Original%20Transformer.md>) 中，FFN 常用 [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>)
 
 >**Note**
-所以在 LLM 语境里，[Feed-Forward Network](<Feed-Forward%20Network.md>)、[MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)、FFN 经常指 Transformer block 中 attention 后面的 per-token nonlinear module。
+所以在 LLM 语境里，[Feed-Forward Network](<Feed-Forward%20Network.md>)、[Multilayer Perceptron](<../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)、FFN 经常指 Transformer block 中 attention 后面的 per-token nonlinear module。
 
 ## **🚫 Common Confusions**
 
@@ -224,15 +222,13 @@ Transformer 还包括：
 >
 >在 Transformer 语境下，FFN 通常指每个 [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>) 里的 per-token MLP：
 >
->
-```math
+>```math
 d_{\text{model}}
 \rightarrow
 d_{\text{ff}}
 \rightarrow
 d_{\text{model}}
->
-```
+>```
 >
 >它不负责 token mixing，而是对每个 token representation 做 nonlinear processing。
 
@@ -240,7 +236,7 @@ d_{\text{model}}
 
 - [Neural Network](<Neural%20Network.md>)
 - [Deep Neural Network](<Deep%20Neural%20Network.md>)
-- [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
+- [Multilayer Perceptron](<../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)
 - [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
 - [Self-Attention](<../Transformer/02%20-%20Attention/Self-Attention.md>)
 - [Activation Function](<Activation%20Function.md>)

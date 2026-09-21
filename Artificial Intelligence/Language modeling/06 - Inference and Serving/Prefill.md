@@ -24,10 +24,10 @@ logits
 ## Prefill 是 [compute-bound](<../../GPU%20and%20NPU/GPU%20Bottleneck.md>)
 
 要分两层来看
-
 #### MLP intensity
-
-
 Prefill MLP intensity: `B*S`
-
 Prefill attention intensity: `S/2`
+
+#### Prefill 优化
+
+侧重压榨算力，例如：[Operator fusion](<../../GPU%20and%20NPU/Operator%20fusion.md>)、[Parallelism](<../04%20-%20Distributed%20Training%20and%20Parallelism/Parallelism.md>)、更高 [MFU](<../01%20-%20System/Model%20FLOPs%20Utilization.md>)

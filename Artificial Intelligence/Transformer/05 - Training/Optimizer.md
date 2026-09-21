@@ -9,21 +9,18 @@ Mathematical foundation see: An Optimization Problem
 3. [Backpropagation](<../../Neural%20Networks/Backpropagation.md>) 计算 gradients；
 4. optimizer 使用 gradients 更新 parameters。
 
->**Important**
-> Optimizer 负责根据 gradients 更新 parameters；它不负责计算 model output、loss 或 gradients。
-
 ---
 ## From Optimization Problem to Optimizer
 
 从 An Optimization Problem 的角度，language model training 可以写成：
 
 ```math
-\min_{\theta} \mathcal L(\theta),
+\min_{\theta} \mathcal L(\theta)
 \qquad
 \mathcal L(\theta)=\mathbb{E}_{x\sim\mathcal D}[\ell(\theta;x)]
 ```
 
-其中 $\theta$ 是 model parameters，$\ell(\theta;x)$ 是一个 training example 上的 [loss](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。在有限 training set 上，也可以写成：
+其中 $\theta$ 是 model parameters (unconstrained)，$\ell(\theta;x)$ 是一个 training example 上的 [loss](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Cross%20Entropy%20Loss.md>)。在有限 training set 上，也可以写成：
 
 ```math
 \mathcal L(\theta)=\frac{1}{N}\sum_{i=1}^{N}\ell(\theta;x_i)
@@ -55,19 +52,19 @@ An Optimization Problem 描述的是“要解什么问题”；optimizer 描述�
 ## 往哪走？
 
 >**Question** — 哪个方向是 $F$  下降的方向？
->**方向导数：** $\nabla F(\theta_t)^T p_t$  --- $F$ 沿 $p_t$ 的方向导数
+>**方向导数：** $\nabla \mathcal L(\theta_t)^T p_t$  --- $\mathcal L$ 沿 $p_t$ 的方向导数
 >
->当它小于 $0$ 时，沿 $p_t$ 走一小步会让 $F$ 下降，所以 $p_t$ 是一个 descent direction。
+>当它小于 $0$ 时，沿 $p_t$ 走一小步会让 $\mathcal L$ 下降，所以 $p_t$ 是一个 descent direction。
 
 更一般地，可以先构造 local quadratic model，再生成：
 
 ```math
-p_t=-B_t^{-1}\nabla F(\theta_t)
+p_t=-B_t^{-1}\nabla \mathcal L(\theta_t)
 ```
 
 选择 $B_t=I$ 得到 Gradient Descent，选择 $B_t=\nabla^2F(\theta_t)$ 得到 Newton，使用 Hessian approximation 则得到 quasi-Newton。完整推导见 Descent Direction。
 
-最直接的选择是 $p_t=-\nabla F(\theta_t)$，这就是 Gradient Descent。在 [Machine Learning](<../../Fundamentals/Machine%20Learning.md>) 中，标准 Gradient Descent 每一步使用整个 dataset 计算 full gradient。
+最直接的选择是 $p_t=-\nabla \mathcal L(\theta_t)$，这就是 Gradient Descent。在 [Machine Learning](<../../Fundamentals/Machine%20Learning.md>) 中，标准 Gradient Descent 每一步使用整个 dataset 计算 full gradient。
 
 #### SGD
 

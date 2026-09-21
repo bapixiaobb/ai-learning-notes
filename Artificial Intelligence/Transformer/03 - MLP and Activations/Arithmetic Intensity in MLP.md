@@ -1,12 +1,12 @@
 #AI #LanguageModeling
 
-因为在 [MLP](<MLP.md>) 具体运算中 Matmul 占大头，所以我们在计算 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 时只考虑 Matmul
+因为在 [MLP](<Multilayer%20Perceptron.md>) 具体运算中 Matmul 占大头，所以我们在计算 [Arithmetic Intensity](<../../Fundamentals/Arithmetic%20Intensity.md>) 时只考虑 Matmul
 
 这里直接考虑 [SwiGLU](<SwiGLU.md>)
 
 输入可以写成：
 ```math
-X\in\mathbb{R}^{B\times S \times D}
+ X\in\mathbb{R}^{B\times S \times D}
 ```
 
 ```
@@ -24,7 +24,7 @@ X\in\mathbb{R}^{B\times S \times D}
    bytes_transferred += 2*B*S*F
 7. Compute Y = SiLU(G) * U @ W_3
    flops += 2*B*S*D*F
-8. Write Y (B x S x D) to HBM
+8. Write Y (B x T x D) to HBM
    bytes_transferred += 2*B*S*D
 
 flops = 6*B*S*D*F
@@ -35,9 +35,9 @@ intensity = 6*B*S*D*F / (4*B*S*D + 4*B*S*F + 6*D*F)
 
 所以这里
 ```math
-I = \frac{6BSDF} {6DF+4BS(D+F)}
+ I = \frac{6BSDF} {6DF+4BS(D+F)}
 ```
 消掉 2：
 ```math
-\boxed{  I = \frac{3BSDF} {3DF+2BS(D+F)}  }
+ \boxed{  I = \frac{3BSDF} {3DF+2BS(D+F)}  }
 ```

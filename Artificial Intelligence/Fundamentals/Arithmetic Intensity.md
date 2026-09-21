@@ -1,6 +1,5 @@
 #AI #LanguageModeling #LLM
 
-
 how much compute we do per byte transferred (want to be high)
 
 ```math
@@ -31,3 +30,8 @@ bytes_transferred = 2*B*D + 2*D*F + 2*B*F
 
 intensity = B*D*F / (B*D + D*F + B*F)
 ```
+
+### [Accelerator Intensity](<Accelerator%20Intensity.md>)
+
+Arithmetic Intensity > Accelerator Intensity -> compute bound
+Arithmetic Intensity < Accelerator Intensity -> memory bound

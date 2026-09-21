@@ -46,7 +46,7 @@ p_\theta(x_t \mid x_1, \dots, x_{t-1})
 - 为什么 Transformer block 需要 [Residual Connection](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>)？
 - 为什么深层 Transformer 需要 [Layer Normalization](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>) 或 [RMSNorm](<../../Transformer/04%20-%20Normalization%20and%20Residuals/RMSNorm.md>)？
 - 什么是 [Pre-Norm Transformer](<../../Transformer/04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>)？
-- [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>) / [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) 在 Transformer 中做什么？
+- [MLP](<../../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) / [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) 在 Transformer 中做什么？
 - 什么是 Language Modeling Head？
 ## **Pipeline**
 

@@ -31,7 +31,7 @@ Activation function 引入 nonlinearity，使模型能够表达更复杂的函�
 ## 常见 Activation Functions
 
 | Function | 形式 | 常见位置 |
-|---|---|---|
+| --- | --- | --- |
 | [ReLU](<../Transformer/03%20-%20MLP%20and%20Activations/ReLU.md>) | $\max(0,x)$ | 基础 neural network |
 | Sigmoid | $\frac{1}{1+e^{-x}}$ | gating / probability-style output |
 | Tanh | $\tanh(x)$ | 早期 neural network |
@@ -53,4 +53,4 @@ Attention、normalization 和 residual addition 也会产生 [Activations](<Acti
 - [Activations](<Activations.md>)
 - [Forward Propagation](<Forward%20Propagation.md>)
 - [Transformer Block](<../Transformer/00%20-%20Maps%20and%20Architectures/Transformer%20Block.md>)
-- [MLP](<../Transformer/03%20-%20MLP%20and%20Activations/MLP.md>)
+- [Multilayer Perceptron](<../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>)

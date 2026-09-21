@@ -12,8 +12,8 @@
 >
 >它通常包含两类主要 transformation：
 >
->- [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)：让 token positions 之间交换信息；
->- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) / [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)：对每个 token representation 做 nonlinear processing。
+>- [Attention](<../02%20-%20Attention/Self-Attention.md>)：让 token positions 之间交换信息；
+>- [MLP](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) / [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)：对每个 token representation 做 nonlinear processing。
 
 如果输入 hidden states 是：
 
@@ -51,23 +51,29 @@ X^{(L)}
 - $X^{(\ell)}$ 是第 $\ell$ 层 block 输出的 hidden states；
 - $L$ 是 number of layers。
 
-在 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 中，所有 blocks 都使用 [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)，保证每个位置不能看到 future tokens。
+在 [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>) 中，所有 blocks 都使用 [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>)，保证每个位置不能看到 future tokens。
 
 ## 🏗️ Basic Components
 
 一个 Transformer block 通常包含：
 
 | Component | Role |
-|---|---|
+| --- | --- |
 | [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) | token positions 之间的信息交互 |
-| [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) / [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) | 每个 token position 内部的 nonlinear transformation |
+| [Multilayer Perceptron](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) / [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>) | 每个 token position 内部的 nonlinear transformation |
 | [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>) | 保留主信息流，并让 block 学习增量更新 |
 | [Normalization](<../04%20-%20Normalization%20and%20Residuals/Normalization.md>) | 稳定 hidden states 的尺度和 gradient flow |
 
->**Note**
->可以粗略理解为：
->
->[Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 负责 token mixing；[MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) 负责 feature processing；[Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>) 负责信息主路径；[Normalization](<../04%20-%20Normalization%20and%20Residuals/Normalization.md>) 负责训练稳定性。
+实际 Transformer block 大致是：
+
+```math
+X'=X+\operatorname{Attention}(\operatorname{Norm}(X))
+```
+```math
+Y=X'+\operatorname{MLP}(\operatorname{Norm}(X'))
+```
+
+所以一层的工作可以理解成：
 
 ## 🔁 Data Flow in a Block
 
@@ -206,7 +212,7 @@ d_{\text{model}}
 
 这也是为什么可以说：
 
-> [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 是 token mixing；[MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) 是 per-token feature transformation。
+> [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 是 token mixing；[Multilayer Perceptron](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) 是 per-token feature transformation。
 
 ## 🧵 Residual Stream
 
@@ -270,30 +276,22 @@ X + \mathrm{SubLayer}(\mathrm{Norm}(X))
 在 [Llama-style Architecture](<Llama-style%20Architecture.md>) 中，一个 Transformer block 通常包含这些 modern choices：
 
 | Part | Common Choice |
-|---|---|
-| attention | [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>) |
+| -------------------- | -------------------------------------------------- |
+| attention | [Self-Causal Attention](<../02%20-%20Attention/Self-Causal%20Attention.md>) |
 | position information | [Rotary Position Embedding](<../01%20-%20Inputs%20and%20Position/Rotary%20Position%20Embedding.md>) applied in attention |
 | normalization | [RMSNorm](<../04%20-%20Normalization%20and%20Residuals/RMSNorm.md>) |
 | norm placement | [Pre-Norm Transformer](<../04%20-%20Normalization%20and%20Residuals/Pre-Norm%20Transformer.md>) |
 | MLP activation | [SwiGLU](<../03%20-%20MLP%20and%20Activations/SwiGLU.md>) |
-| attention variant | often [Grouped Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) |
+| attention variant | often [Grouped-Query Attention](<../02%20-%20Attention/Grouped-Query%20Attention.md>) |
 
 可以粗略写成：
 
 ```math
-X'
-=
-X
-+
-\mathrm{Attention}(\mathrm{RMSNorm}(X))
+X'=X+\mathrm{Attention}(\mathrm{RMSNorm}(X))
 ```
 
 ```math
-X_{\text{out}}
-=
-X'
-+
-\mathrm{SwiGLU\text{-}MLP}(\mathrm{RMSNorm}(X'))
+X_{\text{out}}=X'+\mathrm{SwiGLU\text{-}MLP}(\mathrm{RMSNorm}(X'))
 ```
 
 >**Note**
@@ -382,27 +380,8 @@ Transformer block 是连接 architecture 和 computation 的核心单位。
 >理解 Transformer block 的关键是区分：
 >
 >- [Self-Attention](<../02%20-%20Attention/Self-Attention.md>) 负责 token mixing；
->- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>) 负责 per-token nonlinear transformation；
+>- [Multilayer Perceptron](<../03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) 负责 per-token nonlinear transformation；
 >- [Residual Connection](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection.md>) 是加法结构；
 >- [Residual Stream](<../04%20-%20Normalization%20and%20Residuals/Residual%20Stream.md>) 是贯穿所有 blocks 的主 hidden state 流。
 
-![TransformerLM](<../../attachments/TransformerLM.jpeg>)
-## 🔗 Connections
-
-- [Transformer](<Transformer.md>)
-- [Transformer Family](<Transformer%20Family.md>)
-- [Original Transformer](<Original%20Transformer.md>)
-- [Decoder-Only Transformer](<Decoder-Only%20Transformer.md>)
-- [Llama-style Architecture](<Llama-style%20Architecture.md>)
-- [Model Architecture](<../../Language%20modeling/02%20-%20Language%20Modeling%20Basics/Model%20Architecture.md>)
-- [Self-Attention](<../02%20-%20Attention/Self-Attention.md>)
-- [Causal Attention](<../02%20-%20Attention/Causal%20Attention.md>)
-- [Multi-Head Attention](<../02%20-%20Attention/Multi-Head%20Attention.md>)
-- [MLP](<../03%20-%20MLP%20and%20Activations/MLP.md>)
-- [Feed-Forward Network](<../../Neural%20Networks/Feed-Forward%20Network.md>)
-- [Residual Stream](<../04%20-%20Normalization%20and%20Residuals/Residual%20Stream.md>)
-- [Residual Connection vs Regression Residual](<../04%20-%20Normalization%20and%20Residuals/Residual%20Connection%20vs%20Regression%20Residual.md>)
-- [Normalization](<../04%20-%20Normalization%20and%20Residuals/Normalization.md>)
-- [Layer Normalization](<../04%20-%20Normalization%20and%20Residuals/Layer%20Normalization.md>)
-- [Training vs Inference](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Training%20vs%20Inference.md>)
-- [Resource Accounting](<../../Language%20modeling/03%20-%20Training%20and%20Scaling/Resource%20Accounting.md>)
+![TransformerLM.jpeg](<../../attachments/TransformerLM.jpeg>)
