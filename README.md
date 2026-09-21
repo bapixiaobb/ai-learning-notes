@@ -10,8 +10,16 @@ These notes are work in progress. Some pages are incomplete, exploratory, or may
 - `Artificial Intelligence/Neural Networks`
 - `Artificial Intelligence/Transformer`
 - `Artificial Intelligence/Language modeling`
+- `Optimization`
+
+## Optimizers
+
+- [Stochastic Gradient Descent](<Optimization/Stochastic%20Gradient%20Descent.md>)
+- [AdamW](<Optimization/AdamW.md>)
+- [AdamW Early-Step Estimation Bias](<Optimization/AdamW%20Early-Step%20Estimation%20Bias.md>)
+- [Muon](<Optimization/Muon.md>)
+- [Muon Scaling](<Optimization/Muon%20Scaling.md>)
 
 ## Note
 
-Most notes use Obsidian-style wiki links, so some links are intended to be viewed inside an Obsidian vault.
-
+The public copies adapt Obsidian-specific links, callouts, embeds, and display math for GitHub rendering.
