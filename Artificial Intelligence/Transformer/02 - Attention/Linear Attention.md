@@ -8,6 +8,16 @@ Linear Attention 改变了 [standard softmax attention](<Self-Causal%20Attention
 
 经典线性注意力用 feature map 来构造这座桥。[Linear Attention 原始论文](https://proceedings.mlr.press/v119/katharopoulos20a.html)
 
+## Intuition
+
+> **Note** — softmax attention 里 softmax 做了三件事
+>
+> 1. 指数化：把 score 变成正数。
+> 2. 归一化：让一个 query 对所有 keys 的权重之和为 1。
+> 3. 规定权重如何分配：score 越大，得到的权重按指数关系增加。
+
+所以这里有一个 trade-off: **为了更低的计算成本，我们接受怎样的匹配行为变化，以及可能的模型效果变化。** “是否允许负权重”只是其中一个设计选择；线性注意力完全可以使用非负权重。
+
 ## How we get it?
 
 从 [Derivation Of Attention](<Derivation%20Of%20Attention.md>) 的式子出发：
@@ -51,11 +61,14 @@ S=\sum_j\phi(k_j)v_j^\top \in\mathbb R^{r\times d_v}, \qquad z=\sum_j\phi(k_j) \
 
 如果令 $\phi(x)=x$，这里的 $S$ 就退回你刚才理解的 $K^\top V$。不过原始向量的内积可能为负，所以直接这样做不能保证非负权重——feature map 的选择也在决定相似度的性质。
 
-## $\phi$
+## Choice of $\phi$
 
 **随便选择一个 $\phi$，得到的是一种新的 attention，并不自动等于或近似于 softmax attention。**
 
-只有专门设计 $\phi$ 去近似指数点积核时，才能把它称为相应的 softmax 近似。[经典线性注意力论文](https://proceedings.mlr.press/v119/katharopoulos20a.html)
+$\phi$ 思路可以分成两条路线：
+
+- **想近似 softmax**：使 $\phi(q)^\top\phi(k)$ 尽量接近原来的 $\exp(q^\top k/\sqrt{d_k})$，再按权重总和归一化。[经典线性注意力论文](https://proceedings.mlr.press/v119/katharopoulos20a.html)
+- **想设计另一种好用的 attention**：不要求它接近 softmax，只要求这个匹配方式容易计算，并且模型训练后的效果足够好。
 
 ## Casual Linear Attention
 
