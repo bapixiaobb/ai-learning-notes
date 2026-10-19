@@ -2,7 +2,7 @@
 
 ## Why we Need MoE?
 
-增大 model 的参数量，是提升 model capacity 的一种方式。但对于 dense model，增大 [FFN](<../../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) 通常也会增加每个 token 的 compute cost。
+增大 model 的参数量，是提升 model capacity 的一种方式。但对于 [dense model](<Sparse%20model%20v.s.%20Dense%20model.md>)，增大 [FFN](<../../Transformer/03%20-%20MLP%20and%20Activations/Multilayer%20Perceptron.md>) 通常也会增加每个 token 的 compute cost。
 
 **MoE 提供了另一种 scale model 的方式：增加总参数量，但让每个 token 只使用其中一部分来控制 compute cost。**
 
