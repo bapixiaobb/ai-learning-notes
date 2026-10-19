@@ -28,7 +28,7 @@
 - 单层 matrix 太大：使用 [Tensor Parallelism](<Tensor%20Parallelism.md>)。
 - 整个 model 太深或参数太多：增加 [Pipeline Parallelism](<Pipeline%20Parallelism.md>)。
 - sequence 太长：增加 CP。
-- model 是 [MoE](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>)：expert MLP 优先使用 [Expert parallelism](<Expert%20parallelism.md>)；attention 仍可以使用 TP。
+- model 是 [MoE](<../05%20-%20MoE/Mixture%20of%20Experts.md>)：expert MLP 优先使用 [Expert parallelism](<Expert%20parallelism.md>)；attention 仍可以使用 TP。
 
 如果主要问题是 saved [Activations](<../../Neural%20Networks/Activations.md>)，[Recomputation](<../03%20-%20Training%20and%20Scaling/Recomputation.md>) 可以用额外 compute 换 memory。省下的 memory 可以转化为更大的 local batch，有时反而会提高 [hardware utilization](<../01%20-%20System/Model%20FLOPs%20Utilization.md>)。
 

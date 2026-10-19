@@ -3,8 +3,6 @@
 Causal Mask 是 decoder-only language model 中用来阻止模型看到 future tokens 的 mask。
 它保证第 $t$ 个位置只能使用当前位置及之前的信息。
 
-Causal Mask 是实现 [Self-Causal Attention](<Self-Causal%20Attention.md>) 的 attention mask。
-它在 self-attention 的 score matrix 上屏蔽 future positions，使第 $t$ 个 token 只能 attend to $1,\dots,t$。
 
 ## 🧠 Core Idea
 
@@ -119,26 +117,6 @@ x_4
 其中 $M$ 是 mask matrix。
 
 
-## 🧵 Relation to Causal Attention
-
-[Self-Causal Attention](<Self-Causal%20Attention.md>) 指带有 causal constraint 的 self-attention。
-Causal Mask 是实现这个 constraint 的常见方式。
-
-可以理解为：
-
-```math
-\text{Self-Attention}
-+
-\text{Causal Mask}
-=
-\text{Causal Attention}
-```
-
->**Note**
->Self-attention 说明 token positions 可以互相看。
->
->Causal mask 限制哪些 positions 不能被看。
-
 
 ## 🚀 Training vs Inference
 
@@ -168,20 +146,3 @@ x_{t+1}
 >训练时 Causal Mask 很关键，因为 future tokens 已经在输入 sequence 里。
 >
 >推理时模型通常逐步生成，future tokens 还不存在，但实现中仍然会保留 causal attention 逻辑。
-
-
-### Causal Mask 不是 Padding Mask
-
-Padding mask 用来忽略 padding tokens。
-Causal mask 用来屏蔽 future tokens。
-
-二者可以同时存在。
-
----
-
->**Summary** — My Understanding
->Causal Mask 是 decoder-only language model 中保证 autoregressive constraint 的机制。
->
->它让第 $t$ 个 token position 只能 attend to prefix，不能看到 future tokens。
->
->这样模型在训练时可以并行处理整个 sequence，同时仍然只能基于过去信息预测下一个 token。

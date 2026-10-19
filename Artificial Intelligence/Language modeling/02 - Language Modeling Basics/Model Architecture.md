@@ -151,7 +151,7 @@ Model architecture 首先包含模型所属的整体结构族。
 - Encoder-Only Transformer
 - [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)
 - Encoder-Decoder Transformer
-- [Mixture of Experts (MoE)](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>)
+- [Mixture of Experts](<../05%20-%20MoE/Mixture%20of%20Experts.md>)
 
 >**Note**
 >Modern LLM 最常见的是 [Decoder-Only Transformer](<../../Transformer/00%20-%20Maps%20and%20Architectures/Decoder-Only%20Transformer.md>)。
@@ -281,7 +281,7 @@ Architecture 中的 MLP choices 包括：
 - FFN expansion ratio 是多少；
 - activation function 是什么；
 - 是否使用 gated activation；
-- 是否使用 [Mixture of Experts (MoE)](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>)。
+- 是否使用 [Mixture of Experts](<../05%20-%20MoE/Mixture%20of%20Experts.md>)。
 
 常见 activation choices：
 

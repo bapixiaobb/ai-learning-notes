@@ -112,7 +112,7 @@ p_\theta(x_t \mid x_{<t})
 ### Mixture of Experts
 
 >**Note**
-> [Mixture of Experts (MoE)](<../05%20-%20MoE/Mixture%20of%20Experts%20%28MoE%29.md>) 是一种常见的 LLM 架构扩展。MoE Transformer 会包含多个 experts，但每个 token 通常只激活其中一部分 experts。
+> [Mixture of Experts](<../05%20-%20MoE/Mixture%20of%20Experts.md>) 是一种常见的 LLM 架构扩展。MoE Transformer 会包含多个 experts，但每个 token 通常只激活其中一部分 experts。
 
 MoE 的核心思想是：
 

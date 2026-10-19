@@ -69,13 +69,3 @@ $\phi$ 思路可以分成两条路线：
 
 - **想近似 softmax**：使 $\phi(q)^\top\phi(k)$ 尽量接近原来的 $\exp(q^\top k/\sqrt{d_k})$，再按权重总和归一化。[经典线性注意力论文](https://proceedings.mlr.press/v119/katharopoulos20a.html)
 - **想设计另一种好用的 attention**：不要求它接近 softmax，只要求这个匹配方式容易计算，并且模型训练后的效果足够好。
-
-## Casual Linear Attention
-
-```math
-\boxed{o_t=\sum_{i\le t}v_i(k_i^\top q_t)= \left(\sum_{i\le t}v_i k_i^\top\right)q_t}
-```
-**这里 $q_t、k_i、v_i$ 都是列向量，$o_t$ 也是列向量**。所以 $k_i^\top q_t$ 是一个数，用它给整个 $v_i$ 加权。
-
-- 不使用 [softmax](<Softmax.md>)：直接把内积 $k_i^\top q_t$ 当权重，没有指数，也没有除以权重总和。
-- 保留 causal 限制：只加到 $i=t$，当前 token 只能使用自己和之前的 key/value。
